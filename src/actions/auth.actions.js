@@ -32,11 +32,8 @@ export const LoginAction = (form, navigate)=>dispatch=>{
          const decode = jwt_decode(token);
          dispatch(setUser(decode));
          setAuth(token);
-         alert("Bievenue " +decode.name);
-         navigate('/profile');
-
+         alert("Bievenue " +decode.matricule);
          
-
     })
     .catch(err=>{
         dispatch({
