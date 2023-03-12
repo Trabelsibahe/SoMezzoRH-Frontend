@@ -1,4 +1,4 @@
-.TestPage {
+.Nav {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -16,6 +16,10 @@
   
   }
   
+  .navbar_item{
+    color: #000000;
+    
+  }
   .navbar__logo {
     color: rgb(255, 255, 255);
     width: 160px;
@@ -110,6 +114,10 @@
     background-color: #F6F8FB;
   }
   
+
+  .navbar_items {
+
+  }
   @media screen and (max-width: 768px) {
     .navbar__toggle {
       display: block;

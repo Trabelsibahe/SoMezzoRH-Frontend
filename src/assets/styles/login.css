@@ -131,6 +131,8 @@
   text-align: center;
 }
 
+
+
 /*Responsive*/
 @media screen and (max-width: 768px) {
   .LoginPage { 

@@ -10,6 +10,7 @@ function ProfilePage() {
   const user = {
     isConnected: auth.isConnected,
     role: auth.user.role,
+    name: auth.user.utilisateur
   };
   return (
   <><Navigation user={user}/>

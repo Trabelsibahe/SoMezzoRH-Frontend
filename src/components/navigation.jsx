@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 
 
 function Navigation({ user }) {
+
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,16 +19,16 @@ function Navigation({ user }) {
   const LogoutHandler = () => {
     dispatch(Logout(navigate));
   };
+
   return (
 
-    <div className="TestPage">
-
+    <div className="Nav">
       <nav className="navbar">
         <div className="navbar__logo"><img className="navbar__logo" src={logo} alt="logo" /></div>
-        <button className="navbar__toggle" onClick={toggleSidebar}>  {showSidebar ? <>&times;</> : <>&#9776;</>} </button>
-        <li>ddddd</li>
+        <div className="navbar_item">Bienvenue {user.name}</div>        
+        <button className="navbar__toggle" onClick={toggleSidebar}>  {showSidebar ? <>&times;</> : <>&#9776;</>}</button>
       </nav>
-      
+
       <aside className={`sidebar ${showSidebar ? "show" : ""}`}>
         <ul className="sidebar__list">
           <li className="sidebar__item">Mon espace</li>
