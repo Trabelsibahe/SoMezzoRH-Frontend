@@ -1,0 +1,169 @@
+.LoginPage {
+  background: #24377b;
+  text-align: center;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.logoblanc {
+  width: 270px;
+  height: auto;
+}
+
+.login_container {
+  width: 23%;
+  /* Modifier */
+  height: 55%;
+  /* Modifier */
+  left: calc(50% - 25% / 2);
+  /* Modifier */
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ph1 {
+  margin-top: 9%;
+  width: 55%;
+  height: 1%;
+  font-weight: 30px;
+  font-size: 16px;
+  line-height: 50%;
+  color: #140d6a;
+  text-align: center;
+}
+
+.print {
+  width: 16%;
+  /* Modifier */
+  height: auto;
+  /* Modifier */
+  margin-top: 4%;
+}
+
+
+.login_input {
+  padding: 2%;
+  width: 70%;
+  margin-top: 9%;
+  border-bottom: 2px solid #24377b;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #24377b;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  background-color: transparent;
+  font-size: 16px;
+}
+.login_input:focus{
+  border-bottom: 2px solid #e94e1b;
+  outline: none;
+  border-bottom: 2px solid #e94e1b;
+  transition:  all .3s linear; 
+}
+
+.login_input::placeholder {
+  font-size: 16px;
+  color:#000000;
+  text-align: center;
+}
+
+.login_form {
+    position:  relative; 
+    margin-bottom:  10px;
+    width:  100%; 
+}
+
+#conx {
+  width: 40%;
+  padding: 3%;
+  margin: 2rem auto;
+  background: #24377b;
+  border-radius: 30px;
+  border: none;
+  text-align: center;
+}
+
+.ph3 {
+  width: 90%;
+  height: auto;
+  margin: 2rem auto;
+  font-style: normal;
+  font-weight: 40;
+  font-size: 15px;
+  line-height: 28px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  color: #ffffff;
+}
+
+.ph2 {
+  margin-top: 0%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 28px;
+  /* or 117% */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+  margin: auto;
+
+  text-align: center;
+}
+
+/*Responsive*/
+@media screen and (max-width: 768px) {
+  .LoginPage { 
+    display: block;}
+
+  .login_container {
+    height: 50%;
+    width: 70%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ph2 {
+    font-size: 80%;
+    margin-left: 24%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .print {
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ph1 {
+    font-size: 70%;
+    margin: auto;
+
+  }
+
+  ::placeholder {
+    text-align: center;
+    font-size: 90%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  img {
+    width: 60%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
