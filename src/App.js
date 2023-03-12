@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-
+import PrivateRouter from "./routes/privaterouter";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import store from "./store/index";
@@ -8,6 +8,12 @@ import { setAuth } from "./util/setAuth";
 import { Logout, setUser } from "./actions/auth.actions";
 import jwt_decode from "jwt-decode";
 import LoginPage from './pages/login';
+import Navigation from './components/navigation';
+import ProfilePage from './pages/profile';
+import NotFoundPage from './pages/notfound';
+
+
+
 
 
 if (window.localStorage.jwt) {
@@ -33,13 +39,14 @@ function App() {
   return (
 
     <div className="App">
-    
-        <BrowserRouter>
-      {/*<NavigationBar  user={user} />*/}
 
+        <BrowserRouter>
         <Routes> 
           <Route path="/login" element={ <LoginPage /> }/>
-      
+          <Route path="/profile" element={ 
+          <PrivateRouter user={user}> {" "} <ProfilePage />{" "} </PrivateRouter>}/>
+          <Route path="*" element={<NotFoundPage />} />
+
         </Routes>
       </BrowserRouter>
     </div>

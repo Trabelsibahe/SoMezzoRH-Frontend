@@ -33,6 +33,7 @@ export const LoginAction = (form, navigate)=>dispatch=>{
          dispatch(setUser(decode));
          setAuth(token);
          alert("Bievenue " +decode.matricule);
+         navigate("/profile");
          
     })
     .catch(err=>{
@@ -45,8 +46,10 @@ export const LoginAction = (form, navigate)=>dispatch=>{
 }
 
 // logout
-export const Logout = ()=>dispatch=>{
+export const Logout = (navigate)=>dispatch=>{
     localStorage.removeItem('jwt')
+    navigate("/login")
+
     dispatch({
         type: authConstants.SET_USER,
         payload: {}

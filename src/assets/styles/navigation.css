@@ -1,0 +1,135 @@
+.TestPage {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    color: #fff;
+    padding: 0 20px;
+    background: linear-gradient(90deg, #0D1120 240px, rgba(255,255,255,1) 240px);
+  
+  
+  }
+  
+  .navbar__logo {
+    color: rgb(255, 255, 255);
+    width: 160px;
+  }
+  
+  .navbar__toggle {
+    display: none;
+    font-size: 24px;
+    background-color: transparent;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 240px;
+    height: calc(100vh - 60px);
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1;
+    box-shadow: 1px 0 2px -2px #707070;
+    background: linear-gradient(0deg, #0D1120 26px, #202228 26px);
+  
+  }
+  
+  .sidebar.hide {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar__list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  .sidebar_list2 {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    position:absolute;
+    bottom: 5px;
+    left: 5px;
+  }
+  .hr {
+    background-Color: #787A91;
+    height: 1px;
+    width: 200px;
+    margin: auto;
+    
+  }
+  
+  .sidebar__item {
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding: 20px;
+    cursor: pointer;
+    color: #787A91;
+    text-align: center;
+    transition-duration: 0.4s;
+    font-family: sans-serif;
+  }
+  .sidebar__item:hover, .sidebar_item2:hover{
+    border-radius: 25px;
+    color:#d2d2d2;
+    letter-spacing: 2px;
+  }
+  .sidebar__item:active, .sidebar_item2:active{
+    transform: translateY(-7px);
+  }
+  
+  .sidebar_item2 {
+    font-size: 20px;
+    letter-spacing: 2px;
+    padding: 30px;
+    cursor: pointer;
+    color: #787A91;
+    transition-duration: 0.4s;
+    font-family: sans-serif;
+    text-align: center;
+  
+  }
+  
+  
+  .main {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    background-color: #F6F8FB;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .navbar__toggle {
+      display: block;
+    }
+    .sidebar {
+      width: 70%;
+      transform: translateX(-100%);
+    }
+    .sidebar.show {
+      transform: translateX(0);
+    }
+      
+  .navbar__logo {
+    color: rgb(255, 255, 255);
+    width: 160px;
+    content:url("../../assets/images/logonoir.png");
+  }
+  .navbar {
+    background: linear-gradient(90deg, #ffffff 240px, rgba(255,255,255,1) 240px);
+  }
+  
+  }
+  
