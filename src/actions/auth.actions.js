@@ -33,8 +33,7 @@ export const LoginAction = (form, navigate)=>dispatch=>{
          dispatch(setUser(decode));
          setAuth(token);
          alert("Bievenue " +decode.matricule);
-         navigate("/profile");
-         
+         navigate("/bienvenue")
     })
     .catch(err=>{
         dispatch({

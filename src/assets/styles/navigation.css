@@ -12,7 +12,9 @@
     color: #fff;
     padding: 0 20px;
     background: linear-gradient(90deg, #0D1120 240px, rgba(255,255,255,1) 240px);
-  
+    position: fixed;
+    width: 100%;
+    top: 0;
   
   }
   
@@ -106,18 +108,8 @@
   
   }
   
-  
-  .main {
-    flex: 1;
-    padding: 20px;
-    text-align: center;
-    background-color: #F6F8FB;
-  }
-  
 
-  .navbar_items {
 
-  }
   @media screen and (max-width: 768px) {
     .navbar__toggle {
       display: block;
@@ -137,6 +129,10 @@
   }
   .navbar {
     background: linear-gradient(90deg, #ffffff 240px, rgba(255,255,255,1) 240px);
+
+  } 
+  .navbar_item {
+    font-size: 70%;
   }
   
   }

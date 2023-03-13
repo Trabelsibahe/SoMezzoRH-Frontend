@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { profileConstants } from '../actions/constantes';
 
-export const SetProfileAction = (form, setShow, setMessage)=>dispatch=>{
+export const SetProfileAction = (form, setShow, setMessage, navigate)=>dispatch=>{
     axios.post("http://localhost:3030/api/profile/create", form)
       .then(res => {
         setShow(true)
+        navigate("/profile");
+        alert("profile created, you will be redirected to your profile now")
         setMessage("Profile created.")
         dispatch({
             type: profileConstants.PROFILE_ERRORS,
@@ -13,6 +15,7 @@ export const SetProfileAction = (form, setShow, setMessage)=>dispatch=>{
         setTimeout(() => {
             setShow(false)
         }, 4000);
+        navigate("/profile");
       })
       .catch(err => {
           dispatch({

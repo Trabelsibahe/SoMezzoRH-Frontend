@@ -13,7 +13,7 @@
      margin-top: 5%;
      
    }
-   .container{
+   .notfoundpage_container{
      width: 100%;
      position: absolute;
      top: 50%;
@@ -23,7 +23,7 @@
    
    }
    
-   .container h1{
+   .notfoundpage_container h1{
      font-size: 160px;
      margin: 0;
      font-weight: 900;
@@ -32,7 +32,7 @@
      background: linear-gradient(90deg, rgba(36,55,123,1) 48%, rgba(20,146,209,1) 50%);  -webkit-text-fill-color: transparent;
      -webkit-background-clip: text;
    }
-   .container a{
+   .notfoundpage_container a{
      text-decoration: none;
      background-image: linear-gradient(150deg,#1492d1,#24377b) ;
      color: #fff;
@@ -43,7 +43,7 @@
      text-transform: uppercase;
      transition: 0.4s;
    }
-   .container a:hover{
+   .notfoundpage_container a:hover{
      background: #1492d1;
    }
    

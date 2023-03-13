@@ -43,11 +43,7 @@ function Navigation({ user }) {
         <li onClick={LogoutHandler} className="sidebar_item2">Se deconnecter</li>     )}
         </ul>
       </aside>
-
-      <main className="main">
-        <h1>Content</h1>
-        <p>Content of your application</p>
-      </main>
+      
 
     </div>
 

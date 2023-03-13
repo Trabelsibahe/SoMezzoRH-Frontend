@@ -25,8 +25,6 @@ function LoginPage() {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(LoginAction(form, navigate));
-
-
     }
 
 

@@ -6,12 +6,12 @@ import textelogobleu from "../assets/images/textelogobleu.png";
 function NotFoundPage() {
   return (
     <div className="NotFoundPage">
-    <img className="logoblue" src={textelogobleu}></img>
-  <div className="container">
+    <img className="logoblue"  alt="logogblue "src={textelogobleu}></img>
+  <div className="notfoundpage_container">
     <h2>Oops! Page non trouvée.</h2>
     <h1>404 </h1>
     <p>Nous ne pouvons pas trouver la page que vous recherchez. </p>
-    <a href='#'>Rentrer à votre espace</a>
+    <a href='/#'>Rentrer à votre espace</a>
   </div>
   </div>
   )
