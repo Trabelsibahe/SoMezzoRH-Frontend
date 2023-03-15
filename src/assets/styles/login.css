@@ -11,7 +11,7 @@
 }
 
 .login_container {
-  width: 25%;
+  width:25%;
   /* Modifier */
   height: 55%;
   /* Modifier */
@@ -139,8 +139,8 @@
     display: block;}
 
   .login_container {
-    height: 50%;
-    width: 80%;
+    height: 400px;
+    width: 90%;
     flex-direction: column;
     align-items: flex-start;
   }
@@ -180,8 +180,20 @@
   }
 
   img {
-    width: 60%;
+    width: 50%;
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+
+@media screen and (max-width: 1400px) and (orientation: landscape) {
+
+  .LoginPage {
+    height: 100vh;
+  }
+
+  .logoblanc {
+    width: 230px;
   }
 }

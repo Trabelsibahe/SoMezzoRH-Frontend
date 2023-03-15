@@ -19,7 +19,7 @@ import RegisterPage from './pages/register';
 import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { GetProfileAction } from './actions/profile.actions';
-
+import TestPage from './pages/test';
 import WelcomeRouter from './routes/welcomerouter';
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
@@ -36,23 +36,23 @@ if (window.localStorage.jwt) {
 
 function App() {
   const auth = useSelector((state) => state.auth);
-  const profile = useSelector(state=>state.profiles.profile);
-  
+  const profile = useSelector(state => state.profiles.profile);
+
   const dispatch = useDispatch()
 
   useEffect(() => {
-    ( () => {
+    (() => {
       dispatch(GetProfileAction());
-     })();
-     }, [dispatch]);
-     
-     
-     const user = {
-      isConnected: auth.isConnected,
-      role: auth.user.role,
-      HasProfile :  profile
-      
-    };
+    })();
+  }, [dispatch]);
+
+
+  const user = {
+    isConnected: auth.isConnected,
+    role: auth.user.role,
+    HasProfile: profile
+
+  };
 
 
   // return
@@ -60,22 +60,23 @@ function App() {
 
     <div className="App">
 
-        <BrowserRouter>
+      <BrowserRouter>
         <Routes>
-          
+
 
           <Route path="/login" element={
-          <ForceRedirect user={user}> {" "} <LoginPage />{" "} </ForceRedirect> } />
+            <ForceRedirect user={user}> {" "} <LoginPage />{" "} </ForceRedirect>} />
 
-          <Route path="/profile" element={ 
-          <PrivateRouter user={user}> {" "} <ProfilePage /> {" "}</PrivateRouter> } />
+          <Route path="/profile" element={
+            <PrivateRouter user={user}> {" "} <ProfilePage /> {" "}</PrivateRouter>} />
 
-          <Route path="/bienvenue" element={ 
-          <WelcomeRouter user={user}> {" "} <WelcomePage /> {" "} </WelcomeRouter>} ></Route>
-        
+          <Route path="/bienvenue" element={
+            <WelcomeRouter user={user}> {" "} <WelcomePage /> {" "} </WelcomeRouter>} ></Route>
+
           <Route path="*" element={<NotFoundPage />} />
 
-          <Route path="/register" element={<RegisterPage/>}/>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/test" element={<TestPage />} />
 
         </Routes>
       </BrowserRouter>

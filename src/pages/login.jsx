@@ -29,9 +29,8 @@ function LoginPage() {
 
 
   return (
+    <div className="LoginPage">
     <form  onSubmit={onSubmit}>
-      <div className="LoginPage">
-      
         <img className="logoblanc" src={logoblanc} alt="logo"></img>
         <div className="login_container">
           <p className="ph1">ESPACE SOMEZZO RH</p>
@@ -53,8 +52,8 @@ function LoginPage() {
         
       <p className='ph2'>Mot de passe oubilé?</p>
     </div><p className='ph3'>Tous droits réservés - SoMezzo</p>
-    </div>
     </form>
+    </div>
   )
 }
 

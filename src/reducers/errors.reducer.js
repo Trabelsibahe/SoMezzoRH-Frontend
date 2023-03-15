@@ -1,6 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { authConstants } from "../actions/constantes";
-
+import { authConstants, profileConstants } from "../actions/constantes";
 
 
 const initialState = {};
@@ -9,6 +8,9 @@ const initialState = {};
 export default function (state = initialState, action) {
     
   switch (action.type) {
+    
+    case profileConstants.PROFILE_ERRORS:
+      return action.payload;
     case authConstants.ERRORS:
       return action.payload;
 

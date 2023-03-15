@@ -1,4 +1,241 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
 .welcome_page {
-    background: #E8EEF1;
-    min-height: 100vh;
+  background-color: #f1f3fb;
+  min-height: 100vh;
+  margin: auto;
+  font-family: "DM Sans", sans-serif;
+  line-height: 1.5;
+  width: auto;
+}
+
+.welcome_title {
+  text-align: center;
+  font-size: 30px;
+}
+.welcome_footer {
+  color: #24377b;
+  text-align: center;
+}
+.welcome_card {
+  margin: 2.5em auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 425px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px 0 rgb(210, 210, 210);
+  padding: 0.75rem;
+}
+.welcome_card-image {
+  border-radius: 8px;
+  overflow: hidden;
+  padding-bottom: 65%;
+  background-image: url("../images/banner.avif");
+  background-repeat: no-repeat;
+  background-size: 150%;
+  background-position: 0 5%;
+  position: relative;
+  max-width: 100%;
+  display: block;
+}
+.welcome_card-heading {
+  position: absolute;
+  left: 10%;
+  top: 15%;
+  right: 10%;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.222;
+}
+.welcome_step{ 
+  position: absolute;
+  left: 10%;
+  top: 80%;
+  right: 10%;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.222;
+  text-align: center;
+  
+  
+}
+.welcome_card-form {
+  padding: 1rem 1rem 0;
+}
+
+input {
+  appearance: none;
+  border-radius: 0;
+}
+
+.welcome_input {
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
+  padding-top: 1.5rem;
+}
+
+.welcome_input + .input {
+  margin-top: 1.5rem;
+}
+.welcome_input-field {
+  border: 0;
+  z-index: 1;
+  background-color: transparent;
+  border-bottom: 2px solid #eee;
+  font: inherit;
+  font-size: 1.125rem;
+  padding: 0.25rem 0;
+}
+.welcome_input-label {
+  color: #8597a3;
+  position: absolute;
+  top: 1.5rem;
+  transition: 0.25s ease;
+}
+
+.welcome_input-field:focus {
+  outline: 0;
+  border-bottom-color: #f9b233;
+}
+.welcome_input-field:focus + .welcome_input-label {
+  transform: translateY(-1.5rem);
+  border-bottom-color: #f9b233;
+  color: #e94e1b;
+}
+
+input:not(:placeholder-shown) + .welcome_input-label {
+  transform: translateY(-1.5rem);
+}
+
+.welcome_invalid_input {
+  color: red;
+  position: absolute;
+  bottom: -1.3rem;
+  animation: shake 0.5s;
+}
+.welcome_button_next {
+  font: inherit;
+  font-size: 1.25rem;
+  padding: 5px;
+  width: 80%;
+  font-weight: 500;
+  background: #e94e1b;
+  border: 0;
+  outline: 0;
+  border-radius: 6px;
+  display: block;
+  margin: 1em auto;
+  transition: all 0.5s ease-out;
+  color: white;
+}
+.welcome_button_next:hover {
+  background: #ea6e45;
+}
+.welcome_button_next:active {
+  background: #f9b233;
+}
+
+.welcome_button_previous {
+  font: inherit;
+  font-size: 1rem;
+  padding: 3px;
+  width: 67%;
+  font-weight: 500;
+  background-color: #ffa200;
+  border-radius: 6px;
+  color: white;
+  border: 0;
+  outline: 0;
+  display: block;
+  margin: auto;
+  transition: all 0.5s ease-out;
+}
+.welcome_button_previous:hover {
+  outline: 0;
+  background: #f9b233;
+}
+.welcome_button_previous:active {
+  background: #f3c067;
+}
+.welcome_button_previous:disabled {
+  background-color: #bcbcbb;
+  color: white;
+}
+.welcome_card-info {
+  padding: 1rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #8597a3;
+}
+.welcome_p {
+  color: #24377b;
+}
+
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(25px);
+  }
+
+  50% {
+    transform: translateX(-25px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+
+.welcome_progressbar1 {
+  background-color: #ffa200;
+  height: 7px;
+}
+.welcome_progressbar {
+  background: linear-gradient(
+    93deg,
+    rgba(36, 55, 123, 1) -28%,
+    rgba(36, 55, 123, 1) 0%,
+    rgba(20, 146, 209, 1) 50%,
+    rgba(36, 55, 123, 1) 100%
+  );
+  color: #fff;
+  height: 7px;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  transition: all 0.8s ease-out;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .welcome_invalid_input {
+    font-size: 80%;
+  }
+  .welcome_card {
+    width: 90%;
+    margin: 6em auto;
+  }
+}
+
+@media screen and (max-width: 1400px) and (orientation: landscape) {
+  .welcome_card {
+    margin: 2.5% auto;
+  }
+
+  .welcome_card-form {
+    padding: 0rem 1rem 0;
+  }
 }

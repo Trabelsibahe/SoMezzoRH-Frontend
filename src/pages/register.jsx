@@ -31,7 +31,7 @@ function RegisterPage() {
       <Form onSubmit={onSubmit}>
       <Form.Group className="mb-2" controlId="formBasicName">
           <Form.Label>Nom d'utilisateur</Form.Label>
-          <Form.Control type="text" name="utilisateur" placeholder="Name" className={Classnames("form-control", {"is-invalid": errors.utilisateur})} onChange={onChangeHandler}/>
+          <Form.Control type="text" name="utilisateur" placeholder="Name"  onChange={onChangeHandler} className={Classnames("form-control", {"is-invalid": errors.utilisateur})}/>
           {
           errors.utilisateur && (<div  className="invalid-feedback">
           {errors.utilisateur}
