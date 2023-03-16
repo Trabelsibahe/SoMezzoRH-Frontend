@@ -1,21 +1,72 @@
-/*  .profile_info {
-  flex: 1;
-  padding: 20px;
-  text-align: center;
-  background-color: #f6f8fb;
-} */
+@import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
+@import "profile_header.css";
+@import "profile_body.css";
 
 .profile_page {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
-    font-family: "montserrat", sans-serif;
     min-height: 100vh;
-    background: #E8EEF1;
-}
-
+    background: #ebecf0;
+    width: 100%;
+    font-family: Open Sans;
+  }
 
 .profile_container {
   position: absolute;
   top: 15%;
-  left: 20%;
+  margin-left: 15%;
+  width: 85%;
+}
+
+
+.page_name {
+  text-align: left;
+  padding: 0% 6%;
+  font-size: 12px;
+  color: rgb(73, 76, 86);
+}
+
+.profile_info {
+  font-weight: bold;
+   font-size: 18px;
+   color: rgb(73, 76, 86);
+   letter-spacing: 1px;
+   text-indent: 20px;
+
+}
+
+.profile_list { 
+  line-height: 18px;
+  
+  }
+  
+.profile_att {
+  font-weight: bold;
+  color: rgb(76, 78, 88);
+  font-size: 16px;
+  display: inline
+
+  
+}
+.profile_value {
+  color: rgb(111, 114, 130);
+  font-size: 15px;
+  display: inline
+
+}
+@media screen and (max-width: 768px) {
+
+  .profile_container {
+    display: block;
+    margin-left: 5%;
+    
+  }
+  .profile_page {
+    height: 60em ;
+
+  }
+  .profile_body {
+    font-size: 100%;
+  }
+
 }

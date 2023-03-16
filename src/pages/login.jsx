@@ -34,7 +34,8 @@ function LoginPage() {
         <img className="logoblanc" src={logoblanc} alt="logo"></img>
         <div className="login_container">
           <p className="ph1">ESPACE SOMEZZO RH</p>
-          <img src={print} alt="print" className="print"></img>
+          <img className='print' src={print} alt="print"></img>
+          
 
 
           <div className='login_form'>
@@ -50,7 +51,7 @@ function LoginPage() {
               {errors.password} </div>)} </div>
           <button type="submit" className='login_button'>S'identifer</button>
         
-      <p className='ph2'>Mot de passe oubilé?</p>
+      <p className='ph2'>Mot de passe oubilé? Récuperer votre compte</p>
     </div><p className='ph3'>Tous droits réservés - SoMezzo</p>
     </form>
     </div>

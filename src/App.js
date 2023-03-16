@@ -21,10 +21,23 @@ import { useDispatch } from 'react-redux';
 import { GetProfileAction } from './actions/profile.actions';
 import TestPage from './pages/test';
 import WelcomeRouter from './routes/welcomerouter';
+
+
+
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
+  const minute = 1000 * 60;
+const hour = minute * 60;
+const day = hour * 24;
+const year = day * 365;
+
   store.dispatch(setUser(decode));
   setAuth(window.localStorage.jwt);
+  
+  console.log(Date.now() / hour)
+  console.log((decode.exp * 1000) / hour )
+
+
   const currentDate = Date.now / 1000;
 
   if (decode.exp > currentDate) {

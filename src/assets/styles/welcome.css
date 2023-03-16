@@ -219,6 +219,18 @@ input:not(:placeholder-shown) + .welcome_input-label {
 }
 
 
+.welcome_logout {
+  color: #24377b;
+  text-align: center;
+  padding: 0rem 3rem;
+  background: #ffffff;
+  border: none;
+  height: 30px;
+  border-radius: 8px;
+}
+.welcome_logout:active {
+  background:rgb(233, 233, 233)
+}
 
 @media screen and (max-width: 768px) {
   .welcome_invalid_input {
@@ -238,4 +250,5 @@ input:not(:placeholder-shown) + .welcome_input-label {
   .welcome_card-form {
     padding: 0rem 1rem 0;
   }
+
 }

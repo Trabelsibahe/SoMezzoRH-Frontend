@@ -8,22 +8,29 @@ import { useNavigate } from 'react-router-dom'
 import StepOne from "../components/welcomesteps/Step1";
 import StepTwo from "../components/welcomesteps/Step2";
 import StepThree from "../components/welcomesteps/Step3";
+import { BiLogIn } from 'react-icons/bi';
 
+import { Logout } from "../actions/auth.actions";
 
-function WelcomePage() {
+function WelcomePage() { 
 
-    const auth = useSelector((state) => state.auth.user);
+    const auth = useSelector((state) => state.auth);
     const navigate = useNavigate();
 
     const CurrentUser = {
+      isConnected: auth.isConnected,
       name: auth.utilisateur,
       email: auth.matricule,
       role: auth.role, 
      }
 
+     const LogoutHandler = () => {
+      dispatch(Logout(navigate));
+    };
     const [form, setForm] = useState("")
     const [show, setShow] = useState(false)
     const [message, setMessage] = useState("")
+
     const dispatch = useDispatch()
     const errors = useSelector(state=>state.errors)
 
@@ -52,7 +59,6 @@ function WelcomePage() {
           return <StepThree form={form} setForm={setForm} onSubmit={onSubmit}/>;
         }
       };
-
       return (
 
         
@@ -61,6 +67,10 @@ function WelcomePage() {
         <div className='welcome_progressbar1'>
           <div className="welcome_progressbar" style={{ width: page === 0 ? "33.3%" : page === 1 ? "66.6%" : "100%" }} >
            <p>⠀</p></div></div>
+           <p></p>
+           <ul > {!CurrentUser.isConnected ? (<div></div>  ) : (  <button  className='welcome_logout'
+            onClick={LogoutHandler}><BiLogIn/> Se deconnecter</button> )}  </ul>
+
 
         <div className='welcome_card'>
 

@@ -116,7 +116,6 @@
 }
 
 .ph2 {
-  margin-top: 0%;
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
@@ -126,7 +125,7 @@
   align-items: center;
   text-align: center;
   color: #000000;
-  margin: auto;
+  margin: 1rem auto;
 
   text-align: center;
 }
