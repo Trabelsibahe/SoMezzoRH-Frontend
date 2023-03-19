@@ -21,12 +21,11 @@ export default function (state = intitialState, action) {
       };
 
 
-      case profileConstants.DELETE_PROFILE:
+      case profileConstants.MODIFIER_CONTACT_SUCCESS:
         return {
           ...state,
-          profiles: state.profiles.filter(p =>p._id !== action.payload),
-        };  
-
+         message : action.payload.message
+        }
     default:
       return state;
   }
