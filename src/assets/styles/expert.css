@@ -1,8 +1,6 @@
 @import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
-@import "profile_header.css";
-@import "profile_body.css";
 
-.profile_page {
+.expert_page {
     margin: 0 auto;
     padding: 0;
     min-height: 100vh;
@@ -11,7 +9,7 @@
     font-family: Open Sans;
   }
 
-.profile_container {
+.expert_container {
   position: absolute;
   top: 15%;
   margin-left: 15%;
@@ -26,7 +24,7 @@
   color: rgb(73, 76, 86);
 }
 
-.profile_info {
+.expert_info {
   font-weight: bold;
    font-size: 18px;
    color: rgb(73, 76, 86);
@@ -35,12 +33,12 @@
 
 }
 
-.profile_list { 
+.expert_list { 
   line-height: 18px;
   
   }
   
-.profile_att {
+.expert_att {
   font-weight: bold;
   color: rgb(76, 78, 88);
   font-size: 16px;
@@ -48,25 +46,51 @@
 
   
 }
-.profile_value {
+.expert_value {
   color: rgb(111, 114, 130);
   font-size: 15px;
   display: inline
 
 }
+
+
+.expert_body_1 {
+  flex-direction: row;
+  position: relative;
+  margin-top: 1em auto;
+}
+
+.expert_body {
+  position: absolute;
+  margin: 1em 4em;
+  display: flex;
+  width: 88%;
+  height: 32em auto;
+  background-color: #FBFCFD;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
+  padding: 1rem;
+  flex-direction: column;
+
+}
 @media screen and (max-width: 768px) {
 
-  .profile_container {
+  .expert_container {
     display: block;
     margin-left: 5%;
     
   }
-  .profile_page {
+  .expert_page {
     height: 60em ;
 
   }
-  .profile_body {
-    font-size: 100%;
+  .expert_body {
+      padding: 1em;
+      width: 100%;
+      height: 25em;
+      margin: 3%;
+      font-size: 70%;
+    
   }
 
 }

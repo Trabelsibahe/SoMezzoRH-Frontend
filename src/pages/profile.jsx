@@ -59,6 +59,7 @@ function ProfilePage() {
               <ul><p className="profile_att">Nom d'utilisateur: </p> <p className="profile_value">{CurrentProfile.name}</p></ul>
               <ul><p className="profile_att">Telephone:</p> <p className="profile_value">{profile.tel}</p></ul>
               <ul><p className="profile_att">Pays: </p> <p className="profile_value">{profile.pays}</p></ul>
+              <ul><p className="profile_att">Role: </p> <p className="profile_value">{CurrentProfile.role}</p></ul>
 
       
 

@@ -10,9 +10,9 @@
   display: flex;
   width: 50%;
   height: 23em;
-  background-color: #fff;
+  background-color: #FBFCFD;
   border-radius: 10px;
-  box-shadow: 0 1px 3px 0 rgb(192, 192, 192);
+  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
   padding: 1rem;
   flex-direction: column;
 
@@ -24,11 +24,10 @@
   display: flex;
   width: 40.5%;
   height: 23em;
-  background-color: #fff;
+  background-color: #FBFCFD;
   border-radius: 10px;
-  box-shadow: 0 1px 3px 0 rgb(192, 192, 192);
+  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
   padding: 1rem;
-  background-color: rgb(255, 255, 255);
 }
 
 @media screen and (max-width: 768px) {

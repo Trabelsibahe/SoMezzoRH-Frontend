@@ -1,3 +1,5 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
+
 .Nav {
     display: flex;
     flex-direction: column;
@@ -8,17 +10,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
+    height: 70px;
     color: #fff;
     padding: 0 20px;
-    background: linear-gradient(90deg, #0D1120 240px, rgba(255,255,255,1) 240px);
+    background: #f2f4f6;
     position: fixed;
+    box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
     width: 100%;
     top: 0;
     z-index:1;
   
   }
+  .navbar2 {
+    background-color: #24377b;
+    width: 500px;
+    height: 70px;
+    right: 20px;
+    padding: 0.9em;
+    position: relative;
+    border-bottom-right-radius: 30px;
   
+  }
   .navbar_item{
     color: #000000;
     
@@ -41,17 +53,17 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 60px;
-    left: 0;
+    top: 76px;
+    left: 0px;
     width: 240px;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 80px);
     transform: translateX(0);
     transition: transform 0.3s ease-in-out;
     z-index: 1;
-    box-shadow: 1px 0 2px -2px #707070;
-    background: linear-gradient(0deg, #0D1120 26px, #202228 26px);
-  
-  }
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    background: #24377b;  }
   
   .sidebar.hide {
     transform: translateX(-100%);
@@ -71,32 +83,50 @@
     left: 5px;
   }
   .hr {
-    background-Color: #787A91;
+    background-Color: #d2d2d2;
     height: 1px;
     width: 200px;
     margin: auto;
     
   }
-  
+  .SideNav_Avatar {
+    width: 100px;
+    border: 2px solid white;
+    border-radius: 50%;
+  }
   .sidebar__item {
     font-size: 20px;
-    letter-spacing: 1px;
     padding: 20px;
     cursor: pointer;
-    color: #787A91;
+    color: #ffffff;
     text-align: center;
     transition-duration: 0.4s;
-    font-family: sans-serif;
+    text-decoration: none !important;
+
   }
   .sidebar__item:hover, .sidebar_item2:hover{
     border-radius: 25px;
     color:#d2d2d2;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
   }
   .sidebar__item:active, .sidebar_item2:active{
     transform: translateY(-7px);
   }
-  
+  .sidebar__avatar {
+    font-size: 20px;
+    padding: 20px;
+    cursor: pointer;
+    color: #ffffff;
+    text-align: center;
+    transition-duration: 0.4s;
+  }
+  .sidebar__name {
+    font-size: 16px;
+    padding: 0px;
+    cursor: pointer;
+    color: #ffffff;
+    text-align: center;
+  }
   .sidebar_item2 {
     font-size: 20px;
     letter-spacing: 2px;
@@ -104,7 +134,6 @@
     cursor: pointer;
     color: #787A91;
     transition-duration: 0.4s;
-    font-family: sans-serif;
     text-align: center;
   
   }

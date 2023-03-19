@@ -4,11 +4,10 @@
   display: flex;
   width: 92%;
   height: 6em;
-  background-color: #fff;
+  background-color: #FBFCFD;
   border-radius: 10px;
-  box-shadow: 0 1px 3px 0 rgb(192, 192, 192);
+  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
   padding: 1rem;
-  background-color: white;
   flex-direction: row;
 }
 

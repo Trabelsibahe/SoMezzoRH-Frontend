@@ -19,10 +19,9 @@ import RegisterPage from './pages/register';
 import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { GetProfileAction } from './actions/profile.actions';
-import TestPage from './pages/test';
 import WelcomeRouter from './routes/welcomerouter';
-
-
+import Expert_RH_Page from './pages/expert_rh';
+import ExpertRouter from "./routes/expertrouter";
 
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
@@ -80,7 +79,7 @@ function App() {
           <Route path="/login" element={
             <ForceRedirect user={user}> {" "} <LoginPage />{" "} </ForceRedirect>} />
 
-          <Route path="/profile" element={
+          <Route path="/profil" element={
             <PrivateRouter user={user}> {" "} <ProfilePage /> {" "}</PrivateRouter>} />
 
           <Route path="/bienvenue" element={
@@ -89,7 +88,10 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
 
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/test" element={<TestPage />} />
+
+
+          <Route path="/expertrh" element={
+            <ExpertRouter user={user}> {" "} <Expert_RH_Page />{" "} </ExpertRouter>} />
 
         </Routes>
       </BrowserRouter>

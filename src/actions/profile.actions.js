@@ -15,7 +15,7 @@ export const SetProfileAction = (form, setShow, setMessage, navigate)=>dispatch=
         setTimeout(() => {
             setShow(false)
         }, 4000);
-        navigate("/profile");
+        navigate("/profil");
       })
       .catch(err => {
           dispatch({

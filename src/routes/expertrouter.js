@@ -1,15 +1,15 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
-const AdminRouter = ({user, children}) =>{
+const ExpertRouter = ({user, children}) =>{
    if(!user.isConnected){
      return <Navigate to="/login" replace/> 
    } else{
-    if(user.role !== "ADMIN") {
-        return <Navigate to="/accessdenied" replace/>
+    if(user.role !== "EXPERT") {
+        return <Navigate to="/erreur" replace/>
     }
    }
    return children
 }
 
-export default AdminRouter;
+export default ExpertRouter;
