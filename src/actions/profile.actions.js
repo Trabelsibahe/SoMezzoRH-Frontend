@@ -40,7 +40,7 @@ export const GetProfileAction = ()=>dispatch=>{
           })
       });
 }
-
+//fonction getlist
 /*export const GetProfiles = ()=>dispatch=>{
     axios
       .get("/api/profiles")
@@ -92,6 +92,7 @@ export const DeleteProfile = (id)=>dispatch=>{
     });
    }
 }
+//fonction modifier
  export const modifierContact = (id, contactData) => (dispatch) => {
     axios.post(`http://localhost:3030/api/profile/${id}`, contactData)
       .then((res) => {
@@ -107,6 +108,7 @@ export const DeleteProfile = (id)=>dispatch=>{
         });
       });
   };
+  //fonction recherche par matricule
   export const searchByMatricule = (matricule) => (dispatch) => {
     axios.get(`http://localhost:3030/api/serchmatricule?matricule=${matricule}`)
       .then((res) => {
@@ -118,6 +120,23 @@ export const DeleteProfile = (id)=>dispatch=>{
       .catch((err) => {
         dispatch({
           type: profileConstants.SEARCH_PROFILES_FAILURE,
+          payload: err.response.data,
+        });
+      });
+  };
+  //fonction delete + envouyer a l'archive 
+
+  export const deleteAndArchiveProfile = (id) => (dispatch) => {
+    axios.delete(`http://localhost:3030/api/profilesupp/${id}`)
+      .then((res) => {
+        dispatch({
+          type: profileConstants.DELETE_PROFILE_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: profileConstants.DELETE_PROFILE_FAILURE,
           payload: err.response.data,
         });
       });

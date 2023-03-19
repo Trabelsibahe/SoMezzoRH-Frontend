@@ -23,6 +23,7 @@ import WelcomeRouter from './routes/welcomerouter';
 import Expert_RH_Page from './pages/expert_rh';
 import ExpertRouter from "./routes/expertrouter";
 import Admin from './pages/admin';
+import Archive from './pages/archive';
 
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
@@ -89,9 +90,9 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
 
           <Route path="/register" element={<RegisterPage />} />
-
+       
           <Route path="/listuser" element={<ExpertRouter user={user}> {" "} <Admin/>{" "} </ExpertRouter>}/>
-
+          <Route path="/archive"  element={<ExpertRouter user={user}> {" "} <Archive/>{" "} </ExpertRouter>}/>
           <Route path="/expertrh" element={
             <ExpertRouter user={user}> {" "} <Expert_RH_Page />{" "} </ExpertRouter>} />
 

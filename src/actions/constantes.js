@@ -37,3 +37,7 @@ export const profileConstants = {
   MODIFIER_CONTACT_FAILURE: "MODIFIER_CONTACT_FAILURE",
   PROFILE_REQUEST : "PROFILE_REQUEST"
 };
+export const archiveConstants = {
+  GET_ALL_ARCHIVES:' GET_ALL_ARCHIVES',
+  ARCHIVES_ERRORS : 'ARCHIVES_ERRORS',
+};

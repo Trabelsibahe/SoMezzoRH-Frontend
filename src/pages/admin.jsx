@@ -38,6 +38,7 @@ function Admin() {
       })
       setEdit(true);  
     }
+    //fonction modifier + getlist
     const editContact = async () => {
     const data = {
       user :{
@@ -66,6 +67,7 @@ function Admin() {
     const handleSearch = (event) => {
       setSearch(event.target.value);
     }
+    //fonction recherche + getlist
   
     const filteredContacts = profiles.filter((profile) => {
       if (search === '') {
@@ -77,8 +79,12 @@ function Admin() {
       return false;
     });
 
-   
+       //fonction supp + getlist
 
+    const deleteContact = async (id) =>{
+        await dispatch(deleteAndArchiveProfile(id))
+        await dispatch(GetProfiles())
+      }
     return (
       <div className="Expert">
 
@@ -116,7 +122,7 @@ function Admin() {
             <Button variant="success" className="me-3"  onClick={() => handleShowEdit(profile._id)}>
                 modifier
               </Button>
-              <Button variant="danger" >supprimer</Button>
+              <Button variant="danger" onClick={() => deleteContact(profile._id)} >supprimer</Button>
             </td>
           </tr>)
           }
