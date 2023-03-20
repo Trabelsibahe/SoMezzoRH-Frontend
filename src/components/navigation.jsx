@@ -52,12 +52,13 @@ function Navigation({ user }) {
           <ColoredLine color="#24377b" />
 
           <li className="sidebar__item">Acceuil</li>
+
           <a href="/profil" className="sidebar__item"><li>Profil</li></a>
 
-          {!user.isConnected && user.role !== "EXPERT" ? (<div></div>
-            ) : (
-          <a href="/expertrh" className="sidebar__item"><li>Mon espace</li></a>  )}
-
+            {user.role === "EXPERT" ? (
+          <a href="/expertrh" className="sidebar__item"><li>Mon espace</li></a> 
+          ) : (<div></div>   )}
+          
           <li className="sidebar__item">Item 4</li>
         </ul>
         <ul className="sidebar_list2">
