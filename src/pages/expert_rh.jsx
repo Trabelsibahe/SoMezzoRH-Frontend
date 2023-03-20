@@ -5,10 +5,7 @@ import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { SetProfileAction, GetProfileAction } from "../actions/profile.actions";
-import SearchBar from "../components/searchbar";
-import UserList from "../components/userlist_table";
-
-
+import UserList from "../components/userlist/userlist_table";
 
 function Expert_Rh_Page() {
   const auth = useSelector((state) => state.auth);
@@ -41,8 +38,8 @@ function Expert_Rh_Page() {
         </div>
         <div className="expert_body">
           {" "}
-          <p className="expert_info">Liste des comptes</p>
-          <UserList/>
+          <p className="expert_info">Liste des comptes </p>
+          <UserList />
         </div>
       </div>
     </div>

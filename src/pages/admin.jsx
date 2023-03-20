@@ -7,6 +7,10 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import{ GetProfiles, deleteAndArchiveProfile , modifierContact} from '../actions/profile.actions'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+
+
 function Admin() {
   const dispatch = useDispatch(); 
     const profiles = useSelector(state => state.profiles.profiles);
@@ -23,6 +27,7 @@ function Admin() {
 
     const [edit, setEdit] = useState(false);
     const handleCloseEdit = () => setEdit(false);
+    
     const handleShowEdit = (id) => {
       profiles.forEach(p => {
         if (p._id === id){

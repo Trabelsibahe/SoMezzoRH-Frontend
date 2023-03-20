@@ -24,6 +24,7 @@ import Expert_RH_Page from './pages/expert_rh';
 import ExpertRouter from "./routes/expertrouter";
 import Admin from './pages/admin';
 import Archive from './pages/archive';
+import SearchAppBar from "./pages/test"
 
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
@@ -35,8 +36,7 @@ const year = day * 365;
   store.dispatch(setUser(decode));
   setAuth(window.localStorage.jwt);
   
-  console.log(Date.now() / hour)
-  console.log((decode.exp * 1000) / hour )
+
 
 
   const currentDate = Date.now / 1000;
@@ -95,6 +95,8 @@ function App() {
           <Route path="/archive"  element={<ExpertRouter user={user}> {" "} <Archive/>{" "} </ExpertRouter>}/>
           <Route path="/expertrh" element={
             <ExpertRouter user={user}> {" "} <Expert_RH_Page />{" "} </ExpertRouter>} />
+
+            <Route path="/test" element={<SearchAppBar/>}></Route>
 
         </Routes>
       </BrowserRouter>
