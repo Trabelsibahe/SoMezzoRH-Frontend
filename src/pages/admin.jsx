@@ -89,6 +89,7 @@ function Admin() {
     const deleteContact = async (id) =>{
         await dispatch(deleteAndArchiveProfile(id))
         await dispatch(GetProfiles())
+        await dispatch(GetProfiles())
       }
     return (
       <div className="Expert">

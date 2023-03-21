@@ -11,3 +11,20 @@ export const GetArchives = () => async (dispatch) => {
       dispatch({ type: archiveConstants.ARCHIVES_ERRORS, payload: error.message });
     }
   };
+  //fonction delete + envouyer a l'archive 
+
+  export const deleteArchive = (id) => (dispatch) => {
+    axios.delete(`http://127.0.0.1:3030/api/archive/supp/${id}`)
+      .then((res) => {
+        dispatch({
+          type: archiveConstants.DELETE_ARCHIVE_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: archiveConstants.DELETE_ARCHIVE_FAILURE,
+          payload: err.response.data,
+        });
+      });
+  };
