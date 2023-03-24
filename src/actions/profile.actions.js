@@ -141,3 +141,19 @@ export const DeleteProfile = (id)=>dispatch=>{
         });
       });
   };
+    //modifier profile connecter 
+    export const modifierprofile = (contactData) => (dispatch) => {
+      axios.post(`http://127.0.0.1:3030/api/profile/modif`, contactData)
+        .then((res) => {
+          dispatch({
+            type: profileConstants.MODIFIER_PROFILE_SUCCESS,
+            payload: res.data,
+          });
+        })
+        .catch((err) => {
+          dispatch({
+            type: profileConstants.MODIFIER_PROFILE_FAILURE,
+            payload: err.response.data,
+          });
+        });
+    };
