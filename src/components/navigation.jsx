@@ -5,6 +5,7 @@ import avatar from "../assets/images/avatar.avif"
 import { Logout } from "../actions/auth.actions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom'
+import { BiLogOut } from 'react-icons/bi';
 
 
 function Navigation({ user }) {
@@ -43,6 +44,7 @@ function Navigation({ user }) {
       </nav>
 
       <aside className={`sidebar ${showSidebar ? "show" : ""}`}>
+
         <ul className="sidebar__list">
         <ColoredLine color="white" />
 
@@ -60,15 +62,14 @@ function Navigation({ user }) {
           ) : (<div></div>   )}
           
           <li className="sidebar__item">Item 4</li>
-        </ul>
-        <ul className="sidebar_list2">
-           {!user.isConnected ? (<div></div>
+          <ColoredLine color="white" />
+
+          {!user.isConnected ? (<div></div>
             ) : (
-        <li onClick={LogoutHandler} className="sidebar_item2">Se deconnecter</li>     )}
-        <ColoredLine color="white" />
+          <li className="sidebar__item"><BiLogOut onClick={LogoutHandler} className="logout_icon"/></li>  )}
         </ul>
+  
       </aside>
-      
 
     </div>
 

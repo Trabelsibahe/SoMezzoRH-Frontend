@@ -110,3 +110,11 @@ position: relative;
   outline: none;
   width: 13em;
 }
+
+.expert_menu {
+  background-color: rgb(255, 255, 255);
+  width: 50%;
+  padding: 3px;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
+}

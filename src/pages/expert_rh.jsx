@@ -5,13 +5,18 @@ import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { SetProfileAction, GetProfileAction } from "../actions/profile.actions";
-import UserList from "../components/userlist/userlist_table";
+import UserList  from "../components/userlist/userlist_table";
+import RegisterPage from "../pages/register"
+import { Button } from "@mui/material";
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
 function Expert_Rh_Page() {
   const auth = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const errors = useSelector((state) => state.errors);
+
+
 
   const Currentexpert = {
     isConnected: auth.isConnected,
@@ -26,21 +31,35 @@ function Expert_Rh_Page() {
     })();
   }, [dispatch]);
 
+
+  const [showRegister, setRegister] = React.useState(false)
+  const onClick = () => setRegister(true)
+
+
   return (
     <div className="expert_page">
       <Navigation user={Currentexpert} />
       <div className="expert_container">
-        <div className="page_name">
+      <div className="page_name">
           Pages / Mon espace{" "}
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>
             Espace Expert RH
           </p>
         </div>
-        <div className="expert_body">
+
+        { showRegister ? <RegisterPage /> : 
+        <div className="expert_body" >
           {" "}
           <p className="expert_info">Liste des comptes </p>
-          <UserList />
+
+          <div className="expert_menu">
+            <Button startIcon={<PersonAddAlt1Icon />} variant="outlined" onClick={onClick}>Ajouter un compte</Button>
+          </div>
+
+          <UserList/>
         </div>
+        
+        }
       </div>
     </div>
   );

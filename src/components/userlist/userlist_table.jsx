@@ -18,7 +18,7 @@ import { Button, Input } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Modal, Form} from 'react-bootstrap';
+import { Modal, Form } from "react-bootstrap";
 
 import {
   GetProfiles,
@@ -26,29 +26,24 @@ import {
   modifierContact,
 } from "../../actions/profile.actions";
 
-
-
 function Row(accounts, index) {
-
-
-  const dispatch = useDispatch(); 
-    const profiles = useSelector(state => state.profiles.profiles);
-    useEffect(()=>{dispatch(GetProfiles())},[dispatch]);
-    
+  const dispatch = useDispatch();
+  const profiles = useSelector((state) => state.profiles.profiles);
+  useEffect(() => {
+    dispatch(GetProfiles());
+  }, [dispatch]);
 
   const { profile } = accounts;
   const [open, setOpen] = React.useState(false);
 
-      
-  const [ id, setId ] = useState('');
-  const [ ville, setVille ] = useState('');
-  const [ pays, setPays ] = useState('');
-  const [ utilisateur, setUtilisateur ] = useState('');
-  const [ matricule, setMatricule ] = useState('');
-  const [ role, setRole ] = useState('');
-  const [ tel, setTel ] = useState('');
-  const [ codepostal, setCodepostal ] = useState('');
-
+  const [id, setId] = useState("");
+  const [ville, setVille] = useState("");
+  const [pays, setPays] = useState("");
+  const [utilisateur, setUtilisateur] = useState("");
+  const [matricule, setMatricule] = useState("");
+  const [role, setRole] = useState("");
+  const [tel, setTel] = useState("");
+  const [codepostal, setCodepostal] = useState("");
 
   const [edit, setEdit] = useState(false);
   const handleCloseEdit = () => setEdit(false);
@@ -69,38 +64,39 @@ function Row(accounts, index) {
     setEdit(true);
   };
 
-     //fonction modifier + getlist
-     const editContact = async () => {
-      const data = {
-        user :{
-          utilisateur,
-          matricule,
-          role },
-        tel,
-        ville,
-        pays,
-        codepostal
-      }
-      await dispatch(modifierContact(id,data))
-      await dispatch(GetProfiles())
-      await dispatch(GetProfiles())
-        handleCloseEdit()
-        setId('')
-        setUtilisateur('')
-        setMatricule('')
-        setRole('')
-        setTel('')
-        setVille('')
-        setPays('')
-        setCodepostal('')
-      }
+  //fonction modifier + getlist
+  const EditProfile = async () => {
+    const data = {
+      user: {
+        utilisateur,
+        matricule,
+        role,
+      },
+      tel,
+      ville,
+      pays,
+      codepostal,
+    };
+    await dispatch(modifierContact(id, data));
+    await dispatch(GetProfiles());
+    await dispatch(GetProfiles());
+    handleCloseEdit();
+    setId("");
+    setUtilisateur("");
+    setMatricule("");
+    setRole("");
+    setTel("");
+    setVille("");
+    setPays("");
+    setCodepostal("");
+  };
 
-     //fonction supp + getlist
-    const deleteContact = async (id) =>{
-      await dispatch(deleteAndArchiveProfile(id))
-      await dispatch(GetProfiles())
-      await dispatch(GetProfiles())
-    }
+  //fonction supp + getlist
+  const deleteContact = async (id) => {
+    await dispatch(deleteAndArchiveProfile(id));
+    await dispatch(GetProfiles());
+    await dispatch(GetProfiles());
+  };
 
   return (
     <>
@@ -114,39 +110,72 @@ function Row(accounts, index) {
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Utilisateur</Form.Label>
-              <Form.Control type="text"  value={utilisateur} onChange={e => setUtilisateur(e.target.value)} placeholder="modifier le nom" />
+              <Form.Control
+                type="text"
+                value={utilisateur}
+                onChange={(e) => setUtilisateur(e.target.value)}
+                placeholder="modifier le nom"
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>matricule</Form.Label>
-              <Form.Control type="text" value={matricule} onChange={e => setMatricule(e.target.value)}  placeholder="modifier le matricule" />
+              <Form.Control
+                type="text"
+                value={matricule}
+                onChange={(e) => setMatricule(e.target.value)}
+                placeholder="modifier le matricule"
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Role</Form.Label>
-              <Form.Control type="text" value={role} onChange={e => setRole(e.target.value)}  placeholder="modifier le role" />
+              <Form.Control
+                type="text"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                placeholder="modifier le role"
+              />
             </Form.Group>
 
-         
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>tel</Form.Label>
-              <Form.Control type="number" value={tel} onChange={e => setTel(e.target.value)}  placeholder="modifier le ville" />
+              <Form.Control
+                type="number"
+                value={tel}
+                onChange={(e) => setTel(e.target.value)}
+                placeholder="modifier le ville"
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Ville</Form.Label>
-              <Form.Control type="text" value={ville} onChange={e => setVille(e.target.value)}  placeholder="modifier le ville" />
+              <Form.Control
+                type="text"
+                value={ville}
+                onChange={(e) => setVille(e.target.value)}
+                placeholder="modifier le ville"
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Pays</Form.Label>
-              <Form.Control type="text" value={pays} onChange={e => setPays(e.target.value)}  placeholder="modifier le pays" />
+              <Form.Control
+                type="text"
+                value={pays}
+                onChange={(e) => setPays(e.target.value)}
+                placeholder="modifier le pays"
+              />
             </Form.Group>
-
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Code postal</Form.Label>
-              <Form.Control type="text" value={codepostal} onChange={e => setCodepostal(e.target.value)}  placeholder="modifier le code postal" />
+              <Form.Control
+                type="text"
+                value={codepostal}
+                onChange={(e) => setCodepostal(e.target.value)}
+                placeholder="modifier le code postal"
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -154,78 +183,72 @@ function Row(accounts, index) {
           <Button variant="secondary" onClick={handleCloseEdit}>
             Close
           </Button>
-          <Button variant="primary" onClick={editContact}>
+          <Button variant="primary" onClick={EditProfile}>
             Modifier
           </Button>
         </Modal.Footer>
       </Modal>
 
+      <React.Fragment key={index}>
+        <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+          <TableCell>
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </TableCell>
 
-
-
-
-
-    <React.Fragment key={index}>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
-
-        <TableCell component="th" scope="row">
-          {profile.user.utilisateur}
-        </TableCell>
-        <TableCell align="right">{profile.user.matricule}</TableCell>
-        <TableCell align="right">{profile.user.role}</TableCell>
-        <TableCell align="right">
-
-          <Button variant="primary" onClick={() => handleShowEdit(profile._id)}>
-            Modifier
-          </Button>
-          <Button onClick={() => deleteContact(profile._id)}>
-            Archiver
+          <TableCell component="th" scope="row">
+            {profile.user.utilisateur}
+          </TableCell>
+          <TableCell align="right">{profile.user.matricule}</TableCell>
+          <TableCell align="right">{profile.user.role}</TableCell>
+          <TableCell align="right">
+            <Button
+              variant="primary"
+              onClick={() => handleShowEdit(profile._id)}
+            >
+              Modifier
             </Button>
+            <Button onClick={() => deleteContact(profile._id)}>Archiver</Button>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <Box sx={{ margin: 1 }}>
+                <Typography variant="h6" gutterBottom component="div">
+                  History
+                </Typography>
+                <Table size="small" aria-label="purchases">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Telephone</TableCell>
+                      <TableCell>Ville</TableCell>
+                      <TableCell align="right">Pays</TableCell>
+                      <TableCell align="right">Code postale</TableCell>
+                    </TableRow>
+                  </TableHead>
 
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Telephone</TableCell>
-                    <TableCell>Ville</TableCell>
-                    <TableCell align="right">Pays</TableCell>
-                    <TableCell align="right">Code postale</TableCell>
-                  </TableRow>
-                </TableHead>
-
-                <TableBody>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      {profile.tel}
-                    </TableCell>
-                    <TableCell>{profile.ville}</TableCell>
-                    <TableCell align="right">{profile.pays}</TableCell>
-                    <TableCell align="right">{profile.codepostal}</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    </React.Fragment>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell component="th" scope="row">
+                        {profile.tel}
+                      </TableCell>
+                      <TableCell>{profile.ville}</TableCell>
+                      <TableCell align="right">{profile.pays}</TableCell>
+                      <TableCell align="right">{profile.codepostal}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      </React.Fragment>
     </>
   );
 }
