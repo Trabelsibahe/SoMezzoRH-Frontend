@@ -25,7 +25,7 @@ import ExpertRouter from "./routes/expertrouter";
 import Admin from './pages/admin';
 import Archive from './pages/archive';
 import SearchAppBar from "./pages/test"
-
+import NewsLetterPage from "./pages/newsletter"
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
   const minute = 1000 * 60;
@@ -89,8 +89,9 @@ function App() {
 
           <Route path="*" element={<NotFoundPage />} />
 
+          <Route path="/acceuil" element={<NewsLetterPage />} />
           <Route path="/register" element={<RegisterPage />} />
-       
+
           <Route path="/listuser" element={<ExpertRouter user={user}> {" "} <Admin/>{" "} </ExpertRouter>}/>
           <Route path="/archive"  element={<ExpertRouter user={user}> {" "} <Archive/>{" "} </ExpertRouter>}/>
           <Route path="/expertrh" element={

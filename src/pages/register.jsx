@@ -47,7 +47,7 @@ function RegisterPage() {
   return (
     <ThemeProvider theme={theme}>
       <div className="Register">
-        <h5 className="col-md-12 text-center">Register</h5>
+        <h6 className="col-md-12 text-center p-1">Créer un nouveau compte</h6>
         <Container className="bg-variant col-md-4 mx-auto p-1">
           <Stack>
             <Form onSubmit={onSubmit}>

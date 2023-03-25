@@ -14,9 +14,11 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import TablePagination from "@mui/material/TablePagination";
-import { Button, Input } from "@mui/material";
+import { Button, InputBase, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 
 import { Modal, Form } from "react-bootstrap";
 
@@ -304,13 +306,11 @@ export default function UserList() {
 
   return (
     <>
-      <input
-        className="searchbar"
-        placeholder="Rechercher.."
-        type="text"
-        value={search}
-        onChange={handleSearch}
-      />
+    <div className="expert_searchbar">
+      <InputBase className="searchbar"  placeholder="Rechercher.."   type="text"   value={search}   onChange={handleSearch} 
+        startAdornment={ <InputAdornment position="start"> <SearchIcon />    </InputAdornment>  }  margin="normal"
+        sx={{width:220}}/></div>
+
       <Paper sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">

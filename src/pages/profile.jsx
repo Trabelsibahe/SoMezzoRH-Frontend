@@ -82,10 +82,12 @@ function ProfilePage() {
     <div className="profile_page">
       <Navigation user={CurrentProfile} />
       <div className="profile_container">
+
         <div className="page_name">
           Pages / Profil
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>Mon Profil</p>
         </div>
+
         <div className="profile_header">
           <img
             className="profile_header_avatar"
@@ -111,7 +113,8 @@ function ProfilePage() {
               <ul><p className="profile_att">Ville: </p> <p className="profile_value">{profile.ville}</p></ul>
               <ul><p className="profile_att">Code Postal: </p> <p className="profile_value">{profile.codepostal}</p></ul>
               <ul><p className="profile_att">Role: </p> <p className="profile_value">{CurrentProfile.role}</p></ul>
-              <ul>      <Button variant="success" className="me-3"  onClick={() => handleShowEdit(profile)}>
+              
+              <ul>    <Button variant="success" className="me-3"  onClick={() => handleShowEdit(profile)}>
                 modifier
               </Button></ul>
       

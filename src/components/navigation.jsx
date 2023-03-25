@@ -6,7 +6,8 @@ import { Logout } from "../actions/auth.actions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom'
 import { BiLogOut } from 'react-icons/bi';
-
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Navigation({ user }) {
   const ColoredLine = ({ color }) => (
@@ -40,7 +41,7 @@ function Navigation({ user }) {
       
         
         <div className="navbar_item">Bienvenue {user.name}</div>        
-        <button className="navbar__toggle" onClick={toggleSidebar}>  {showSidebar ? <>&times;</> : <>&#9776;</>}</button>
+        <button className="navbar__toggle" onClick={toggleSidebar}>  {showSidebar ? <CloseIcon/> : <MenuIcon/>}</button>
       </nav>
 
       <aside className={`sidebar ${showSidebar ? "show" : ""}`}>
@@ -53,7 +54,7 @@ function Navigation({ user }) {
 
           <ColoredLine color="#24377b" />
 
-          <li className="sidebar__item">Acceuil</li>
+          <a href="/acceuil" className="sidebar__item"><li>Acceuil</li></a>
 
           <a href="/profil" className="sidebar__item"><li>Profil</li></a>
 
@@ -61,7 +62,7 @@ function Navigation({ user }) {
           <a href="/expertrh" className="sidebar__item"><li>Mon espace</li></a> 
           ) : (<div></div>   )}
           
-          <li className="sidebar__item">Item 4</li>
+          <a href="#" className="sidebar__item"><li>Page 4</li></a>
           <ColoredLine color="white" />
 
           {!user.isConnected ? (<div></div>

@@ -16,8 +16,6 @@ function Expert_Rh_Page() {
   const dispatch = useDispatch();
   const errors = useSelector((state) => state.errors);
 
-
-
   const Currentexpert = {
     isConnected: auth.isConnected,
     name: auth.user.utilisateur,
@@ -48,17 +46,15 @@ function Expert_Rh_Page() {
         </div>
 
         { showRegister ? <RegisterPage /> : 
-        <div className="expert_body" >
-          {" "}
+        <div className="expert_body"  >
           <p className="expert_info">Liste des comptes </p>
 
           <div className="expert_menu">
-            <Button startIcon={<PersonAddAlt1Icon />} variant="outlined" onClick={onClick}>Ajouter un compte</Button>
+            <Button className="expert_add_button" startIcon={<PersonAddAlt1Icon />} variant="outlined" onClick={onClick}>Ajouter un compte</Button>
           </div>
 
           <UserList/>
         </div>
-        
         }
       </div>
     </div>
