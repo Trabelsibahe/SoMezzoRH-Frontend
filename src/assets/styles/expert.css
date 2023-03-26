@@ -79,11 +79,12 @@
 
 .searchbar {
   height: 2em;
-  margin: 0px;
+  margin: 0em 3.3em;
   left: 70%;
   border-radius: 5px;
   background-color: rgb(253, 254, 255);
-  outline: none;
+  top: -37px;
+  width: 100%;
 }
 
 .expert_menu {
@@ -94,29 +95,30 @@
   box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
 }
 
-
-.searchbar {
-  margin: 0em 3.3em;
-  top: -37px;
-  outline: none;
-}
-
-.searchbar {
-  width: 50px;
-}
-
-
 @media screen and (max-width: 768px) {
 
   .searchbar {
-    margin: 0em 0em;
-    top: 0px;
+    margin: 0em 0.3em;
     left: 0%;
-    padding: 1em;
-    outline: none;
+    padding: 0.8em;
+    width: 95%;
   }
   .expert_menu {
-    height: 200px;
+    height: 80px;
+    padding: 0.40em;
+    
   }
+  .expert_body {
+    padding: 0.5em;
+    width: 100% auto;
+    height: auto;
+    margin: 3%;
+    font-size: 70%;
+  }
+  .expert_add_button {
+    width: 96%;
+    left: 2%;
+  }
+
 
 }

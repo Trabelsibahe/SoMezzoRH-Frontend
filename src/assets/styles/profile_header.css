@@ -46,7 +46,8 @@
     font-size: 70%;
   }
   .profile_header_avatar {
-    width: 15%;
+    width: 50px;
+
   }
   .profile_header_p1 {
     padding: 10px 20px;

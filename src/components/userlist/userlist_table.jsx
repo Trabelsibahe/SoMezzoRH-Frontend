@@ -14,7 +14,7 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import TablePagination from "@mui/material/TablePagination";
-import { Button, InputBase, TextField } from "@mui/material";
+import { Button, Hidden, InputBase, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InputAdornment from '@mui/material/InputAdornment';
@@ -210,12 +210,12 @@ function Row(accounts, index) {
           <TableCell align="right">{profile.user.role}</TableCell>
           <TableCell align="right">
             <Button
-              variant="primary"
+              variant="outlined" color="primary"
               onClick={() => handleShowEdit(profile._id)}
             >
               Modifier
             </Button>
-            <Button onClick={() => deleteContact(profile._id)}>Archiver</Button>
+            <Button variant="primary" onClick={() => deleteContact(profile._id)}>Archiver</Button>
           </TableCell>
         </TableRow>
         <TableRow>
@@ -306,10 +306,10 @@ export default function UserList() {
 
   return (
     <>
-    <div className="expert_searchbar">
+    
       <InputBase className="searchbar"  placeholder="Rechercher.."   type="text"   value={search}   onChange={handleSearch} 
         startAdornment={ <InputAdornment position="start"> <SearchIcon />    </InputAdornment>  }  margin="normal"
-        sx={{width:220}}/></div>
+        sx={{width:250}}/>
 
       <Paper sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
