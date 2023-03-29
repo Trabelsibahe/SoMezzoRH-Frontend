@@ -72,10 +72,11 @@ function Navigation({ user }) {
           ) : (<div></div>   )}
 
           <a href="#" className="sidebar_item"><li>Page 4</li></a>
+
           <ColoredLine color="white" />
           {!user.isConnected ? (<div></div>
             ) : (
-          <div className="sidebar_logout"><BiLogOut onClick={LogoutHandler} className="logout_icon"/></div>  )}
+          <div className="sidebar_logout"><BiLogOut className="logout_icon" onClick={LogoutHandler} />Déconnexion</div>  )}
         </ul>
       </aside>
 
