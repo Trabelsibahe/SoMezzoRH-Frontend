@@ -1,200 +1,180 @@
 @import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
 
 .Nav {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    color: #fff;
-    padding: 0 20px;
-    background: #f2f4f6;
-    position: fixed;
-    box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
-    width: 100%;
-    top: 0;
-    z-index:3;
-  
-  }
-  .navbar2 {
-    background-color: #24377b;
-    width: 500px;
-    height: 70px;
-    right: 20px;
-    padding: 0.9em;
-    position: relative;
-    border-bottom-right-radius: 55px;
-    border-top-right-radius: 55px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  color: #fff;
+  padding: 0 20px;
+  background: #f2f4f6;
+  position: fixed;
+  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
+  width: 100%;
+  top: 0;
+  z-index: 3;
+}
+.navbar2 {
+  background-color: #24377b;
+  width: 500px;
+  height: 70px;
+  right: 20px;
+  padding: 0.9em;
+  position: relative;
+  border-bottom-right-radius: 55px;
+  border-top-right-radius: 55px;
+}
+.navbar_item {
+  color: rgb(73, 76, 86);
+  font-weight: bold;
+}
+.navbar_logo {
+  color: rgb(255, 255, 255);
+  width: 160px;
+}
+
+.navbar_toggle {
+  display: none;
+  font-size: 24px;
+  background-color: transparent;
+  color: #000000;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 69px;
+  left: 0px;
+  width: 240px;
+  height: calc(100vh - 70px);
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+  z-index: 3;
+
+  background: #24377b;
+}
+
+.sidebar.hide {
+  transform: translateX(-100%);
+}
+
+.sidebar_list {
+  list-style: none;
+  padding: 0em;
+  margin: 0px 1em;
+  text-align: center;
+}
+
+
+.SideNav_Avatar {
+  width: 100px;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+.sidebar_item {
+  font-size: 18px;
+  padding: 0.6em;
+  cursor: pointer;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none !important;
+}
+
+.sidebar_logout {
+  font-size: 18px;
+  margin: 3em 3em;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none !important;
+  width: 50%;
+  height: 50%;
+}
+
+.sidebar_item:hover {
+  color: #d2d2d2;
+}
+
+.sidebar_avatar {
+  font-size: 20px;
+  padding: 20px;
+  cursor: pointer;
+  color: #ffffff;
+  text-align: center;
+  transition-duration: 0.4s;
+  pointer-events: none;
+}
+.sidebar_name {
+  font-size: 16px;
+  padding: 0px;
+  cursor: pointer;
+  color: #ffffff;
+  text-align: center;
+  pointer-events: none;
+}
+
+.logout_icon {
+  font-size: 35px;
+}
+.logout_icon:hover {
+  color: #d2d2d2;
+}
+
+.page_name {
+  text-align: left;
+  padding: 0% 6%;
+  font-size: 12px;
+  color: rgb(73, 76, 86);
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+  .navbar_toggle {
+    display: block;
   }
-  .navbar_item{
-    color: rgb(73, 76, 86);
-    font-weight: bold;
-    
-  }
-  .navbar__logo {
-    color: rgb(255, 255, 255);
-    width: 160px;
-  }
-  
-  .navbar__toggle {
-    display: none;
-    font-size: 24px;
-    background-color: transparent;
-    color: #000000;
-    border: none;
-    cursor: pointer;
-  }
-  
   .sidebar {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 70px;
-    left: 0px;
-    width: 240px;
-    height: calc(100vh - 80px);
-    transform: translateX(0);
-    transition: transform 0.3s ease-in-out;
-    z-index:3;
-    border-bottom-right-radius: 30px;
-    
-
-
-    background: #24377b;  }
-  
-  .sidebar.hide {
+    width: 70%;
     transform: translateX(-100%);
   }
-  
-  .sidebar__list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-  }
-  .sidebar_list2 {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-    position:absolute;
-    bottom: 5px;
-    left: 5px;
-  }
-  .hr {
-    background-Color: #d2d2d2;
-    height: 1px;
-    width: 200px;
-    margin: auto;
-    
-  }
-  .SideNav_Avatar {
-    width: 100px;
-    border: 2px solid white;
-    border-radius: 50%;
-  }
-  .sidebar__item {
-    font-size: 20px;
-    padding: 20px;
-    cursor: pointer;
-    color: #ffffff;
-    text-align: center;
-    transition-duration: 0.4s;
-    text-decoration: none !important;
-
+  .sidebar.show {
+    transform: translateX(0);
   }
 
-  .sidebar__avatar {
-    font-size: 20px;
-    padding: 20px;
-    cursor: pointer;
-    color: #ffffff;
-    text-align: center;
-    transition-duration: 0.4s;
-    pointer-events: none;
-  }
-  .sidebar__name {
-    font-size: 16px;
-    padding: 0px;
-    cursor: pointer;
-    color: #ffffff;
-    text-align: center;
-    pointer-events: none;
-  }
-  .sidebar_item2 {
-    font-size: 20px;
-    padding: 30px;
-    cursor: pointer;
-    color: #787A91;
-    transition-duration: 0.4s;
-    text-align: center;
-  }
-
-  .sidebar_item2:hover {
-    cursor: pointer;
-    color: #8e91af;
-    text-align: center;
-
-  
-  }
-
-  .logout_icon {
-    font-size: 40px;
-  }
-  .logout_icon:hover {
-    color: #d2d2d2;
-  }
-
-  .page_name {
-    text-align: left;
-    padding: 0% 6%;
-    font-size: 12px;
-    color: rgb(73, 76, 86);
-  }
-
-  @media screen and (max-width: 768px) {
-    .navbar__toggle {
-      display: block;
-    }
-    .sidebar {
-      width: 70%;
-      transform: translateX(-100%);
-    }
-    .sidebar.show {
-      transform: translateX(0);
-    }
-      
-  .navbar__logo {
+  .navbar_logo {
     color: rgb(255, 255, 255);
     width: 160px;
-    content:url("../../assets/images/logonoir.png");
+    content: url("../../assets/images/logonoir.png");
   }
   .navbar {
-    background: linear-gradient(90deg, #ffffff 240px, rgba(255,255,255,1) 240px);
+    background: linear-gradient(
+      90deg,
+      #ffffff 240px,
+      rgba(255, 255, 255, 1) 240px
+    );
     height: auto;
-
   }
 
   .navbar2 {
-
     background-color: rgb(255, 255, 255);
     height: 60px;
   }
   .navbar_item {
     font-size: 85%;
-
   }
   .page_name {
     text-align: left;
-    padding: 
-    4% 6%;
+    padding: 4% 6%;
     font-size: 12px;
     color: rgb(73, 76, 86);
   }
-  
-  }
-  
+}

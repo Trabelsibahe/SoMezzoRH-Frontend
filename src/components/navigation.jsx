@@ -20,6 +20,8 @@ function Navigation({ user }) {
             color: color,
             backgroundColor: color,
             height: 1,
+            width: "70%",
+            margin: "2em"
         }}
     />
 );
@@ -39,47 +41,42 @@ function Navigation({ user }) {
 
     <div className="Nav">
       <nav className="navbar">
-        <div className="navbar2"><div className="navbar__logo"><img className="navbar__logo" src={logo} alt="logo" /></div>
-</div>
+        <div className="navbar2"><div className="navbar_logo"><img className="navbar_logo" src={logo} alt="logo" /></div>
+      </div>
 
       
-        
         <div className="navbar_item">Bienvenue {user.name}</div>        
-        <button className="navbar__toggle" onClick={toggleSidebar}>  {showSidebar ? <CloseIcon/> : <MenuIcon/>}</button>
+        <button className="navbar_toggle" onClick={toggleSidebar}>  {showSidebar ? <CloseIcon/> : <MenuIcon/>}</button>
       </nav>
 
       <aside className={`sidebar ${showSidebar ? "show" : ""}`}>
 
-        <ul className="sidebar__list">
-        <ColoredLine color="white" />
+        <ul className="sidebar_list">
 
-        <li className="sidebar__avatar"><img className="SideNav_Avatar"src={avatar} alt="avatar"></img></li>
-          <li className="sidebar__name">{user.name}</li>
+        <li className="sidebar_avatar"><img className="SideNav_Avatar"src={avatar} alt="avatar"></img></li>
+          <li className="sidebar_name">{user.name}</li>
 
-          <ColoredLine color="#24377b" />
+          <ColoredLine color="white" />
 
-          <a href="/acceuil" className="sidebar__item"><li>Acceuil</li></a>
+          <a href="/acceuil" className="sidebar_item"><li>Acceuil</li></a>
 
-          <NavDropdown  menuVariant="dark" title="Profil" className="sidebar__item">
+          <NavDropdown menuVariant="dark" title="Profil" className="sidebar_item">
             <NavDropdown.Item  href="/profil">Profil</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2"> Another action </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/profil/securité">Securité</NavDropdown.Item>
           </NavDropdown>
-  
 
             {user.role === "EXPERT" ? (
-          <a href="/expertrh" className="sidebar__item"><li>Mon espace</li></a> 
+          <a href="/expertrh" className="sidebar_item"><li>Mon espace</li></a> 
           ) : (<div></div>   )}
-          
-          <a href="#" className="sidebar__item"><li>Page 4</li></a>
-          <ColoredLine color="white" />
 
+          <a href="#" className="sidebar_item"><li>Page 4</li></a>
+          <ColoredLine color="white" />
           {!user.isConnected ? (<div></div>
             ) : (
-          <li className="sidebar__item"><BiLogOut onClick={LogoutHandler} className="logout_icon"/></li>  )}
+          <div className="sidebar_logout"><BiLogOut onClick={LogoutHandler} className="logout_icon"/></div>  )}
         </ul>
-  
       </aside>
 
     </div>
