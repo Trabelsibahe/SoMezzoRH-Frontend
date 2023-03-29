@@ -1,0 +1,47 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
+
+.news_page {
+    margin: 0 auto;
+    min-height: 100vh;
+    width: 100%;
+    font-family: Open Sans;
+    padding-top:10%;
+  }
+
+.news_container {
+    position: absolute;
+    top: 15%;
+    margin-left: 25%;
+    width: 60%;
+    height: 1%;
+
+}
+.news_item_card {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+}
+
+.news_item_card img {
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+}
+
+.news_item_card .card-body {
+  padding: 1rem;
+}
+
+.news_item_card .card-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.news_item_card .card-text {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+
+
+  
