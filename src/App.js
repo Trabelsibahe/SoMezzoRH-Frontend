@@ -15,7 +15,7 @@ import ProfilePage from './pages/profile';
 import NotFoundPage from './pages/notfound';
 import ForceRedirect from "./routes/ForceRedirect"
 import WelcomePage from './pages/welcome';
-import RegisterPage from './pages/register';
+import ChangePassword from './pages/profilepassword';
 import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { GetProfileAction } from './actions/profile.actions';
@@ -90,7 +90,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
 
           <Route path="/acceuil" element={<NewsLetterPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profil/securité" element={<ChangePassword />} />
 
           <Route path="/listuser" element={<ExpertRouter user={user}> {" "} <Admin/>{" "} </ExpertRouter>}/>
           <Route path="/archive"  element={<ExpertRouter user={user}> {" "} <Archive/>{" "} </ExpertRouter>}/>

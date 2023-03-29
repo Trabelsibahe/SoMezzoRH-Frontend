@@ -18,9 +18,6 @@
   width: 85%;
 }
 
-
-
-
 .profile_info {
   font-weight: bold;
    font-size: 18px;
@@ -32,23 +29,70 @@
 
 .profile_list { 
   line-height: 18px;
-  
+  padding: 0.35em;
   }
-  
+
+  .profile_item {
+    margin-left: 1em !important;
+    background-color: #F5F5F9;
+  }
+  .profile_item2 {
+    margin-left: 1em !important;
+    background-color: #F5F5F9;
+    width: 29.1em;
+
+  }
+
+  .profile_list2{ 
+    line-height: 18px;
+    padding: 0.35em;
+    text-align: center;
+    }
+
 .profile_att {
   font-weight: bold;
   color: rgb(76, 78, 88);
   font-size: 16px;
-  display: inline
-
-  
+  display: inline;
 }
+
 .profile_value {
   color: rgb(111, 114, 130);
   font-size: 15px;
   display: inline
-
 }
+
+.label-file {
+  cursor: pointer;
+  color: #000000;
+  font-weight: bold;
+  background-color: #F5F5F9;
+  height: 60px;
+  padding: 1em;
+  text-align: center;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgb(206, 206, 206);
+}
+
+.label-file:hover {
+  color: grey;
+}
+
+.input-file {
+  display: none;
+}
+.profile_upload {
+  flex-direction: row;
+}
+
+.profile_button {
+  width: 72%;
+  padding: 1em;
+  text-align: right !important;
+  margin: 0em 7em;
+}
+
 @media screen and (max-width: 768px) {
 
   .profile_container {
@@ -64,5 +108,25 @@
     font-size: 100%;
   }
 
+  .profile_list { 
+    padding: 0em;
+    text-align: center;
+  
+    }
+    .profile_item {
+      margin-left: 0em !important;
+      background-color: #F5F5F9;
+    }
+    .profile_item2 {
+      margin-left: 0em !important;
+      background-color: #F5F5F9;
+      width:222px;
+    }
+    .profile_button {
+      width: 100%;
+      padding: 1em;
+      text-align: right !important;
+      margin: 0em 0em;
+    }
 
 }

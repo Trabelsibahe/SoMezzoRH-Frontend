@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../assets/styles/navigation.css";
+import "../assets/styles/dropdown.css";
 import logo from "../assets/images/logoblanc.png"
 import avatar from "../assets/images/avatar.avif"
 import { Logout } from "../actions/auth.actions";
@@ -8,6 +9,9 @@ import { useNavigate } from 'react-router-dom'
 import { BiLogOut } from 'react-icons/bi';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Navigation({ user }) {
   const ColoredLine = ({ color }) => (
@@ -56,7 +60,13 @@ function Navigation({ user }) {
 
           <a href="/acceuil" className="sidebar__item"><li>Acceuil</li></a>
 
-          <a href="/profil" className="sidebar__item"><li>Profil</li></a>
+          <NavDropdown  menuVariant="dark" title="Profil" className="sidebar__item">
+            <NavDropdown.Item  href="/profil">Profil</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2"> Another action </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="/profil/securité">Securité</NavDropdown.Item>
+          </NavDropdown>
+  
 
             {user.role === "EXPERT" ? (
           <a href="/expertrh" className="sidebar__item"><li>Mon espace</li></a> 

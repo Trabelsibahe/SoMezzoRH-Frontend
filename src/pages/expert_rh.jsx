@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { SetProfileAction, GetProfileAction } from "../actions/profile.actions";
 import UserList  from "../components/userlist/userlist_table";
-import RegisterPage from "../pages/register"
+import RegisterPage from "../components/register"
 import { Button } from "@mui/material";
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 
