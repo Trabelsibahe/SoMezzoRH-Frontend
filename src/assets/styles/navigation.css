@@ -15,7 +15,7 @@
   padding: 0 20px;
   background: #f2f4f6;
   position: fixed;
-  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
+  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2) !important;
   width: 100%;
   top: 0;
   z-index: 3;
@@ -91,7 +91,7 @@
 
 .sidebar_logout {
   font-size: 18px;
-  margin: 3em 3em;
+  margin: 1.5em 3em;
   cursor: pointer;
   color: #ffffff;
   text-decoration: none !important;

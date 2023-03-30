@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../assets/styles/navigation.css";
-import "../assets/styles/dropdown.css";
 import logo from "../assets/images/logoblanc.png"
 import avatar from "../assets/images/avatar.avif"
 import { Logout } from "../actions/auth.actions";
@@ -41,7 +40,7 @@ function Navigation({ user }) {
 
     <div className="Nav">
       <nav className="navbar">
-        <div className="navbar2"><div className="navbar_logo"><img className="navbar_logo" src={logo} alt="logo" /></div>
+        <div className="navbar2"><a  href="/"><img className="navbar_logo" src={logo} alt="logo" /></a>
       </div>
 
       
@@ -76,7 +75,7 @@ function Navigation({ user }) {
           <ColoredLine color="white" />
           {!user.isConnected ? (<div></div>
             ) : (
-          <div className="sidebar_logout"><BiLogOut className="logout_icon" onClick={LogoutHandler} />Déconnexion</div>  )}
+          <div className="sidebar_logout"><BiLogOut className="logout_icon" onClick={LogoutHandler} /> Déconnexion</div>  )}
         </ul>
       </aside>
 

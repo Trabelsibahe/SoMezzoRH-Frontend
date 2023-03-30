@@ -2,23 +2,14 @@ import Card from 'react-bootstrap/Card';
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {listernews,addnews} from '../actions/news.actions'
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import Table from "react-bootstrap/Table";
 import Navigation from "../components/navigation";
 import "../assets/styles/news.css";
 
+
+import divider from "../components/divider"
+
 function NewsLetterPage() {
-  const ColoredLine = ({ color }) => (
-    <hr
-        style={{
-            color: color,
-            backgroundColor: color,
-            height: 1,
-        }}
-    />
-);
+
   const dispatch = useDispatch(); 
     const news = useSelector(state => state.news.news)
     const auth = useSelector((state) => state.auth);
@@ -34,13 +25,25 @@ function NewsLetterPage() {
     role: auth.user.role,
     password : auth.user.password,
   };
+
   return (
-    <div><Navigation user={CurrentProfile} />
     <div className="news_page">
+          <Navigation user={CurrentProfile} />
       <div className="news_container">
-            <div className="news_container">
-      {news && news.length > 0 ? (
-        news.map((newsItem, index) => (
+
+      <div className="page_name">
+          Pages / Acceuil{" "}
+          <p style={{ fontWeight: "bold", fontSize: "14px" }}>
+            Newsletter
+          </p>
+          
+        </div>
+        <div className='news_body'>
+          <h5>Quoi de neuf ? </h5>
+          <hr className='news_hr'/>
+          {news && news.length > 0 ? (news.map((newsItem, index) => (
+          <div className='news_content'>
+        <div className='news_card'>
           <div key={index} className="news_item">
           <Card className="news_item_card">
             <Card.Img variant="top" src={`http://localhost:3030/${newsItem?.imgurl}`} />
@@ -49,17 +52,23 @@ function NewsLetterPage() {
               <Card.Text>{newsItem.description}</Card.Text>
             </Card.Body>
           </Card>
-          <ColoredLine color="blue" />
 
           </div>
+          </div>
+          <hr className='news_hr' />
+
+      </div>
+      
         ))
       ) : (
         'Aucune newsletter trouvée...'
       )}
+  
+      </div>
+
+      </div>
         </div>    
-        </div>
-        </div>
-    </div>
+        
   )
 }
 

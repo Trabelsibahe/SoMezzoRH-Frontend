@@ -89,8 +89,10 @@ function App() {
 
           <Route path="*" element={<NotFoundPage />} />
 
+          <Route path="/" element={<NewsLetterPage />} />
           <Route path="/acceuil" element={<NewsLetterPage />} />
-          <Route path="/profil/securité" element={<ChangePassword />} />
+          
+          <Route path="/profil/securité" element={<PrivateRouter user={user}> {" "} <ChangePassword /> {" "}</PrivateRouter>}/>
 
           <Route path="/listuser" element={<ExpertRouter user={user}> {" "} <Admin/>{" "} </ExpertRouter>}/>
           <Route path="/archive"  element={<ExpertRouter user={user}> {" "} <Archive/>{" "} </ExpertRouter>}/>

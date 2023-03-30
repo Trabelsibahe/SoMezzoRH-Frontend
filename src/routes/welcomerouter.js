@@ -7,7 +7,7 @@ const WelcomeRouter = ({ user, children }) => {
   }
 
   else if (user.isConnected && user.HasProfile !== null ) {
-    return <Navigate to='/profil' />
+    return <Navigate to='/acceuil' />
   }
 
 return children

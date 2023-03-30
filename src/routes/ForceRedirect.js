@@ -10,7 +10,7 @@ const ForceRedirect = ({ user, children }) => {
   }
 
   else if (user.isConnected && user.HasProfile !== null ) {
-    return <Navigate to="/profil" replace />
+    return <Navigate to="/acceuil" replace />
   }
 
 return children
