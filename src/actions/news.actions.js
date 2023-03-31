@@ -6,7 +6,7 @@ export const listernews = () => {
             try{
                 const res = await axios.get('http://127.0.0.1:3030/api/get/news')
                 if (res.status === 200){
-                    console.log(res.data)
+                    
                  dispatch({type : newsConstants.GET_ALL_NEWS,
                  payload : res.data 
                 })  

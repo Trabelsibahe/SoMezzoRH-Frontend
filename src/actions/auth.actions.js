@@ -44,6 +44,28 @@ export const LoginAction = (form, navigate)=>dispatch=>{
 
 }
 
+// Change Password 
+export const ChangePasswordAction = (form, navigate) => dispatch => {
+    axios.post('http://localhost:3030/api/modifmotpass', form)
+
+    .then(res => {
+        alert("Mot de passe modifié, veuillez reconnecter")
+        localStorage.clear()
+        window.location.reload()
+        dispatch({
+            type: authConstants.SET_USER,
+            payload: res.data
+        })
+
+    })
+    .catch (err => {
+        dispatch({
+            type: authConstants.ERRORS,
+            payload: err.response.data
+        })
+    })
+}
+
 // logout
 export const Logout = (navigate)=>dispatch=>{
     localStorage.removeItem('jwt')

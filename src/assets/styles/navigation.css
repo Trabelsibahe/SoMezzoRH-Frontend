@@ -27,8 +27,11 @@
   right: 20px;
   padding: 0.9em;
   position: relative;
-  border-bottom-right-radius: 55px;
-  border-top-right-radius: 55px;
+  border-bottom-right-radius: 60px;
+  border-top-right-radius: 10px;
+  box-shadow: 1px 2px 3px 0 rgba(60, 60, 60, 0.2) !important;
+
+
 }
 .navbar_item {
   color: rgb(73, 76, 86);
@@ -58,6 +61,7 @@
   height: calc(100vh - 70px);
   transform: translateX(0);
   transition: transform 0.3s ease-in-out;
+  box-shadow: 2px 1px 3px 0 rgba(60, 60, 60, 0.2) !important;
   z-index: 3;
 
   background: #24377b;
@@ -145,6 +149,7 @@
   .sidebar {
     width: 70%;
     transform: translateX(-100%);
+    left: -4px;
   }
   .sidebar.show {
     transform: translateX(0);
@@ -167,6 +172,8 @@
   .navbar2 {
     background-color: rgb(255, 255, 255);
     height: 60px;
+    box-shadow: none !important;
+
   }
   .navbar_item {
     font-size: 85%;
