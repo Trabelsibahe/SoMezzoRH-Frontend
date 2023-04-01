@@ -13,9 +13,6 @@ import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
-
-
-
 function ProfilePage() {
   const auth = useSelector((state) => state.auth);
   const profile = useSelector((state) => state.profiles.profile);
@@ -39,26 +36,26 @@ function ProfilePage() {
   const [ role, setRole ] = useState('');
   const [ tel, setTel ] = useState('');
   const [ codepostal, setCodepostal ] = useState('');
+  const [avatar, setAvatar] = useState('null');
 
   const [edit, setEdit] = useState(false);
   const handleCloseEdit = () => setEdit(false);
 
-
-
   //handleshowedit
   const handleShowEdit = (profile) => {
-  const { user, tel, ville, pays, codepostal } = profile || {};
+    const { user, tel, ville, pays, codepostal,avatar } = profile || {};
 
     if (user) {
       setUtilisateur(user.utilisateur);
       setMatricule(user.matricule);
       setRole(user.role);
     }
-    
+
     setTel(tel);
     setVille(ville);
     setPays(pays);
     setCodepostal(codepostal);
+    setAvatar(avatar);
   };
 
   // useeffect
@@ -70,34 +67,36 @@ function ProfilePage() {
     }
   }, [profile, profileLoaded]);
 
+// edit function
+const editUser = async () => {
+  const data = new FormData();
+  data.append('tel', tel);
+  data.append('ville', ville);
+  data.append('pays', pays);
+  data.append('codepostal', codepostal);
+  data.append('avatar', avatar);
 
-  // edit function
-  const editUser = async () => {
-  const data = {
-    user :{
-      utilisateur,
-      matricule,
-      role },
-    tel,
-    ville,
-    pays,
-    codepostal
-  }
+  // Ajouter les attributs de l'utilisateur directement dans l'objet FormData
+  data.append('utilisateur', utilisateur);
+  data.append('matricule', matricule);
+  data.append('role', role);
 
-  await dispatch(modifierprofile(data))
-  await dispatch(GetProfileAction())
-  await dispatch(GetProfileAction())
+  await dispatch(modifierprofile(data));
+  await dispatch(GetProfileAction());
+  await dispatch(GetProfileAction());
+  await dispatch(GetProfileAction());
+  await dispatch(GetProfileAction());
 
-    handleCloseEdit()
-    setUtilisateur('')
-    setMatricule('')
-    setRole('')
-    setTel('')
-    setVille('')
-    setPays('')
-    setCodepostal('')
-  }
-
+  handleCloseEdit();
+  setUtilisateur('');
+  setMatricule('');
+  setRole('');
+  setTel('');
+  setVille('');
+  setPays('');
+  setCodepostal('');
+  setAvatar(null);
+};
 
 
 
@@ -115,7 +114,7 @@ function ProfilePage() {
           <img
             className="profile_header_avatar"
             alt="avatar"
-            src={Avatar}
+            src={`http://localhost:3030/${profile?.avatar}`}
           ></img>
           <div className="profile_header_content">
             <p className="profile_header_p1">Trabelsi Bahe eddine</p>
@@ -155,7 +154,7 @@ function ProfilePage() {
         
           <div className="profile_list">
           <label for="file" class="label-file">Choisir votre avatar</label>
-          <input id="file" class="input-file" type="file"/>
+          <input id="file" class="input-file" type="file" onChange={(e) => setAvatar(e.target.files[0])}/>
           </div>
                     
           <div className="profile_list">

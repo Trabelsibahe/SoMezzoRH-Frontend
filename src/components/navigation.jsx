@@ -3,7 +3,7 @@ import "../assets/styles/navigation.css";
 import logo from "../assets/images/logoblanc.png"
 import avatar from "../assets/images/avatar.avif"
 import { Logout } from "../actions/auth.actions";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom'
 import { BiLogOut } from 'react-icons/bi';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -13,6 +13,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Navigation({ user }) {
+  const profile = useSelector((state) => state.profiles.profile);
   const ColoredLine = ({ color }) => (
     <hr
         style={{
@@ -52,7 +53,7 @@ function Navigation({ user }) {
 
         <ul className="sidebar_list">
 
-        <li className="sidebar_avatar"><img className="SideNav_Avatar"src={avatar} alt="avatar"></img></li>
+        <li className="sidebar_avatar"><img className="SideNav_Avatar"src={`http://localhost:3030/${profile?.avatar}`}alt="avatar"></img></li>
           <li className="sidebar_name">{user.name}</li>
 
           <ColoredLine color="white" />

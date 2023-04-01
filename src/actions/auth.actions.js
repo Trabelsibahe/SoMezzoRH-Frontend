@@ -5,7 +5,7 @@ import { setAuth } from '../util/setAuth';
 
 // register
 export const RegisterAction = (form, navigate) => dispatch => {
-    axios.post('http://localhost:3030/api/register', form)
+    axios.post('http://127.0.0.1:3030/api/register', form)
     .then(res=> {
         navigate('/login');
         alert("User registered. You may now login.")
@@ -24,7 +24,7 @@ export const RegisterAction = (form, navigate) => dispatch => {
 
 // login
 export const LoginAction = (form, navigate)=>dispatch=>{
-    axios.post('http://localhost:3030/api/login', form) 
+    axios.post('http://127.0.0.1:3030/api/login', form) 
 
     .then(res=>{
         const {token} = res.data
@@ -46,7 +46,7 @@ export const LoginAction = (form, navigate)=>dispatch=>{
 
 // Change Password 
 export const ChangePasswordAction = (form, navigate) => dispatch => {
-    axios.post('http://localhost:3030/api/modifmotpass', form)
+    axios.post('http://127.0.0.1:3030/api/modifmotpass', form)
 
     .then(res => {
         alert("Mot de passe modifié, veuillez reconnecter")

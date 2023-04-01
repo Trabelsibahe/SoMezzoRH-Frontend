@@ -2,7 +2,7 @@ import axios from 'axios'
 import { profileConstants } from '../actions/constantes';
 
 export const SetProfileAction = (form, setShow, setMessage, navigate)=>dispatch=>{
-    axios.post("http://localhost:3030/api/profile/create", form)
+    axios.post("http://127.0.0.1:3030/api/profile/create", form)
       .then(res => {
         setShow(true)
         navigate("/profile");
@@ -26,7 +26,7 @@ export const SetProfileAction = (form, setShow, setMessage, navigate)=>dispatch=
 }
 
 export const GetProfileAction = ()=>dispatch=>{
-    axios.get("http://localhost:3030/api/profile/get")
+    axios.get("http://127.0.0.1:3030/api/profile/get")
       .then(res => {
           dispatch({
               type: profileConstants.SET_PROFILE,
@@ -94,7 +94,7 @@ export const DeleteProfile = (id)=>dispatch=>{
 }
 //fonction modifier
  export const modifierContact = (id, contactData) => (dispatch) => {
-    axios.post(`http://localhost:3030/api/profile/${id}`, contactData)
+    axios.post(`http://127.0.0.1:3030/api/profile/${id}`, contactData)
       .then((res) => {
         dispatch({
           type: profileConstants.MODIFIER_CONTACT_SUCCESS,
