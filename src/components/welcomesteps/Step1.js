@@ -3,9 +3,7 @@ import Classnames from 'classnames';
 import {useSelector } from "react-redux";
 
 function StepOne({ form, setForm, onSubmit, setPage}) {
-
   const errors = useSelector(state=>state.errors)
-
 
   return (
     <form className="welcome_card-form" onSubmit={onSubmit}>
@@ -16,10 +14,11 @@ function StepOne({ form, setForm, onSubmit, setPage}) {
         {
           errors.tel && (<div  className="welcome_invalid_input">
           {errors.tel}
+          
         </div>) 
         }
-       
        </div>
+
        <button className="welcome_button_next" type="submit" onClick={() => { 
         if (form.tel.isEmpty || form.tel === "") {
           console.log("empty")

@@ -9,7 +9,7 @@ function StepTwo({ form, setForm, setPage, onSubmit }) {
 
   return (
     <form className="welcome_card-form" onSubmit={onSubmit}>
-
+      
       <div className="welcome_input">
         <input type="text"  placeholder=" " name="ville" value={form.ville && form.ville ? form.ville : ''}
           onChange={(event) => setForm({ ...form, ville: event.target.value })} className={Classnames("welcome_input-field", { "is-invalid": errors.ville })} />

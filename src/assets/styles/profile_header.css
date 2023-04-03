@@ -4,7 +4,7 @@
   display: flex;
   width: 92%;
   height: 6em;
-  background-color: #FBFCFD;
+  background-color: #fbfcfd;
   border-radius: 10px;
   box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
   padding: 1rem;
@@ -12,7 +12,10 @@
 }
 
 .profile_header_avatar {
-  width: 65px;
+  width: 4em;
+  height: 4em;
+  border: 1px solid  rgb(73, 76, 86);
+  border-radius: 50%;
 }
 
 .profile_header_content {
@@ -38,16 +41,15 @@
 }
 
 @media screen and (max-width: 768px) {
-
-    .profile_header {
+  .profile_header {
     padding: 1em;
     width: 100%;
     margin: 3%;
     font-size: 70%;
   }
   .profile_header_avatar {
-    width: 50px;
-
+    width: 4em;
+    height: 4em;
   }
   .profile_header_p1 {
     padding: 10px 20px;

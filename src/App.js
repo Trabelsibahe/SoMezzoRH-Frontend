@@ -89,9 +89,9 @@ function App() {
 
           <Route path="*" element={<NotFoundPage />} />
 
-          <Route path="/" element={<NewsLetterPage />} />
-          <Route path="/acceuil" element={<NewsLetterPage />} />
-          
+          <Route path="/"element={ <PrivateRouter user={user}> {" "} <NewsLetterPage /> {" "}</PrivateRouter>} />
+          <Route path="/acceuil" element={ <PrivateRouter user={user}> {" "} <NewsLetterPage /> {" "}</PrivateRouter>} />
+
           <Route path="/profil/securité" element={<PrivateRouter user={user}> {" "} <ChangePassword /> {" "}</PrivateRouter>}/>
 
           <Route path="/listuser" element={<ExpertRouter user={user}> {" "} <Admin/>{" "} </ExpertRouter>}/>

@@ -180,6 +180,29 @@ input:not(:placeholder-shown) + .welcome_input-label {
 .welcome_p {
   color: #24377b;
 }
+.welcome_upload_button{
+  text-align: center;
+}
+.welcome_label-file {
+  cursor: pointer;
+  color: #24377b;
+  font-weight: bold;
+  background-color: #F5F5F9;
+  height: 50px;
+  padding: 0.4em;
+  text-align: center;
+  width: 55%;
+  border-radius: 34px;
+  border: 1px solid rgb(206, 206, 206);
+}
+
+.welcome_label-file:hover {
+  color: grey;
+}
+
+.input-file {
+  display: none;
+}
 
 
 @keyframes shake {

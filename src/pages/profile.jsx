@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import "../assets/styles/profile.css";
 import { useEffect, useState } from "react";
 import { SetProfileAction, GetProfileAction ,modifierprofile} from "../actions/profile.actions";
-import Avatar from "../assets/images/avatar.avif";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { Input, TextField } from "@mui/material";
@@ -12,6 +11,8 @@ import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import altAvatar from "../assets/images/avatar.avif"
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 
 function ProfilePage() {
   const auth = useSelector((state) => state.auth);
@@ -98,8 +99,6 @@ const editUser = async () => {
   setAvatar(null);
 };
 
-
-
   return (
     <div className="profile_page">
       <Navigation user={CurrentProfile} />
@@ -111,11 +110,7 @@ const editUser = async () => {
         </div>
 
         <div className="profile_header">
-          <img
-            className="profile_header_avatar"
-            alt="avatar"
-            src={`http://localhost:3030/${profile?.avatar}`}
-          ></img>
+          <img className="profile_header_avatar" alt={altAvatar} src={`http://localhost:3030/${profile?.avatar}`} ></img>
           <div className="profile_header_content">
             <p className="profile_header_p1">Trabelsi Bahe eddine</p>
             <p className="profile_header_p2">RESPONSABLE RH OPERATIONNEL</p>
@@ -153,7 +148,7 @@ const editUser = async () => {
           <div className="profile_body_2">
         
           <div className="profile_list">
-          <label for="file" class="label-file">Choisir votre avatar</label>
+          <label for="file" class="label-file"><CloudUploadOutlinedIcon fontSize="large" /> Changer votre avatar</label>
           <input id="file" class="input-file" type="file" onChange={(e) => setAvatar(e.target.files[0])}/>
           </div>
                     

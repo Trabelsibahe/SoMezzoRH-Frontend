@@ -1,44 +1,44 @@
 import axios from 'axios'
 import { profileConstants } from '../actions/constantes';
 
-export const SetProfileAction = (form, setShow, setMessage, navigate)=>dispatch=>{
-    axios.post("http://127.0.0.1:3030/api/profile/create", form)
-      .then(res => {
-        setShow(true)
-        navigate("/profile");
-        alert("profile created, you will be redirected to your profile now")
-        setMessage("Profile created.")
-        dispatch({
-            type: profileConstants.PROFILE_ERRORS,
-            payload: {}
-        })
-        setTimeout(() => {
-            setShow(false)
-        }, 4000);
-        navigate("/profil");
+export const SetProfileAction = (form, setShow, setMessage, navigate) => dispatch => {
+  axios.post("http://127.0.0.1:3030/api/profile/create", form)
+    .then(res => {
+      setShow(true)
+      navigate("/profil");
+      alert("profile created, you will be redirected to your profile now")
+      setMessage("Profile created.")
+      dispatch({
+        type: profileConstants.PROFILE_ERRORS,
+        payload: {}
       })
-      .catch(err => {
-          dispatch({
-              type: profileConstants.PROFILE_ERRORS,
-              payload: err.response.data
-          })
-      });
+      setTimeout(() => {
+        setShow(false)
+      }, 4000);
+      navigate("/profil");
+    })
+    .catch(err => {
+      dispatch({
+        type: profileConstants.PROFILE_ERRORS,
+        payload: err.response.data
+      })
+    });
 }
 
-export const GetProfileAction = ()=>dispatch=>{
-    axios.get("http://127.0.0.1:3030/api/profile/get")
-      .then(res => {
-          dispatch({
-              type: profileConstants.SET_PROFILE,
-              payload: res.data
-          })
+export const GetProfileAction = () => dispatch => {
+  axios.get("http://127.0.0.1:3030/api/profile/get")
+    .then(res => {
+      dispatch({
+        type: profileConstants.SET_PROFILE,
+        payload: res.data
       })
-      .catch(err => {
-          dispatch({
-              type: profileConstants.PROFILE_ERRORS,
-              payload: err.response.data
-          })
-      });
+    })
+    .catch(err => {
+      dispatch({
+        type: profileConstants.PROFILE_ERRORS,
+        payload: err.response.data
+      })
+    });
 }
 //fonction getlist
 /*export const GetProfiles = ()=>dispatch=>{
@@ -57,103 +57,106 @@ export const GetProfileAction = ()=>dispatch=>{
           })
       });
 }*/
-  export const GetProfiles = () => {
-    return async dispatch => {
-        dispatch({type : profileConstants.PROFILE_REQUEST})  
-            try{
-                const res = await axios.get('http://127.0.0.1:3030/api/profiles')
-                if (res.status === 200){
-                 dispatch({type : profileConstants.GET_ALL_PROFILES,
-                 payload : res.data 
-                })  
-                }
-            }catch(error){
-                dispatch({type : profileConstants.PROFILE_ERRORS,
-                payload : { error : error.response}})  
+export const GetProfiles = () => {
+  return async dispatch => {
+    dispatch({ type: profileConstants.PROFILE_REQUEST })
+    try {
+      const res = await axios.get('http://127.0.0.1:3030/api/profiles')
+      if (res.status === 200) {
+        dispatch({
+          type: profileConstants.GET_ALL_PROFILES,
+          payload: res.data
+        })
+      }
+    } catch (error) {
+      dispatch({
+        type: profileConstants.PROFILE_ERRORS,
+        payload: { error: error.response }
+      })
 
-            }
     }
+  }
 }
-export const DeleteProfile = (id)=>dispatch=>{
-   if(window.confirm("are you sure to delete this user?")){
+export const DeleteProfile = (id) => dispatch => {
+  if (window.confirm("are you sure to delete this user?")) {
     axios
-    .delete(`/api/profiles/${id}`)
-    .then(res => {
+      .delete(`/api/profiles/${id}`)
+      .then(res => {
         dispatch({
-            type: profileConstants.DELETE_PROFILE,
-            payload: id
+          type: profileConstants.DELETE_PROFILE,
+          payload: id
         })
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         dispatch({
-            type: profileConstants.PROFILE_ERRORS,
-            payload: err.response.data
+          type: profileConstants.PROFILE_ERRORS,
+          payload: err.response.data
         })
-    });
-   }
+      });
+  }
 }
 //fonction modifier
- export const modifierContact = (id, contactData) => (dispatch) => {
-    axios.post(`http://127.0.0.1:3030/api/profile/${id}`, contactData)
-      .then((res) => {
-        dispatch({
-          type: profileConstants.MODIFIER_CONTACT_SUCCESS,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        dispatch({
-          type: profileConstants.MODIFIER_CONTACT_FAILURE,
-          payload: err.response.data,
-        });
+export const modifierContact = (id, contactData) => (dispatch) => {
+  axios.post(`http://127.0.0.1:3030/api/profile/${id}`, contactData)
+    .then((res) => {
+      dispatch({
+        type: profileConstants.MODIFIER_CONTACT_SUCCESS,
+        payload: res.data,
       });
-  };
-  //fonction recherche par matricule
-  export const searchByMatricule = (matricule) => (dispatch) => {
-    axios.get(`http://localhost:3030/api/serchmatricule?matricule=${matricule}`)
-      .then((res) => {
-        dispatch({
-          type: profileConstants.SEARCH_PROFILES_SUCCESS,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        dispatch({
-          type: profileConstants.SEARCH_PROFILES_FAILURE,
-          payload: err.response.data,
-        });
+    })
+    .catch((err) => {
+      dispatch({
+        type: profileConstants.MODIFIER_CONTACT_FAILURE,
+        payload: err.response.data,
       });
-  };
-  //fonction delete + envouyer a l'archive 
+    });
+};
+//fonction recherche par matricule
+export const searchByMatricule = (matricule) => (dispatch) => {
+  axios.get(`http://localhost:3030/api/serchmatricule?matricule=${matricule}`)
+    .then((res) => {
+      dispatch({
+        type: profileConstants.SEARCH_PROFILES_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: profileConstants.SEARCH_PROFILES_FAILURE,
+        payload: err.response.data,
+      });
+    });
+};
+//fonction delete + envouyer a l'archive 
 
-  export const deleteAndArchiveProfile = (id) => (dispatch) => {
-    axios.delete(`http://localhost:3030/api/profilesupp/${id}`)
-      .then((res) => {
-        dispatch({
-          type: profileConstants.DELETE_PROFILE_SUCCESS,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        dispatch({
-          type: profileConstants.DELETE_PROFILE_FAILURE,
-          payload: err.response.data,
-        });
+export const deleteAndArchiveProfile = (id) => (dispatch) => {
+  axios.delete(`http://localhost:3030/api/profilesupp/${id}`)
+    .then((res) => {
+      dispatch({
+        type: profileConstants.DELETE_PROFILE_SUCCESS,
+        payload: res.data,
       });
-  };
-    //modifier profile connecter 
-    export const modifierprofile = (contactData) => (dispatch) => {
-      axios.post(`http://127.0.0.1:3030/api/profile/modif`, contactData)
-        .then((res) => {
-          dispatch({
-            type: profileConstants.MODIFIER_PROFILE_SUCCESS,
-            payload: res.data,
-          });
-        })
-        .catch((err) => {
-          dispatch({
-            type: profileConstants.MODIFIER_PROFILE_FAILURE,
-            payload: err.response.data,
-          });
-        });
-    };
+    })
+    .catch((err) => {
+      dispatch({
+        type: profileConstants.DELETE_PROFILE_FAILURE,
+        payload: err.response.data,
+      });
+    });
+};
+//modifier profile connecter 
+export const modifierprofile = (contactData) => (dispatch) => {
+  axios.post(`http://127.0.0.1:3030/api/profile/modif`, contactData)
+    .then((res) => {
+      dispatch({
+        type: profileConstants.MODIFIER_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: profileConstants.MODIFIER_PROFILE_FAILURE,
+        payload: err.response.data,
+      });
+    });
+};

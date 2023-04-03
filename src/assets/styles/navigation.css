@@ -80,7 +80,8 @@
 
 
 .SideNav_Avatar {
-  width: 100px;
+  width: 95px;
+  height: 95px;
   border: 2px solid white;
   border-radius: 50%;
 }
@@ -186,7 +187,7 @@
   }
   .sidebar_item {
     font-size: 15px;
-    padding: 0.7em;
+    padding: 0.5em;
   }
 
   .sidebar_logout {
