@@ -43,7 +43,7 @@
 }
 
 .navbar_toggle {
-  display: none;
+  display: none !important;
   font-size: 24px;
   background-color: transparent;
   color: #000000;
@@ -145,7 +145,14 @@
 
 @media screen and (max-width: 768px) {
   .navbar_toggle {
-    display: block;
+    display: block !important;
+  }
+  .navbar {
+    background: white;
+    height: auto;
+  }
+  .navbar_item{
+    margin-left: 68%;
   }
   .sidebar {
     width: 70%;
@@ -161,14 +168,7 @@
     width: 160px;
     content: url("../../assets/images/logonoir.png");
   }
-  .navbar {
-    background: linear-gradient(
-      90deg,
-      #ffffff 240px,
-      rgba(255, 255, 255, 1) 240px
-    );
-    height: auto;
-  }
+
 
   .navbar2 {
     background-color: rgb(255, 255, 255);

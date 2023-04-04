@@ -200,7 +200,7 @@ input:not(:placeholder-shown) + .welcome_input-label {
   color: grey;
 }
 
-.input-file {
+.welcome_input-file {
   display: none;
 }
 

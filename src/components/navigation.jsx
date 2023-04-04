@@ -11,6 +11,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import AccountMenu from "./account_menu";
+import IconButton from '@mui/material/IconButton';
 
 function Navigation({ user }) {
   const profile = useSelector((state) => state.profiles.profile);
@@ -45,8 +47,8 @@ function Navigation({ user }) {
       </div>
 
       
-        <div className="navbar_item">Bienvenue {user.name}</div>        
-        <button className="navbar_toggle" onClick={toggleSidebar}>  {showSidebar ? <CloseIcon/> : <MenuIcon/>}</button>
+        <div className="navbar_item"><AccountMenu profile={profile} LogoutHandler={LogoutHandler} /></div>     
+        <IconButton className="navbar_toggle" onClick={toggleSidebar}> {showSidebar ? <CloseIcon  icon={CloseIcon}/> : <MenuIcon  icon={MenuIcon}/>}</IconButton>
       </nav>
 
       <aside className={`sidebar ${showSidebar ? "show" : ""}`}>

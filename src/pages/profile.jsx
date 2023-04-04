@@ -113,8 +113,11 @@ const editUser = async () => {
           <img className="profile_header_avatar" alt={altAvatar} src={`http://localhost:3030/${profile?.avatar}`} ></img>
           <div className="profile_header_content">
             <p className="profile_header_p1">Trabelsi Bahe eddine</p>
-            <p className="profile_header_p2">RESPONSABLE RH OPERATIONNEL</p>
+
+            <p className="profile_header_p2">{role === 'EXPERT' ? ("RESPONSABLE RH METIER / EXPERT RH") : role === "EMP" ? ("EMPLOYÉ") : 
+            role === "RRH" ? ("RESPONSABLE RH OPÉRATIONNEL") : null }</p>
           </div>
+
         </div>
         <div className="profile_body">
         <form>
@@ -124,12 +127,12 @@ const editUser = async () => {
 
             <div className="profile_list">
              <TextField  className="profile_item" margin="normal" value={matricule} onChange={e => setMatricule(e.target.value)} size="small" label="Matricule" disabled/>{" "}
-             <TextField  className="profile_item" margin="normal" value={utilisateur}onChange={e => setUtilisateur(e.target.value)}  size="small" label="Nom d'utilisateur"/> 
+             <TextField  className="profile_item" margin="normal" value={utilisateur}onChange={e => setUtilisateur(e.target.value)}  size="small" label="Email"/> 
              </div>
 
              <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={tel} onChange={e => setTel(e.target.value)} size="small" label="Numéro de téléphone"/>{" "}
-             <TextField className="profile_item" margin="normal" value={pays} onChange={e => setPays(e.target.value)} size="small"  label="Pays"/>
+             <TextField className="profile_item" margin="normal" value={tel} onChange={e => setTel(e.target.value)} size="small" label="Pays"/>{" "}
+             <TextField className="profile_item" margin="normal" value={pays} onChange={e => setPays(e.target.value)} size="small"  label="Gouvernorat"/>
              </div>
 
              <div className="profile_list">
@@ -153,18 +156,18 @@ const editUser = async () => {
           </div>
                     
           <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Ville"/>{" "}
-             <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Code postale"/>
+             <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Numéro de téléphone"/>{" "}
+             <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Date de naissance"/>
              </div>
 
           <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Ville"/>{" "}
-             <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Code postale"/>
+             <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Votre opération"/>{" "}
+             <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Votre titre"/>
           </div>
 
           <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Ville"/>{" "}
-             <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Code postale"/>
+             <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Vacant"/>{" "}
+             <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Vacant"/>
           </div>
 
           <div className="profile_button"> 
