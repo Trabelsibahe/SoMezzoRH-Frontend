@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import altAvatar from "../assets/images/avatar.avif"
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import { DatePicker } from "@material-ui/pickers";
 
 function ProfilePage() {
   const auth = useSelector((state) => state.auth);
@@ -23,20 +24,30 @@ function ProfilePage() {
 
   const CurrentProfile = {
     isConnected: auth.isConnected,
-    name: auth.user.utilisateur,
+    nom: auth.user.nom,
+    prenom: auth.user.prenom,
     matricule: auth.user.matricule,
     role: auth.user.role,
-  };
+    operation: auth.user.operation,
+    titre: auth.user.titre,
+    active: auth.user.active,
 
+  };
+  const [ nom, setNom ] = useState('');
+  const [ prenom, setPrenom ] = useState('');
+  const [ operation, setOperation ] = useState('');
+  const [ titre, setTitre ] = useState('');
+  const [ gouvernorat, setGouvernorat ] = useState('');
   const [ ville, setVille ] = useState('');
+  const [ datenaiss, setDatenaiss ] = useState('');
+  const [ adresse, setAdresse ] = useState('');
   const [ pays, setPays ] = useState('');
-  const [ utilisateur, setUtilisateur ] = useState('');
   const [ matricule, setMatricule ] = useState('');
   const [ user, setUser] = useState(" ");
-
   const [ role, setRole ] = useState('');
   const [ tel, setTel ] = useState('');
   const [ codepostal, setCodepostal ] = useState('');
+  const [ email, setEmail ] = useState('');
   const [avatar, setAvatar] = useState('null');
 
   const [edit, setEdit] = useState(false);
@@ -44,19 +55,26 @@ function ProfilePage() {
 
   //handleshowedit
   const handleShowEdit = (profile) => {
-    const { user, tel, ville, pays, codepostal,avatar } = profile || {};
+    const { user, tel, ville, pays, codepostal,email,avatar,gouvernorat,adresse,datenaiss } = profile || {};
 
     if (user) {
-      setUtilisateur(user.utilisateur);
+      setNom(user.nom);
+      setPrenom(user.prenom)
       setMatricule(user.matricule);
       setRole(user.role);
+      setOperation(user.operation);
+      setTitre(user.titre)
     }
 
     setTel(tel);
     setVille(ville);
     setPays(pays);
     setCodepostal(codepostal);
+    setEmail(email);
     setAvatar(avatar);
+    setGouvernorat(gouvernorat);
+    setAdresse(adresse);
+    setDatenaiss(datenaiss);
   };
 
   // useeffect
@@ -75,12 +93,19 @@ const editUser = async () => {
   data.append('ville', ville);
   data.append('pays', pays);
   data.append('codepostal', codepostal);
+  data.append('email', email);   
+  data.append('gouvernorat', gouvernorat);   
+  data.append('adresse', adresse);    
+  data.append('datenaiss',datenaiss);    
   data.append('avatar', avatar);
 
   // Ajouter les attributs de l'utilisateur directement dans l'objet FormData
-  data.append('utilisateur', utilisateur);
+  data.append('nom', nom);
+  data.append('prenom', prenom);  
   data.append('matricule', matricule);
   data.append('role', role);
+  data.append('operation',operation);
+  data.append('titre',titre);
 
   await dispatch(modifierprofile(data));
   await dispatch(GetProfileAction());
@@ -89,16 +114,27 @@ const editUser = async () => {
   await dispatch(GetProfileAction());
 
   handleCloseEdit();
-  setUtilisateur('');
+  setNom('');
+  setPrenom('');
+  setOperation('');
   setMatricule('');
   setRole('');
   setTel('');
   setVille('');
   setPays('');
   setCodepostal('');
+  setEmail('');
+  setGouvernorat('');
+  setAdresse('');
+  setDatenaiss('');
+  setTitre('');
   setAvatar(null);
 };
-
+//formulaite date
+const formatDate = (dateString) => {
+  const dateObject = new Date(dateString);
+  return dateObject.toLocaleDateString("en-GB"); // Modifier le paramètre pour changer le format de date
+};
   return (
     <div className="profile_page">
       <Navigation user={CurrentProfile} />
@@ -112,7 +148,7 @@ const editUser = async () => {
         <div className="profile_header">
           <img className="profile_header_avatar" alt={altAvatar} src={`http://localhost:3030/${profile?.avatar}`} ></img>
           <div className="profile_header_content">
-            <p className="profile_header_p1">Trabelsi Bahe eddine</p>
+            <p className="profile_header_p1">{nom}{prenom}</p>
 
             <p className="profile_header_p2">{role === 'EXPERT' ? ("RESPONSABLE RH METIER / EXPERT RH") : role === "EMP" ? ("EMPLOYÉ") : 
             role === "RRH" ? ("RESPONSABLE RH OPÉRATIONNEL") : null }</p>
@@ -127,12 +163,12 @@ const editUser = async () => {
 
             <div className="profile_list">
              <TextField  className="profile_item" margin="normal" value={matricule} onChange={e => setMatricule(e.target.value)} size="small" label="Matricule" disabled/>{" "}
-             <TextField  className="profile_item" margin="normal" value={utilisateur}onChange={e => setUtilisateur(e.target.value)}  size="small" label="Email"/> 
+             <TextField  className="profile_item" margin="normal" value={email}onChange={e => setEmail(e.target.value)}  size="small" label="Email"/> 
              </div>
 
              <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={tel} onChange={e => setTel(e.target.value)} size="small" label="Pays"/>{" "}
-             <TextField className="profile_item" margin="normal" value={pays} onChange={e => setPays(e.target.value)} size="small"  label="Gouvernorat"/>
+             <TextField className="profile_item" margin="normal" value={pays} onChange={e => setPays(e.target.value)} size="small" label="Pays"/>{" "}
+             <TextField className="profile_item" margin="normal" value={gouvernorat} onChange={e => setGouvernorat(e.target.value)} size="small"  label="Gouvernorat"/>
              </div>
 
              <div className="profile_list">
@@ -141,7 +177,7 @@ const editUser = async () => {
              </div>
 
              <div className="profile_list">
-             <TextField className="profile_item2" multiline rows={2} margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Adresse"/>{" "}
+             <TextField className="profile_item2" multiline rows={2} margin="normal" value={adresse} onChange={e => setAdresse(e.target.value)} size="small" label="Adresse"/>{" "}
              </div>
           </div>
           </Box>
@@ -152,23 +188,24 @@ const editUser = async () => {
         
           <div className="profile_list">
           <label for="file" class="label-file"><CloudUploadOutlinedIcon fontSize="large" /> Changer votre avatar</label>
-          <input id="file" class="input-file" type="file" onChange={(e) => setAvatar(e.target.files[0])}/>
+          <input id="file" className="input-file" type="file" onChange={(e) => setAvatar(e.target.files[0])}/>
           </div>
                     
           <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Numéro de téléphone"/>{" "}
-             <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Date de naissance"/>
+             <TextField className="profile_item" margin="normal" value={tel} onChange={e => setTel(e.target.value)} size="small" label="Numéro de téléphone"/>{" "}
+             <TextField className="profile_item" margin="normal" value={formatDate(datenaiss)} onChange={e => setDatenaiss(e.target.value)} size="small"  label="Date de naissance"  />
              </div>
 
           <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Votre opération"/>{" "}
-             <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Votre titre"/>
+             <TextField className="profile_item" margin="normal" value={operation} onChange={e => setOperation(e.target.value)} size="small" label="Votre opération"/>{" "}
+             <TextField className="profile_item" margin="normal" value={titre} onChange={e => setTitre(e.target.value)} size="small" label="Votre titre"/>
           </div>
 
           <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Vacant"/>{" "}
+          <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Vacant"/>{" "}
              <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Vacant"/>
           </div>
+          
 
           <div className="profile_button"> 
           <Button style={{backgroundColor: "#24377b", width:"50%"}} variant="contained" startIcon={<EditTwoToneIcon />}  onClick={editUser}>modifier</Button>
