@@ -12,4 +12,6 @@ export default function formatDate(dateString) {
 
   // Combining the formatted day, month, and year with dashes as the separator
   return `${formattedYear}-${formattedMonth}-${formattedDay}`;
+
+  
 }

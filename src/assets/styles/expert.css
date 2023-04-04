@@ -78,7 +78,10 @@
   box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
 }
 
-
+.table_tr{
+  font-weight: 600;
+  color: rgb(76, 78, 88);;
+}
 @media screen and (max-width: 768px) {
 
 

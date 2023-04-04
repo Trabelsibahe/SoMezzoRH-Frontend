@@ -41,7 +41,8 @@ function Row(accounts, index) {
   const [id, setId] = useState("");
   const [ville, setVille] = useState("");
   const [pays, setPays] = useState("");
-  const [utilisateur, setUtilisateur] = useState("");
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
   const [matricule, setMatricule] = useState("");
   const [role, setRole] = useState("");
   const [tel, setTel] = useState("");
@@ -54,7 +55,8 @@ function Row(accounts, index) {
     profiles.forEach((p) => {
       if (p._id === id) {
         setId(p._id);
-        setUtilisateur(p.user.utilisateur);
+        setNom(p.user.nom);
+        setPrenom(p.user.prenom);
         setMatricule(p.user.matricule);
         setRole(p.user.role);
         setTel(p.tel);
@@ -70,7 +72,8 @@ function Row(accounts, index) {
   const EditProfile = async () => {
     const data = {
       user: {
-        utilisateur,
+        nom,
+        prenom,
         matricule,
         role,
       },
@@ -84,7 +87,8 @@ function Row(accounts, index) {
     await dispatch(GetProfiles());
     handleCloseEdit();
     setId("");
-    setUtilisateur("");
+    setNom("");
+    setPrenom("");
     setMatricule("");
     setRole("");
     setTel("");
@@ -111,15 +115,23 @@ function Row(accounts, index) {
           {" "}
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Utilisateur</Form.Label>
+              <Form.Label>Nom</Form.Label>
               <Form.Control
                 type="text"
-                value={utilisateur}
-                onChange={(e) => setUtilisateur(e.target.value)}
+                value={nom}
+                onChange={(e) => setNom(e.target.value)}
                 placeholder="modifier le nom"
               />
             </Form.Group>
-
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Prénom</Form.Label>
+              <Form.Control
+                type="text"
+                value={prenom}
+                onChange={(e) => setPrenom(e.target.value)}
+                placeholder="modifier le prenom"
+              />
+            </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>matricule</Form.Label>
               <Form.Control
@@ -197,26 +209,22 @@ function Row(accounts, index) {
             <IconButton
               aria-label="expand row"
               size="small"
-              onClick={() => setOpen(!open)}
-            >
+              onClick={() => setOpen(!open)} >
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
 
-          <TableCell component="th" scope="row">
-            {profile.user.utilisateur}
-          </TableCell>
-          <TableCell align="right">{profile.user.matricule}</TableCell>
-          <TableCell align="right">{profile.user.role}</TableCell>
+          <TableCell component="th" scope="row"> {profile.user.nom}  </TableCell>
+          <TableCell >   {profile.user.prenom}</TableCell>
+          <TableCell >{profile.user.matricule}</TableCell>
+          <TableCell >{profile.user.role}</TableCell>
           <TableCell align="right">
             <Button
               variant="outlined" color="primary"
-              onClick={() => handleShowEdit(profile._id)}
-            >
-              Modifier
-            </Button>
+              onClick={() => handleShowEdit(profile._id)}  > Modifier  </Button>
             <Button variant="primary" onClick={() => deleteContact(profile._id)}>Archiver</Button>
           </TableCell>
+          
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -317,10 +325,11 @@ export default function UserList() {
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell>Nom d'utilisateur</TableCell>
-                <TableCell align="right">Matricule</TableCell>
-                <TableCell align="right">Role</TableCell>
-                <TableCell align="right">Actions</TableCell>
+                <TableCell><span className="table_tr">  Nom  </span>  </TableCell>
+                <TableCell><span className="table_tr">  Prénom  </span>  </TableCell>
+                <TableCell><span className="table_tr">  Matricule  </span>  </TableCell>
+                <TableCell ><span className="table_tr">  Role  </span>  </TableCell>
+                <TableCell align="right"><span className="table_tr">   Actions  </span></TableCell>
               </TableRow>
             </TableHead>
 
