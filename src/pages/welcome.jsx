@@ -40,10 +40,15 @@ function WelcomePage() {
   const onSubmit = (e) => {
     e.preventDefault();
     const formdata = new FormData();
+    formdata.append("email", form.email && form.email ? form.email : '');
     formdata.append("tel", form.tel && form.tel ? form.tel : '');
-    formdata.append("ville", form.ville && form.ville ? form.ville : '');
     formdata.append("pays", form.pays && form.pays ? form.pays : '');
+    formdata.append("gouvernorat", form.gouvernorat && form.gouvernorat ? form.gouvernorat : '');
+    formdata.append("ville", form.ville && form.ville ? form.ville : '');
     formdata.append("codepostal", form.codepostal && form.codepostal ? form.codepostal : '');
+    formdata.append("adresse", form.adresse && form.adresse ? form.adresse : '');
+    formdata.append("datenaiss", form.datenaiss && form.datenaiss ? form.datenaiss : '');
+
     formdata.append("avatar", avatar);
     dispatch(SetProfileAction(formdata, setShow, setMessage, navigate));
   };

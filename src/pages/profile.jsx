@@ -13,7 +13,9 @@ import Box from '@mui/material/Box';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import altAvatar from "../assets/images/avatar.avif"
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import { DatePicker } from "@material-ui/pickers";
+
+import formatDate from "../components/formatdate";
+
 
 function ProfilePage() {
   const auth = useSelector((state) => state.auth);
@@ -130,11 +132,7 @@ const editUser = async () => {
   setTitre('');
   setAvatar(null);
 };
-//formulaite date
-const formatDate = (dateString) => {
-  const dateObject = new Date(dateString);
-  return dateObject.toLocaleDateString("en-GB"); // Modifier le paramètre pour changer le format de date
-};
+
   return (
     <div className="profile_page">
       <Navigation user={CurrentProfile} />
@@ -148,7 +146,7 @@ const formatDate = (dateString) => {
         <div className="profile_header">
           <img className="profile_header_avatar" alt={altAvatar} src={`http://localhost:3030/${profile?.avatar}`} ></img>
           <div className="profile_header_content">
-            <p className="profile_header_p1">{nom}{prenom}</p>
+            <p className="profile_header_p1">{nom}{" "}{prenom}</p>
 
             <p className="profile_header_p2">{role === 'EXPERT' ? ("RESPONSABLE RH METIER / EXPERT RH") : role === "EMP" ? ("EMPLOYÉ") : 
             role === "RRH" ? ("RESPONSABLE RH OPÉRATIONNEL") : null }</p>
@@ -192,8 +190,8 @@ const formatDate = (dateString) => {
           </div>
                     
           <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={tel} onChange={e => setTel(e.target.value)} size="small" label="Numéro de téléphone"/>{" "}
-             <TextField className="profile_item" margin="normal" value={formatDate(datenaiss)} onChange={e => setDatenaiss(e.target.value)} size="small"  label="Date de naissance"  />
+             <TextField className="profile_item" margin="normal" type="number" value={tel} onChange={e => setTel(e.target.value)} size="small" label="Numéro de téléphone"/>{" "}
+             <TextField className="profile_item3" margin="normal" type="date" value={formatDate(datenaiss)} onChange={e => setDatenaiss(e.target.value)} size="small"  label="Date de naissance"  />
              </div>
 
           <div className="profile_list">

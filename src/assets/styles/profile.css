@@ -36,13 +36,19 @@
     margin-left: 1em !important;
     background-color: #F5F5F9;
   }
+
   .profile_item2 {
     margin-left: 1em !important;
     background-color: #F5F5F9;
     width: 29.1em;
 
   }
+  .profile_item3 {
+    margin-left: 1em !important;
+    background-color: #F5F5F9;
+    width: 14em;
 
+  }
   .profile_list2{ 
     line-height: 18px;
     padding: 0.35em;
