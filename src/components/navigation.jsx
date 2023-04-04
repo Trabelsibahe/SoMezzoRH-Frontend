@@ -56,7 +56,7 @@ function Navigation({ user }) {
         <ul className="sidebar_list">
 
         <li className="sidebar_avatar"><img className="SideNav_Avatar" src={`http://localhost:3030/${profile?.avatar}`} alt="avatar"></img></li>
-          <li className="sidebar_name">{user.name}</li>
+          <li className="sidebar_name">{user.nom}{" "} {user.prenom}</li>
 
           <ColoredLine color="white" />
 
