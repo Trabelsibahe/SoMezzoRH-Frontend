@@ -20,7 +20,8 @@ function ProfilPassword() {
 
   const Currentexpert = {
     isConnected: auth.isConnected,
-    name: auth.user.utilisateur,
+    nom: auth.user.nom,
+    prenom: auth.user.prenom,
     matricule: auth.user.matricule,
     role: auth.user.role,
   };

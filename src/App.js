@@ -64,7 +64,7 @@ function App() {
   const user = {
     isConnected: auth.isConnected,
     role: auth.user.role,
-    HasProfile: profile
+    HasProfile: profile,
 
   };
 

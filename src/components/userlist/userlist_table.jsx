@@ -303,7 +303,8 @@ export default function UserList() {
     }
     if (
       profile.user.role.toLowerCase().includes(search.toLowerCase()) ||
-      profile.user.matricule.toLowerCase().includes(search.toLowerCase())
+      profile.user.matricule.toLowerCase().includes(search.toLowerCase()) || profile.user.nom.toLowerCase().includes(search.toLowerCase()) ||
+      profile.user.prenom.toLowerCase().includes(search.toLowerCase())
     ) {
       return (
         true && ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1)

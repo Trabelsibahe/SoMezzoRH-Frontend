@@ -78,7 +78,7 @@ function Navigation({ user }) {
           <ColoredLine color="white" />
           {!user.isConnected ? (<div></div>
             ) : (
-          <div className="sidebar_logout"><BiLogOut className="logout_icon" onClick={LogoutHandler} /> Déconnexion</div>  )}
+          <div className="sidebar_logout"  onClick={LogoutHandler} ><BiLogOut className="logout_icon"/> Déconnexion</div>  )}
         </ul>
       </aside>
 

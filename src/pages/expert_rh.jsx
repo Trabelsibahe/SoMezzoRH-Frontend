@@ -9,6 +9,7 @@ import UserList  from "../components/userlist/userlist_table";
 import RegisterPage from "../components/register"
 import { Button } from "@mui/material";
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import PageFooter from "../components/footer";
 
 function Expert_Rh_Page() {
   const auth = useSelector((state) => state.auth);
@@ -18,7 +19,8 @@ function Expert_Rh_Page() {
 
   const Currentexpert = {
     isConnected: auth.isConnected,
-    name: auth.user.utilisateur,
+    nom: auth.user.nom,
+    prenom: auth.user.prenom,
     matricule: auth.user.matricule,
     role: auth.user.role,
   };
@@ -57,6 +59,7 @@ function Expert_Rh_Page() {
         </div>
         }
       </div>
+      <PageFooter/>
     </div>
   );
 }

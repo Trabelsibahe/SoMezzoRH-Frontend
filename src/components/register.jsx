@@ -16,6 +16,8 @@ import Classnames from "classnames";
 import "../assets/styles/register.css";
 
 function RegisterPage() {
+
+  
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
