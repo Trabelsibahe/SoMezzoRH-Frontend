@@ -222,7 +222,7 @@ function Row(accounts, index) {
             <Button
               variant="outlined" color="primary"
               onClick={() => handleShowEdit(profile._id)}  > Modifier  </Button>
-            <Button variant="primary" onClick={() => deleteContact(profile._id)}>Archiver</Button>
+            <Button variant="primary" onClick={() => deleteContact(profile._id)}>Supprimer</Button>
           </TableCell>
           
         </TableRow>

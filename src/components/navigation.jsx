@@ -69,11 +69,18 @@ function Navigation({ user }) {
             <NavDropdown.Item href="/profil/securité">Securité</NavDropdown.Item>
           </NavDropdown>
 
+<<<<<<< HEAD
             {user.role === "EXPERT" ? (
           <a href="/expertrh" className="sidebar_item"><li>Mon espace</li></a> 
           ) : (<div></div>   )}
 
           <a href="/absence" className="sidebar_item"><li>Congés</li></a>
+=======
+              {user.role === 'EXPERT' ? (<a href="/expertrh" className="sidebar_item"><li>Mon espace</li></a>) :
+               user.role === "EMP" ? (<a href="/emp" className="sidebar_item"><li>Mon espace</li></a>) : 
+               user.role === "RRH" ? (console.log(user.role)) : null }
+          <a href="#" className="sidebar_item"><li>Page 4</li></a>
+>>>>>>> 94c669d74adc75de62ca0d32c1ffed87f833ce72
 
           <ColoredLine color="white" />
           {!user.isConnected ? (<div></div>

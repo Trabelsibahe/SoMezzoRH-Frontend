@@ -1,0 +1,39 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
+
+
+.absences_table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 2px solid #ebf0f7;
+  color: rgb(21, 21, 130);
+}
+.absences_table th {
+  padding: 20px ;
+  text-align: center;
+  width: 80em;
+  border-bottom: 2px solid #ebf0f7;
+}
+.absences_table td {
+  text-align: center;
+  padding: 8px;
+}
+
+.absences_table  tr:nth-child(even){background-color: #ebf0f7}
+
+
+.absence_bottom {
+    text-align: right;
+    padding: 1em;
+    margin: 0 2em;
+}
+
+.ab_select {
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .absence_bottom {
+    text-align: center;
+}
+
+}
