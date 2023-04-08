@@ -48,7 +48,7 @@ function StepTwo({ form, setForm, setPage, onSubmit }) {
 
         <p>    </p>
         <div className="welcome_input">
-        <input type="text"  placeholder=" "  name="codepostal" value={form.codepostal && form.codepostal ? form.codepostal : ''}
+        <input type="number"  placeholder=" "  name="codepostal" value={form.codepostal && form.codepostal ? form.codepostal : ''}
           onChange={(event) => setForm({ ...form, codepostal: event.target.value })} className={Classnames("welcome_input-field", { "is-invalid": errors.codepostal })} />
         <label className="welcome_input-label">Code postal</label> 
         {

@@ -148,8 +148,9 @@ const editUser = async () => {
           <div className="profile_header_content">
             <p className="profile_header_p1">{nom}{" "}{prenom}</p>
 
-            <p className="profile_header_p2">{role === 'EXPERT' ? ("RESPONSABLE RH METIER / EXPERT RH") : role === "EMP" ? ("EMPLOYÉ") : 
-            role === "RRH" ? ("RESPONSABLE RH OPÉRATIONNEL") : null }</p>
+            <p className="profile_header_p2">
+              {role === 'EXPERT' ? ("RESPONSABLE RH METIER / EXPERT RH") : role === "EMP" ? ("EMPLOYÉ") : 
+               role === "RRH" ? ("RESPONSABLE RH OPÉRATIONNEL") : null }</p>
           </div>
 
         </div>

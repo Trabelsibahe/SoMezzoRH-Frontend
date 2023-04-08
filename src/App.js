@@ -20,22 +20,23 @@ import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { GetProfileAction } from './actions/profile.actions';
 import WelcomeRouter from './routes/welcomerouter';
-import Expert_RH_Page from './pages/expert_rh';
+import Expert_RH_Page from './pages/espaces/expert_rh';
 import ExpertRouter from "./routes/expertrouter";
 import Admin from './pages/admin';
 import Archive from './pages/archive';
 import AccountMenu from "./components/account_menu"
 import NewsLetterPage from "./pages/newsletter"
+import EmployePage from './pages/espaces/employe';
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
   const minute = 1000 * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const year = day * 365;
+  const hour = minute * 60;
+  const day = hour * 24;
+  const year = day * 365;
 
   store.dispatch(setUser(decode));
   setAuth(window.localStorage.jwt);
-  
+
 
 
 
@@ -89,17 +90,17 @@ function App() {
 
           <Route path="*" element={<NotFoundPage />} />
 
-          <Route path="/"element={ <PrivateRouter user={user}> {" "} <NewsLetterPage /> {" "}</PrivateRouter>} />
-          <Route path="/acceuil" element={ <PrivateRouter user={user}> {" "} <NewsLetterPage /> {" "}</PrivateRouter>} />
+          <Route path="/" element={<PrivateRouter user={user}> {" "} <NewsLetterPage /> {" "}</PrivateRouter>} />
+          <Route path="/acceuil" element={<PrivateRouter user={user}> {" "} <NewsLetterPage /> {" "}</PrivateRouter>} />
 
-          <Route path="/profil/securité" element={<PrivateRouter user={user}> {" "} <ChangePassword /> {" "}</PrivateRouter>}/>
+          <Route path="/profil/securité" element={<PrivateRouter user={user}> {" "} <ChangePassword /> {" "}</PrivateRouter>} />
 
-          <Route path="/listuser" element={<ExpertRouter user={user}> {" "} <Admin/>{" "} </ExpertRouter>}/>
-          <Route path="/archive"  element={<ExpertRouter user={user}> {" "} <Archive/>{" "} </ExpertRouter>}/>
+          <Route path="/listuser" element={<ExpertRouter user={user}> {" "} <Admin />{" "} </ExpertRouter>} />
+          <Route path="/archive" element={<ExpertRouter user={user}> {" "} <Archive />{" "} </ExpertRouter>} />
           <Route path="/expertrh" element={
             <ExpertRouter user={user}> {" "} <Expert_RH_Page />{" "} </ExpertRouter>} />
-
-            <Route path="/test" element={<AccountMenu/>}></Route>
+          <Route path="/emp" element={<EmployePage />}></Route>
+          <Route path="/test" element={<AccountMenu />}></Route>
 
         </Routes>
       </BrowserRouter>

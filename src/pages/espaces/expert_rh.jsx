@@ -1,15 +1,15 @@
-import "../assets/styles/expert.css";
+import "../../assets/styles/expert.css";
 
 import React from "react";
-import Navigation from "../components/navigation";
+import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { SetProfileAction, GetProfileAction } from "../actions/profile.actions";
-import UserList  from "../components/userlist/userlist_table";
-import RegisterPage from "../components/register"
+import { SetProfileAction, GetProfileAction } from "../../actions/profile.actions";
+import UserList  from "../../components/userlist/userlist_table";
+import RegisterPage from "../../components/register"
 import { Button } from "@mui/material";
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import PageFooter from "../components/footer";
+import PageFooter from "../../components/footer";
 
 function Expert_Rh_Page() {
   const auth = useSelector((state) => state.auth);
