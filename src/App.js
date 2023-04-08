@@ -26,6 +26,8 @@ import Admin from './pages/admin';
 import Archive from './pages/archive';
 import AccountMenu from "./components/account_menu"
 import NewsLetterPage from "./pages/newsletter"
+import Absence from './pages/absence';
+
 import EmployePage from './pages/espaces/employe';
 import RRH_Page from './pages/espaces/rrh';
 if (window.localStorage.jwt) {
