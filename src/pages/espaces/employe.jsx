@@ -1,11 +1,11 @@
 import "../../assets/styles/absences.css";
+import "../../assets/styles/employe.css";
 
 import React from "react";
 import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { SetProfileAction, GetProfileAction } from "../../actions/profile.actions";
-import UserList  from "../../components/userlist/userlist_table";
 import AddRepoPage from "../../components/add_repo"
 import { Button } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';

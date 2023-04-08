@@ -71,7 +71,7 @@ function Navigation({ user }) {
 
               {user.role === 'EXPERT' ? (<a href="/expertrh" className="sidebar_item"><li>Mon espace</li></a>) :
                user.role === "EMP" ? (<a href="/emp" className="sidebar_item"><li>Mon espace</li></a>) : 
-               user.role === "RRH" ? (console.log(user.role)) : null }
+               user.role === "RRH" ? (<a href="/rrh" className="sidebar_item"><li>Mon espace</li></a>) : null }
           <a href="#" className="sidebar_item"><li>Page 4</li></a>
 
           <ColoredLine color="white" />
