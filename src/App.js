@@ -26,6 +26,8 @@ import Admin from './pages/admin';
 import Archive from './pages/archive';
 import AccountMenu from "./components/account_menu"
 import NewsLetterPage from "./pages/newsletter"
+import Absence from './pages/absence';
+
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
   const minute = 1000 * 60;
@@ -91,6 +93,7 @@ function App() {
 
           <Route path="/"element={ <PrivateRouter user={user}> {" "} <NewsLetterPage /> {" "}</PrivateRouter>} />
           <Route path="/acceuil" element={ <PrivateRouter user={user}> {" "} <NewsLetterPage /> {" "}</PrivateRouter>} />
+          <Route path="/absence" element={ <PrivateRouter user={user}> {" "} <Absence /> {" "}</PrivateRouter>} />
 
           <Route path="/profil/securité" element={<PrivateRouter user={user}> {" "} <ChangePassword /> {" "}</PrivateRouter>}/>
 

@@ -13,14 +13,12 @@ import Box from '@mui/material/Box';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import altAvatar from "../assets/images/avatar.avif"
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-
 import formatDate from "../components/formatdate";
 
 
 function ProfilePage() {
   const auth = useSelector((state) => state.auth);
   const profile = useSelector((state) => state.profiles.profile);
-
   const dispatch = useDispatch();
   const errors = useSelector((state) => state.errors);
 

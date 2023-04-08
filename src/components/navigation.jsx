@@ -73,7 +73,7 @@ function Navigation({ user }) {
           <a href="/expertrh" className="sidebar_item"><li>Mon espace</li></a> 
           ) : (<div></div>   )}
 
-          <a href="#" className="sidebar_item"><li>Page 4</li></a>
+          <a href="/absence" className="sidebar_item"><li>Congés</li></a>
 
           <ColoredLine color="white" />
           {!user.isConnected ? (<div></div>
