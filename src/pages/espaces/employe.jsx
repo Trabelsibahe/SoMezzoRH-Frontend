@@ -53,7 +53,7 @@ function EmployePage() {
           <p className="expert_info">Congés & Absences</p>
 
         <div style={{overflowX:"auto"}}>
-          <table>
+          <table className="absences_table">
             <tbody>
              <tr>
               <th>Type d'absence</th>
@@ -81,7 +81,7 @@ function EmployePage() {
           </table>
         </div>
         <div className="absence_bottom">
-            <Button className="expert_add_button" startIcon={<AddCircleIcon />} variant="contained" onClick={onClick}>Ajouter un repos</Button>
+            <Button className="expert_add_button" startIcon={<AddCircleIcon />} variant="contained" sx={{backgroundColor:"#24377b"}} onClick={onClick}>Ajouter un repos</Button>
           </div>
         </div>
         }

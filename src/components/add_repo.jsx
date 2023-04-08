@@ -5,20 +5,22 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RegisterAction } from "../actions/auth.actions";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import TextField from '@mui/material/TextField';
-import CheckIcon from '@mui/icons-material/Check';
+
+import TextField from "@mui/material/TextField";
+import CheckIcon from "@mui/icons-material/Check";
 
 import Classnames from "classnames";
 import "../assets/styles/register.css";
+import { Box } from "@mui/material";
 
 function AddRepoPage() {
-
-  
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,92 +50,106 @@ function AddRepoPage() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="Register">
+      <div className="addRepoPage">
         <h5 className="col-md-12 text-center p-3">Demande d'absence</h5>
-        <Container className="bg-variant col-md-4 mx-auto p-2">
+        <Container className="bg-variant col-md-4 mx-auto p-4">
           <Stack>
             <Form onSubmit={onSubmit}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
 
-              <Form.Group className="mb-1"> 
-                <TextField id="outlined-basic" variant="outlined" size="small" label="Type d'absence" margin="normal"
-                  type="text"
-                  name="nom"
-                  onChange={onChangeHandler}
-                  className={Classnames("w-100", {
-                    "is-invalid": errors.nom,
-                  })}
-                  error={errors.nom}
-                />
-                {errors.nom && (
-                  <div className="invalid-feedback">{errors.nom}</div>
-                )}
-              </Form.Group>
+                <FormControl size="small" className="ab_select" margin="normal">
+                  <InputLabel id="demo-select-small">Type d'absence</InputLabel>
+                  <Select
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    label="Type d'absence"
+                    className={Classnames("w-100", {   "is-invalid": errors.prenom, })}  error={errors.prenom}>
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
 
-              <Form.Group className="mb-1">
-                <TextField id="outlined-basic" variant="outlined" size="small" label="Date de debut de période d'absence" margin="normal"
-                  type="date"
-                  name="prenom"
-                  onChange={onChangeHandler}
-                  className={Classnames("w-100", {
-                    "is-invalid": errors.prenom,
-                  })}
-                  error={errors.prenom}
-                />
-                {errors.prenom && (
-                  <div className="invalid-feedback">{errors.prenom}</div>
-                )}
-              </Form.Group>
+                <Form.Group className="mb-2">
+                  <DatePicker
+                    id="outlined-basic"
+                    variant="outlined"
+                    size="small"
+                    label="Date de debut de période d'absence"
+                    type="date"
+                    name="prenom"
+                    onChange={onChangeHandler}
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.prenom,
+                    })}
+                    error={errors.prenom}
+                  />
+                  {errors.prenom && (
+                    <div className="invalid-feedback">{errors.prenom}</div>
+                  )}
+                </Form.Group>
 
-              <Form.Group className="mb-1" controlId="formBasicEmail">
-                <TextField  id="outlined-basic" variant="outlined" size="small" label="Date de fin de période d'absence" margin="normal"
-                  type="date"
-                  name="matricule" 
-                  
-                  className={Classnames("w-100", {
-                    "is-invalid": errors.matricule,
-                  })}
-                  onChange={onChangeHandler}
-                  error={errors.matricule} 
-                />
-                {errors.matricule && (
-                  <div className="invalid-feedback">{errors.matricule}</div>
-                )}
-              </Form.Group>
+                <Form.Group className="mb-1">
+                  <DatePicker 
+                    id="outlined-basic"
+                    variant="outlined"
+                    size="small"
+                    label="Date de fin de période d'absence"
+                    type="date"
+                    name="matricule"
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.matricule,
+                    })}
+                    onChange={onChangeHandler}
+                    error={errors.matricule}
+                  />
+                  {errors.matricule && (
+                    <div className="invalid-feedback">{errors.matricule}</div>
+                  )}
+                </Form.Group>
 
-              <Form.Group className="mb-1">
-                <TextField id="outlined-basic" variant="outlined" size="small" label="Commentaires" margin="normal"
-                  type="text"
-                  name="operation"
-                  onChange={onChangeHandler}
-                  className={Classnames("w-100", {
-                    "is-invalid": errors.operation,
-                  })}
-                  error={errors.operation}
-                />
-                {errors.operation && (
-                  <div className="invalid-feedback">{errors.operation}</div>
-                )}
-              </Form.Group>
-       
-        
-              <div className="col-md-12 text-center mb-4 ">
-                <Button
-                  variant="contained"
-                  color="neutral"
-                  size="small"
-                  type="submit"
-                ><CheckIcon/>{" "}
-                  Démander le repos
-                </Button>{" "}
-                <Button
-                  variant="outlined"
-                  color="neutral"
-                  size="small"
-                  href="/emp"
-                >
-                  Annuler
-                </Button>
-              </div>
+                <Form.Group className="mb-4">
+                  <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    size="large"
+                    label="Commentaires"
+                    margin="dense"
+                    type="text"
+                    name="operation"
+                    onChange={onChangeHandler}
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.operation,
+                    })}
+                    error={errors.operation}
+                  />
+                  {errors.operation && (
+                    <div className="invalid-feedback">{errors.operation}</div>
+                  )}
+                </Form.Group>
+
+                <div className="col-md-12 text-center mb-4 ">
+                  <Button
+                    variant="contained"
+                    color="neutral"
+                    size="small"
+                    type="submit"
+                  >
+                    <CheckIcon /> Démander le repos
+                  </Button>{" "}
+                  <Button
+                    variant="outlined"
+                    color="neutral"
+                    size="small"
+                    href="/emp"
+                  >
+                    Annuler
+                  </Button>
+                </div>
+              </LocalizationProvider>
             </Form>
           </Stack>
         </Container>
