@@ -27,6 +27,7 @@ function AddRepoPage() {
   const errors = useSelector((state) => state.errors);
 
   const [form, setForm] = useState({});
+  const [Active, setActive] = useState(true);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -47,11 +48,12 @@ function AddRepoPage() {
   return (
     <ThemeProvider theme={theme}>
       <div className="addRepoPage">
-        <h5 className="col-md-12 text-center p-3">Demande d'absence</h5>
+        <h5 className="col-md-12 text-center p-4">Demande d'absence</h5>
         <Container className="bg-variant col-md-4 mx-auto p-4">
           <Stack>
             <Form onSubmit={onSubmit}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
+                
                 <FormControl size="small" className="ab_select" margin="normal">
                   <InputLabel id="demo-select-small">Type d'absence</InputLabel>
                   <Select
@@ -72,8 +74,8 @@ function AddRepoPage() {
                   <div className="invalid-feedback">{errors.type}</div>
                 )}
                 </FormControl>
-
-                <Form.Group className="mb-1">
+                <p>{" "} </p>
+                <Form.Group className="mb-4">
                   <DatePicker
                     id="outlined-basic"
                     variant="outlined"
@@ -81,14 +83,13 @@ function AddRepoPage() {
                     label="Date de debut de période d'absence"
                     type="date"
                     name="dateDebut"
-                    value={form.dateDebut}
+                    disablePast={true}
+                    value={form.dateDebut}  
                     className={Classnames("w-100", {
                       "is-invalid": errors.dateDebut,
                     })}
-                    onChange={(dateDebut) =>
-                      setForm({ ...form, dateDebut: formatDate(dateDebut) })
-                    }
-                  />
+                    onChange={(dateDebut) => {
+                      setForm({ ...form, dateDebut: formatDate(dateDebut) });  }} />
                   {errors.dateDebut && (
                     <div className="invalid-feedback">
                       {errors.dateDebut}
@@ -96,14 +97,16 @@ function AddRepoPage() {
                   )}
                 </Form.Group>
 
-                <Form.Group className="mb-1">
+                <Form.Group className="mb-4">
                   <DatePicker
                     id="outlined-basic"
                     variant="outlined"
                     size="small"
+                    disablePast
                     label="Date de fin de période d'absence"
                     type="date"
                     name="dateFin"
+                    
                     className={Classnames("w-100", {
                       "is-invalid": errors.dateFin,
                     })}
