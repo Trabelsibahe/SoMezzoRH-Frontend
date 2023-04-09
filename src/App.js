@@ -105,6 +105,7 @@ function App() {
 
           <Route path="/emp" element={<EmployePage />}></Route>
           <Route path="/rrh" element={<RRH_Page/>}></Route>
+          <Route path='/test' element={<Absence/>}></Route>
 
         </Routes>
       </BrowserRouter>

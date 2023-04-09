@@ -34,6 +34,7 @@ function RegisterPage() {
     e.preventDefault();
     form.active = "true";
     dispatch(RegisterAction(form, navigate));
+
   };
 
   const theme = createTheme({

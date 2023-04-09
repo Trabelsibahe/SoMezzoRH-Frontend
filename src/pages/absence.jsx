@@ -12,6 +12,7 @@ function Absence() {
     const auth = useSelector((state) => state.auth);
     const absences = useSelector((state) => state.absence.absence);
     const errors = useSelector(state => state.errors)
+    
     useEffect(() => {dispatch(GetAbsence());}, []);  
     const CurrentProfile = {
       isConnected: auth.isConnected,
@@ -23,16 +24,14 @@ function Absence() {
   
     const [showForm, setShowForm] = useState(false);
     const toggleForm = () => {setShowForm(!showForm);};
-    const [form, setForm] = useState({
-      type: "",
-      dateDebut: "",
-      dateFin: "",
-      commentaire: "" });
+
+    const [form, setForm] = useState({});
   
     const handleSubmit = async(e) => {
       e.preventDefault(); 
       await dispatch(AddAbsence(form)); 
-      await dispatch(GetAbsence());    };
+      await dispatch(GetAbsence()); 
+       };
   
     return (
       <div className="absence_page">

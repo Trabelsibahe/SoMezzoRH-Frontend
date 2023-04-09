@@ -1,42 +1,38 @@
 import { Form, Container, Stack } from "react-bootstrap";
 import Button from "@mui/material/Button";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RegisterAction } from "../actions/auth.actions";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-
 import TextField from "@mui/material/TextField";
 import CheckIcon from "@mui/icons-material/Check";
-
 import Classnames from "classnames";
+import formatDate from "../components/formatdate";
 import "../assets/styles/register.css";
-import { Box } from "@mui/material";
+import dayjs from 'dayjs';
+
+
+import { GetAbsence, AddAbsence } from "../actions/absence.action";
 
 function AddRepoPage() {
-  const [form, setForm] = useState({});
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const errors = useSelector((state) => state.errors);
 
-  const onChangeHandler = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const [form, setForm] = useState({});
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    form.active = "true";
-    dispatch(RegisterAction(form, navigate));
+    await dispatch(AddAbsence(form));
+    await dispatch(GetAbsence());
+    console.log(errors)
   };
 
   const theme = createTheme({
@@ -56,58 +52,67 @@ function AddRepoPage() {
           <Stack>
             <Form onSubmit={onSubmit}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-
                 <FormControl size="small" className="ab_select" margin="normal">
                   <InputLabel id="demo-select-small">Type d'absence</InputLabel>
                   <Select
                     labelId="demo-select-small"
-                    id="demo-select-small"
+                    name="type"
                     label="Type d'absence"
-                    className={Classnames("w-100", {   "is-invalid": errors.prenom, })}  error={errors.prenom}>
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    value={form.type}
+                    onChange={(event) => setForm({ ...form, type: event.target.value }) }
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.type,
+                    })}
+                  >
+                    <MenuItem value="Maladie">Maladie</MenuItem>
+                    <MenuItem value="Vacance">Vacance</MenuItem>
+                    <MenuItem value="n7chi fih">N7chi fih</MenuItem>
                   </Select>
+                  {errors.type && (
+                  <div className="invalid-feedback">{errors.type}</div>
+                )}
                 </FormControl>
 
-                <Form.Group className="mb-2">
+                <Form.Group className="mb-1">
                   <DatePicker
                     id="outlined-basic"
                     variant="outlined"
                     size="small"
                     label="Date de debut de période d'absence"
                     type="date"
-                    name="prenom"
-                    onChange={onChangeHandler}
+                    name="dateDebut"
+                    value={form.dateDebut}
                     className={Classnames("w-100", {
-                      "is-invalid": errors.prenom,
+                      "is-invalid": errors.dateDebut,
                     })}
-                    error={errors.prenom}
+                    onChange={(dateDebut) =>
+                      setForm({ ...form, dateDebut: formatDate(dateDebut) })
+                    }
                   />
-                  {errors.prenom && (
-                    <div className="invalid-feedback">{errors.prenom}</div>
+                  {errors.dateDebut && (
+                    <div className="invalid-feedback">
+                      {errors.dateDebut}
+                    </div>
                   )}
                 </Form.Group>
 
                 <Form.Group className="mb-1">
-                  <DatePicker 
+                  <DatePicker
                     id="outlined-basic"
                     variant="outlined"
                     size="small"
                     label="Date de fin de période d'absence"
                     type="date"
-                    name="matricule"
+                    name="dateFin"
                     className={Classnames("w-100", {
-                      "is-invalid": errors.matricule,
+                      "is-invalid": errors.dateFin,
                     })}
-                    onChange={onChangeHandler}
-                    error={errors.matricule}
+                    value={form.dateFin}
+                    onChange={(dateFin) => setForm({ ...form, dateFin: formatDate(dateFin) })}
+                    onError={errors.dateFin}
                   />
-                  {errors.matricule && (
-                    <div className="invalid-feedback">{errors.matricule}</div>
+                  {errors.dateFin && (
+                    <div className="invalid-feedback">{errors.dateFin}</div>
                   )}
                 </Form.Group>
 
@@ -116,19 +121,19 @@ function AddRepoPage() {
                     id="outlined-basic"
                     variant="outlined"
                     size="large"
-                    label="Commentaires"
+                    label="Commentaires (optionnel)"
                     margin="dense"
                     type="text"
-                    name="operation"
-                    onChange={onChangeHandler}
+                    name="commentaire"
+                    value={form.commentaire}
+                    onChange={(event) =>
+                      setForm({ ...form, commentaire: event.target.value })
+                    }
                     className={Classnames("w-100", {
-                      "is-invalid": errors.operation,
+                      "is-invalid": errors.commentaire,
                     })}
-                    error={errors.operation}
                   />
-                  {errors.operation && (
-                    <div className="invalid-feedback">{errors.operation}</div>
-                  )}
+       
                 </Form.Group>
 
                 <div className="col-md-12 text-center mb-4 ">

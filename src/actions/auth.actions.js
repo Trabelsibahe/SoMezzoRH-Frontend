@@ -8,6 +8,7 @@ export const RegisterAction = (form, navigate) => dispatch => {
     axios.post('http://127.0.0.1:3030/api/register', form)
     .then(res=> {
         navigate('/login');
+      
         alert("User registered. You may now login.")
         dispatch({
             type:authConstants.ERRORS,
