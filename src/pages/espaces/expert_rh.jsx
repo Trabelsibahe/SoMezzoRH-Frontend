@@ -61,8 +61,7 @@ function Expert_Rh_Page() {
 
           <div className="expert_menu">
           <Button className="expert_add_button" startIcon={<PersonAddAlt1Icon />} variant="outlined" onClick={onClick}>Ajouter un compte</Button> {" "}
-
-            <Button className="expert_add_button" startIcon={<FaFileArchive />} variant="outlined" onClick={onClickArchive}>Voir Archive</Button> 
+          <Button className="expert_add_button" startIcon={<FaFileArchive />} variant="outlined" onClick={onClickArchive}>Voir Archive</Button> 
           </div>
 
           <UserList/>

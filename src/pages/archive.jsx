@@ -49,9 +49,9 @@ function Archive() {
         <div className="page_name">
           Pages / Archive{" "}
         </div>   
-        <div className="expert_body"  >
+        <div className="archive_body"  >
 
-        <p className="expert_info">Liste des Contact</p>
+        <p className="expert_info">Archive</p>
 
  
       <InputBase className="searchbar"  placeholder="Rechercher.."   type="text"   value={search}  onChange={handleSearch}
@@ -98,7 +98,7 @@ function Archive() {
           
         </tbody>
       </table>
-      : 'aucun contact trouver ...'
+      : <table className="absences_table"><h4>Aucun utilisateur trouvé...</h4></table>
       } 
       </div>
     </div>

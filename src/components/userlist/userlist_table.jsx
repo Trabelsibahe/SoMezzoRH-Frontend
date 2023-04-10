@@ -14,19 +14,16 @@ import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import TablePagination from "@mui/material/TablePagination";
-import { Button, Hidden, InputBase, TextField } from "@mui/material";
+import { Button, InputBase, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
-
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+import formatDate from "../../components/formatdate";
 import { Modal, Form } from "react-bootstrap";
+import { GetProfiles, deleteAndArchiveProfile, EditProfileAction,} from "../../actions/profile.actions";
 
-import {
-  GetProfiles,
-  deleteAndArchiveProfile,
-  modifierContact,
-} from "../../actions/profile.actions";
+
 
 function Row(accounts, index) {
   const dispatch = useDispatch();
@@ -47,6 +44,12 @@ function Row(accounts, index) {
   const [role, setRole] = useState("");
   const [tel, setTel] = useState("");
   const [codepostal, setCodepostal] = useState("");
+  const [adresse, setAdresse] = useState("");
+  const [gouvernorat, setGouvernorat] = useState("");
+  const [datenaiss, setDatenaiss] = useState("");
+  const [email, setEmail] = useState("");
+  const [operation, setOperation] = useState("");
+  const [titre, setTitre] = useState("");
 
   const [edit, setEdit] = useState(false);
   const handleCloseEdit = () => setEdit(false);
@@ -59,10 +62,17 @@ function Row(accounts, index) {
         setPrenom(p.user.prenom);
         setMatricule(p.user.matricule);
         setRole(p.user.role);
-        setTel(p.tel);
-        setVille(p.ville);
+        setOperation(p.user.operation);
+        setTitre(p.user.titre);
+
         setPays(p.pays);
+        setGouvernorat(p.gouvernorat);
+        setVille(p.ville);
         setCodepostal(p.codepostal);
+        setAdresse(p.adresse);
+        setTel(p.tel);
+        setEmail(p.email);
+        setDatenaiss(p.datenais);
       }
     });
     setEdit(true);
@@ -76,13 +86,20 @@ function Row(accounts, index) {
         prenom,
         matricule,
         role,
+        operation,
+        titre,
       },
+      email,
       tel,
-      ville,
+      datenaiss,
       pays,
+      gouvernorat,
+      ville,
       codepostal,
+      adresse,
     };
-    await dispatch(modifierContact(id, data));
+
+    await dispatch(EditProfileAction(id, data));
     await dispatch(GetProfiles());
     await dispatch(GetProfiles());
     handleCloseEdit();
@@ -91,10 +108,17 @@ function Row(accounts, index) {
     setPrenom("");
     setMatricule("");
     setRole("");
+    setOperation("");
+    setTitre("");
     setTel("");
-    setVille("");
+    setDatenaiss("");
+    setEmail("");
     setPays("");
+    setGouvernorat("");
+    setVille("");
     setCodepostal("");
+    setAdresse("");
+
   };
 
   //fonction supp + getlist
@@ -151,7 +175,33 @@ function Row(accounts, index) {
                 placeholder="modifier le role"
               />
             </Form.Group>
-
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Opération</Form.Label>
+              <Form.Control
+                type="text"
+                value={operation}
+                onChange={(e) => setOperation(e.target.value)}
+                placeholder="modifier l'opération "
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Titre</Form.Label>
+              <Form.Control
+                type="text"
+                value={titre}
+                onChange={(e) => setTitre(e.target.value)}
+                placeholder="modifier le titre"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="modifier l'email"
+              />
+            </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>tel</Form.Label>
               <Form.Control
@@ -209,48 +259,65 @@ function Row(accounts, index) {
             <IconButton
               aria-label="expand row"
               size="small"
-              onClick={() => setOpen(!open)} >
+              onClick={() => setOpen(!open)}
+            >
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
 
-          <TableCell component="th" scope="row"> {profile.user.nom}  </TableCell>
-          <TableCell >   {profile.user.prenom}</TableCell>
-          <TableCell >{profile.user.matricule}</TableCell>
-          <TableCell >{profile.user.role}</TableCell>
+          <TableCell component="th" scope="row">{" "}{profile.user.nom}{" "} </TableCell>
+          <TableCell> {profile.user.prenom}</TableCell>
+          <TableCell>{profile.user.matricule}</TableCell>
+          <TableCell>{profile.user.operation}</TableCell>
+          <TableCell>{profile.user.titre ? profile.user.titre : "Aucun titre"}</TableCell>
+
+          <TableCell className="expert_role">
+            {profile.user.role === "EXPERT"
+              ? "RESPONSABLE RH METIER / EXPERT RH"
+              : profile.user.role === "EMP"
+              ? "EMPLOYÉ"
+              : profile.user.role === "RRH"
+              ? "RESPONSABLE RH OPÉRATIONNEL"
+              : null}
+          </TableCell>
+
           <TableCell align="right">
-            <Button
-              variant="outlined" color="primary"
-              onClick={() => handleShowEdit(profile._id)}  > Modifier  </Button>
-            <Button variant="primary" onClick={() => deleteContact(profile._id)}>Supprimer</Button>
+            <Button variant="outlined"   color="primary" onClick={() => handleShowEdit(profile._id)} > {" "} Modifier{" "}</Button>
+            <Button variant="primary" onClick={() => deleteContact(profile._id)}>  Supprimer  </Button>
           </TableCell>
           
         </TableRow>
         <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                  History
+                  Les coordonnées
                 </Typography>
-                <Table size="small" aria-label="purchases">
+                <Table size="small" aria-label="coordonnées">
                   <TableHead>
-                    <TableRow>
-                      <TableCell>Telephone</TableCell>
-                      <TableCell>Ville</TableCell>
-                      <TableCell align="right">Pays</TableCell>
-                      <TableCell align="right">Code postale</TableCell>
+                    <TableRow >
+                      <TableCell align="center">Pays</TableCell>
+                      <TableCell align="center">Gouvernorat</TableCell>
+                      <TableCell align="center" >Ville</TableCell>
+                      <TableCell align="center">Code postal</TableCell>
+                      <TableCell align="center">Adresse</TableCell>
+                      <TableCell align="center">Numéro de téléphone</TableCell>
+                      <TableCell align="center">E-mail</TableCell>
+                      <TableCell align="center">Date de naissance</TableCell>
                     </TableRow>
                   </TableHead>
 
                   <TableBody>
                     <TableRow>
-                      <TableCell component="th" scope="row">
-                        {profile.tel}
-                      </TableCell>
-                      <TableCell>{profile.ville}</TableCell>
-                      <TableCell align="right">{profile.pays}</TableCell>
-                      <TableCell align="right">{profile.codepostal}</TableCell>
+                      <TableCell align="center">{profile.pays}</TableCell>
+                      <TableCell align="center">{profile.gouvernorat}</TableCell>
+                      <TableCell align="center">{profile.ville}</TableCell>
+                      <TableCell align="center">{profile.codepostal}</TableCell>
+                      <TableCell align="center">{profile.adresse}</TableCell>
+                      <TableCell align="center">{profile.tel}</TableCell>
+                      <TableCell align="center">{profile.email}</TableCell>
+                      <TableCell align="center">{formatDate(profile.datenaiss)}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -303,7 +370,8 @@ export default function UserList() {
     }
     if (
       profile.user.role.toLowerCase().includes(search.toLowerCase()) ||
-      profile.user.matricule.toLowerCase().includes(search.toLowerCase()) || profile.user.nom.toLowerCase().includes(search.toLowerCase()) ||
+      profile.user.matricule.toLowerCase().includes(search.toLowerCase()) ||
+      profile.user.nom.toLowerCase().includes(search.toLowerCase()) ||
       profile.user.prenom.toLowerCase().includes(search.toLowerCase())
     ) {
       return (
@@ -315,10 +383,21 @@ export default function UserList() {
 
   return (
     <>
-    
-      <InputBase className="searchbar"  placeholder="Rechercher.."   type="text"   value={search}   onChange={handleSearch} 
-        startAdornment={ <InputAdornment position="start"> <SearchIcon />    </InputAdornment>  }  margin="normal"
-        sx={{width:250}}/>
+      <InputBase
+        className="searchbar"
+        placeholder="Rechercher.."
+        type="text"
+        value={search}
+        onChange={handleSearch}
+        startAdornment={
+          <InputAdornment position="start">
+            {" "}
+            <SearchIcon />{" "}
+          </InputAdornment>
+        }
+        margin="normal"
+        sx={{ width: 250 }}
+      />
 
       <Paper sx={{ width: "100%" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
@@ -326,11 +405,27 @@ export default function UserList() {
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell><span className="table_tr">  Nom  </span>  </TableCell>
-                <TableCell><span className="table_tr">  Prénom  </span>  </TableCell>
-                <TableCell><span className="table_tr">  Matricule  </span>  </TableCell>
-                <TableCell ><span className="table_tr">  Role  </span>  </TableCell>
-                <TableCell align="right"><span className="table_tr">   Actions  </span></TableCell>
+                <TableCell>
+                  <span className="table_tr"> Nom </span>{" "}
+                </TableCell>
+                <TableCell>
+                  <span className="table_tr"> Prénom </span>{" "}
+                </TableCell>
+                <TableCell>
+                  <span className="table_tr"> Matricule </span>{" "}
+                </TableCell>
+                <TableCell>
+                  <span className="table_tr"> Opération </span>{" "}
+                </TableCell>
+                <TableCell>
+                  <span className="table_tr"> Titre </span>{" "}
+                </TableCell>
+                <TableCell >
+                  <span className="table_tr"> Role </span>{" "}
+                </TableCell>
+                <TableCell align="right">
+                  <span className="table_tr"> Actions </span>
+                </TableCell>
               </TableRow>
             </TableHead>
 

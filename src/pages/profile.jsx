@@ -3,11 +3,8 @@ import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import "../assets/styles/profile.css";
 import { useEffect, useState } from "react";
-import { SetProfileAction, GetProfileAction ,modifierprofile} from "../actions/profile.actions";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
+import {GetProfileAction, EditMyProfileAction} from "../actions/profile.actions";
 import { Input, TextField } from "@mui/material";
-import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
@@ -107,7 +104,7 @@ const editUser = async () => {
   data.append('operation',operation);
   data.append('titre',titre);
 
-  await dispatch(modifierprofile(data));
+  await dispatch(EditMyProfileAction(data));
   await dispatch(GetProfileAction());
   await dispatch(GetProfileAction());
   await dispatch(GetProfileAction());

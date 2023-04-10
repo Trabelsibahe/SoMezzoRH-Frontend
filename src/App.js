@@ -22,7 +22,6 @@ import { GetProfileAction } from './actions/profile.actions';
 import WelcomeRouter from './routes/welcomerouter';
 import Expert_RH_Page from './pages/espaces/expert_rh';
 import ExpertRouter from "./routes/expertrouter";
-import Admin from './pages/admin';
 import Archive from './pages/archive';
 import AccountMenu from "./components/account_menu"
 import NewsLetterPage from "./pages/newsletter"
@@ -98,7 +97,6 @@ function App() {
 
           <Route path="/profil/securité" element={<PrivateRouter user={user}> {" "} <ChangePassword /> {" "}</PrivateRouter>} />
 
-          <Route path="/listuser" element={<ExpertRouter user={user}> {" "} <Admin />{" "} </ExpertRouter>} />
           <Route path="/archive" element={<ExpertRouter user={user}> {" "} <Archive />{" "} </ExpertRouter>} />
           <Route path="/expertrh" element={
             <ExpertRouter user={user}> {" "} <Expert_RH_Page />{" "} </ExpertRouter>} />

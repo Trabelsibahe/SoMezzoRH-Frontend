@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { profileConstants } from '../actions/constantes';
 
+
+
+// creation du profile
 export const SetProfileAction = (form, setShow, setMessage, navigate) => dispatch => {
   axios.post("http://127.0.0.1:3030/api/profile/create", form)
     .then(res => {
@@ -96,8 +99,8 @@ export const DeleteProfile = (id) => dispatch => {
   }
 }
 //fonction modifier
-export const modifierContact = (id, contactData) => (dispatch) => {
-  axios.post(`http://127.0.0.1:3030/api/profile/${id}`, contactData)
+export const EditProfileAction = (id, data) => (dispatch) => {
+  axios.post(`http://127.0.0.1:3030/api/profile/${id}`, data)
     .then((res) => {
       dispatch({
         type: profileConstants.MODIFIER_CONTACT_SUCCESS,
@@ -111,6 +114,8 @@ export const modifierContact = (id, contactData) => (dispatch) => {
       });
     });
 };
+
+
 //fonction recherche par matricule
 export const searchByMatricule = (matricule) => (dispatch) => {
   axios.get(`http://localhost:3030/api/serchmatricule?matricule=${matricule}`)
@@ -127,8 +132,9 @@ export const searchByMatricule = (matricule) => (dispatch) => {
       });
     });
 };
-//fonction delete + envouyer a l'archive 
 
+
+//fonction delete + envouyer a l'archive 
 export const deleteAndArchiveProfile = (id) => (dispatch) => {
   axios.delete(`http://localhost:3030/api/profilesupp/${id}`)
     .then((res) => {
@@ -144,9 +150,10 @@ export const deleteAndArchiveProfile = (id) => (dispatch) => {
       });
     });
 };
-//modifier profile connecter 
-export const modifierprofile = (contactData) => (dispatch) => {
-  axios.post(`http://127.0.0.1:3030/api/profile/modif`, contactData)
+
+//modifier mon profile (connecté) 
+export const EditMyProfileAction = (data) => (dispatch) => {
+  axios.post(`http://127.0.0.1:3030/api/profile/modif`, data)
     .then((res) => {
       dispatch({
         type: profileConstants.MODIFIER_PROFILE_SUCCESS,
