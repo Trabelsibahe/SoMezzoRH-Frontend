@@ -71,12 +71,7 @@
     margin: 3%;
     font-size: 70%;
   }
-  .searchbar {
-    margin: 0em 0.3em;
-    left: 0%;
-    padding: 0.8em;
-    width: 95%;
-  }
+
   .absences_table  tr:nth-child(even){background-color: #ebf0f7}
   @media screen and (max-width: 768px) {
     .absence_bottom {

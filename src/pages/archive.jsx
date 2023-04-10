@@ -9,6 +9,7 @@ import Navigation from "../components/navigation";
 import "../assets/styles/archive.css";
 import SearchIcon from '@mui/icons-material/Search';
 import { InputBase } from "@mui/material";
+import InputAdornment from '@mui/material/InputAdornment';
 
 function Archive() {
   const dispatch = useDispatch(); 
@@ -54,7 +55,7 @@ function Archive() {
 
  
       <InputBase className="searchbar"  placeholder="Rechercher.."   type="text"   value={search}  onChange={handleSearch}
-        startAdornment={  <SearchIcon /> }  margin="normal"
+        startAdornment={ <InputAdornment position="start"> <SearchIcon /> </InputAdornment>}  margin="normal"
         sx={{width:250}}/>
 
       <div style={{ overflowX: "auto" }}>
