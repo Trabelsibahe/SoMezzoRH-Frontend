@@ -68,7 +68,7 @@ function AddRepoPage() {
                   >
                     <MenuItem value="Maladie">Maladie</MenuItem>
                     <MenuItem value="Vacance">Vacance</MenuItem>
-                    <MenuItem value="n7chi fih">N7chi fih</MenuItem>
+                    <MenuItem value="n7chi fih">Marriage</MenuItem>
                   </Select>
                   {errors.type && (
                   <div className="invalid-feedback">{errors.type}</div>

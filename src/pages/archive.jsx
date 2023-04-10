@@ -5,17 +5,23 @@ import React, { useEffect ,useState} from "react";
 import{ GetArchives, deleteArchive} from '../actions/archive.action'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
+import Navigation from "../components/navigation";
+import "../assets/styles/archive.css";
+import SearchIcon from '@mui/icons-material/Search';
+import { InputBase } from "@mui/material";
 
 function Archive() {
   const dispatch = useDispatch(); 
-    const archives = useSelector(state => state.archives.archives)
-
-    /*const CurrentProfile = {
-      matricule : profiles.user.matricule,  
-    };*/
-
-    useEffect(()=>{dispatch(GetArchives())},[]);
-    
+  const auth = useSelector((state) => state.auth);
+  const archives = useSelector(state => state.archives.archives)
+    useEffect(()=>{dispatch(GetArchives())},[dispatch]);
+    const CurrentUser = {
+      isConnected: auth.isConnected,
+      nom: auth.user.nom,
+      prenom: auth.user.prenom,
+      matricule: auth.user.matricule,
+      role: auth.user.role,
+    };
     const [search, setSearch] = useState('');
     const handleSearch = (event) => {
       setSearch(event.target.value);
@@ -36,48 +42,66 @@ function Archive() {
       await dispatch(GetArchives())
     } 
     return (
-      <div className="Expert">
+  <div className="archive_page">
+      <Navigation user={CurrentUser} />
+      <div className="archive_container">
+        <div className="page_name">
+          Pages / Archive{" "}
+        </div>   
+        <div className="expert_body"  >
 
-<h2>Liste des Contact</h2>
-<input type="text" value={search} onChange={handleSearch} />
+        <p className="expert_info">Liste des Contact</p>
+
+ 
+      <InputBase className="searchbar"  placeholder="Rechercher.."   type="text"   value={search}  onChange={handleSearch}
+        startAdornment={  <SearchIcon /> }  margin="normal"
+        sx={{width:250}}/>
+
+      <div style={{ overflowX: "auto" }}>
         { 
-        archives && archives.length > 0 ? <Table striped bordered hover>
-        <thead>
+        archives && archives.length > 0 ?   <table className="absences_table">
+
+        <tbody>
           <tr>
-            <th>#</th>
-            <th>utilisateur</th>
+            <th>avatar</th>
+            <th>nom</th>
+            <th>prenom</th>
             <th>matricule</th>
             <th>role</th>
             <th>tel</th>
             <th>ville</th>
             <th>pays</th>
             <th>codepostal</th>
+            <th>adresse</th>
+            <th>email</th>
             <th>action</th>
           </tr>
-        </thead>
-        <tbody>
 
           {
             filteredContacts.map( (archives, index)=>
             <tr key={index}> 
-           <td>{index}</td>
-            <td>{archives.user.utilisateur}</td>
+            <td><img className="archive_Avatar" src={`http://localhost:3030/${archives?.avatar}`} alt="avatar"></img></td>
+            <td>{archives.user.nom}</td>
+            <td>{archives.user.prenom}</td>
             <td> {archives.user.matricule}</td>
             <td>{archives.user.role} </td> 
             <td>{archives.tel}</td>
             <td>{archives.ville}</td>
             <td>{archives.pays}</td>
             <td>{archives.codepostal}</td>
-           <td><Button variant="danger" onClick={() => deleteContact(archives._id)} >supprimer</Button></td> 
+            <td>{archives.adresse}</td>
+            <td>{archives.email}</td>
+           <td><button class="button" onClick={() => deleteContact(archives._id)} >supprimer</button></td> 
           </tr>)
           }
           
         </tbody>
-      </Table>
+      </table>
       : 'aucun contact trouver ...'
       } 
-    
-
+      </div>
+    </div>
+</div>
       </div>
     )
 }
