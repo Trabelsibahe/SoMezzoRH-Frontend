@@ -42,3 +42,23 @@ export const GetAbsence = () => dispatch => {
       })
     });
 }
+export const GetAllAbsence = () => {
+  return async dispatch => {
+    dispatch({ type: absenceConstants.GET_ALL_ABSENCE_REQUEST })
+    try {
+      const res = await axios.get('http://127.0.0.1:3030/api/absence/getall')
+      if (res.status === 200) {
+        dispatch({
+          type: absenceConstants.GET_ALL_ABSENCE,
+          payload: res.data
+        })      
+      }
+    } catch (error) {
+      dispatch({
+        type: absenceConstants.ABSENCE_ERRORS,
+        payload: { error: error.response }
+      })
+
+    }
+  }
+}

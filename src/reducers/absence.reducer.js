@@ -2,6 +2,8 @@
 import { absenceConstants } from "../actions/constantes";
 
 const intitialState = {
+ absences: [],
+
 };
 export default function (state = intitialState, action) {
   switch (action.type) {
@@ -16,7 +18,12 @@ export default function (state = intitialState, action) {
         ...state,
         message : action.payload.message
       }
-      
+      case absenceConstants.GET_ALL_ABSENCE:
+        return {
+            ...state,
+            absences: action.payload,
+          };
+
     default:
       return state;
   }

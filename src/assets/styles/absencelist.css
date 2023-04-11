@@ -1,0 +1,49 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
+.absencelist_page {
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    padding: 0;
+    background: #f5f5f9;
+    height: auto;
+    width: 100%;
+    font-family: Open Sans;
+    overflow-x: hidden;
+   
+  }
+  
+  .absencelist_container {
+    position: absolute;
+    top: 15%;
+    margin-left: 15%;
+    width: 85%;
+  }
+  .absences_table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 2px solid #ebf0f7;
+    color: rgb(21, 21, 130);
+  }
+  .absences_table th {
+    padding: 20px ;
+    text-align: center;
+    width: 80em;
+    border-bottom: 2px solid #ebf0f7;
+  }
+  .absences_table td {
+    text-align: center;
+    padding: 8px;
+  }
+  
+  .absences_table  tr:nth-child(even){background-color: #ebf0f7}
+  
+  .ab_select {
+    width: 100%;
+  }
+  @media screen and (max-width: 768px) {
+    .absence_bottom {
+      text-align: center;
+  }
+  
+  }

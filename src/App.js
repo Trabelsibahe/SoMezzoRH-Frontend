@@ -25,8 +25,7 @@ import ExpertRouter from "./routes/expertrouter";
 import Archive from './pages/archive';
 import AccountMenu from "./components/account_menu"
 import NewsLetterPage from "./pages/newsletter"
-import Absence from './pages/absence';
-
+import AbsenceList from './components/userlist/absnecelist';
 import EmployePage from './pages/espaces/employe';
 import RRH_Page from './pages/espaces/rrh';
 if (window.localStorage.jwt) {
@@ -100,10 +99,10 @@ function App() {
           <Route path="/archive" element={<ExpertRouter user={user}> {" "} <Archive />{" "} </ExpertRouter>} />
           <Route path="/expertrh" element={
             <ExpertRouter user={user}> {" "} <Expert_RH_Page />{" "} </ExpertRouter>} />
-
+       <Route path="/listabsence" element={
+            <ExpertRouter user={user}> {" "} <AbsenceList />{" "} </ExpertRouter>} />
           <Route path="/emp" element={<EmployePage />}></Route>
           <Route path="/rrh" element={<RRH_Page/>}></Route>
-          <Route path='/test' element={<Absence/>}></Route>
 
         </Routes>
       </BrowserRouter>
