@@ -42,8 +42,8 @@ function AbsenceList() {
       <Navigation user={CurrentProfile} />
       <div className="absencelist_container">
         <div className="page_name">
-          Pages / List des Congés{" "}
-          <p style={{ fontWeight: "bold", fontSize: "14px" }}>List des Congés</p>
+          Pages / Absence{" "}
+          <p style={{ fontWeight: "bold", fontSize: "14px" }}>Liste demande d'autorisation d'absence</p>
           <InputBase className="searchbar"  placeholder="Rechercher.."   type="text"   value={search}  onChange={handleSearch}
         startAdornment={ <InputAdornment position="start"> <SearchIcon /> </InputAdornment>}  margin="normal"
         sx={{width:250}}/>
@@ -52,7 +52,7 @@ function AbsenceList() {
           <table className="absences_table">
           <tbody>
               <tr>
-                <th>Titulaire</th>
+                <th>Demandeur</th>
                 <th>Type d'absence</th>
                 <th>Date de début</th>
                 <th>Date de fin</th>

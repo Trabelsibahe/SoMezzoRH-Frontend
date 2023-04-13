@@ -28,3 +28,27 @@ export const GetArchives = () => async (dispatch) => {
         });
       });
   };
+  //counter Archives
+export const CountArchives = () => {
+  return async dispatch => {
+    dispatch({ type: archiveConstants.ARCHIVE_REQUEST})
+    try {
+      const res = await axios.get('http://127.0.0.1:3030/api/archives/nb')
+      if (res.status === 200) {
+        console.log(res.data.count)
+        dispatch({
+          type: archiveConstants.COUNT_ARCHIVE,
+          payload: {
+            count: res.data.count // Ajoutez la valeur de count à la charge utile
+          }
+        })
+      }
+    } catch (error) {
+      dispatch({
+        type: archiveConstants.COUNT_ARCHIVE_ERREUR,
+        payload: { error: error.response }
+      })
+
+    }
+  }
+}

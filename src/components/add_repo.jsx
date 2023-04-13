@@ -29,6 +29,7 @@ function AddRepoPage() {
   const [form, setForm] = useState({});
   const [Active, setActive] = useState(true);
 
+
   const onSubmit = async (e) => {
     e.preventDefault();
     await dispatch(AddAbsence(form));
@@ -67,8 +68,10 @@ function AddRepoPage() {
                     })}
                   >
                     <MenuItem value="Maladie">Maladie</MenuItem>
-                    <MenuItem value="Vacance">Vacance</MenuItem>
-                    <MenuItem value="n7chi fih">Marriage</MenuItem>
+                    <MenuItem value="Décès">Décès</MenuItem>
+                    <MenuItem value="Naissance">Naissance</MenuItem>
+                    <MenuItem value="Autre...">Autre...</MenuItem>
+
                   </Select>
                   {errors.type && (
                   <div className="invalid-feedback">{errors.type}</div>
@@ -138,7 +141,22 @@ function AddRepoPage() {
                   />
        
                 </Form.Group>
-
+                <Form.Group className="mb-4">
+                  <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    size="large"
+                    margin="dense"
+                    type="file"
+                    value={form.justif}
+                    name="justification"
+                    onChange={(event) =>
+                      setForm({ ...form, justif: event.target.files[0]})
+                    }
+                  
+                  />
+       
+                </Form.Group>
                 <div className="col-md-12 text-center mb-4 ">
                   <Button
                     variant="contained"

@@ -58,6 +58,7 @@ function EmployePage() {
                     <th>Date de fin de période d'absence</th>
                     <th>Commentaires</th>
                     <th>Status</th>
+                    <th>justification</th>
                   </tr>
                   {absences[0].absences.map((absence, index) => (
                 <tr key={index}>
@@ -66,6 +67,7 @@ function EmployePage() {
                   <td>{new Date(absence.dateFin).toLocaleDateString()}</td>
                   <td>{absence.commentaire ? absence.commentaire : "Pas de commentaires."}</td>
                   <td>{absence.etat}</td>
+                  <td> <img className="profile_header_avatar" src={`http://localhost:3030/${absence?.justif}`} ></img></td>
                 </tr>
               ))}
                 </tbody>

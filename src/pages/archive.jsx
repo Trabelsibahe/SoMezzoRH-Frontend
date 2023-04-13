@@ -2,7 +2,7 @@ import "../assets/styles/notfound.css"
 import { useDispatch, useSelector } from 'react-redux';
 import Table from "react-bootstrap/Table";
 import React, { useEffect ,useState} from "react";
-import{ GetArchives, deleteArchive} from '../actions/archive.action'
+import{ CountArchives, GetArchives, deleteArchive} from '../actions/archive.action'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import Navigation from "../components/navigation";
@@ -15,7 +15,11 @@ function Archive() {
   const dispatch = useDispatch(); 
   const auth = useSelector((state) => state.auth);
   const archives = useSelector(state => state.archives.archives)
-    useEffect(()=>{dispatch(GetArchives())},[dispatch]);
+  const count = useSelector(state => state.archives.count.count);
+  
+  useEffect(()=>{dispatch(GetArchives());  
+      dispatch(CountArchives());
+  },[dispatch]);
     const CurrentUser = {
       isConnected: auth.isConnected,
       nom: auth.user.nom,
@@ -53,7 +57,8 @@ function Archive() {
 
         <p className="expert_info">Archive</p>
 
- 
+        <p>Nombre des employés archive : {count}</p>
+
       <InputBase className="searchbar"  placeholder="Rechercher.."   type="text"   value={search}  onChange={handleSearch}
         startAdornment={ <InputAdornment position="start"> <SearchIcon /> </InputAdornment>}  margin="normal"
         sx={{width:250}}/>
@@ -92,7 +97,7 @@ function Archive() {
             <td>{archives.codepostal}</td>
             <td>{archives.adresse}</td>
             <td>{archives.email}</td>
-           <td><button class="button" onClick={() => deleteContact(archives._id)} >supprimer</button></td> 
+           <td><button class="button" onClick={() => deleteContact(archives._id)} >Restaurer</button></td> 
           </tr>)
           }
           

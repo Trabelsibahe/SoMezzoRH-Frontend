@@ -4,7 +4,7 @@ import React from "react";
 import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { SetProfileAction, GetProfileAction } from "../../actions/profile.actions";
+import { CountProfiles, GetProfileAction } from "../../actions/profile.actions";
 import UserList  from "../../components/userlist/userlist_table";
 import RegisterPage from "../../components/register"
 import { Button } from "@mui/material";
@@ -17,10 +17,13 @@ import { FaFileArchive } from "react-icons/fa";
 function Expert_Rh_Page() {
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+  const count = useSelector(state => state.profiles.count.count);
   const errors = useSelector((state) => state.errors);
-
+  useEffect(() => {
+    dispatch(GetProfileAction());
+    dispatch(CountProfiles());
+  }, [dispatch]);
   const Currentexpert = {
     isConnected: auth.isConnected,
     nom: auth.user.nom,
@@ -28,14 +31,6 @@ function Expert_Rh_Page() {
     matricule: auth.user.matricule,
     role: auth.user.role,
   };
-
-  useEffect(() => {
-    (() => {
-      dispatch(GetProfileAction());
-    })();
-  }, [dispatch]);
-
-
   const [showRegister, setRegister] = React.useState(false)
   const onClick = () => setRegister(true)
 
@@ -60,6 +55,7 @@ function Expert_Rh_Page() {
           <p className="expert_info">Liste des comptes </p>
 
           <div className="expert_menu">
+          <p>Nombre des employés : {count}</p>
           <Button className="expert_add_button" startIcon={<PersonAddAlt1Icon />} variant="outlined" onClick={onClick}>Ajouter un compte</Button> {" "}
           <Button className="expert_add_button" startIcon={<FaFileArchive />} variant="outlined" onClick={onClickArchive}>Voir Archive</Button> 
           </div>

@@ -167,3 +167,27 @@ export const EditMyProfileAction = (data) => (dispatch) => {
       });
     });
 };
+//counter profiles
+export const CountProfiles = () => {
+  return async dispatch => {
+    dispatch({ type: profileConstants.PROFILE_REQUEST })
+    try {
+      const res = await axios.get('http://127.0.0.1:3030/api/nb/profiles')
+      if (res.status === 200) {
+        console.log(res.data.count)
+        dispatch({
+          type: profileConstants.COUNT_PROFILE,
+          payload: {
+            count: res.data.count // Ajoutez la valeur de count à la charge utile
+          }
+        })
+      }
+    } catch (error) {
+      dispatch({
+        type: profileConstants.COUNT_PROFILE_ERREUR,
+        payload: { error: error.response }
+      })
+
+    }
+  }
+}

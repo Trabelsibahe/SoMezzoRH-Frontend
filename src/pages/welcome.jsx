@@ -14,13 +14,14 @@ import { BiLogIn } from "react-icons/bi";
 import { Logout } from "../actions/auth.actions";
 
 function WelcomePage() {
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
   const CurrentUser = {
     isConnected: auth.isConnected,
-    name: auth.utilisateur,
-    email: auth.matricule,
+    nom: auth.nom,
+    prenom: auth.prenom,
+    matricule: auth.matricule,
     role: auth.role,
   };
 
@@ -128,7 +129,7 @@ function WelcomePage() {
       <div className="welcome_card">
         <div className="welcome_card-image">
           <h2 className="welcome_card-heading">
-            Bienvenue {CurrentUser.name} !
+            Bienvenue {CurrentUser.prenom} !
           </h2>
           <div className="welcome_step">{FormTitles[page]}</div>
         </div>

@@ -3,6 +3,7 @@ import { archiveConstants } from "../actions/constantes";
 
 const intitialState = {
   archives: [],
+  count: 0 
 };
 export default function (state = intitialState, action) {
   switch (action.type) {
@@ -17,7 +18,11 @@ export default function (state = intitialState, action) {
         ...state,
         message : action.payload.message
       }
-      
+      case archiveConstants.COUNT_ARCHIVE : 
+      state = {
+        ...state,
+        count: action.payload,
+      }
     default:
       return state;
   }
