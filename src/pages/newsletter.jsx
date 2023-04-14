@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listernews, addnews, Deletenews } from "../actions/news.actions";
+import { supprimerNews,listernews, addnews, Deletenews } from "../actions/news.actions";
 import Navigation from "../components/navigation";
 import "../assets/styles/news.css";
 import divider from "../components/divider";
@@ -19,6 +19,7 @@ function NewsLetterPage() {
 
   const [titre, setTitre] = useState("");
   const [description, setDescription] = useState("");
+  const [dateSuppression, setDateSuppression] = useState("");
   const [imgurl, setImgurl] = useState("");
 
   const [show, setShow] = useState(false);
@@ -29,6 +30,7 @@ function NewsLetterPage() {
     const data = new FormData();
     data.append("titre", titre);
     data.append("description", description);
+    data.append("dateSuppression",dateSuppression);
     data.append("imgurl", imgurl);
 
     await dispatch(addnews(data));
@@ -36,6 +38,7 @@ function NewsLetterPage() {
     handleClose();
     setTitre("");
     setDescription("");
+    setDateSuppression("");
     setImgurl("");
   };
   const CurrentProfile = {
@@ -47,8 +50,8 @@ function NewsLetterPage() {
     password: auth.user.password,
   };
 
-  const deletenews = async (id) => {
-    await dispatch(Deletenews(id));
+  const deletenews = async () => {
+    await dispatch(supprimerNews());
     await dispatch(listernews());
     await dispatch(listernews());
   };
@@ -60,6 +63,15 @@ function NewsLetterPage() {
         <div className="page_name">
           Pages / Acceuil{" "}
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>Newsletter</p>
+          {CurrentProfile.role === "EXPERT" && (
+                            <Button
+                              color="error"
+                              onClick={() => deletenews()}
+                              size="small" sx={{ textAlign:"center"}}
+                            >
+                              supprimer
+                            </Button>
+                          )}
         </div>
         <div className="news_body">
           <h5>Quoi de neuf ? </h5>
@@ -69,6 +81,7 @@ function NewsLetterPage() {
               Ajouter une publication
             </Button>
           )}
+              
           {news && news.length > 0
             ? news.map((newsItem, index) => (
                 <div className="news_content">
@@ -82,15 +95,6 @@ function NewsLetterPage() {
                         <Card.Body>
                           <Card.Title>{newsItem.titre}</Card.Title>
                           <Card.Text>{newsItem.description}</Card.Text>
-                          {CurrentProfile.role === "EXPERT" && (
-                            <Button
-                              variant="contained"
-                              color="error"
-                              onClick={() => deletenews(newsItem._id)}
-                            >
-                              supprimer
-                            </Button>
-                          )}
                         </Card.Body>
                       </Card>
                     </div>
@@ -132,6 +136,15 @@ function NewsLetterPage() {
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Ajouter une date de suppression </Form.Label>
+                <Form.Control
+                  type="date"
+                  value={dateSuppression}
+                  onChange={(e) => setDateSuppression(e.target.value)}
+                  placeholder="date Suppression"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Charger une image pour votre publication</Form.Label>
                 <Form.Control
                   type="file"
@@ -139,6 +152,7 @@ function NewsLetterPage() {
                   onChange={(e) => setImgurl(e.target.files[0])}
                 />
               </Form.Group>
+              
             </Form>
           </Modal.Body>
           <Modal.Footer>

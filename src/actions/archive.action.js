@@ -14,6 +14,7 @@ export const GetArchives = () => async (dispatch) => {
   //fonction delete + envouyer a l'archive 
 
   export const deleteArchive = (id) => (dispatch) => {
+    if(window.confirm("Êtes-vous sûr de vouloir restaurer cet employé ?")){
     axios.delete(`http://127.0.0.1:3030/api/archive/supp/${id}`)
       .then((res) => {
         dispatch({
@@ -27,7 +28,7 @@ export const GetArchives = () => async (dispatch) => {
           payload: err.response.data,
         });
       });
-  };
+  }};
   //counter Archives
 export const CountArchives = () => {
   return async dispatch => {

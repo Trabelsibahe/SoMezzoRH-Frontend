@@ -81,7 +81,7 @@ export const GetProfiles = () => {
   }
 }
 export const DeleteProfile = (id) => dispatch => {
-  if (window.confirm("are you sure to delete this user?")) {
+  if (window.confirm("Êtes-vous sûr de vouloir supprimer cet employé ?")) {
     axios
       .delete(`/api/profiles/${id}`)
       .then(res => {
@@ -136,6 +136,7 @@ export const searchByMatricule = (matricule) => (dispatch) => {
 
 //fonction delete + envouyer a l'archive 
 export const deleteAndArchiveProfile = (id) => (dispatch) => {
+  if (window.confirm("Êtes-vous sûr de vouloir d'archiver cet employé ?")) {
   axios.delete(`http://localhost:3030/api/profilesupp/${id}`)
     .then((res) => {
       dispatch({
@@ -149,7 +150,7 @@ export const deleteAndArchiveProfile = (id) => (dispatch) => {
         payload: err.response.data,
       });
     });
-};
+}};
 
 //modifier mon profile (connecté) 
 export const EditMyProfileAction = (data) => (dispatch) => {

@@ -28,13 +28,23 @@ function AddRepoPage() {
 
   const [form, setForm] = useState({});
   const [Active, setActive] = useState(true);
+  const [justif, setJustif] = useState(null);
 
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(AddAbsence(form));
+    const formData = new FormData();
+    formData.append('type', form.type);
+    formData.append('dateDebut', formatDate(form.dateDebut));
+    formData.append('dateFin', formatDate(form.dateFin));
+    formData.append('commentaire', form.commentaire);
+    formData.append('justif', justif);
+    await dispatch(AddAbsence(formData));
     await dispatch(GetAbsence());
     console.log(errors)
+  };
+  const handleImageChange = (event) => {
+    setJustif(event.target.files[0]);
   };
 
   const theme = createTheme({
@@ -150,9 +160,7 @@ function AddRepoPage() {
                     type="file"
                     value={form.justif}
                     name="justification"
-                    onChange={(event) =>
-                      setForm({ ...form, justif: event.target.files[0]})
-                    }
+                    onChange={handleImageChange}
                   
                   />
        

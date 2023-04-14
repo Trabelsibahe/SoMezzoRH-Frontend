@@ -56,3 +56,20 @@ export const addnews = (data) => {
          });
         }
      }
+     export const supprimerNews = () => (dispatch) => {
+        if(window.confirm("Êtes-vous sûr de vouloir supprimer les newsletters ?")){
+        axios
+          .delete(`http://127.0.0.1:3030/api/news/supp`)
+          .then((res) => {
+            dispatch({
+              type: newsConstants.DELETE_DATE_NEWS,
+              payload: res.data,
+            });
+          })
+          .catch((err) => {
+            dispatch({
+              type: newsConstants.NEWS_ERRORS,
+              payload: err.response.data,
+            });
+          });
+      }};
