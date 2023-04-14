@@ -29,6 +29,7 @@ export default function (state = intitialState, action) {
         createdN : action.payload.creatednews
       }
       case newsConstants.ADD_NEWS_FAILURE : 
+      
       return{
         ...state,
         error : action.payload.error

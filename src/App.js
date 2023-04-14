@@ -25,7 +25,7 @@ import ExpertRouter from "./routes/expertrouter";
 import Archive from './pages/archive';
 import AccountMenu from "./components/account_menu"
 import NewsLetterPage from "./pages/newsletter"
-import AbsenceList from './components/userlist/absnecelist';
+import AbsenceList from './components/userlist/absencelist';
 import EmployePage from './pages/espaces/employe';
 import RRH_Page from './pages/espaces/rrh';
 if (window.localStorage.jwt) {

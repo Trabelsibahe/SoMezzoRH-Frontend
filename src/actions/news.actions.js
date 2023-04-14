@@ -1,5 +1,9 @@
 import axios from 'axios'
 import { newsConstants } from '../actions/constantes';
+
+
+
+// lister les newsletters
 export const listernews = () => {
     return async dispatch => {
         dispatch({type : newsConstants.GET_ALL_NEWS_REQUEST})  

@@ -5,13 +5,18 @@ import React from "react";
 import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { SetProfileAction, GetProfileAction } from "../../actions/profile.actions";
-import AddRepoPage from "../../components/add_repo"
+import {
+  SetProfileAction,
+  GetProfileAction,
+} from "../../actions/profile.actions";
+import { GetOperaAction } from "../../actions/operation.action";
+import AddRepoPage from "../../components/add_repo";
 import { Button } from "@mui/material";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 function RRH_Page() {
   const auth = useSelector((state) => state.auth);
+  const opera = useSelector((state) => state.operation.operation);
 
   const dispatch = useDispatch();
   const errors = useSelector((state) => state.errors);
@@ -26,65 +31,50 @@ function RRH_Page() {
 
   useEffect(() => {
     (() => {
-      dispatch(GetProfileAction());
+      dispatch(GetOperaAction());
     })();
   }, [dispatch]);
-
-
-  const [showRepo, setRepo] = React.useState(false)
-  const onClick = () => setRepo(true)
-
-  
-// https://support.payfit.com/fr/conges-payes-dun-stagiaire/?fbclid=IwAR2_ZOxbHMsJlBP6cKkXnAtV9ov4Hu2vOzEiCC7F9tSyfz28hg35PgGU8zg
 
   return (
     <div className="expert_page">
       <Navigation user={Currentexpert} />
       <div className="expert_container">
-      <div className="page_name">
+        <div className="page_name">
           Pages / Mon espace{" "}
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>
             Espace Résponsable RH Opérationnel
           </p>
         </div>
 
-        { showRepo ? <AddRepoPage /> : 
-        <div className="expert_body"  >
+        <div className="expert_body">
           <p className="expert_info">Congés & Absences</p>
 
-        <div style={{overflowX:"auto"}}>
-          <table className="absences_table">
-            <tbody>
-             <tr>
-              <th>Type d'absence</th>
-              <th>Date de debut de période d'absence</th>
-              <th>Date de fin de période d'absence</th>
-              <th>Commentaires</th>
-              <th>Status</th>
-
-            </tr>
-            <tr>
-              <td>To be filled</td>
-              <td>To be filled</td>
-              <td>To be filled</td>
-              <td>To be filled</td>
-              <td>En attente</td>
-            </tr>
-            <tr>
-              <td>To be filled</td>
-              <td>To be filled</td>
-              <td>To be filled</td>
-              <td>To be filled</td>
-              <td>En attente</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className="absence_bottom">
-            <Button className="expert_add_button" startIcon={<AddCircleIcon />} variant="contained" sx={{backgroundColor:"#24377b"}} onClick={onClick}>Ajouter un repos</Button>
+          <div style={{ overflowX: "auto" }}>
+            {
+             opera && opera.length > 0 ?
+                  <table className="absences_table">
+                    <tbody>
+                      <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                        <th>Operation</th>
+                      </tr>
+                      {
+                      opera.map( (operaItem, index) => 
+                      <tr key={index}>
+                        <td>{operaItem.user.nom}</td>
+                        <td>{operaItem.user.prenom}</td>
+                        <td>{operaItem.email}</td>
+                        <td>{operaItem.user.operation}</td>
+                      </tr>
+                     )}
+                    </tbody>
+                  </table>
+              : "Aucune Opera trouvée..."
+              }
           </div>
         </div>
-        }
       </div>
     </div>
   );

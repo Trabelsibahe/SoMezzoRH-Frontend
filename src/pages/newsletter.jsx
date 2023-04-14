@@ -52,6 +52,7 @@ function NewsLetterPage() {
     await dispatch(listernews());
     await dispatch(listernews());
   };
+
   return (
     <div className="news_page">
       <Navigation user={CurrentProfile} />
