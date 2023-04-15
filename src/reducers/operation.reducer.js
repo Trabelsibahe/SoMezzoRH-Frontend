@@ -3,6 +3,7 @@ import { operaConstants } from "../actions/constantes";
 
 const intitialState = {
     operation: [],
+    absences:[],
 };
 export default function (state = intitialState, action) {
 
@@ -15,6 +16,18 @@ export default function (state = intitialState, action) {
             };
 
         case operaConstants.OPERA_ERRORS:
+            return {
+                ...state,
+                message: action.payload.message
+            }
+            
+        case operaConstants.GET_MY_OPERA_ABSENCE:
+            return {
+                ...state,
+                absences: action.payload,
+            };
+
+        case operaConstants.OPERA_ABSENCE_ERRORS:
             return {
                 ...state,
                 message: action.payload.message

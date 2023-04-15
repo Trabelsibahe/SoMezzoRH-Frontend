@@ -77,5 +77,7 @@ export const absenceConstants={
 export const operaConstants = {
   GET_MY_OPERA: 'GET_MY_OPERA',
   OPERA_ERRORS: 'OPERA_ERRORS',
+  GET_MY_OPERA_ABSENCE: 'GET_MY_OPERA_ABSENCE',
+  OPERA_ABSENCE_ERRORS: 'OPERA_ABSENCE_ERRORS',
 
 };

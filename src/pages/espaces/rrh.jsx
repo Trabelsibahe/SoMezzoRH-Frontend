@@ -5,15 +5,15 @@ import React from "react";
 import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { GetOperaAction } from "../../actions/operation.action";
+import { GetOperaAction,GetOperAbsenceaAction } from "../../actions/operation.action";
 import OperaList from "../../components/userlist/operalist_table";
 
 function RRH_Page() {
-  const auth = useSelector((state) => state.auth);
-  const opera = useSelector((state) => state.operation.operation);
-
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  const absences = useSelector((state) => state.operation.absences);
   const errors = useSelector((state) => state.errors);
+  useEffect(() => {dispatch(GetOperAbsenceaAction());}, [dispatch]);
 
   const Currentexpert = {
     isConnected: auth.isConnected,
@@ -23,11 +23,7 @@ function RRH_Page() {
     role: auth.user.role,
   };
 
-  useEffect(() => {
-    (() => {
-      dispatch(GetOperaAction());
-    })();
-  }, [dispatch]);
+
 
   return (
     <div className="rrh_page">
@@ -46,31 +42,45 @@ function RRH_Page() {
           <OperaList/>
         </div>
         <div className="rrh_body2">
-          <p className="rrh_info">Congés & Absences</p>
+          <p className="rrh_info">Absences</p>
 
           <div style={{ overflowX: "auto" }}>
-            {opera && opera.length > 0 ? (
-              <table className="absences_table">
-                <tbody>
-                  <tr>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Email</th>
-                    <th>Operation</th>
+          { Array.isArray(absences) && absences.length > 0 ? 
+          <table className="absences_table">
+          <tbody>
+              <tr>
+                <th>Matricule</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Type d'absence</th>
+              </tr>
+              {absences.map((item) => (
+                item.absences.map((absence) => (
+                  <tr key={absence._id}>
+                  <td>{item.user.matricule}</td>
+                  <td>{item.user.nom}</td>
+                  <td>{item.user.prenom}</td>
+                  <td>{absence.type}</td>
                   </tr>
-                  {opera.map((operaItem, index) => (
-                    <tr key={index}>
-                      <td>{operaItem.user.nom}</td>
-                      <td>{operaItem.user.prenom}</td>
-                      <td>{operaItem.email}</td>
-                      <td>{operaItem.user.operation}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              "Aucune Opera trouvée..."
-            )}
+                ))
+              ))}
+            </tbody>
+          </table>
+               :   
+                <>
+                <table className="absences_table">
+                    <tbody>
+                      <tr>
+                        <th>Type d'absence</th>
+                        <th>Date de debut de période d'absence</th>
+                        <th>Date de fin de période d'absence</th>
+                        <th>Commentaires</th>
+                        <th>Status</th>
+                      </tr>
+                    </tbody>
+                  </table><p style={{ textAlign: "center", padding:"1em" }}>Il n'y a pas d'absence.</p>
+                  </>
+           }
           </div>
         </div>
         <div style={{padding:"2em", textAlign:"center"}} ><p className="welcome_footer">Tous droits réservés - SoMezzo</p></div>

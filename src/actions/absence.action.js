@@ -50,8 +50,10 @@ export const GetAllAbsence = () => {
       if (res.status === 200) {
         dispatch({
           type: absenceConstants.GET_ALL_ABSENCE,
-          payload: res.data
-        })      
+          payload: res.data,
+        })     
+       console.log(res.data);
+   
       }
     } catch (error) {
       dispatch({
