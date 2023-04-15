@@ -1,0 +1,107 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
+
+
+
+.rrh_page {
+  display: flex;
+  margin: 0 auto;
+  padding: 0;
+  background: #f5f5f9;
+  height: 100vh auto;
+  width: 100%;
+  font-family: Open Sans;
+
+
+}
+.rrh_container {
+  position: absolute;
+  top: 15%;
+  margin-left: 15%;
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+}
+
+
+
+.rrh_header {
+    position: relative;
+    margin: auto 4em;
+    display: flexbox;
+    width: 88%;
+    height: auto;
+    background-color: #fbfcfd;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
+    padding: 1rem;
+    flex-direction: row;
+}
+.rrh_body {
+  position: relative;
+  margin: 1em 4em;
+  display: flex;
+  width: 88%;
+  height: auto ;
+  background-color: #fbfcfd;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
+  padding: 1rem;
+  flex-direction: column;
+}
+
+.rrh_body2 {
+    position: relative;
+    margin: auto 4em;
+    display: flexbox;
+    width: 88%;
+    height: auto;
+    background-color: #fbfcfd;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
+    padding: 1rem;
+    flex-direction: column;
+    top: auto;
+  }
+
+
+.rrh_info {
+  font-weight: bold;
+  font-size: 18px;
+  color: rgb(73, 76, 86);
+  letter-spacing: 1px;
+  text-indent: 20px;
+}
+
+
+.opera_table_tr{
+    padding: 20px ;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    width: 80em;
+    color:  #151582;
+    font-family: Open Sans;
+}
+
+.typo_title {
+    color:  #151582;
+    font-family: Open Sans;
+    font-weight: bold;
+}
+
+.opera_table td:nth-child(even), .opera_table td:nth-child(odd){
+    color: #151582;
+    font-family:  Open Sans 600;
+    font-size: 15px;
+}
+
+.opera_table th:nth-child(even), .opera_table th:nth-child(odd){
+    color: #151582;
+    font-family:  Open Sans ;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.opera_table tr:nth-child(even){background-color: #ebf0f7}

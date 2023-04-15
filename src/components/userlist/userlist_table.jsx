@@ -292,7 +292,7 @@ function Row(accounts, index) {
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                  Les coordonnées
+                Coordonnées personnelles
                 </Typography>
                 <Table size="small" aria-label="coordonnées">
                   <TableHead>
