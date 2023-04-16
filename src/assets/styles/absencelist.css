@@ -35,7 +35,7 @@
     text-align: center;
     padding: 8px;
   }
-  
+
   .absences_table  tr:nth-child(even){background-color: #ebf0f7}
   
   .ab_select {

@@ -1,3 +1,4 @@
+import React from "react";
 import Navigation from "../navigation";
 import "../../assets/styles/absencelist.css";
 import { GetAllAbsence } from "../../actions/absence.action";
@@ -6,6 +7,12 @@ import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from '@mui/icons-material/Search';
 import { InputBase } from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Card from "react-bootstrap/Card";
+import { BsFillFileTextFill } from "react-icons/bs";
+import '@mui/icons-material/OutlinedFlag';
+import '@mui/icons-material/CheckCircleOutline';
 
 function AbsenceList() {
   const dispatch = useDispatch();
@@ -36,7 +43,15 @@ function AbsenceList() {
       }
       return false;
     });
-
+    const [ id, setId ] = useState('');
+    const [justif,setJustif]= useState('');
+    const [justification, setJustification] = useState(false);
+    const handleClosejustif = () => setJustification(false);
+    const handleShowJustif = (absence) => {
+      setId(absence._id);
+      setJustif(absence.justif);
+      setJustification(true);  
+    }
   return (
     <div className="absencelist_page">
       <Navigation user={CurrentProfile} />
@@ -58,6 +73,7 @@ function AbsenceList() {
                 <th>Date de fin</th>
                 <th>Commentaire</th>
                 <th>Status</th>
+                <th>Justification</th>
               </tr>
               {filteredabsence.map((item) => (
                 item.absences.map((absence) => (
@@ -68,6 +84,7 @@ function AbsenceList() {
                   <td>{new Date(absence.dateFin).toLocaleDateString()}</td>
                   <td>{absence.commentaire ? absence.commentaire : "Pas de commentaires."}</td>
                   <td>{absence.etat}</td>
+                  <td> <Button  variant="outline-primary" onClick={() => handleShowJustif(absence)}><BsFillFileTextFill /> Justification</Button> </td>
                   </tr>
                 ))
               ))}
@@ -89,6 +106,20 @@ function AbsenceList() {
                   </>
            }
         </div>
+        <Modal show={justification} onHide={handleClosejustif}>
+        <Modal.Header closeButton>
+          <Modal.Title>Justification d'absence</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {" "}
+          <Card className="news_item_card">
+             <Card.Img variant="top" src={`http://localhost:3030/${justif}`} />
+          </Card>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClosejustif}>Fermer</Button>
+        </Modal.Footer>
+      </Modal>
       </div>
     </div>
   );
