@@ -65,3 +65,19 @@ export const GetAllAbsence = () => {
   }
 }
 
+
+export const updateAbsence = (id, data) => (dispatch) => {
+  axios.post(`http://127.0.0.1:3030/api/modif/${id}`, data)
+    .then((res) => {
+      dispatch({
+        type:  absenceConstants.UPDATE_ABSENCE_SUCCESS,
+        payload: res.data.message,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: absenceConstants.UPDATE_ABSENCE_FAILURE,
+        payload: err.response.data.message,
+      });
+    });
+};

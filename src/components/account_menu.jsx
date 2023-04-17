@@ -75,7 +75,7 @@ export default function AccountMenu({ profile, LogoutHandler }) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={() => { window.location = '/profil' }} > <Avatar/> Mon profil </MenuItem>
+        <MenuItem onClick={() => { window.location = '/profil' }} > <Avatar src={`http://localhost:3030/${profile?.avatar}`}/> Mon profil </MenuItem>
         
         <Divider />
   
