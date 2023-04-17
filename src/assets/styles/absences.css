@@ -13,10 +13,13 @@
   text-align: center;
   width: 80em;
   border-bottom: 2px solid #ebf0f7;
+  font-size: 16px;
+
 }
 .absences_table td {
   text-align: center;
-  padding: 8px;
+  padding: 6px;
+  font-size: 14px;
 }
 
 .absences_table  tr:nth-child(even){background-color: #ebf0f7}

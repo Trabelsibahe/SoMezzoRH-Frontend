@@ -18,7 +18,8 @@ import { Button, InputBase, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import formatDate from "../../components/formatdate";
-
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
 import { GetOperaAction } from "../../actions/operation.action";
 
 function Row(accounts, index) {
@@ -114,9 +115,50 @@ export default function OperaList() {
     setPage(0);
   };
 
+  // recherche et affichage
+  const [search, setSearch] = useState("");
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
 
+  const filteredOperation = opera.filter((OperaItem, ind) => {
+    if (search === "") {
+      return (
+        true && ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1)
+      );
+    }
+    if (
+      OperaItem.user.role.toLowerCase().includes(search.toLowerCase()) ||
+      OperaItem.user.matricule.toLowerCase().includes(search.toLowerCase()) ||
+      OperaItem.user.nom.toLowerCase().includes(search.toLowerCase()) ||
+      OperaItem.user.prenom.toLowerCase().includes(search.toLowerCase())
+    ) {
+      return (
+        true && ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1)
+      );
+    }
+    return false;
+  });
   return (
     <>
+        <div className="rrh_info_div">
+          <p className="rrh_info">Mon équipe</p>
+        <InputBase
+        className="rrh_searchbar"
+        placeholder="Rechercher.."
+        type="text"
+        value={search}
+        onChange={handleSearch}
+        startAdornment={
+          <InputAdornment position="start">
+            {" "}
+            <SearchIcon />{" "}
+          </InputAdornment>
+        }
+        margin="normal"
+        sx={{ width: 250 }}
+      />
+      </div>
       <Paper className="opera_table" sx={{ width: "100%", boxShadow:"none", border:"2px solid #e0e0e0", borderRadius:"0" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
@@ -139,7 +181,7 @@ export default function OperaList() {
             </TableHead>
 
             <TableBody>
-              {opera.map((operaItem, index) => (
+              {filteredOperation.map((operaItem, index) => (
                 <Row key={index} operaItem={operaItem} />
               ))}
             </TableBody>

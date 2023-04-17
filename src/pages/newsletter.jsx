@@ -63,21 +63,12 @@ function NewsLetterPage() {
         <div className="page_name">
           Pages / Acceuil{" "}
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>Newsletter</p>
-          {CurrentProfile.role === "EXPERT" && (
-                            <Button
-                              color="error"
-                              onClick={() => deletenews()}
-                              size="small" sx={{ textAlign:"center"}}
-                            >
-                              supprimer
-                            </Button>
-                          )}
         </div>
         <div className="news_body">
           <h5>Quoi de neuf ? </h5>
           <hr className="news_hr" />
           {CurrentProfile.role === "EXPERT" && (
-            <Button color="error" onClick={handleShow} size="small" sx={{width:"50%", textAlign:"center", margin:"1.5em -0.8em"}}>
+            <Button  color="error" onClick={handleShow} size="small" sx={{width:"40%", textAlign:"center", margin:"0.5em -0.8em"}}>
               Ajouter une publication
             </Button>
           )}
@@ -97,6 +88,15 @@ function NewsLetterPage() {
                           <Card.Text>{newsItem.description}</Card.Text>
                         </Card.Body>
                       </Card>
+                      {CurrentProfile.role === "EXPERT" && (
+                            <Button
+                              color="error" variant="contained"
+                              onClick={() => deletenews()}
+                              size="small" sx={{ textAlign:"center", margin:"1em", backgroundColor:"orangered"}}
+                            >
+                              supprimer
+                            </Button>
+                          )}
                     </div>
                   </div>
                   <hr className="news_hr" />

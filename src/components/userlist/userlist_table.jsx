@@ -362,7 +362,7 @@ export default function UserList() {
     setSearch(event.target.value);
   };
 
-  const filteredContacts = profiles.filter((profile, ind) => {
+  const filteredUserList = profiles.filter((profile, ind) => {
     if (search === "") {
       return (
         true && ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1)
@@ -430,7 +430,7 @@ export default function UserList() {
             </TableHead>
 
             <TableBody>
-              {filteredContacts.map((profile, index) => (
+              {filteredUserList.map((profile, index) => (
                 <Row key={index} profile={profile} />
               ))}
             </TableBody>

@@ -18,6 +18,7 @@ export const GetOperaAction = () => dispatch => {
         })
       });
   }
+  
   export const GetOperAbsenceaAction = () => dispatch => {
     
     axios.get("http://127.0.0.1:3030/api/operation/absence")
