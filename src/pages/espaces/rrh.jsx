@@ -137,7 +137,7 @@ function RRH_Page() {
                   </tr>
                   {absences.map((item) =>
                     item.absences.map((absence) =>
-                      absence.etat === "En attente" ? (
+                     
                         <tr key={absence._id}>
                           <td>
                             ({item.user.matricule}) {item.user.nom}{" "}
@@ -192,7 +192,7 @@ function RRH_Page() {
                             </Button>
                           </td>
                         </tr>
-                      ) : null
+                      
                     )
                   )}
                 </tbody>
