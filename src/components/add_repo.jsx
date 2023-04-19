@@ -34,14 +34,13 @@ function AddRepoPage() {
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('type', form.type);
-    formData.append('dateDebut', formatDate(form.dateDebut));
-    formData.append('dateFin', formatDate(form.dateFin));
-    formData.append('commentaire', form.commentaire);
-    formData.append('justif', justif);
+    formData.append('type', form.type ? form.type : "");
+    formData.append('dateDebut', formatDate(form.dateDebut) ? formatDate(form.dateDebut) : "" );
+    formData.append('dateFin', formatDate(form.dateFin) ? formatDate(form.dateFin) : "");
+    formData.append('commentaire', form.commentaire ? form.commentaire : "");
+    formData.append('justif', justif ? justif : "");
     await dispatch(AddAbsence(formData));
     await dispatch(GetAbsence());
-    console.log(errors)
   };
   const handleImageChange = (event) => {
     setJustif(event.target.files[0]);

@@ -1,33 +1,28 @@
 import "../../assets/styles/rrh.css";
-import "../../assets/styles/absences.css";
+
 import { updateAbsence } from "../../actions/absence.action";
+
 import React from "react";
 import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { FaFileArchive } from "react-icons/fa";
 
-import { GetOperaAction, GetOperAbsenceaAction,} from "../../actions/operation.action";
+import {
+  GetOperaAction,
+  GetOperAbsenceAction,
+} from "../../actions/operation.action";
+
 import OperaList from "../../components/userlist/operalist_table";
 import { Button } from "@mui/material";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import RrhAbsArchPage from "../../components/rrh_AbsArch";
 
-
-
 function RRH_Page() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const absences = useSelector((state) => state.operation.absences);
-  const errors = useSelector((state) => state.errors);
-
-
-
-  
-  useEffect(() => {
-    dispatch(GetOperAbsenceaAction());
-  }, [dispatch]);
 
   const CurrentUser = {
     isConnected: auth.isConnected,
@@ -42,50 +37,27 @@ function RRH_Page() {
   const [id, setId] = useState("");
   const [justif, setJustif] = useState("");
   const [justification, setJustification] = useState(false);
-  const [etat, setEtat] = useState("");
   const [Show_RrhAbsArchPage, setShow_RrhAbsArchPage] = React.useState(false);
   const handleClosejustif = () => setJustification(false);
+
   const handleShowJustif = (absence) => {
     setId(absence._id);
     setJustif(absence.justif);
     setJustification(true);
   };
-  let action = "";
-  const [edit, setEdit] = useState(false);
-  const handleCloseEdit = () => setEdit(false);
 
-
+  const OnChangeHandler = async (id, action) => {
+    const data = {
+      etat: action,
+    };
+    await dispatch(updateAbsence(id, data));
+    await dispatch(GetOperAbsenceAction());
+    await dispatch(GetOperAbsenceAction());
+  };
 
   useEffect(() => {
-    if (edit) {
-      editetat(action);
-    }
-  }, [edit, action]);
-  
-  const handleShowEdit = (absence, action) => {
-    setId(absence._id);
-    setJustif(absence.etat);
-    editetat(action);
-    setEdit(true);
-  };
-
-  const editetat = async (action) => {
-    let newEtat = etat;
-    if (action === "accepter") {
-      newEtat = "accepter";
-    } else {
-      newEtat = "refuser";
-    }
-
-    const data = {
-      etat: newEtat,
-    };
-
-    await dispatch(updateAbsence(id, data));
-    await dispatch(GetOperAbsenceaAction());
-    handleCloseEdit();
-    setEtat(newEtat);
-  };
+    dispatch(GetOperAbsenceAction());
+  }, []);
 
   const onClick_RrhAbsArchPage = () => setShow_RrhAbsArchPage(true);
 
@@ -111,114 +83,144 @@ function RRH_Page() {
         <div className="rrh_body">
           <OperaList />
         </div>
-        { Show_RrhAbsArchPage ? <RrhAbsArchPage /> : 
-        <div className="rrh_body2">
-          <p className="rrh_info">Les demandes d'absences</p>
-          <Button onClick={onClick_RrhAbsArchPage}
-            sx={{ margin: "0.5em 3em" }}
-            variant="outlined"
-            startIcon={<FaFileArchive />}
-          >
-            Archive
-          </Button>
-          <div style={{ overflowX: "auto" }}>
-            {absences.length > 0 ? (
-              <table className="absences_table">
-                <tbody>
-                  <tr>
-                    <th>Demandeur</th>
-                    <th>Date de debut d'absence</th>
-                    <th>Date de fin d'absence</th>
-                    <th>Type d'absence</th>
-                    <th>Justification</th>
-                    <th>Commentaire</th>
-                    <th>État</th>
-                    <th>Actions</th>
-                  </tr>
-                  {absences.map((item) =>
-                    item.absences.map((absence) =>
-                     
-                        <tr key={absence._id}>
-                          <td>
-                            ({item.user.matricule}) {item.user.nom}{" "}
-                            {item.user.prenom}
-                          </td>
-                          <td>
-                            {new Date(absence.dateDebut).toLocaleDateString()}
-                          </td>
-                          <td>
-                            {new Date(absence.dateFin).toLocaleDateString()}
-                          </td>
-                          <td>{absence.type}</td>
-                          <td>
-                            {absence.justif ? (
-                              <Button
-                                size="small"
-                                variant="outlined"
-                                sx={{ color: "#151582" }}
-                                onClick={() => handleShowJustif(absence)}
-                              >
-                                Afficher
-                              </Button>
-                            ) : (
-                              "Aucune Justification"
-                            )}
-                          </td>
-                          <td>
-                            {absence.commentaire
-                              ? absence.commentaire
-                              : "Aucun commentaire"}
-                          </td>
-                          <td style={{ color: "orangered" }}>{absence.etat}</td>
-                          <td>
-                            <Button
-                              sx={{ margin: "0.5em" }}
-                              variant="outlined"
-                              color="success"
-                              size="small"
-                              onClick={() =>
-                                handleShowEdit(absence, "accepter")
-                              }
-                            >
-                              Accepter
-                            </Button>{" "}
-                            <Button
-                              variant="outlined"
-                              color="error"
-                              size="small"
-                              onClick={() => handleShowEdit(absence, "refuser")}
-                            >
-                              Refuser
-                            </Button>
-                          </td>
-                        </tr>
-                      
-                    )
-                  )}
-                </tbody>
-              </table>
-            ) : (
-              <>
+        {Show_RrhAbsArchPage ? (
+          <RrhAbsArchPage />
+        ) : (
+          <div className="rrh_body2">
+            <p className="rrh_info">Les demandes d'absences</p>
+            <Button
+              onClick={onClick_RrhAbsArchPage}
+              sx={{ margin: "0.5em 3em" }}
+              variant="outlined"
+              startIcon={<FaFileArchive />}
+            >
+              Archive
+            </Button>
+            <div style={{ overflowX: "auto" }}>
+              {absences.length > 0 ? (
                 <table className="absences_table">
                   <tbody>
                     <tr>
-                      <th>Type d'absence</th>
+                      <th>Demandeur</th>
                       <th>Date de debut d'absence</th>
                       <th>Date de fin d'absence</th>
-                      <th>Commentaire</th>
                       <th>Type d'absence</th>
-                      <th>Etat</th>
+                      <th>Justification</th>
+                      <th>Commentaire</th>
+                      <th>État</th>
+                      <th>Actions</th>
                     </tr>
+                    {absences.some((item) =>
+                      item.absences.some(
+                        (absence) => absence.etat === "En attente"
+                      )
+                    ) ? (
+                      absences.map((item) =>
+                        item.absences.map(
+                          (absence) =>
+                            absence.etat === "En attente" && (
+                              <tr key={absence._id}>
+                                <td>
+                                  ({item.user.matricule}) {item.user.nom}{" "}
+                                  {item.user.prenom}
+                                </td>
+                                <td>
+                                  {" "}
+                                  {new Date(
+                                    absence.dateDebut
+                                  ).toLocaleDateString()}{" "}
+                                </td>
+                                <td>
+                                  {" "}
+                                  {new Date(
+                                    absence.dateFin
+                                  ).toLocaleDateString()}{" "}
+                                </td>
+                                <td>{absence.type}</td>
+                                <td>
+                                  {absence.justif ? (
+                                    <Button
+                                      size="small"
+                                      variant="outlined"
+                                      sx={{ color: "#151582" }}
+                                      onClick={() => handleShowJustif(absence)}
+                                    >
+                                      Afficher
+                                    </Button>
+                                  ) : (
+                                    "Aucune Justification"
+                                  )}
+                                </td>
+                                <td>
+                                  {" "}
+                                  {absence.commentaire
+                                    ? absence.commentaire
+                                    : "Aucun commentaire"}{" "}
+                                </td>
+                                <td style={{ color: "orangered" }}>
+                                  {absence.etat}
+                                </td>
+                                <td>
+                                  <Button
+                                    sx={{ margin: "0.5em" }}
+                                    variant="outlined"
+                                    color="success"
+                                    size="small"
+                                    onClick={() =>
+                                      OnChangeHandler(absence._id, "Accepté")
+                                    }
+                                  >
+                                    Accepter
+                                  </Button>{" "}
+                                  <Button
+                                    variant="outlined"
+                                    color="error"
+                                    size="small"
+                                    onClick={() =>
+                                      OnChangeHandler(absence._id, "Refusé")
+                                    }
+                                  >
+                                    Refuser
+                                  </Button>
+                                </td>
+                              </tr>
+                            )
+                        )
+                      )
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan="8"
+                          style={{ textAlign: "center", padding: "1em" }}
+                        >
+                          Il n'y a pas d'absence en attente.
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
-                <p style={{ textAlign: "center", padding: "1em" }}>
-                  Il n'y a pas d'absence.
-                </p>
-              </>
-            )}
+              ) : (
+                <>
+                  <table className="absences_table">
+                    <tbody>
+                      <tr>
+                        <th>Type d'absence</th>
+                        <th>Date de debut d'absence</th>
+                        <th>Date de fin d'absence</th>
+                        <th>Commentaire</th>
+                        <th>Type d'absence</th>
+                        <th>Etat</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p style={{ textAlign: "center", padding: "1em" }}>
+                    Il n'y a pas d'absence.
+                  </p>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-}
+        )}
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>

@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { operaConstants } from '../actions/constantes';
 
+
+
+
+
 export const GetOperaAction = () => dispatch => {
     
     axios.get("http://127.0.0.1:3030/api/operation")
@@ -19,9 +23,9 @@ export const GetOperaAction = () => dispatch => {
       });
   }
   
-  export const GetOperAbsenceaAction = () => dispatch => {
+  export const GetOperAbsenceAction = () => dispatch => {
     
-    axios.get("http://127.0.0.1:3030/api/operation/absence")
+    axios.get("http://127.0.0.1:3030/api/operation/absences")
       .then(res => {
         dispatch({
           type: operaConstants.GET_MY_OPERA_ABSENCE,
@@ -35,20 +39,6 @@ export const GetOperaAction = () => dispatch => {
         })
       });
   }
-  export const GetOperAbsenceaAction2 = () => dispatch => {
-    
-    axios.get("http://127.0.0.1:3030/api/operation/absences2")
-      .then(res => {
-        dispatch({
-          type: operaConstants.GET_MY_OPERA_ABSENCE_ATTEND,
-          payload: res.data
-        })
-      })
-      .catch(err => {
-        dispatch({
-          type: operaConstants.OPERA_ABSENCE_ATTEND_ERRORS,
-          payload: err.response.data
-        })
-      });
-  }
+
+
 

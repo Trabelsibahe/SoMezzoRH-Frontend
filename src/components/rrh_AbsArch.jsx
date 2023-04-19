@@ -2,25 +2,43 @@ import React from "react";
 import { Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import{ GetOperAbsenceaAction } from "../actions/operation.action"
+import{ GetOperAbsenceAction } from "../actions/operation.action"
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
+
+
+
+
 function RrhAbsArchPage() {
+
+
+  
   const dispatch = useDispatch();
   const absences = useSelector((state) => state.operation.absences);
   const errors = useSelector((state) => state.errors);
+
+
+
   useEffect(() => {
-    dispatch(GetOperAbsenceaAction());
+    dispatch(GetOperAbsenceAction());
   }, [dispatch]);
+
+
+
   const [id, setId] = useState("");
   const [justif, setJustif] = useState("");
   const [justification, setJustification] = useState(false);
   const handleClosejustif = () => setJustification(false);
+
+
+
   const handleShowJustif = (absence) => {
     setId(absence._id);
     setJustif(absence.justif);
     setJustification(true);
   };
+
+
   return (
     <div className="rrh_body2">
       <p className="rrh_info">Archive d'absences</p>
@@ -100,7 +118,7 @@ function RrhAbsArchPage() {
                 </p>
               </>
             )}
-      </div>*
+      </div>
       <Modal show={justification} onHide={handleClosejustif}>
           <Modal.Header closeButton>
             <Modal.Title>Justification d'absence</Modal.Title>

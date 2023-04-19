@@ -13,6 +13,8 @@ function NewsLetterPage() {
   const dispatch = useDispatch();
   const news = useSelector((state) => state.news.news);
   const auth = useSelector((state) => state.auth);
+
+  
   useEffect(() => {
     dispatch(listernews());
   }, []);
@@ -25,6 +27,8 @@ function NewsLetterPage() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  
   const addnewsaction = async (e) => {
     e.preventDefault();
     const data = new FormData();
