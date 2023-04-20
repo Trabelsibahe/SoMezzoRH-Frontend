@@ -28,6 +28,7 @@ import NewsLetterPage from "./pages/newsletter"
 import AbsenceList from './components/userlist/absencelist';
 import EmployePage from './pages/espaces/employe';
 import RRH_Page from './pages/espaces/rrh';
+import RRH_Absence_list from './components/userlist/rrhabslist';
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
   const minute = 1000 * 60;
@@ -100,7 +101,7 @@ function App() {
           <Route path="/expertrh" element={
             <ExpertRouter user={user}> {" "} <Expert_RH_Page />{" "} </ExpertRouter>} />
        <Route path="/listabsence" element={
-            <ExpertRouter user={user}> {" "} <AbsenceList />{" "} </ExpertRouter>} />
+            <ExpertRouter user={user}> {" "} <RRH_Absence_list />{" "} </ExpertRouter>} />
           <Route path="/emp" element={<EmployePage />}></Route>
           <Route path="/rrh" element={<RRH_Page/>}></Route>
 

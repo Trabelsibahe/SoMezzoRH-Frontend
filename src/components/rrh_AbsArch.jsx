@@ -10,28 +10,16 @@ import Card from "react-bootstrap/Card";
 
 
 function RrhAbsArchPage() {
-
-
-  
   const dispatch = useDispatch();
   const absences = useSelector((state) => state.operation.absences);
   const errors = useSelector((state) => state.errors);
-
-
-
   useEffect(() => {
     dispatch(GetOperAbsenceAction());
   }, [dispatch]);
-
-
-
   const [id, setId] = useState("");
   const [justif, setJustif] = useState("");
   const [justification, setJustification] = useState(false);
   const handleClosejustif = () => setJustification(false);
-
-
-
   const handleShowJustif = (absence) => {
     setId(absence._id);
     setJustif(absence.justif);
@@ -59,7 +47,6 @@ function RrhAbsArchPage() {
                   </tr>
                   {absences.map((item) =>
                     item.absences.map((absence) =>
-                     
                         <tr key={absence._id}>
                           <td>
                             ({item.user.matricule}) {item.user.nom}{" "}

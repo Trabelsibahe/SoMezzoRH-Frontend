@@ -38,7 +38,7 @@ export const addnews = (data) => {
         }
     }
     }
-    export const Deletenews = (id)=>dispatch=>{
+   export const Deletenews = (id)=>dispatch=>{
         if(window.confirm("are you sure to delete this news?")){
          axios
          .delete(`http://127.0.0.1:3030/api/news/${id}`)
@@ -57,7 +57,6 @@ export const addnews = (data) => {
         }
      }
      export const supprimerNews = () => (dispatch) => {
-        if(window.confirm("Êtes-vous sûr de vouloir supprimer les newsletters ?")){
         axios
           .delete(`http://127.0.0.1:3030/api/news/supp`)
           .then((res) => {
@@ -72,4 +71,4 @@ export const addnews = (data) => {
               payload: err.response.data,
             });
           });
-      }};
+      };

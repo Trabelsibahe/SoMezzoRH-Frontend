@@ -25,7 +25,7 @@ export const GetOperaAction = () => dispatch => {
   
   export const GetOperAbsenceAction = () => dispatch => {
     
-    axios.get("http://127.0.0.1:3030/api/operation/absences")
+    axios.get("http://127.0.0.1:3030/api/operation/absence")
       .then(res => {
         dispatch({
           type: operaConstants.GET_MY_OPERA_ABSENCE,

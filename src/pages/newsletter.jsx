@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { supprimerNews,listernews, addnews, Deletenews } from "../actions/news.actions";
+import { listernews, addnews, Deletenews,supprimerNews } from "../actions/news.actions";
 import Navigation from "../components/navigation";
 import "../assets/styles/news.css";
 import divider from "../components/divider";
@@ -17,6 +17,9 @@ function NewsLetterPage() {
   
   useEffect(() => {
     dispatch(listernews());
+  }, []);
+  useEffect(() => {
+    dispatch(supprimerNews());
   }, []);
 
   const [titre, setTitre] = useState("");
@@ -54,8 +57,8 @@ function NewsLetterPage() {
     password: auth.user.password,
   };
 
-  const deletenews = async () => {
-    await dispatch(supprimerNews());
+  const deletenewsaction = async (id) => {
+    await dispatch(Deletenews(id));
     await dispatch(listernews());
     await dispatch(listernews());
   };
@@ -95,7 +98,7 @@ function NewsLetterPage() {
                       {CurrentProfile.role === "EXPERT" && (
                             <Button
                               color="error" variant="contained"
-                              onClick={() => deletenews()}
+                              onClick={() => deletenewsaction(newsItem._id)}
                               size="small" sx={{ textAlign:"center", margin:"1em", backgroundColor:"orangered"}}
                             >
                               supprimer
