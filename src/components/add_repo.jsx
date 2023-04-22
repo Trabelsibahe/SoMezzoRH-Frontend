@@ -6,7 +6,7 @@ import { RegisterAction } from "../actions/auth.actions";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
@@ -16,13 +16,11 @@ import CheckIcon from "@mui/icons-material/Check";
 import Classnames from "classnames";
 import formatDate from "../components/formatdate";
 import "../assets/styles/register.css";
-import dayjs from 'dayjs';
-
+import dayjs from "dayjs";
 
 import { GetAbsence, AddAbsence } from "../actions/absence.action";
 
 function AddRepoPage() {
-
   const dispatch = useDispatch();
   const errors = useSelector((state) => state.errors);
 
@@ -30,15 +28,20 @@ function AddRepoPage() {
   const [Active, setActive] = useState(true);
   const [justif, setJustif] = useState(null);
 
-
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('type', form.type ? form.type : "");
-    formData.append('dateDebut', formatDate(form.dateDebut) ? formatDate(form.dateDebut) : "" );
-    formData.append('dateFin', formatDate(form.dateFin) ? formatDate(form.dateFin) : "");
-    formData.append('commentaire', form.commentaire ? form.commentaire : "");
-    formData.append('justif', justif ? justif : "");
+    formData.append("type", form.type ? form.type : "");
+    formData.append(
+      "dateDebut",
+      formatDate(form.dateDebut) ? formatDate(form.dateDebut) : ""
+    );
+    formData.append(
+      "dateFin",
+      formatDate(form.dateFin) ? formatDate(form.dateFin) : ""
+    );
+    formData.append("commentaire", form.commentaire ? form.commentaire : "");
+    formData.append("justif", justif ? justif : "");
     await dispatch(AddAbsence(formData));
     await dispatch(GetAbsence());
   };
@@ -55,6 +58,10 @@ function AddRepoPage() {
     },
   });
 
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <div className="addRepoPage">
@@ -63,7 +70,6 @@ function AddRepoPage() {
           <Stack>
             <Form onSubmit={onSubmit}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                
                 <FormControl size="small" className="ab_select" margin="normal">
                   <InputLabel id="demo-select-small">Type d'absence</InputLabel>
                   <Select
@@ -71,7 +77,9 @@ function AddRepoPage() {
                     name="type"
                     label="Type d'absence"
                     value={form.type}
-                    onChange={(event) => setForm({ ...form, type: event.target.value }) }
+                    onChange={(event) =>
+                      setForm({ ...form, type: event.target.value })
+                    }
                     className={Classnames("w-100", {
                       "is-invalid": errors.type,
                     })}
@@ -80,13 +88,12 @@ function AddRepoPage() {
                     <MenuItem value="Décès">Décès</MenuItem>
                     <MenuItem value="Naissance">Naissance</MenuItem>
                     <MenuItem value="Autre...">Autre...</MenuItem>
-
                   </Select>
                   {errors.type && (
-                  <div className="invalid-feedback">{errors.type}</div>
-                )}
+                    <div className="invalid-feedback">{errors.type}</div>
+                  )}
                 </FormControl>
-                <p>{" "} </p>
+                <p> </p>
                 <Form.Group className="mb-4">
                   <DatePicker
                     id="outlined-basic"
@@ -96,16 +103,16 @@ function AddRepoPage() {
                     type="date"
                     name="dateDebut"
                     disablePast={true}
-                    value={form.dateDebut}  
+                    value={form.dateDebut}
                     className={Classnames("w-100", {
                       "is-invalid": errors.dateDebut,
                     })}
                     onChange={(dateDebut) => {
-                      setForm({ ...form, dateDebut: formatDate(dateDebut) });  }} />
+                      setForm({ ...form, dateDebut: formatDate(dateDebut) });
+                    }}
+                  />
                   {errors.dateDebut && (
-                    <div className="invalid-feedback">
-                      {errors.dateDebut}
-                    </div>
+                    <div className="invalid-feedback">{errors.dateDebut}</div>
                   )}
                 </Form.Group>
 
@@ -118,12 +125,13 @@ function AddRepoPage() {
                     label="Date de fin de période d'absence"
                     type="date"
                     name="dateFin"
-                    
                     className={Classnames("w-100", {
                       "is-invalid": errors.dateFin,
                     })}
                     value={form.dateFin}
-                    onChange={(dateFin) => setForm({ ...form, dateFin: formatDate(dateFin) })}
+                    onChange={(dateFin) =>
+                      setForm({ ...form, dateFin: formatDate(dateFin) })
+                    }
                     onError={errors.dateFin}
                   />
                   {errors.dateFin && (
@@ -148,7 +156,6 @@ function AddRepoPage() {
                       "is-invalid": errors.commentaire,
                     })}
                   />
-       
                 </Form.Group>
                 <Form.Group className="mb-4">
                   <TextField
@@ -160,9 +167,7 @@ function AddRepoPage() {
                     value={form.justif}
                     name="justification"
                     onChange={handleImageChange}
-                  
                   />
-       
                 </Form.Group>
                 <div className="col-md-12 text-center mb-4 ">
                   <Button
@@ -177,7 +182,7 @@ function AddRepoPage() {
                     variant="outlined"
                     color="neutral"
                     size="small"
-                    href="/emp"
+                    onClick={reloadPage}
                   >
                     Annuler
                   </Button>

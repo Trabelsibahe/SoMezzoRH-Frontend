@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { GetAbsence, AddAbsence } from "../../actions/absence.action";
 import AbsencesPage from "../absences";
 import { Navigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 function EmployePage() {
   const auth = useSelector((state) => state.auth);
@@ -42,7 +43,9 @@ function EmployePage() {
           </p>
         </div>
 
-        <AbsencesPage/>
+        <div className="emp_body">
+          <Button href="/absences">Mes absences</Button>
+        </div>
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>

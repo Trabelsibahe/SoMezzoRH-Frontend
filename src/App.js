@@ -32,6 +32,7 @@ import RRH_Absence_list from './components/userlist/rrhabslist';
 import InactivePage from './pages/inactive';
 import { Redirect } from 'react-router-dom'
 import ActiveRouter from './routes/ActiveRouter';
+import AbsencesPage from './pages/absences';
 
 
 
@@ -114,6 +115,7 @@ function App() {
           <Route path="/emp" element={<ActiveRouter user={user}> <EmployePage /></ActiveRouter>}></Route>
           <Route path="/rrh" element={<ActiveRouter user={user}> <RRH_Page /></ActiveRouter>}></Route>
           <Route path="/inactive" element={<InactivePage />}></Route>
+          <Route path="/absences" element={<AbsencesPage />}></Route>
 
 
         </Routes>
