@@ -2,18 +2,24 @@ import React from 'react'
 import { Navigate } from 'react-router-dom'
 
 const ForceRedirect = ({ user, children }) => {
-  if (user.isConnected && user.HasProfile === null ) {
+
+
+
+  if (user.active === false) {
+    return <Navigate to="/inactive" replace />
+  }
+  else if (user.isConnected && user.HasProfile === null) {
 
     return <Navigate to="/bienvenue" replace />
 
-    
+
   }
 
-  else if (user.isConnected && user.HasProfile !== null ) {
+  else if (user.isConnected && user.HasProfile !== null) {
     return <Navigate to="/acceuil" replace />
   }
 
-return children
-  }
- 
+  return children
+}
+
 export default ForceRedirect;

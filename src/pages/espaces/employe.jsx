@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { GetAbsence, AddAbsence } from "../../actions/absence.action";
 import AbsencesPage from "../absences";
+import { Navigate } from "react-router-dom";
 
 function EmployePage() {
   const auth = useSelector((state) => state.auth);
@@ -17,10 +18,12 @@ function EmployePage() {
     prenom: auth.user.prenom,
     matricule: auth.user.matricule,
     role: auth.user.role,
-    operation: auth.user.operation
+    operation: auth.user.operation,
+    active: auth.user.active
   };
 
   return (
+
     <div className="emp_page">
       <Navigation user={CurrentUser} />
       <div className="emp_container">

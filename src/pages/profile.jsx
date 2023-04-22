@@ -11,7 +11,7 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import altAvatar from "../assets/images/avatar.avif"
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import formatDate from "../components/formatdate";
-
+import { Navigate } from "react-router-dom";
 
 function ProfilePage() {
   const auth = useSelector((state) => state.auth);
@@ -30,6 +30,8 @@ function ProfilePage() {
     active: auth.user.active,
 
   };
+
+
   const [ nom, setNom ] = useState('');
   const [ prenom, setPrenom ] = useState('');
   const [ operation, setOperation ] = useState('');

@@ -1,0 +1,55 @@
+.NotFoundPage{
+    margin: 0;
+    padding: 0;
+    font-family: "montserrat", sans-serif;
+    min-height: 100vh;
+    background: #E8EEF1;
+    text-align: center;
+   }
+   .logoblue {
+     width: 270px;
+    text-align: center;
+     margin: auto;
+     margin-top: 5%;
+     
+   }
+   .notfoundpage_container{
+     width: 100%;
+     position: absolute;
+     top: 40%;
+     transform: translateY(-50%);
+     text-align: center;
+     color: #343433; 
+   
+   }
+   
+   .notfoundpage_container h1{
+     font-size: 160px;
+     margin: 1em;
+     font-weight: 900;
+     letter-spacing: 20px;
+     background: rgb(36,55,123);
+     background: linear-gradient(90deg, rgba(36,55,123,1) 48%, rgba(20,146,209,1) 50%);  -webkit-text-fill-color: transparent;
+     -webkit-background-clip: text;
+   }
+   .notfoundpage_container button{
+     text-decoration: none;
+     background-image: linear-gradient(150deg,#1492d1,#24377b) ;
+     color: #fff;
+     padding: 12px 24px;
+     display: inline-block;
+     border-radius: 25px;
+     font-size: 14px;
+     text-transform: uppercase;
+     transition: 0.4s;
+     border: none;
+     outline: none;
+     margin: 4em;
+   }
+   .notfoundpage_container button:hover{
+     background: #1492d1;
+   }
+   
+   .notfoundpage_container button:active{
+    background: #02121a;
+  }

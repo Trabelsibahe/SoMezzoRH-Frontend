@@ -8,6 +8,7 @@ import divider from "../components/divider";
 import Button from "@mui/material/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { Navigate } from 'react-router-dom';
 
 function NewsLetterPage() {
   const dispatch = useDispatch();
@@ -30,7 +31,6 @@ function NewsLetterPage() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   
   const addnewsaction = async (e) => {
     e.preventDefault();
@@ -48,6 +48,13 @@ function NewsLetterPage() {
     setDateSuppression("");
     setImgurl("");
   };
+
+  const deletenewsaction = async (id) => {
+    await dispatch(Deletenews(id));
+    await dispatch(listernews());
+    await dispatch(listernews());
+  };
+
   const CurrentProfile = {
     isConnected: auth.isConnected,
     nom: auth.user.nom,
@@ -55,13 +62,13 @@ function NewsLetterPage() {
     matricule: auth.user.matricule,
     role: auth.user.role,
     password: auth.user.password,
+    active : auth.user.active
   };
 
-  const deletenewsaction = async (id) => {
-    await dispatch(Deletenews(id));
-    await dispatch(listernews());
-    await dispatch(listernews());
-  };
+  if (CurrentProfile.active === false) {
+    return <Navigate to="/inactive" />;
+  }
+
 
   return (
     <div className="news_page">

@@ -3,7 +3,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import PrivateRouter from "./routes/privaterouter";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import store from "./store/index";
 import { setAuth } from "./util/setAuth";
@@ -29,6 +29,12 @@ import AbsenceList from './components/userlist/absencelist';
 import EmployePage from './pages/espaces/employe';
 import RRH_Page from './pages/espaces/rrh';
 import RRH_Absence_list from './components/userlist/rrhabslist';
+import InactivePage from './pages/inactive';
+import { Redirect } from 'react-router-dom'
+import ActiveRouter from './routes/ActiveRouter';
+
+
+
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
   const minute = 1000 * 60;
@@ -39,17 +45,13 @@ if (window.localStorage.jwt) {
   store.dispatch(setUser(decode));
   setAuth(window.localStorage.jwt);
 
-
-
-
   const currentDate = Date.now / 1000;
 
   if (decode.exp > currentDate) {
     store.dispatch(Logout());
   }
+
 }
-
-
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -68,9 +70,14 @@ function App() {
     isConnected: auth.isConnected,
     role: auth.user.role,
     HasProfile: profile,
+    active: auth.user.active,
 
   };
 
+
+  if (user.active === false) {
+    <Navigate to="/inactive" />
+  }
 
   // return
   return (
@@ -100,12 +107,17 @@ function App() {
           <Route path="/archive" element={<ExpertRouter user={user}> {" "} <Archive />{" "} </ExpertRouter>} />
           <Route path="/expertrh" element={
             <ExpertRouter user={user}> {" "} <Expert_RH_Page />{" "} </ExpertRouter>} />
-       <Route path="/listabsence" element={
+          <Route path="/listabsence" element={
             <ExpertRouter user={user}> {" "} <RRH_Absence_list />{" "} </ExpertRouter>} />
-          <Route path="/emp" element={<EmployePage />}></Route>
-          <Route path="/rrh" element={<RRH_Page/>}></Route>
+
+
+          <Route path="/emp" element={<ActiveRouter user={user}> <EmployePage /></ActiveRouter>}></Route>
+          <Route path="/rrh" element={<ActiveRouter user={user}> <RRH_Page /></ActiveRouter>}></Route>
+          <Route path="/inactive" element={<InactivePage />}></Route>
+
 
         </Routes>
+
       </BrowserRouter>
     </div>
   );

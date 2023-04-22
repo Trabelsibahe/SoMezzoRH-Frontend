@@ -116,14 +116,10 @@ function WelcomePage() {
       </div>
       <p></p>
       <ul>
-        {" "}
-        {!CurrentUser.isConnected ? (
-          <div></div>
-        ) : (
+
           <button className="welcome_logout" onClick={LogoutHandler}>
             <BiLogIn /> Se deconnecter
           </button>
-        )}{" "}
       </ul>
 
       <div className="welcome_card">

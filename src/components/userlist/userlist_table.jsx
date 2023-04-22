@@ -21,9 +21,11 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import formatDate from "../../components/formatdate";
 import { Modal, Form } from "react-bootstrap";
-import { GetProfiles, deleteAndArchiveProfile, EditProfileAction,} from "../../actions/profile.actions";
-
-
+import {
+  GetProfiles,
+  deleteAndArchiveProfile,
+  EditProfileAction,
+} from "../../actions/profile.actions";
 
 function Row(accounts, index) {
   const dispatch = useDispatch();
@@ -34,7 +36,6 @@ function Row(accounts, index) {
 
   const { profile } = accounts;
   const [open, setOpen] = React.useState(false);
-
   const [id, setId] = useState("");
   const [ville, setVille] = useState("");
   const [pays, setPays] = useState("");
@@ -50,7 +51,7 @@ function Row(accounts, index) {
   const [email, setEmail] = useState("");
   const [operation, setOperation] = useState("");
   const [titre, setTitre] = useState("");
-
+  const [active, setActive] = useState(false);
   const [edit, setEdit] = useState(false);
   const handleCloseEdit = () => setEdit(false);
 
@@ -64,7 +65,7 @@ function Row(accounts, index) {
         setRole(p.user.role);
         setOperation(p.user.operation);
         setTitre(p.user.titre);
-
+        setActive(p.user.active);
         setPays(p.pays);
         setGouvernorat(p.gouvernorat);
         setVille(p.ville);
@@ -118,11 +119,30 @@ function Row(accounts, index) {
     setVille("");
     setCodepostal("");
     setAdresse("");
-
   };
 
   //fonction supp + getlist
   const deleteContact = async (id) => {
+    const data = {
+      user: {
+        nom : profile.user.nom,
+        prenom : profile.user.prenom,
+        matricule : profile.user.matricule,
+        role : profile.user.role,
+        operation : profile.user.operation,
+        titre : profile.user.titre,
+        active : false,
+      },
+      email,
+      tel,
+      datenaiss,
+      pays,
+      gouvernorat,
+      ville,
+      codepostal,
+      adresse,
+    };
+    await dispatch(EditProfileAction(id, data));
     await dispatch(deleteAndArchiveProfile(id));
     await dispatch(GetProfiles());
     await dispatch(GetProfiles());
@@ -265,11 +285,16 @@ function Row(accounts, index) {
             </IconButton>
           </TableCell>
 
-          <TableCell component="th" scope="row">{" "}{profile.user.nom}{" "} </TableCell>
+          <TableCell component="th" scope="row">
+            {" "}
+            {profile.user.nom}{" "}
+          </TableCell>
           <TableCell> {profile.user.prenom}</TableCell>
           <TableCell>{profile.user.matricule}</TableCell>
           <TableCell>{profile.user.operation}</TableCell>
-          <TableCell>{profile.user.titre ? profile.user.titre : "Aucun titre"}</TableCell>
+          <TableCell>
+            {profile.user.titre ? profile.user.titre : "Aucun titre"}
+          </TableCell>
 
           <TableCell className="expert_role">
             {profile.user.role === "EXPERT"
@@ -282,24 +307,36 @@ function Row(accounts, index) {
           </TableCell>
 
           <TableCell align="right">
-            <Button variant="outlined"   color="primary" onClick={() => handleShowEdit(profile._id)} > {" "} Modifier{" "}</Button>
-            <Button variant="primary" onClick={() => deleteContact(profile._id)}>  Supprimer  </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => handleShowEdit(profile._id)}
+            >
+              {" "}
+              Modifier{" "}
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => deleteContact(profile._id)}
+            >
+              {" "}
+              Supprimer{" "}
+            </Button>
           </TableCell>
-          
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                Coordonnées personnelles
+                  Coordonnées personnelles
                 </Typography>
                 <Table size="small" aria-label="coordonnées">
                   <TableHead>
-                    <TableRow >
+                    <TableRow>
                       <TableCell align="center">Pays</TableCell>
                       <TableCell align="center">Gouvernorat</TableCell>
-                      <TableCell align="center" >Ville</TableCell>
+                      <TableCell align="center">Ville</TableCell>
                       <TableCell align="center">Code postal</TableCell>
                       <TableCell align="center">Adresse</TableCell>
                       <TableCell align="center">Numéro de téléphone</TableCell>
@@ -311,13 +348,17 @@ function Row(accounts, index) {
                   <TableBody>
                     <TableRow>
                       <TableCell align="center">{profile.pays}</TableCell>
-                      <TableCell align="center">{profile.gouvernorat}</TableCell>
+                      <TableCell align="center">
+                        {profile.gouvernorat}
+                      </TableCell>
                       <TableCell align="center">{profile.ville}</TableCell>
                       <TableCell align="center">{profile.codepostal}</TableCell>
                       <TableCell align="center">{profile.adresse}</TableCell>
                       <TableCell align="center">{profile.tel}</TableCell>
                       <TableCell align="center">{profile.email}</TableCell>
-                      <TableCell align="center">{formatDate(profile.datenaiss)}</TableCell>
+                      <TableCell align="center">
+                        {formatDate(profile.datenaiss)}
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -420,7 +461,7 @@ export default function UserList() {
                 <TableCell>
                   <span className="table_tr"> Titre </span>{" "}
                 </TableCell>
-                <TableCell >
+                <TableCell>
                   <span className="table_tr"> Role </span>{" "}
                 </TableCell>
                 <TableCell align="right">

@@ -19,18 +19,24 @@ function Archive() {
   
   useEffect(()=>{dispatch(GetArchives());  
       dispatch(CountArchives());
-  },[dispatch]);
+  },
+  [dispatch]);
+
+
     const CurrentUser = {
       isConnected: auth.isConnected,
       nom: auth.user.nom,
       prenom: auth.user.prenom,
       matricule: auth.user.matricule,
       role: auth.user.role,
+      active: auth.user.active
     };
     const [search, setSearch] = useState('');
     const handleSearch = (event) => {
       setSearch(event.target.value);
     }
+
+
   //fonction recherche + getlist
     const filteredContacts = archives.filter((archive) => {
       if (search === '') {
@@ -46,7 +52,11 @@ function Archive() {
       await dispatch(GetArchives())
       await dispatch(GetArchives())
     } 
-    return (
+
+
+
+
+  return (
   <div className="archive_page">
       <Navigation user={CurrentUser} />
       <div className="archive_container">
