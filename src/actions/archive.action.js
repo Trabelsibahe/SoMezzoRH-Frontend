@@ -57,3 +57,19 @@ export const CountArchives = () => {
     }
   }
 }
+//fonction modifier archive
+export const EditArchiveAction = (id, data) => (dispatch) => {
+  axios.post(`http://127.0.0.1:3030/api/archive/modif/${id}`, data)
+    .then((res) => {
+      dispatch({
+        type: archiveConstants.MODIFIER_ARCHIVE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: archiveConstants.MODIFIER_ARCHIVE_FAILURE,
+        payload: err.response.data,
+      });
+    });
+};

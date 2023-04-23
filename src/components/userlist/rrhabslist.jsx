@@ -8,6 +8,7 @@ import { GetAllAbsence,updateAbsence } from "../../actions/absence.action";
 import { Button } from "@mui/material";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
+import ExpertAbsArchPage from "../../components/expert_AbsArch";
 
 function RRH_Absence_list() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function RRH_Absence_list() {
   const [justif, setJustif] = useState("");
   const [justification, setJustification] = useState(false);
   const handleClosejustif = () => setJustification(false);
+  const [Show_ExpertAbsArchPage, setShow_ExpertAbsArchPage] = React.useState(false);
 
   const handleShowJustif = (absence) => {
     setId(absence._id);
@@ -48,6 +50,7 @@ function RRH_Absence_list() {
     dispatch(GetAllAbsence());
   }, []);
 
+  const onClick_ExpertAbsArchPage = () => setShow_ExpertAbsArchPage(true);
 
   return (
     <div className="rrh_page">
@@ -56,12 +59,22 @@ function RRH_Absence_list() {
         <div className="page_name">
           Pages / Mon espace{" "}
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>
-            Espace Résponsable RH Opérationnel
+            Espace Expert RH
           </p>
         </div>
-
+        {Show_ExpertAbsArchPage ? (
+          <ExpertAbsArchPage />
+        ) : (
           <div className="rrh_body2">
             <p className="rrh_info">Les demandes d'absences</p>
+            <Button
+              onClick={onClick_ExpertAbsArchPage}
+              sx={{ margin: "0.5em 3em" }}
+              variant="outlined"
+              startIcon={<FaFileArchive />}
+            >
+              Archive
+            </Button>
                 <div style={{ overflowX: "auto" }}>
               {absences.length > 0 ? (
                 <table className="absences_table">
@@ -185,7 +198,7 @@ function RRH_Absence_list() {
               )}
             </div>
           </div>
-       
+        )}
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>

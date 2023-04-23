@@ -2,7 +2,7 @@ import "../assets/styles/notfound.css"
 import { useDispatch, useSelector } from 'react-redux';
 import Table from "react-bootstrap/Table";
 import React, { useEffect ,useState} from "react";
-import{ CountArchives, GetArchives, deleteArchive} from '../actions/archive.action'
+import{ CountArchives, GetArchives, deleteArchive,EditArchiveAction} from '../actions/archive.action'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import Navigation from "../components/navigation";
@@ -14,14 +14,29 @@ import InputAdornment from '@mui/material/InputAdornment';
 function Archive() {
   const dispatch = useDispatch(); 
   const auth = useSelector((state) => state.auth);
-  const archives = useSelector(state => state.archives.archives)
+  const archives = useSelector((state) => state.archives.archives)
   const count = useSelector(state => state.archives.count.count);
   
   useEffect(()=>{dispatch(GetArchives());  
       dispatch(CountArchives());
   },
   [dispatch]);
-
+  const [id, setId] = useState("");
+  const [ville, setVille] = useState("");
+  const [pays, setPays] = useState("");
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [matricule, setMatricule] = useState("");
+  const [role, setRole] = useState("");
+  const [tel, setTel] = useState("");
+  const [codepostal, setCodepostal] = useState("");
+  const [adresse, setAdresse] = useState("");
+  const [gouvernorat, setGouvernorat] = useState("");
+  const [datenaiss, setDatenaiss] = useState("");
+  const [email, setEmail] = useState("");
+  const [operation, setOperation] = useState("");
+  const [titre, setTitre] = useState("");
+  const [active, setActive] = useState(false);
 
     const CurrentUser = {
       isConnected: auth.isConnected,
@@ -47,11 +62,35 @@ function Archive() {
       }
       return false;
     });
-    const deleteContact = async (id) =>{
-      await dispatch(deleteArchive(id))
-      await dispatch(GetArchives())
-      await dispatch(GetArchives())
-    } 
+    const deleteContact = async (id) => {
+      const archive = archives.find((archive) => archive._id === id);
+      const data = {
+        user: {
+          nom: archive.user.nom,
+          prenom: archive.user.prenom,
+          matricule: archive.user.matricule,
+          role: archive.user.role,
+          operation: archive.user.operation,
+          titre: archive.user.titre,
+          active: true,
+        },
+        email: archive.email,
+        tel: archive.tel,
+        datenaiss: archive.datenaiss,
+        pays: archive.pays,
+        gouvernorat: archive.gouvernorat,
+        ville: archive.ville,
+        codepostal: archive.codepostal,
+        adresse: archive.adresse,
+      };
+    
+      await dispatch(EditArchiveAction(id, data));
+      await dispatch(deleteArchive(id));
+      await dispatch(GetArchives());
+      await dispatch(GetArchives());
+
+    };
+    
 
 
 
