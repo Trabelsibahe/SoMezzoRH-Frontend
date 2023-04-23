@@ -4,16 +4,13 @@ import React from "react";
 import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { FaFileArchive } from "react-icons/fa";
-import {GetOperaAction,GetOperAbsenceAction,} from "../../actions/operation.action";
 
-import OperaList from "../../components/userlist/operalist_table";
 import { Button } from "@mui/material";
-import Modal from "react-bootstrap/Modal";
-import Card from "react-bootstrap/Card";
-import RrhAbsArchPage from "../../components/rrh_AbsArch";
 
-function RRH_Page() {
+import RrhAbsArchPage from "../../components/rrh_AbsArch";
+import Tasks from "../../components/tasks";
+
+function RRH_Page2() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const absences = useSelector((state) => state.operation.absences);
@@ -40,20 +37,6 @@ function RRH_Page() {
     setJustification(true);
   };
 
-  const OnChangeHandler = async (id, action) => {
-    const data = {
-      etat: action,
-    };
-    await dispatch(updateAbsence(id, data));
-    await dispatch(GetOperAbsenceAction());
-    await dispatch(GetOperAbsenceAction());
-  };
-
-  useEffect(() => {
-    dispatch(GetOperAbsenceAction());
-  }, []);
-
-  const onClick_RrhAbsArchPage = () => setShow_RrhAbsArchPage(true);
 
   return (
     <div className="rrh_page">
@@ -61,9 +44,7 @@ function RRH_Page() {
       <div className="rrh_container">
         <div className="page_name">
           Pages / Mon espace{" "}
-          <p style={{ fontWeight: "bold", fontSize: "14px" }}>
-            Espace Résponsable RH Opérationnel
-          </p>
+          <p style={{ fontWeight: "bold", fontSize: "14px" }}>Espace RRH 2</p>
         </div>
 
         <div className="rrh_header">
@@ -73,24 +54,19 @@ function RRH_Page() {
           <p className="rrh_header_semititle">
             Votre opération est : {CurrentUser.operation}
           </p>
-          <a href="/rrh2"> Page RRH 2</a>
         </div>
+
         <div className="rrh_body">
-          <OperaList />
+          <p className="rrh_info">Taches & Challenges à venir</p>
+          <Tasks/>
         </div>
+
         {Show_RrhAbsArchPage ? (
           <RrhAbsArchPage />
         ) : (
           <div className="rrh_body2">
-            <p className="rrh_info">Les demandes d'absences</p>
-            <Button
-              onClick={onClick_RrhAbsArchPage}
-              sx={{ margin: "0.5em 3em" }}
-              variant="outlined"
-              startIcon={<FaFileArchive />}
-            >
-              Archive
-            </Button>
+            <p className="rrh_info">Mes taches</p>
+
             <div style={{ overflowX: "auto" }}>
               {absences.length > 0 ? (
                 <table className="absences_table">
@@ -161,9 +137,7 @@ function RRH_Page() {
                                     variant="outlined"
                                     color="success"
                                     size="small"
-                                    onClick={() =>
-                                      OnChangeHandler(absence._id, "Accepté")
-                                    }
+                              
                                   >
                                     Accepter
                                   </Button>{" "}
@@ -171,9 +145,7 @@ function RRH_Page() {
                                     variant="outlined"
                                     color="error"
                                     size="small"
-                                    onClick={() =>
-                                      OnChangeHandler(absence._id, "Refusé")
-                                    }
+                             
                                   >
                                     Refuser
                                   </Button>
@@ -188,7 +160,7 @@ function RRH_Page() {
                           colSpan="8"
                           style={{ textAlign: "center", padding: "1em" }}
                         >
-                          Il n'y a pas d'absence en attente.
+                          Il n'y a pas de demande.
                         </td>
                       </tr>
                     )}
@@ -199,9 +171,9 @@ function RRH_Page() {
                   <table className="absences_table">
                     <tbody>
                       <tr>
-                        <th>Type d'absence</th>
-                        <th>Date de debut d'absence</th>
-                        <th>Date de fin d'absence</th>
+                        <th>Type de demande</th>
+                        <th>Date de debut de demande</th>
+                        <th>Date de fin de demande</th>
                         <th>Commentaire</th>
                         <th>Type d'absence</th>
                         <th>Etat</th>
@@ -209,35 +181,20 @@ function RRH_Page() {
                     </tbody>
                   </table>
                   <p style={{ textAlign: "center", padding: "1em" }}>
-                    Il n'y a pas d'absence.
+                    Il n'y a pas du demandes.
                   </p>
                 </>
               )}
             </div>
           </div>
         )}
+
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>
-        <Modal show={justification} onHide={handleClosejustif}>
-          <Modal.Header closeButton>
-            <Modal.Title>Justification d'absence</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {" "}
-            <Card className="news_item_card">
-              <Card.Img variant="top" src={`http://localhost:3030/${justif}`} />
-            </Card>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClosejustif}>
-              Fermer
-            </Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     </div>
   );
 }
 
-export default RRH_Page;
+export default RRH_Page2;

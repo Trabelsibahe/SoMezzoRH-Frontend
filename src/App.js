@@ -33,6 +33,7 @@ import InactivePage from './pages/inactive';
 import { Redirect } from 'react-router-dom'
 import ActiveRouter from './routes/ActiveRouter';
 import AbsencesPage from './pages/absences';
+import RRH_Page2 from './pages/espaces/rrh2';
 
 
 
@@ -114,6 +115,8 @@ function App() {
 
           <Route path="/emp" element={<ActiveRouter user={user}> <EmployePage /></ActiveRouter>}></Route>
           <Route path="/rrh" element={<ActiveRouter user={user}> <RRH_Page /></ActiveRouter>}></Route>
+          <Route path="/rrh2" element={<ActiveRouter user={user}> <RRH_Page2 /></ActiveRouter>}></Route>
+
           <Route path="/inactive" element={<InactivePage />}></Route>
           <Route path="/absences" element={<AbsencesPage />}></Route>
 
