@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, IconButton } from "@mui/material";
-import "../assets/styles/tasks.css";
+import "../../assets/styles/tasks.css";
 import InsertInvitationOutlinedIcon from "@mui/icons-material/InsertInvitationOutlined";
 import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
 import MoreHorizTwoToneIcon from "@mui/icons-material/MoreHorizTwoTone";

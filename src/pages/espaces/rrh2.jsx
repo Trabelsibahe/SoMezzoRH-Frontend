@@ -1,14 +1,16 @@
 import "../../assets/styles/rrh.css";
-import { updateAbsence } from "../../actions/absence.action";
+
 import React from "react";
 import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Button } from "@mui/material";
 
 import RrhAbsArchPage from "../../components/rrh_AbsArch";
-import Tasks from "../../components/tasks";
+import Tasks from "../../components/TaskComponents/tasks";
+import RrhCalendar from "../../components/TaskComponents/rrhcalendar";
 
 function RRH_Page2() {
   const dispatch = useDispatch();
@@ -29,14 +31,15 @@ function RRH_Page2() {
   const [justif, setJustif] = useState("");
   const [justification, setJustification] = useState(false);
   const [Show_RrhAbsArchPage, setShow_RrhAbsArchPage] = React.useState(false);
-  const handleClosejustif = () => setJustification(false);
+  const [Show_RrhCalendar, setShow_RrhCalendar] = React.useState(false);
+
+  const onClick_ShowRRHCalendar = () => setShow_RrhCalendar(true);
 
   const handleShowJustif = (absence) => {
     setId(absence._id);
     setJustif(absence.justif);
     setJustification(true);
   };
-
 
   return (
     <div className="rrh_page">
@@ -57,8 +60,20 @@ function RRH_Page2() {
         </div>
 
         <div className="rrh_body">
-          <p className="rrh_info">Taches & Challenges à venir</p>
-          <Tasks/>
+          <div className="task_calend_menu">
+            <p className="rrh_info">Taches & Challenges à venir</p>
+            <Button
+              variant="b"
+              sx={{ left: "45em", color: "rgb(73, 76, 86)" }}
+              size="small"
+              startIcon={<CalendarMonthIcon />}
+              onClick={onClick_ShowRRHCalendar}
+            >
+              {" "}
+              Calendrier
+            </Button>
+          </div>
+          {Show_RrhCalendar ? <RrhCalendar /> : <Tasks />}
         </div>
 
         {Show_RrhAbsArchPage ? (
@@ -137,7 +152,6 @@ function RRH_Page2() {
                                     variant="outlined"
                                     color="success"
                                     size="small"
-                              
                                   >
                                     Accepter
                                   </Button>{" "}
@@ -145,7 +159,6 @@ function RRH_Page2() {
                                     variant="outlined"
                                     color="error"
                                     size="small"
-                             
                                   >
                                     Refuser
                                   </Button>

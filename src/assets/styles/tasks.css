@@ -64,6 +64,7 @@
   cursor: pointer;
   height: 228px !important;
   transition: 0.4s;
+
 }
 .task_add_card:hover {
   background-color: rgb(243, 246, 250);
@@ -74,6 +75,10 @@
 .task_add_name {
   font-size: 18px;
   color: #151582;
+  pointer-events: none;
+  user-select: none;
+
+
 }
 .task_add_icon {
   font-size: 60px !important;
@@ -85,5 +90,12 @@
     font-weight: 600;
     color: #464e56;
     text-align: center;
+    user-select: none;
+
   }
-  
+
+
+.task_calend_menu {
+  display: flex;
+  flex-direction: row !important;
+}
