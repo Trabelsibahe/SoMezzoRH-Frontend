@@ -1,3 +1,6 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
+
+
 .calendar {
   display: flex;
   flex-direction: column;
@@ -5,12 +8,13 @@
 
 .day-names {
   display: flex;
+  padding: 1em;
 }
 
 .day-name {
   width: calc(100% / 7);
   text-align: center;
-  border-bottom: 1px solid black;
+  font-weight: 600;
 }
 
 .days {
@@ -25,4 +29,9 @@
   justify-content: center;
   align-items: center;
   border: 1px solid black;
+}
+
+.Calendar_Menu{
+  display: flex;
+  flex-direction: row;
 }

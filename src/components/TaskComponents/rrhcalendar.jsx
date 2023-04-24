@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "../../assets/styles/rrhCalendar.css";
 import Button from "@mui/material/Button";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { IconButton } from "@mui/material";
 
 function Calendar() {
   const [date, setDate] = useState(new Date());
@@ -77,11 +80,13 @@ const prevMonth = () => {
   return (
     <div className="calendar">
       <div style={{textAlign:"right"}}><Button href="/rrh2">Retour</Button></div>
-      <div className="month-navigation">
-      <button onClick={prevMonth} >Prev</button>
-      <div>{`${new Intl.DateTimeFormat('fr-FR', { month: 'long' }).format(date)} ${year}`}</div>
-      <button onClick={nextMonth}>Next</button>
+      <div className="Calendar_Menu">
+      {`${new Intl.DateTimeFormat('fr-FR', { month: 'long' }).format(date)} ${year}`}
+      <IconButton onClick={prevMonth} sx={{color:"black"}}><ArrowBackIosNewIcon/></IconButton>
+      <IconButton onClick={nextMonth} sx={{color:"black"}}><ArrowForwardIosIcon/></IconButton>
       </div>
+
+
       <div className="day-names">
         {dayNames.map((day) => (
           <div key={day} className="day-name">
