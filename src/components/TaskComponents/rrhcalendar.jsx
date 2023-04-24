@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 
 function Calendar() {
   const [date, setDate] = useState(new Date());
-
   // get current month and year
   const month = date.getMonth();
   const year = date.getFullYear();
