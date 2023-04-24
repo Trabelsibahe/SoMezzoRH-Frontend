@@ -1,0 +1,28 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+}
+
+.day-names {
+  display: flex;
+}
+
+.day-name {
+  width: calc(100% / 7);
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+
+.days {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.day {
+  width: calc(100% / 7);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}

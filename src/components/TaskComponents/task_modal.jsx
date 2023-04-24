@@ -13,6 +13,8 @@ import { Form, Container, Stack } from "react-bootstrap";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -20,7 +22,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 500,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "2px solid #151582",
   boxShadow: 24,
   p: 4,
 };
@@ -45,9 +47,11 @@ export default function Add_Task_Modal() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
+        <form>
         <Box sx={style}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <div style={{display:"flex", flexDirection:"row",columnGap:"1em"}}>
+        <h5 style={{padding:"0.2em", textAlign:"center", color:"#151582"}}>Ajouter une tache</h5>
+          <div style={{display:"flex", flexDirection:"row", columnGap:"1em"}}>
           <Form.Group className="mb-2">
             <TextField  variant="outlined" size="medium"  label="Nom de tache" type="text"fullWidth />
           </Form.Group>
@@ -82,6 +86,7 @@ export default function Add_Task_Modal() {
 
           </LocalizationProvider>
         </Box>
+        </form>
       </Modal>
     </div>
   );

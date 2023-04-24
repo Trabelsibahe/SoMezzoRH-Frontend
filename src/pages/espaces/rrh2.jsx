@@ -13,6 +13,8 @@ import Tasks from "../../components/TaskComponents/tasks";
 import RrhCalendar from "../../components/TaskComponents/rrhcalendar";
 
 function RRH_Page2() {
+
+  
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const absences = useSelector((state) => state.operation.absences);
@@ -73,7 +75,7 @@ function RRH_Page2() {
               Calendrier
             </Button>
           </div>
-          {Show_RrhCalendar ? <RrhCalendar /> : <Tasks />}
+          {Show_RrhCalendar ? <RrhCalendar/> : <Tasks />}
         </div>
 
         {Show_RrhAbsArchPage ? (
