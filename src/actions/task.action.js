@@ -71,3 +71,19 @@ export const GetAllTaskExpert = () => {
       }
     }
   }
+  export const supprimerTask = () => (dispatch) => {
+    axios
+      .delete(`http://127.0.0.1:3030/api/task/supp`)
+      .then((res) => {
+        dispatch({
+          type: taskConstants.DELETE_DATE_TASK,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: taskConstants.TASK_ERRORS,
+          payload: err.response.data,
+        });
+      });
+  };
