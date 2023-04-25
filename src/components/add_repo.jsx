@@ -2,7 +2,6 @@ import { Form, Container, Stack } from "react-bootstrap";
 import Button from "@mui/material/Button";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RegisterAction } from "../actions/auth.actions";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";

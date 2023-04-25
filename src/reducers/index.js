@@ -6,6 +6,8 @@ import archiveReducer from './archive.reducer';
 import newsReduce from './news.reduce';
 import absenceReducer from './absence.reducer';
 import operationReducer from './operation.reducer';
+import taskReducer from "./task.reducer";
+
 const rootReducer = combineReducers({
     auth : authReducer,
     errors : errorReducer,
@@ -13,7 +15,8 @@ const rootReducer = combineReducers({
     archives : archiveReducer,
     news : newsReduce,
     absence : absenceReducer,
-    operation : operationReducer
+    operation : operationReducer,
+    task : taskReducer
 
 })
 

@@ -2,6 +2,8 @@ import axios from 'axios'
 import { taskConstants } from '../actions/constantes';
 
 
+
+// ajouter une tache
 export const AddTask = (data) => {
   return async dispatch => {
     dispatch({ type: taskConstants.ADD_TASK_REQUEST })
@@ -24,7 +26,10 @@ export const AddTask = (data) => {
     }
   }
 }
-//get task for rrh
+
+
+
+//Recuperer tous les taches pour l'RRH
 export const GetAllTask = () => {
     return async dispatch => {
       dispatch({ type: taskConstants.GET_ALL_TASK_REQUEST })
@@ -35,7 +40,6 @@ export const GetAllTask = () => {
             type: taskConstants.GET_ALL_TASK,
             payload: res.data,
           })     
-         console.log(res.data);
      
         }
       } catch (error) {
@@ -47,7 +51,9 @@ export const GetAllTask = () => {
       }
     }
   }
-  //get task for rrh
+
+
+//Recuperer tous les taches pour l'EXPERT RH
 export const GetAllTaskExpert = () => {
     return async dispatch => {
       dispatch({ type: taskConstants.GET_ALL_TASK_REQUEST })
@@ -58,7 +64,6 @@ export const GetAllTaskExpert = () => {
             type: taskConstants.GET_ALL_TASK,
             payload: res.data,
           })     
-         console.log(res.data);
      
         }
       } catch (error) {

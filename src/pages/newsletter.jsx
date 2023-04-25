@@ -69,7 +69,6 @@ function NewsLetterPage() {
     return <Navigate to="/inactive" />;
   }
 
-
   return (
     <div className="news_page">
       <Navigation user={CurrentProfile} />
