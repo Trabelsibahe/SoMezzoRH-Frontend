@@ -6,7 +6,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { IconButton } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { GetAllTask } from "../../actions/task.action";
+import { GetAllTask,supprimerTask } from "../../actions/task.action";
 import formatDate from "../formatdate";
 
 function Calendar() {
@@ -17,7 +17,9 @@ function Calendar() {
   useEffect(() => {
     dispatch(GetAllTask());
   }, [dispatch]);
-
+  useEffect(() => {
+    dispatch(supprimerTask());
+  }, []);
   const [date, setDate] = useState(new Date());
   // get current month and year
   const month = date.getMonth();
