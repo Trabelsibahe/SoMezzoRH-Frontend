@@ -4,8 +4,20 @@ import Button from "@mui/material/Button";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { IconButton } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { GetAllTask } from "../../actions/task.action";
+import formatDate from "../formatdate";
 
 function Calendar() {
+
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.task.tasks);
+
+  useEffect(() => {
+    dispatch(GetAllTask());
+  }, [dispatch]);
+
   const [date, setDate] = useState(new Date());
   // get current month and year
   const month = date.getMonth();
@@ -37,7 +49,7 @@ function Calendar() {
     days.push(i);
   }
 
-  // sample list of events (replace with data from database)
+  // sample list of events (replace with data from database) (already replaced with tasks from db)
   const events = [
     { date: "2023-04-04", name: "Event 1", desc: "Description of Event 1" },
 
@@ -46,15 +58,15 @@ function Calendar() {
 
   // create an object to group events by date
   const eventsByDate = {};
-  events.forEach((event) => {
-    if (eventsByDate[event.date]) {
-      eventsByDate[event.date].push({ name: event.name, desc: event.desc });
+  tasks.forEach((task) => {
+    if (eventsByDate[formatDate(task.dateSuppression)]) {
+      eventsByDate[formatDate(task.dateSuppression)].push({ titre: task.titre, desc: task.description });
     } else {
-      eventsByDate[event.date] = [{ name: event.name, desc: event.desc }];
+      eventsByDate[formatDate(task.dateSuppression)] = [{ titre: task.titre, desc: task.description }];
     }
   });
 
-
+console.log(eventsByDate)
 // go to previous month (if not before current date or initial date)
 const prevMonth = () => {
   const initialDate = new Date(); // set initial date to current date
@@ -73,9 +85,9 @@ const prevMonth = () => {
   const nextMonth = () => {
     const newDate = new Date(year, month + 1, 1);
     setDate(newDate);
-  };
+  }; 
+  
   //<div>{`${year}-${(month + 1).toString().padStart(2, '0')}`}</div>
-
   return (
     <div className="calendar">
       <div style={{textAlign:"right"}}><Button href="/rrh2">Retour</Button></div>
@@ -107,9 +119,9 @@ const prevMonth = () => {
                   `${year}-${(month + 1).toString().padStart(2, "0")}-${day
                     .toString()
                     .padStart(2, "0")}`
-                ].map((event, index) => (
+                ].map((task, index) => (
                   <li key={index}>
-                    <div>{event.name}</div>
+                    <div>{task.titre}</div>
                   </li>
                 ))}
               </ul>

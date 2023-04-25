@@ -19,7 +19,6 @@ function Tasks() {
   useEffect(() => {
     dispatch(GetAllTask());
   }, [dispatch]);
-  console.log(tasks);
   return (
     <div>
       <div className="tasks_grid">
