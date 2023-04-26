@@ -22,7 +22,7 @@ const style = {
   },
 
 }
-function RRH_Page2() {
+function ExpertRH2() {
 
   
   const dispatch = useDispatch();
@@ -72,7 +72,7 @@ function RRH_Page2() {
         </div>
 
         <div className="rrh_body">
-        <p className="rrh_info">Taches & Challenges</p>
+        <p className="rrh_info">Taches & Challenges opérationnelles</p>
           <div >
             { !Show_RrhCalendar ?
             <Button variant="outlined" sx={style}  size="small" startIcon={<CalendarMonthIcon />}
@@ -220,4 +220,4 @@ function RRH_Page2() {
   );
 }
 
-export default RRH_Page2;
+export default ExpertRH2;

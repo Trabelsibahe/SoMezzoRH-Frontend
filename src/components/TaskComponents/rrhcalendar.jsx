@@ -35,13 +35,13 @@ function Calendar() {
 
   // create array of day names
   const dayNames = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi",
+    "Dimanche",
   ];
 
   // get index of first day of month (0 = Monday, 1 = Tuesday, etc.)
@@ -65,13 +65,13 @@ function Calendar() {
   const eventsByDate = {};
   tasks.forEach((task) => {
 
-    if (eventsByDate[formatDate(task.dateSuppression)]) {
-      eventsByDate[formatDate(task.dateSuppression)].push({
+    if (eventsByDate[formatDate(task.dateCreation)]) {
+      eventsByDate[formatDate(task.dateCreation)].push({
         titre: task.titre,
         desc: task.description,
       });
     } else {
-      eventsByDate[formatDate(task.dateSuppression)] = [
+      eventsByDate[formatDate(task.dateCreation)] = [
         { titre: task.titre, desc: task.description },
       ];
     }
@@ -142,7 +142,7 @@ return (
     <div className="days">
       {days.map((day, index) => (
         <div key={index} className="day">
-          <span style={{ padding: "0.8em" }}>{day}</span>
+          <span style={{ padding: "0.8em"}}>{day}</span>
           {eventsByDate[dateString(year, month + 1, day)] && (
             <div>
               <Collapse in={openId === day} collapsedSize={39}>

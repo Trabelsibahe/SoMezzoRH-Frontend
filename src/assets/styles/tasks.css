@@ -3,6 +3,7 @@
   grid-template-columns: 22.5em 22.5em 22.5em;
   background-color: #fbfcfd;
   padding: 10px;
+  border: 2px solid #ebf0f7;
 }
 .tasks_grid_item {
   background-color: #fbfcfd;

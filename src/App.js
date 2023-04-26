@@ -36,6 +36,7 @@ import AbsencesPage from './pages/absences';
 import RRH_Page2 from './pages/espaces/rrh2';
 import DemandePage from './pages/demande';
 import DemandeList from './components/userlist/demandelist'
+import ExpertRH2 from './pages/espaces/expertrh2';
 
 
 if (window.localStorage.jwt) {
@@ -122,6 +123,7 @@ function App() {
           <Route path="/inactive" element={<InactivePage />}></Route>
           <Route path="/absences" element={<AbsencesPage />}></Route>
           <Route path="/demande" element={<DemandePage />}></Route>
+          <Route path="/expert2" element={<ExpertRH2 />}></Route>
 
 
         </Routes>
