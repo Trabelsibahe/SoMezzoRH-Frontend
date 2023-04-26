@@ -93,9 +93,3 @@
     user-select: none;
 
   }
-
-
-.task_calend_menu {
-  display: flex;
-  flex-direction: row !important;
-}

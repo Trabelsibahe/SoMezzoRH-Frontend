@@ -10,8 +10,17 @@ import { Button } from "@mui/material";
 import RrhAbsArchPage from "../../components/rrh_AbsArch";
 import Tasks from "../../components/TaskComponents/tasks";
 import RrhCalendar from "../../components/TaskComponents/rrhcalendar";
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import { hover } from "@testing-library/user-event/dist/hover";
 
+const style = {
+  left: "74em",
+  color: "#151582;",
+  '&:hover': {
+    color: "#151582;",
+  },
 
+}
 function RRH_Page2() {
 
   
@@ -62,19 +71,17 @@ function RRH_Page2() {
         </div>
 
         <div className="rrh_body">
-          <div className="task_calend_menu">
-            <p className="rrh_info">Taches & Challenges à venir</p>
-            <Button
-              variant="b"
-              sx={{ left: "45em", color: "rgb(73, 76, 86)" }}
-              size="small"
-              startIcon={<CalendarMonthIcon />}
-              onClick={onClick_ShowRRHCalendar}
-            >
-              {" "}
-              Calendrier
-            </Button>
+        <p className="rrh_info">Taches & Challenges à venir</p>
+          <div >
+            { !Show_RrhCalendar ?
+            <Button variant="outlined" sx={style}  size="small" startIcon={<CalendarMonthIcon />}
+              onClick={onClick_ShowRRHCalendar}>Agenda </Button>
+               : 
+            <Button variant="outlined" sx={style}  size="small" startIcon={<KeyboardReturnIcon/>} 
+              href="/rrh2">Retour</Button>}
           </div>
+
+
           {Show_RrhCalendar ? <RrhCalendar/> : <Tasks />}
         </div>
 

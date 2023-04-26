@@ -37,9 +37,7 @@ function Tasks() {
                 <p className="task_name">{task.titre}</p>
                 <p className="task_desc">{task.description}</p>
                 <div className="task_info">
-                  <i>
-                    <HelpCenterOutlinedIcon />
-                  </i>
+                  <i><HelpCenterOutlinedIcon /></i>
                   <span>Priorité: {task.priorite}</span>
                 </div>{" "}
                 <div className="task_info">

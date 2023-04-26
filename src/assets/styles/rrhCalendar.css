@@ -1,6 +1,5 @@
 @import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
 
-
 .calendar {
   display: flex;
   flex-direction: column;
@@ -20,18 +19,58 @@
 .days {
   display: flex;
   flex-wrap: wrap;
+  border: 2px solid #ebf0f7;
 }
 
 .day {
   width: calc(100% / 7);
-  height: 50px;
+  height: 90px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
+  color: #7b7b7b;
+  background: #fff;
+  font-weight: 600;
+  flex-direction: column;
+  text-align: right;
+  color: rgb(73, 76, 86);
+}
+.day:hover {
+  background: #f5f5f9;
 }
 
-.Calendar_Menu{
+.Calendar_Menu {
   display: flex;
   flex-direction: row;
+  padding: 1em;
+  border-bottom: 2px solid #ebf0f7;
+  letter-spacing: 1px;
+  color: #151582;
+}
+
+.calendar_date::first-letter {
+  text-transform: uppercase;
+}
+
+.calendar_buttons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5em;
+  padding: 0em 2em;
+}
+
+.calendar_datenumber {
+  display: flex;
+  flex-direction: column !important;
+  cursor: pointer;
+}
+.calendar_datetask {
+  background: #1492d1;
+  color: white;
+  font-size: 13px;
+  margin: 0em -32px;
+  max-width: 157px;
+  text-indent: 8px;
+}
+
+.calendar_datetask::first-letter {
+  text-transform: uppercase;
 }

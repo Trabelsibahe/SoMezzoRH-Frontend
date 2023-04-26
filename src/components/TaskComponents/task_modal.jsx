@@ -31,7 +31,6 @@ const style = {
 };
 
 export default function Add_Task_Modal() {
-
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const TaskHandleOpen = () => setOpen(true);
@@ -42,7 +41,6 @@ export default function Add_Task_Modal() {
     e.preventDefault();
     await dispatch(AddTask(form));
   };
-
 
   return (
     <div>
@@ -58,51 +56,141 @@ export default function Add_Task_Modal() {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-        <form   onSubmit={onSubmit} >
-        <Box sx={style}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <h5 style={{padding:"0.2em", textAlign:"center", color:"#151582"}}>Ajouter une tache</h5>
-          <div style={{display:"flex", flexDirection:"row", columnGap:"1em"}}>
-          <Form.Group className="mb-2">
-            <TextField name="titre" value={form.titre} onChange={(event) => setForm({ ...form, titre: event.target.value })}
-             variant="outlined" size="medium"  label="Nom de tache" type="text" fullWidth />
-          </Form.Group>
-          <FormControl size="medium" className="ab_select" >
+        aria-describedby="modal-modal-description"
+      >
+        <form onSubmit={onSubmit}>
+          <Box sx={style}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <h5
+                style={{
+                  padding: "0.2em",
+                  textAlign: "center",
+                  color: "#151582",
+                }}
+              >
+                Ajouter une tache
+              </h5>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  columnGap: "1em",
+                }}
+              >
+                <Form.Group className="mb-2">
+                  <TextField
+                    name="titre"
+                    value={form.titre}
+                    onChange={(event) =>
+                      setForm({ ...form, titre: event.target.value })
+                    }
+                    variant="outlined"
+                    size="medium"
+                    label="Nom de tache"
+                    type="text"
+                    fullWidth
+                  />
+                </Form.Group>
+                <FormControl size="medium" className="ab_select">
                   <InputLabel>Priorité</InputLabel>
-                  <Select name="priorite" label="Priorité" value={form.priorite} 
-                  onChange={(event) => setForm({ ...form, priorite: event.target.value })}>
+                  <Select
+                    name="priorite"
+                    label="Priorité"
+                    value={form.priorite}
+                    onChange={(event) =>
+                      setForm({ ...form, priorite: event.target.value })
+                    }
+                  >
                     <MenuItem value="Haut">Haut</MenuItem>
                     <MenuItem value="Moyen">Moyen</MenuItem>
                     <MenuItem value="Optionnel">Optionnel</MenuItem>
                   </Select>
-          </FormControl>
-          </div>
-          <div style={{display:"flex", flexDirection:"column",rowGap:"1em"}}>
-          <Form.Group className="mb-2">
-            <TextField name="" value={form.description} onChange={(event) => setForm({ ...form, description: event.target.value })}
-             variant="outlined" size="medium"  label="Description" margin="dense"  type="text" fullWidth/>
-          </Form.Group>
-          </div>
-          <FormHelperText sx={{padding:"0.5em"}}>Choisissez la période de la tâche, veuillez noter que la tâche sera supprimée automatiquement.</FormHelperText>
-          <div style={{display:"flex", flexDirection:"row",columnGap:"1em"}}>
-          <Form.Group className="mb-4">
-           <DatePicker value={form.dateCreation} onChange={(dateCreation) => { setForm({ ...form, dateCreation: formatDate(dateCreation) })}} 
-           variant="outlined" size="small" label="Date de début" type="date"  name="dateDebut" disablePast={true}/>
-          </Form.Group>
+                </FormControl>
+              </div>
+              <div
+                style={{ display: "flex", flexDirection: "column", row: "1em" }}
+              >
+                <Form.Group className="mb-2">
+                  <TextField
+                    name=""
+                    value={form.description}
+                    onChange={(event) =>
+                      setForm({ ...form, description: event.target.value })
+                    }
+                    variant="outlined"
+                    size="medium"
+                    label="Description"
+                    margin="dense"
+                    type="text"
+                    fullWidth
+                  />
+                </Form.Group>
+              </div>
+              <FormHelperText sx={{ padding: "0.5em" }}>
+                Choisissez la période de la tâche, veuillez noter que la tâche
+                sera supprimée automatiquement.
+              </FormHelperText>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  columnGap: "1em",
+                }}
+              >
+                <Form.Group className="mb-4">
+                  <DatePicker
+                    value={form.dateCreation}
+                    onChange={(dateCreation) => {
+                      setForm({
+                        ...form,
+                        dateCreation: formatDate(dateCreation),
+                      });
+                    }}
+                    variant="outlined"
+                    size="small"
+                    label="Date de début"
+                    type="date"
+                    name="dateDebut"
+                    disablePast={true}
+                  />
+                </Form.Group>
 
-          <Form.Group className="mb-4">
-           <DatePicker value={form.dateSuppression} onChange={(dateSuppression) => { setForm({ ...form, dateSuppression: formatDate(dateSuppression) })}}
-            variant="outlined" size="small" label="Date de fin" type="date"  name="dateDebut" disablePast={true}/>
-          </Form.Group>
-          </div>
-          <div style={{display:"flex", columnGap:"15em",}}>
-          <Button variant="outlined" style={{color:"#464e56"}} onClick={handleClose}>Annuler</Button>
-          <Button variant="outlined" type="submit" style={{color:"#151582"}}>Ajouter</Button>
-          </div>
-
-          </LocalizationProvider>
-        </Box>
+                <Form.Group className="mb-4">
+                  <DatePicker
+                    value={form.dateSuppression}
+                    onChange={(dateSuppression) => {
+                      setForm({
+                        ...form,
+                        dateSuppression: formatDate(dateSuppression),
+                      });
+                    }}
+                    variant="outlined"
+                    size="small"
+                    label="Date de fin"
+                    type="date"
+                    name="dateDebut"
+                    disablePast={true}
+                  />
+                </Form.Group>
+              </div>
+              <div style={{ display: "flex", columnGap: "15em" }}>
+                <Button
+                  variant="outlined"
+                  style={{ color: "#464e56" }}
+                  onClick={handleClose}
+                >
+                  Annuler
+                </Button>
+                <Button
+                  variant="outlined"
+                  type="submit"
+                  style={{ color: "#151582" }}
+                >
+                  Ajouter
+                </Button>
+              </div>
+            </LocalizationProvider>
+          </Box>
         </form>
       </Modal>
     </div>
