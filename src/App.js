@@ -34,7 +34,8 @@ import { Redirect } from 'react-router-dom'
 import ActiveRouter from './routes/ActiveRouter';
 import AbsencesPage from './pages/absences';
 import RRH_Page2 from './pages/espaces/rrh2';
-
+import DemandePage from './pages/demande';
+import DemandeList from './components/userlist/demandelist'
 
 
 if (window.localStorage.jwt) {
@@ -112,13 +113,15 @@ function App() {
           <Route path="/listabsence" element={
             <ExpertRouter user={user}> {" "} <RRH_Absence_list />{" "} </ExpertRouter>} />
 
-
+<Route path="/listdemande" element={
+            <ExpertRouter user={user}> {" "} <DemandeList />{" "} </ExpertRouter>} />
           <Route path="/emp" element={<ActiveRouter user={user}> <EmployePage /></ActiveRouter>}></Route>
           <Route path="/rrh" element={<ActiveRouter user={user}> <RRH_Page /></ActiveRouter>}></Route>
           <Route path="/rrh2" element={<ActiveRouter user={user}> <RRH_Page2 /></ActiveRouter>}></Route>
 
           <Route path="/inactive" element={<InactivePage />}></Route>
           <Route path="/absences" element={<AbsencesPage />}></Route>
+          <Route path="/demande" element={<DemandePage />}></Route>
 
 
         </Routes>

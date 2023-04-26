@@ -73,6 +73,7 @@ function Navigation({ user }) {
             <NavDropdown.Item  href="/expertrh">Mon espace</NavDropdown.Item>
             <NavDropdown.Item href="/archive"> Archive </NavDropdown.Item>
             <NavDropdown.Item href="/listabsence"> Absence </NavDropdown.Item>
+            <NavDropdown.Item href="/listdemande"> Demande </NavDropdown.Item>
             <NavDropdown.Divider />
           </NavDropdown>) :
                user.role === "EMP" ? (<a href="/emp" className="sidebar_item"><li>Mon espace</li></a>) : 

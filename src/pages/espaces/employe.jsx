@@ -46,6 +46,9 @@ function EmployePage() {
         <div className="emp_body">
           <Button href="/absences">Mes absences</Button>
         </div>
+        <div className="emp_body">
+          <Button href="/demande">Mes demandes</Button>
+        </div>
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>

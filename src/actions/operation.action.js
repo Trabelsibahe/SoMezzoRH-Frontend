@@ -1,10 +1,5 @@
 import axios from 'axios'
 import { operaConstants } from '../actions/constantes';
-
-
-
-
-
 export const GetOperaAction = () => dispatch => {
     
     axios.get("http://127.0.0.1:3030/api/operation")
