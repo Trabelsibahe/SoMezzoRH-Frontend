@@ -64,19 +64,46 @@ function Calendar() {
   // create an object to group events by date
   const eventsByDate = {};
   tasks.forEach((task) => {
-
-    if (eventsByDate[formatDate(task.dateCreation)]) {
-      eventsByDate[formatDate(task.dateCreation)].push({
+    const creationDate = formatDate(task.dateCreation);
+    const suppressionDate = formatDate(task.dateSuppression);
+  
+    if (eventsByDate[creationDate]) {
+      eventsByDate[creationDate].push({
         titre: task.titre,
         desc: task.description,
+        suppressionDate,
       });
     } else {
-      eventsByDate[formatDate(task.dateCreation)] = [
-        { titre: task.titre, desc: task.description },
+      eventsByDate[creationDate] = [
+        { titre: task.titre, desc: task.description, suppressionDate },
       ];
+    }
+  
+    // add events between creation and suppression dates
+    let currentDate = new Date(creationDate);
+    const lastDate = new Date(suppressionDate);
+    while (currentDate <= lastDate) {
+      const dateStr = formatDate(currentDate);
+      if (dateStr !== creationDate) {
+        if (eventsByDate[dateStr]) {
+          eventsByDate[dateStr].push({
+            titre: task.titre,
+            desc: task.description,
+            suppressionDate,
+          });
+        } else {
+          eventsByDate[dateStr] = [
+            { titre: task.titre, desc: task.description, suppressionDate },
+          ];
+        }
+      }
+      currentDate.setDate(currentDate.getDate() + 1);
     }
   });
 
+
+
+  
   // go to previous month (if not before current date or initial date)
   const prevMonth = () => {
     const initialDate = new Date(); // set initial date to current date
@@ -87,11 +114,13 @@ function Calendar() {
       currentMonth === initialDate.getMonth() &&
       currentYear === initialDate.getFullYear()
     ) {
-      return; // do nothing if current date is already at initial date
+      return; 
+    // do nothing if current date is already at initial date
     }
     const newDate = new Date(currentYear, currentMonth - 1, 1);
     setDate(newDate);
   };
+
 
   // go to next month
   const nextMonth = () => {
@@ -140,12 +169,12 @@ return (
       ))}
     </div>
     <div className="days">
-      {days.map((day, index) => (
-        <div key={index} className="day">
-          <span style={{ padding: "0.8em"}}>{day}</span>
-          {eventsByDate[dateString(year, month + 1, day)] && (
-            <div>
-              <Collapse in={openId === day} collapsedSize={39}>
+    {days.map((day, index) => (
+  <div key={index} className="day">
+    <span style={{ padding: "0.8em" }}>{day}</span>
+    {eventsByDate[dateString(year, month + 1, day)] && (
+      <div>
+<Collapse in={openId === day} collapsedSize={39}>
                 <ul>
                   {eventsByDate[dateString(year, month + 1, day)].map((task) => (
                     <div className="calendar_datenumber" key={task.id} onClick={() => handleClick(day)}>
@@ -156,10 +185,10 @@ return (
                   ))}
                 </ul>
               </Collapse>
-            </div>
-          )}
-        </div>
-      ))}
+      </div>
+    )}
+  </div>
+))}
     </div>
   </div>
 )}
