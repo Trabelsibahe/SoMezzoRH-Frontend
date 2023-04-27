@@ -63,7 +63,7 @@ function AbsenceList() {
  
     const handleShowEdit = (absence, action)   => {
       setId(absence._id);
-      setJustif(absence.etat);
+      setEtat(absence.etat);
       editetat(action);
       setEdit(true);
     }

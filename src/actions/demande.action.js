@@ -51,8 +51,6 @@ export const listerdemandeExpert = () => {
       dispatch({type : demandeConstants.GET_ALL_DEMANDE_REQUEST})  
           try{
               const res = await axios.get('http://127.0.0.1:3030/api/demande/get')
-              console.log(res.data);
-
               if (res.status === 200){
                   
                dispatch({type : demandeConstants.GET_ALL_DEMANDE,
@@ -86,13 +84,13 @@ export const updateDemande = (id, data) => (dispatch) => {
     axios.post(`http://127.0.0.1:3030/api/demande/add/${id}`, data)
       .then((res) => {
         dispatch({
-          type:  demandeConstants.UPDATE_DEMANDE_SUCCESS,
+          type:  demandeConstants.UPDATE_IMAGE_SUCCESS,
           payload: res.data.message,
         });
       })
       .catch((err) => {
         dispatch({
-          type: demandeConstants.UPDATE_DEMANDE_FAILURE,
+          type: demandeConstants.UPDATE_IMAGE_FAILURE,
           payload: err.response.data.message,
         });
       });
