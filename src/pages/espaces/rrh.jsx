@@ -210,7 +210,6 @@ function RRH_Page() {
                   </tbody>
                 </table>
               ) : (
-                <>
                   <table className="absences_table">
                     <tbody>
                       <tr>
@@ -222,11 +221,13 @@ function RRH_Page() {
                         <th>Etat</th>
                       </tr>
                     </tbody>
+                      <tr>
+                         <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >
+                          Il n'y a pas d'absence en attente.
+                         </td>
+                      </tr>
                   </table>
-                  <p style={{ textAlign: "center", padding: "1em" }}>
-                    Il n'y a pas d'absence.
-                  </p>
-                </>
+
               )}
             </div>
           </div>

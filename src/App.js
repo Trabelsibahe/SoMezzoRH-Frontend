@@ -33,7 +33,7 @@ import AbsencesPage from './pages/absences';
 import DemandePage from './pages/demande';
 import DemandeList from './components/userlist/demandelist'
 import ExpertRH2 from './pages/espaces/expertrh2';
-import TasksPage from './pages/espaces/tasks';
+import TasksPage from './pages/espaces/taskspage';
 
 
 if (window.localStorage.jwt) {
@@ -111,7 +111,7 @@ function App() {
           <Route path="/listabsence" element={
             <ExpertRouter user={user}> {" "} <RRH_Absence_list />{" "} </ExpertRouter>} />
 
-<Route path="/listdemande" element={
+          <Route path="/listdemande" element={
             <ExpertRouter user={user}> {" "} <DemandeList />{" "} </ExpertRouter>} />
           <Route path="/emp" element={<ActiveRouter user={user}> <EmployePage /></ActiveRouter>}></Route>
           <Route path="/rrh" element={<ActiveRouter user={user}> <RRH_Page /></ActiveRouter>}></Route>
@@ -119,7 +119,7 @@ function App() {
 
           <Route path="/inactive" element={<InactivePage />}></Route>
           <Route path="/monespace/mesabsences" element={<AbsencesPage />}></Route>
-          <Route path="/demande" element={<DemandePage />}></Route>
+          <Route path="/monespace/mesdemandes" element={<DemandePage />}></Route>
           <Route path="/expert2" element={<ExpertRH2 />}></Route>
 
 

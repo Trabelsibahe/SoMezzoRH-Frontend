@@ -5,13 +5,12 @@ import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Button, ButtonBase, Divider } from "@mui/material";
 import RrhAbsArchPage from "../../components/rrh_AbsArch";
 import Tasks from "../../components/TaskComponents/tasks";
 import RrhCalendar from "../../components/TaskComponents/rrhcalendar";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
-import { hover } from "@testing-library/user-event/dist/hover";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 const style2 = {
   left: "58em",
@@ -62,7 +61,9 @@ function TasksPage() {
     setJustif(absence.justif);
     setJustification(true);
   };
-
+  const reloadPage = () => {
+    window.location.reload();
+  };
   return (
     <div className="rrh_page">
       <Navigation user={CurrentUser} />
@@ -80,7 +81,7 @@ function TasksPage() {
           <Divider orientation="vertical" flexItem></Divider>
             <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/tasks"><Button variant="outlined" size="large" sx={style}>Taches & challenges</Button></a>
+            <a className="rrh_header_navs" href="/monespace/taches"><Button variant="outlined" size="large" sx={style}>Taches & challenges</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
           <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
@@ -94,7 +95,7 @@ function TasksPage() {
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>
                : 
             <Button variant="outlined" sx={style2}  size="small" startIcon={<KeyboardReturnIcon/>} 
-              href="/rrh2">Retour</Button>}
+              href="/monespace/taches">Retour</Button>}
           </div>
 
 

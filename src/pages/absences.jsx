@@ -52,7 +52,9 @@ function AbsencesPage() {
     setJustif(absence.justif);
     setJustification(true);
   };
-
+  const reloadPage = () => {
+    window.location.reload();
+  };
   const [showRepo, setRepo] = React.useState(false);
   const onClick = () => setRepo(true);
 
@@ -70,6 +72,7 @@ function AbsencesPage() {
             Mes Absences
           </p>
         </div>
+        { CurrentUser.role === "RRH" ? (
         <div className="rrh_header">
           <div className="rrh_header_titles">
           <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
@@ -82,8 +85,23 @@ function AbsencesPage() {
           <Divider orientation="vertical" flexItem></Divider>
             <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
+        </div>)
+        :
+        <div className="rrh_header">
+          <div className="rrh_header_titles">
+          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
+          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
+          </div>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/emp"><Button variant="outlined" size="large" sx={style}>Taches & Challenges</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/mesdemandes"><Button variant="outlined" size="large" sx={style}>Mes demandes</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
         </div>
-          <div>
+        }
+          <div> 
             {showRepo ? (
               <AddRepoPage />
             ) : (
@@ -136,7 +154,6 @@ function AbsencesPage() {
                       </tbody>
                     </table>
                   ) : (
-                    <>
                       <table className="absences_table">
                         <tbody>
                           <tr>
@@ -147,11 +164,15 @@ function AbsencesPage() {
                             <th>Status</th>
                           </tr>
                         </tbody>
+                      <tr>
+                        <td
+                          colSpan="8"
+                          style={{ textAlign: "center", padding: "1em" }}
+                        >
+                          Vous n'avez aucune absence.
+                        </td>
+                      </tr>
                       </table>
-                      <p style={{ textAlign: "center", padding: "1em" }}>
-                        Vous n'avez aucune absence.
-                      </p>
-                    </>
                   )}
                 </div>
                 <div className="absence_bottom">

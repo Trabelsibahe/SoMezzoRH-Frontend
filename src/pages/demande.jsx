@@ -4,12 +4,20 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import AddDemandePage from "../components/add_demande";
-import { Button } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { listerdemande,  } from "../actions/demande.action";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
+import { Button, ButtonBase, Divider } from "@mui/material";
+const style = {
+  color: "#151582;",
+  borderColor: "#151582;",
 
+  '&:variant': {
+    color: "#151582;",
+  },
+
+}
 function DemandePage() {
   const auth = useSelector((state) => state.auth);
   const demandes = useSelector((state) => state.demande.demandes);
@@ -24,7 +32,9 @@ function DemandePage() {
     operation: auth.user.operation,
     titre: auth.user.titre,
   };
-
+  const reloadPage = () => {
+    window.location.reload();
+  };
   const [attestation, setAttestation] = useState("");
   const [justification, setJustification] = useState(false);
   const [id, setId] = useState("");
@@ -43,6 +53,7 @@ function DemandePage() {
     dispatch(listerdemande());
   }, [dispatch]);
 
+
   return (
     <div className="rrh_page">
       <Navigation user={CurrentUser} />
@@ -53,8 +64,35 @@ function DemandePage() {
             Mes Demandes
           </p>
         </div>
-        
-          <div>
+        { CurrentUser.role === "RRH" ? (
+        <div className="rrh_header">
+          <div className="rrh_header_titles">
+          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
+          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
+          </div>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/taches"><Button variant="outlined" size="large" sx={style}>Taches & challenges</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+        </div>)
+        :
+        <div className="rrh_header">
+          <div className="rrh_header_titles">
+          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
+          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
+          </div>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/emp"><Button variant="outlined" size="large" sx={style}>Taches & Challenges</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/mesdemandes"><Button variant="outlined" size="large" sx={style}>Mes demandes</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+        </div>
+        }
             {showRepo ? (
               <AddDemandePage />
             ) : (
@@ -99,7 +137,6 @@ function DemandePage() {
                       </tbody>
                     </table>
                   ) : (
-                    <>
                       <table className="absences_table">
                         <tbody>
                           <tr>
@@ -109,11 +146,13 @@ function DemandePage() {
                           <th>Attestation or badge</th>
                           </tr>
                         </tbody>
+                        <tr>
+                         <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >
+                         Vous n'avez aucune demande.
+                         </td>
+                      </tr>
                       </table>
-                      <p style={{ textAlign: "center", padding: "1em" }}>
-                        Vous n'avez aucune demande.
-                      </p>
-                    </>
+
                   )}
                 </div>
                 <div className="absence_bottom">
@@ -122,9 +161,8 @@ function DemandePage() {
                     startIcon={<AddCircleIcon />}
                     variant="contained"
                     sx={{ backgroundColor: "#24377b" }}
-                    onClick={onClick}
-                  >
-                    Ajouter un repos
+                    onClick={onClick}>
+                    Ajouter une demande
                   </Button>
                 </div>
               </div>
@@ -150,7 +188,6 @@ function DemandePage() {
             </Modal>
           </div>
         </div>
-      </div>
   );
 }
 

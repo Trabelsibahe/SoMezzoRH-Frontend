@@ -14,7 +14,19 @@ import Add_Task_Modal from "./task_modal";
 
 function Tasks() {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const tasks = useSelector((state) => state.task.tasks);
+
+  const CurrentUser = {
+    isConnected: auth.isConnected,
+    nom: auth.user.nom,
+    prenom: auth.user.prenom,
+    matricule: auth.user.matricule,
+    role: auth.user.role,
+    operation: auth.user.operation,
+    active: auth.user.active
+  };
+
 
   useEffect(() => {
     dispatch(GetAllTask());
@@ -22,6 +34,8 @@ function Tasks() {
   useEffect(() => {
     dispatch(supprimerTask());
   }, [dispatch]);
+
+
   return (
     <div>
       <div className="tasks_grid">
@@ -64,10 +78,9 @@ function Tasks() {
             </div>
           </div>
         )}
-
-        <div className="tasks_grid_item">
-          <Add_Task_Modal />
-        </div>
+        {CurrentUser.role === "RRH" ? 
+        <div className="tasks_grid_item"> <Add_Task_Modal /></div>
+        :    "" }
       </div>
     </div>
   );

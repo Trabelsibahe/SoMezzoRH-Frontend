@@ -174,7 +174,7 @@ return (
     <span style={{ padding: "0.8em" }}>{day}</span>
     {eventsByDate[dateString(year, month + 1, day)] && (
       <div>
-<Collapse in={openId === day} collapsedSize={39}>
+              <Collapse in={openId === day} collapsedSize={39}>
                 <ul>
                   {eventsByDate[dateString(year, month + 1, day)].map((task) => (
                     <div className="calendar_datenumber" key={task.id} onClick={() => handleClick(day)}>
