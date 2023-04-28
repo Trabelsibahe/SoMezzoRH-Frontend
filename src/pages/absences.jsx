@@ -4,13 +4,30 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import AddRepoPage from "../components/add_repo";
-import { Button } from "@mui/material";
+import { Button, ButtonBase, Divider } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { GetAbsence, AddAbsence } from "../actions/absence.action";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 
+const style = {
+  color: "#151582;",
+  borderColor: "#151582;",
+
+  '&:variant': {
+    color: "#151582;",
+  }
+}
+const style2 = {
+  backgroundColor: "#24377b;",
+  margin:"1.1em",
+  '&:hover': {
+    backgroundColor: "#24377b;",
+  },
+
+}
 function AbsencesPage() {
+
   const auth = useSelector((state) => state.auth);
   const absences = useSelector((state) => state.absence.absence);
 
@@ -53,7 +70,19 @@ function AbsencesPage() {
             Mes Absences
           </p>
         </div>
-        
+        <div className="rrh_header">
+          <div className="rrh_header_titles">
+          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
+          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
+          </div>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/taches"><Button variant="outlined" size="large" sx={style}>Taches & challenges</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+        </div>
           <div>
             {showRepo ? (
               <AddRepoPage />
@@ -127,13 +156,8 @@ function AbsencesPage() {
                 </div>
                 <div className="absence_bottom">
                   <Button
-                    className="expert_add_button"
-                    startIcon={<AddCircleIcon />}
-                    variant="contained"
-                    sx={{ backgroundColor: "#24377b" }}
-                    onClick={onClick}
-                  >
-                    Ajouter un repos
+                    className="expert_add_button" 
+                    startIcon={<AddCircleIcon />}  variant="contained" sx={style2} onClick={onClick}> Ajouter une absence 
                   </Button>
                 </div>
               </div>
@@ -158,6 +182,9 @@ function AbsencesPage() {
               </Modal.Footer>
             </Modal>
           </div>
+          <div style={{ padding: "2em", textAlign: "center" }}>
+          <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
+        </div>
         </div>
       </div>
   );

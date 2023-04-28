@@ -6,23 +6,33 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { Button } from "@mui/material";
+import { Button, ButtonBase, Divider } from "@mui/material";
 import RrhAbsArchPage from "../../components/rrh_AbsArch";
 import Tasks from "../../components/TaskComponents/tasks";
 import RrhCalendar from "../../components/TaskComponents/rrhcalendar";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { hover } from "@testing-library/user-event/dist/hover";
 
-const style = {
-  left: "74em",
+const style2 = {
+  left: "58em",
   color: "#151582;",
-  margin:"1em",
+  margin:"1.1em",
   '&:hover': {
     color: "#151582;",
   },
 
 }
-function RRH_Page2() {
+
+const style = {
+  color: "#151582;",
+  borderColor: "#151582;",
+
+  '&:variant': {
+    color: "#151582;",
+  },
+
+}
+function TasksPage() {
 
   
   const dispatch = useDispatch();
@@ -59,26 +69,31 @@ function RRH_Page2() {
       <div className="rrh_container">
         <div className="page_name">
           Pages / Mon espace{" "}
-          <p style={{ fontWeight: "bold", fontSize: "14px" }}>Espace RRH 2</p>
+          <p style={{ fontWeight: "bold", fontSize: "14px" }}>Taches & Challenges</p>
         </div>
 
         <div className="rrh_header">
-          <p className="rrh_header_title">
-            Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !
-          </p>
-          <p className="rrh_header_semititle">
-            Votre opération est : {CurrentUser.operation}
-          </p>
+          <div className="rrh_header_titles">
+          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
+          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
+          </div>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/tasks"><Button variant="outlined" size="large" sx={style}>Taches & challenges</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+          <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
         </div>
 
         <div className="rrh_body">
-        <p className="rrh_info">Taches & Challenges</p>
-          <div >
+          <div className="rrh_infos">
+            <p className="rrh_info">Taches & Challenges</p>
             { !Show_RrhCalendar ?
-            <Button variant="outlined" sx={style}  size="small" startIcon={<CalendarMonthIcon />}
+            <Button variant="outlined" sx={style2}  size="small" startIcon={<CalendarMonthIcon />}
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>
                : 
-            <Button variant="outlined" sx={style}  size="small" startIcon={<KeyboardReturnIcon/>} 
+            <Button variant="outlined" sx={style2}  size="small" startIcon={<KeyboardReturnIcon/>} 
               href="/rrh2">Retour</Button>}
           </div>
 
@@ -96,4 +111,4 @@ function RRH_Page2() {
   );
 }
 
-export default RRH_Page2;
+export default TasksPage;

@@ -10,7 +10,6 @@ import { setAuth } from "./util/setAuth";
 import { Logout, setUser } from "./actions/auth.actions";
 import jwt_decode from "jwt-decode";
 import LoginPage from './pages/login';
-import Navigation from './components/navigation';
 import ProfilePage from './pages/profile';
 import NotFoundPage from './pages/notfound';
 import ForceRedirect from "./routes/ForceRedirect"
@@ -23,9 +22,7 @@ import WelcomeRouter from './routes/welcomerouter';
 import Expert_RH_Page from './pages/espaces/expert_rh';
 import ExpertRouter from "./routes/expertrouter";
 import Archive from './pages/archive';
-import AccountMenu from "./components/account_menu"
 import NewsLetterPage from "./pages/newsletter"
-import AbsenceList from './components/userlist/absencelist';
 import EmployePage from './pages/espaces/employe';
 import RRH_Page from './pages/espaces/rrh';
 import RRH_Absence_list from './components/userlist/rrhabslist';
@@ -33,10 +30,10 @@ import InactivePage from './pages/inactive';
 import { Redirect } from 'react-router-dom'
 import ActiveRouter from './routes/ActiveRouter';
 import AbsencesPage from './pages/absences';
-import RRH_Page2 from './pages/espaces/rrh2';
 import DemandePage from './pages/demande';
 import DemandeList from './components/userlist/demandelist'
 import ExpertRH2 from './pages/espaces/expertrh2';
+import TasksPage from './pages/espaces/tasks';
 
 
 if (window.localStorage.jwt) {
@@ -118,10 +115,10 @@ function App() {
             <ExpertRouter user={user}> {" "} <DemandeList />{" "} </ExpertRouter>} />
           <Route path="/emp" element={<ActiveRouter user={user}> <EmployePage /></ActiveRouter>}></Route>
           <Route path="/rrh" element={<ActiveRouter user={user}> <RRH_Page /></ActiveRouter>}></Route>
-          <Route path="/rrh2" element={<ActiveRouter user={user}> <RRH_Page2 /></ActiveRouter>}></Route>
+          <Route path="/monespace/taches" element={<ActiveRouter user={user}> <TasksPage /></ActiveRouter>}></Route>
 
           <Route path="/inactive" element={<InactivePage />}></Route>
-          <Route path="/absences" element={<AbsencesPage />}></Route>
+          <Route path="/monespace/mesabsences" element={<AbsencesPage />}></Route>
           <Route path="/demande" element={<DemandePage />}></Route>
           <Route path="/expert2" element={<ExpertRH2 />}></Route>
 

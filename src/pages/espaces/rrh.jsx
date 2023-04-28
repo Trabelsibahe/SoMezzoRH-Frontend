@@ -8,10 +8,20 @@ import { FaFileArchive } from "react-icons/fa";
 import {GetOperaAction,GetOperAbsenceAction,} from "../../actions/operation.action";
 
 import OperaList from "../../components/userlist/operalist_table";
-import { Button } from "@mui/material";
+import { Button, ButtonBase, Divider } from "@mui/material";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import RrhAbsArchPage from "../../components/rrh_AbsArch";
+
+const style = {
+  color: "#151582;",
+  borderColor: "#151582;",
+
+  '&:variant': {
+    color: "#151582;",
+  },
+
+}
 
 function RRH_Page() {
   const dispatch = useDispatch();
@@ -67,14 +77,19 @@ function RRH_Page() {
         </div>
 
         <div className="rrh_header">
-          <p className="rrh_header_title">
-            Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !
-          </p>
-          <p className="rrh_header_semititle">
-            Votre opération est : {CurrentUser.operation}
-          </p>
-          <a href="/rrh2"> Page RRH 2</a>
+          <div className="rrh_header_titles">
+          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
+          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
+          </div>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+            <a className="rrh_header_navs" href="/monespace/taches"><Button variant="outlined" size="large" sx={style}>Taches & challenges</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
+          <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
+          <Divider orientation="vertical" flexItem></Divider>
         </div>
+
         <div className="rrh_body">
           <OperaList />
         </div>
