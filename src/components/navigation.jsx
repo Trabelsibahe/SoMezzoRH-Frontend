@@ -69,16 +69,10 @@ function Navigation({ user }) {
             <NavDropdown.Item href="/profil/securité">Securité</NavDropdown.Item>
           </NavDropdown>
 
-              {user.role === 'EXPERT' ? ( <NavDropdown menuVariant="dark" title="Mon espace" className="sidebar_item">
-            <NavDropdown.Item  href="/expertrh">Mon espace</NavDropdown.Item>
-            <NavDropdown.Item href="/archive"> Archive </NavDropdown.Item>
-            <NavDropdown.Item href="/listabsence"> Absence </NavDropdown.Item>
-            <NavDropdown.Item href="/listdemande"> Demande </NavDropdown.Item>
-            <NavDropdown.Divider />
-          </NavDropdown>) :
+              {user.role === 'EXPERT'? ( <a href="/expertrh" className="sidebar_item"><li>Mon espace</li></a>) :
                user.role === "EMP" ? (<a href="/emp" className="sidebar_item"><li>Mon espace</li></a>) : 
                user.role === "RRH" ? (<a href="/rrh" className="sidebar_item"><li>Mon espace</li></a>) : null }
-          <a href="#" className="sidebar_item"><li>Page 4</li></a>
+              <a href="#" className="sidebar_item"><li>Page 4</li></a>
 
           <ColoredLine color="white" />
           {!user.isConnected ? (<div></div>
