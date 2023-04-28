@@ -11,6 +11,8 @@ import { InputBase } from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import { Button, ButtonBase, Divider } from "@mui/material";
 import AbsenceList from "../components/userlist/absencelist";
+import DemandeArchiveList from "../components/userlist/demandeArch";
+
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
@@ -92,7 +94,7 @@ function Archive() {
       <Navigation user={CurrentUser} />
       <div className="archive_container">
       <div className="page_name">
-          Pages / Espace Expert RH Opérationnel
+          Pages / Espace Expert RESPONSABLE RH METIER
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>
             Archive
           </p>
@@ -183,7 +185,9 @@ function Archive() {
         <div className="rrh_body">
           <AbsenceList/>
         </div>
-        
+        <div className="rrh_body">
+          <DemandeArchiveList/>
+        </div>
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>

@@ -67,7 +67,7 @@ function ExpertDemandesPage() {
       <Navigation user={CurrentUser} />
       <div className="rrh_container">
         <div className="page_name">
-          Pages / Espace Expert RH Opérationnel{" "}
+          Pages / Espace Expert RESPONSABLE RH METIER{" "}
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>
             Demandes & Absences
           </p>
@@ -92,9 +92,7 @@ function ExpertDemandesPage() {
         ) : (
           <div className="rrh_body">
             <p className="rrh_info">Absences</p>
-            <div><Button onClick={onClick_ExpertAbsArchPage} sx={{ margin: "0.5em 3em" }} variant="outlined" startIcon={<FaFileArchive />}  >
-              Archive
-            </Button>
+            <div>
             </div>
             <div style={{ overflowX: "auto" }}>
               {absences.length > 0 ? (

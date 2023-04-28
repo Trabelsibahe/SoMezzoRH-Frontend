@@ -1,5 +1,4 @@
 import "../../assets/styles/expert.css";
-
 import React from "react";
 import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,9 +9,7 @@ import RegisterPage from "../../components/register"
 import { Button, ButtonBase, Divider } from "@mui/material";
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PageFooter from "../../components/footer";
-import Archive from "../../pages/archive";
 import { useNavigate } from 'react-router-dom';
-import { FaFileArchive } from "react-icons/fa";
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
@@ -57,7 +54,7 @@ function Expert_Rh_Page() {
       <div className="page_name">
           Pages / Mon espace{" "}
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>
-            Espace Expert RH
+          Espace Expert RESPONSABLE RH METIER
           </p>
         </div>
         <div className="rrh_header">
@@ -83,7 +80,6 @@ function Expert_Rh_Page() {
 
           <div className="expert_menu">
           <Button className="expert_add_button" startIcon={<PersonAddAlt1Icon />} variant="outlined" onClick={onClick}>Ajouter un compte</Button> {" "}
-          <Button className="expert_add_button" startIcon={<FaFileArchive />} variant="outlined" onClick={onClickArchive}>Voir Archive</Button> 
           </div>
           <UserList/>
         </div>

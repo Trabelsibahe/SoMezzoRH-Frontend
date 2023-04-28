@@ -57,14 +57,11 @@ function DemandesList() {
 
   const editetat = async (action) => {
     let newEtat = action;
-    if (action === "en cour") {
-      newEtat = "En cour";
-    } else {
-      newEtat = "Traiter";
-    }
-
+    if (action === "Traitée") {
+      newEtat = "Traitée";
+    } 
     const data = {
-      etat: newEtat,
+      etat: "Traitée",
     };
     await dispatch(updateDemande(id, data));
     await dispatch(listerdemandeExpert());
@@ -86,7 +83,7 @@ function DemandesList() {
   const editattestation = async () => {
     const data = new FormData();
     data.append("attestation", attestation);
-    data.etat = "Traiter";
+    data.etat = "Traitée";
     await dispatch(updateAttestation(id, data));
     await dispatch(listerdemandeExpert());
     await dispatch(listerdemandeExpert());
@@ -96,7 +93,7 @@ function DemandesList() {
 
   return (
     <div className="rrh_body2">
-      <p className="rrh_info">Demandes</p>
+      <p className="rrh_info">Les demandes des Attestation ou Badge</p>
       {demandes && demandes.length > 0 ? (
         <table className="absences_table">
           <tbody>
@@ -138,37 +135,26 @@ function DemandesList() {
                         Ajouter
                       </Button>
                     ) : (
-                      "Attestation seulement"
+                      "Les Badge Sur Place"
                     )}
                   </td>
 
                   <td>
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      size="small"
-                      onClick={() => handleShowEdit(demande, "en cour")}
-                    >
-                      En cour
-                    </Button>
                     {demande.type === "Badge" ? (
                       <Button
                         variant="outlined"
                         color="error"
                         size="small"
-                        onClick={() => handleShowEdit(demande, "traiter")}
+                        onClick={() => handleShowEdit(demande, "Traitée")}
                       >
-                        Traiter
+                        Traitée
                       </Button>
-                    ) : null}
+                    ) : "Ajouter Attestation "
+                    }
                   </td>
                 </tr>
               ) : 
-              <tr>
-                <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
-                  Vous n'avez aucune demande.
-                </td>
-              </tr>
+           null
             )}
           </tbody>
         </table>

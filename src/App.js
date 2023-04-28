@@ -34,6 +34,7 @@ import TasksPage from './pages/espaces/taskspage';
 import ExpertTasksPage from './pages/experttasks';
 import ExpertDemandesPage from './pages/demandesPage';
 import AbsenceList from './components/userlist/absencelist';
+import DemandeArchiveList from './components/userlist/demandeArch';
 
 
 if (window.localStorage.jwt) {
@@ -117,10 +118,9 @@ function App() {
           <Route path="/monespace/mesabsences" element={<AbsencesPage />}></Route>
           <Route path="/monespace/mesdemandes" element={<DemandePage />}></Route>
           <Route path="/monespace/expertrh/taches" element={<ExpertTasksPage />}></Route>
-
           <Route path="/monespace/expertrh/demandes" element={
             <ExpertRouter user={user}> {" "} <ExpertDemandesPage />{" "} </ExpertRouter>} />
-
+          <Route path="/demandearchive" element={<DemandeArchiveList />}></Route>
         </Routes>
 
       </BrowserRouter>
