@@ -47,7 +47,6 @@ function Archive() {
     }
 
 
-  //fonction recherche + getlist
     const filteredContacts = archives.filter((archive) => {
       if (search === '') {
         return true;
@@ -55,8 +54,18 @@ function Archive() {
       if (archive.user.matricule.toLowerCase().includes(search.toLowerCase())) {
         return true;
       }
+      if (archive.user.role.toLowerCase().includes(search.toLowerCase())) {
+        return true;
+      }
+      if (archive.user.nom.toLowerCase().includes(search.toLowerCase())) {
+        return true;
+      }
+      if (archive.user.prenom.toLowerCase().includes(search.toLowerCase())) {
+        return true;
+      }
       return false;
     });
+    
 
 
     const RestoreUser = async (id) => {

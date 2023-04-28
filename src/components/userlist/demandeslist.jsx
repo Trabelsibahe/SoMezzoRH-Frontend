@@ -90,10 +90,47 @@ function DemandesList() {
     handleCloseAtt();
     setAttestation("");
   };
-
+  const [search, setSearch] = useState("");
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+  //fonction recherche
+  const filteredemande = demandes.filter((demande) => {
+    if (search === "") {
+      return true;
+    }
+    if (demande.user.matricule.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (demande.user.nom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (demande.user.prenom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (demande.type.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    return false;
+  });
   return (
     <div className="rrh_body2">
       <p className="rrh_info">Les demandes des Attestation ou Badge</p>
+      <InputBase
+        className="searchbar"
+        placeholder="Rechercher.."
+        type="text"
+        value={search}
+        onChange={handleSearch}
+        startAdornment={
+          <InputAdornment position="start">
+            {" "}
+            <SearchIcon />{" "}
+          </InputAdornment>
+        }
+        margin="normal"
+        sx={{ width: 250 }}
+      />
       {demandes && demandes.length > 0 ? (
         <table className="absences_table">
           <tbody>
@@ -105,8 +142,8 @@ function DemandesList() {
               <th>Attestation</th>
               <th>Actions</th>
             </tr>
-            {demandes.map((demande) =>
-              demande.etat === "Réception" || demande.etat === "En cour" ? (
+            {filteredemande.map((demande) =>
+              demande.etat === "Réception"  ? (
                 <tr key={demande._id}>
                   <td>
                     ({demande.user.matricule}) {demande.user.nom}{" "}

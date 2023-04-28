@@ -33,8 +33,6 @@ function AbsenceList() {
   const handleSearch = (event) => {
     setSearch(event.target.value);
   };
-
-  //fonction recherche
   const filteredabsence = absences.filter((absence) => {
     if (search === "") {
       return true;
@@ -42,8 +40,18 @@ function AbsenceList() {
     if (absence.user.matricule.toLowerCase().includes(search.toLowerCase())) {
       return true;
     }
+    if (absence.user.nom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (absence.user.prenom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
     return false;
   });
+  
+  
+  
+  
   const [id, setId] = useState("");
   const [justif, setJustif] = useState("");
   const [etat, setEtat] = useState("");

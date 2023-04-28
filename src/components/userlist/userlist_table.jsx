@@ -409,18 +409,29 @@ export default function UserList() {
         true && ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1)
       );
     }
-    if (
-      profile.user.role.toLowerCase().includes(search.toLowerCase()) ||
-      profile.user.matricule.toLowerCase().includes(search.toLowerCase()) ||
-      profile.user.nom.toLowerCase().includes(search.toLowerCase()) ||
-      profile.user.prenom.toLowerCase().includes(search.toLowerCase())
-    ) {
+    if (profile.user.matricule.toLowerCase().includes(search.toLowerCase())) {
+      return (
+        true && ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1)
+      );
+    }
+    if (profile.user.role.toLowerCase().includes(search.toLowerCase())) {
+      return (
+        true && ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1)
+      );
+    }
+    if (profile.user.nom.toLowerCase().includes(search.toLowerCase())) {
+      return (
+        true && ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1)
+      );
+    }
+    if (profile.user.prenom.toLowerCase().includes(search.toLowerCase())) {
       return (
         true && ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1)
       );
     }
     return false;
   });
+  
 
   return (
     <>

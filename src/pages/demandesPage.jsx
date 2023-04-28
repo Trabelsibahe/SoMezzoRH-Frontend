@@ -10,6 +10,9 @@ import Card from "react-bootstrap/Card";
 import ExpertAbsArchPage from "../components/expert_AbsArch";
 import DemandeList from "../components/userlist/demandeslist";
 import { Button, ButtonBase, Divider } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+import { InputBase } from "@mui/material";
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
@@ -61,7 +64,25 @@ function ExpertDemandesPage() {
   }, []);
 
   const onClick_ExpertAbsArchPage = () => setShow_ExpertAbsArchPage(true);
-
+  const [search, setSearch] = useState("");
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+  const filteredabsence = absences.filter((absence) => {
+    if (search === "") {
+      return true;
+    }
+    if (absence.user.matricule.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (absence.user.nom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (absence.user.prenom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    return false;
+  });
   return (
     <div className="rrh_page">
       <Navigation user={CurrentUser} />
@@ -72,6 +93,7 @@ function ExpertDemandesPage() {
             Demandes & Absences
           </p>
         </div>
+     
         <div className="rrh_header">
           <div className="rrh_header_titles">
           <p className="rrh_header_title">Bienvenue {CurrentUser.nom}!</p>
@@ -93,6 +115,21 @@ function ExpertDemandesPage() {
           <div className="rrh_body">
             <p className="rrh_info">Absences</p>
             <div>
+            <InputBase
+        className="searchbar"
+        placeholder="Rechercher.."
+        type="text"
+        value={search}
+        onChange={handleSearch}
+        startAdornment={
+          <InputAdornment position="start">
+            {" "}
+            <SearchIcon />{" "}
+          </InputAdornment>
+        }
+        margin="normal"
+        sx={{ width: 250 }}
+      />
             </div>
             <div style={{ overflowX: "auto" }}>
               {absences.length > 0 ? (
@@ -108,7 +145,7 @@ function ExpertDemandesPage() {
                       <th>État</th>
                       <th>Actions</th>
                     </tr>
-                    {absences.some((item) =>
+                    {filteredabsence.some((item) =>
                       item.absences.some(
                         (absence) => absence.etat === "En attente"
                       )

@@ -12,7 +12,9 @@ import { Button, ButtonBase, Divider } from "@mui/material";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import RrhAbsArchPage from "../../components/rrh_AbsArch";
-
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+import { InputBase } from "@mui/material";
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
@@ -64,7 +66,25 @@ function RRH_Page() {
   }, []);
 
   const onClick_RrhAbsArchPage = () => setShow_RrhAbsArchPage(true);
-
+  const [search, setSearch] = useState("");
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+  const filteredabsence = absences.filter((absence) => {
+    if (search === "") {
+      return true;
+    }
+    if (absence.user.matricule.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (absence.user.nom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (absence.user.prenom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    return false;
+  });
   return (
     <div className="rrh_page">
       <Navigation user={CurrentUser} />
@@ -98,9 +118,24 @@ function RRH_Page() {
         ) : (
           <div className="rrh_body2">
             <p className="rrh_info">Les demandes d'absences</p>
+            <InputBase
+        className="searchbar"
+        placeholder="Rechercher.."
+        type="text"
+        value={search}
+        onChange={handleSearch}
+        startAdornment={
+          <InputAdornment position="start">
+            {" "}
+            <SearchIcon />{" "}
+          </InputAdornment>
+        }
+        margin="normal"
+        sx={{ width: 250 }}
+      />
             <Button
               onClick={onClick_RrhAbsArchPage}
-              sx={{ margin: "0.5em 3em" }}
+              sx={{ margin: "0.5em -25em" }}
               variant="outlined"
               startIcon={<FaFileArchive />}
             >
@@ -120,7 +155,7 @@ function RRH_Page() {
                       <th>État</th>
                       <th>Actions</th>
                     </tr>
-                    {absences.some((item) =>
+                    {filteredabsence.some((item) =>
                       item.absences.some(
                         (absence) => absence.etat === "En attente"
                       )

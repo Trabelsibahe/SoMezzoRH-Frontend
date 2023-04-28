@@ -42,6 +42,15 @@ function DemandeArchiveList() {
     if (demande.user.matricule.toLowerCase().includes(search.toLowerCase())) {
       return true;
     }
+    if (demande.user.nom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (demande.user.prenom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (demande.type.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
     return false;
   });
   const [attestation, setAttestation] = useState("");

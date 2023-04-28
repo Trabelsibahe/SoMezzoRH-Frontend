@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import{ GetOperAbsenceAction } from "../actions/operation.action"
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
-
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+import { InputBase } from "@mui/material";
 
 
 
@@ -25,13 +27,47 @@ function RrhAbsArchPage() {
     setJustif(absence.justif);
     setJustification(true);
   };
-
+  const [search, setSearch] = useState("");
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+  const filteredabsence = absences.filter((absence) => {
+    if (search === "") {
+      return true;
+    }
+    if (absence.user.matricule.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (absence.user.nom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    if (absence.user.prenom.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+    return false;
+  });
 
   return (
     <div className="rrh_body2">
       <p className="rrh_info">Archive d'absences</p>
-      <Button sx={{ margin: "0.5em 3em" }}
+      <InputBase
+        className="searchbar"
+        placeholder="Rechercher.."
+        type="text"
+        value={search}
+        onChange={handleSearch}
+        startAdornment={
+          <InputAdornment position="start">
+            {" "}
+            <SearchIcon />{" "}
+          </InputAdornment>
+        }
+        margin="normal"
+        sx={{ width: 250 }}
+      />
+      <Button sx={{ margin: "0.5em -25em" }}
             variant="outlined" href="/rrh">Retour</Button>
+    
       <div style={{ overflowX: "auto" }}>
       {absences.length > 0 ? (
               <table className="absences_table">
@@ -45,7 +81,7 @@ function RrhAbsArchPage() {
                     <th>Commentaire</th>
                     <th>État</th>
                   </tr>
-                  {absences.map((item) =>
+                  {filteredabsence.map((item) =>
                     item.absences.map((absence) =>
                         <tr key={absence._id}>
                           <td>
