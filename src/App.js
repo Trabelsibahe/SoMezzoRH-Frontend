@@ -25,15 +25,15 @@ import Archive from './pages/archive';
 import NewsLetterPage from "./pages/newsletter"
 import EmployePage from './pages/espaces/employe';
 import RRH_Page from './pages/espaces/rrh';
-import RRH_Absence_list from './components/userlist/rrhabslist';
 import InactivePage from './pages/inactive';
 import { Redirect } from 'react-router-dom'
 import ActiveRouter from './routes/ActiveRouter';
 import AbsencesPage from './pages/absences';
 import DemandePage from './pages/demande';
-import DemandeList from './components/userlist/demandelist'
-import ExpertRH2 from './pages/espaces/expertrh2';
 import TasksPage from './pages/espaces/taskspage';
+import ExpertTasksPage from './pages/experttasks';
+import ExpertDemandesPage from './pages/demandesPage';
+import AbsenceList from './components/userlist/absencelist';
 
 
 if (window.localStorage.jwt) {
@@ -105,14 +105,10 @@ function App() {
 
           <Route path="/profil/securité" element={<PrivateRouter user={user}> {" "} <ChangePassword /> {" "}</PrivateRouter>} />
 
-          <Route path="/archive" element={<ExpertRouter user={user}> {" "} <Archive />{" "} </ExpertRouter>} />
+          <Route path="/monespace/expertrh/archive" element={<ExpertRouter user={user}> {" "} <Archive />{" "} </ExpertRouter>} />
           <Route path="/expertrh" element={
             <ExpertRouter user={user}> {" "} <Expert_RH_Page />{" "} </ExpertRouter>} />
-          <Route path="/listabsence" element={
-            <ExpertRouter user={user}> {" "} <RRH_Absence_list />{" "} </ExpertRouter>} />
 
-          <Route path="/listdemande" element={
-            <ExpertRouter user={user}> {" "} <DemandeList />{" "} </ExpertRouter>} />
           <Route path="/emp" element={<ActiveRouter user={user}> <EmployePage /></ActiveRouter>}></Route>
           <Route path="/rrh" element={<ActiveRouter user={user}> <RRH_Page /></ActiveRouter>}></Route>
           <Route path="/monespace/taches" element={<ActiveRouter user={user}> <TasksPage /></ActiveRouter>}></Route>
@@ -120,8 +116,10 @@ function App() {
           <Route path="/inactive" element={<InactivePage />}></Route>
           <Route path="/monespace/mesabsences" element={<AbsencesPage />}></Route>
           <Route path="/monespace/mesdemandes" element={<DemandePage />}></Route>
-          <Route path="/expert2" element={<ExpertRH2 />}></Route>
+          <Route path="/monespace/expertrh/taches" element={<ExpertTasksPage />}></Route>
 
+          <Route path="/monespace/expertrh/demandes" element={
+            <ExpertRouter user={user}> {" "} <ExpertDemandesPage />{" "} </ExpertRouter>} />
 
         </Routes>
 

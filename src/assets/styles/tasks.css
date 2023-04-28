@@ -33,7 +33,7 @@
   justify-content: end;
 }
 .task_name {
-  font-size: 22px;
+  font-size: 18px;
   color: #151582;
   font-weight: 600;
   text-align: left;
@@ -45,7 +45,13 @@
   color: #464e56;
   text-align: left;
 }
-
+.task_operation{
+  display: flex;
+  justify-content:left ;
+  font-size: 12px;
+  font-weight: 600;
+  color: #464e56;
+}
 .task_info {
   align-items: center;
   justify-content: start;

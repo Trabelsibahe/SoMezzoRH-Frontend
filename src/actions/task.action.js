@@ -27,12 +27,12 @@ export const AddTask = (data) => {
   }
 }
 
-//Recuperer tous les taches pour l'RRH
+//Recuperer les taches pour l'RRH
 export const GetAllTask = () => {
     return async dispatch => {
       dispatch({ type: taskConstants.GET_ALL_TASK_REQUEST })
       try {
-        const res = await axios.get('http://127.0.0.1:3030/api/operation/task')
+        const res = await axios.get('http://127.0.0.1:3030/api/operation/mytasks')
         if (res.status === 200) {
           dispatch({
             type: taskConstants.GET_ALL_TASK,
@@ -54,7 +54,7 @@ export const GetAllTaskExpert = () => {
     return async dispatch => {
       dispatch({ type: taskConstants.GET_ALL_TASK_REQUEST })
       try {
-        const res = await axios.get('http://127.0.0.1:3030/api/getall/task')
+        const res = await axios.get('http://127.0.0.1:3030/api/alltasks')
         if (res.status === 200) {
           dispatch({
             type: taskConstants.GET_ALL_TASK,

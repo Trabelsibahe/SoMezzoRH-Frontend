@@ -6,9 +6,6 @@ import{ GetAllAbsence } from "../actions/absence.action"
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 
-
-
-
 function ExpertAbsArchPage() {
   const dispatch = useDispatch();
   const absences = useSelector((state) => state.absence.absences);
@@ -28,10 +25,9 @@ function ExpertAbsArchPage() {
 
 
   return (
-    <div className="rrh_body2">
+    <div className="rrh_body">
       <p className="rrh_info">Archive d'absences</p>
-      <Button sx={{ margin: "0.5em 3em" }}
-            variant="outlined" href="/listabsence">Retour</Button>
+      <div><Button sx={{ margin: "0.5em 3em" }} variant="outlined" href="/monespace/expertrh/demandes">Retour</Button></div>
       <div style={{ overflowX: "auto" }}>
       {absences.length > 0 ? (
               <table className="absences_table">
