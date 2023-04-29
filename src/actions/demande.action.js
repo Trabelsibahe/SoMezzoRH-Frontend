@@ -1,5 +1,8 @@
 import axios from 'axios'
 import { demandeConstants } from '../actions/constantes';
+
+
+
 // ajouter une demande
 export const AddDemande = (data) => {
   return async dispatch => {
@@ -12,7 +15,7 @@ export const AddDemande = (data) => {
           payload: { createddemande: res.data }
         })
         window.location.reload()
-        alert("demande envoyer.");
+        alert("demande envoyé.");
 
       }
     } catch (err) {
@@ -65,13 +68,14 @@ export const listerdemandeExpert = () => {
           }
   }
 }
-export const updateDemande = (id, data) => (dispatch) => {
+export const updateBadge = (id, data) => (dispatch) => {
     axios.post(`http://127.0.0.1:3030/api/demande/modif/${id}`, data)
       .then((res) => {
         dispatch({
           type:  demandeConstants.UPDATE_DEMANDE_SUCCESS,
           payload: res.data.message,
         });
+        alert("Badge accepté.");
       })
       .catch((err) => {
         dispatch({
@@ -80,6 +84,7 @@ export const updateDemande = (id, data) => (dispatch) => {
         });
       });
   };
+
   export const updateAttestation = (id, data) => (dispatch) => {
     axios.post(`http://127.0.0.1:3030/api/demande/add/${id}`, data)
       .then((res) => {

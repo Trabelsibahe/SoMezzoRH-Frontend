@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
-import Button from "react-bootstrap/Button";
+import { Button } from '@mui/material';
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import { BsFillFileTextFill } from "react-icons/bs";
@@ -163,7 +163,6 @@ function AbsenceList() {
             </tbody>
           </table>
         ) : (
-          <>
             <table className="absences_table">
               <tbody>
                 <tr>
@@ -173,13 +172,14 @@ function AbsenceList() {
                   <th>Commentaires</th>
                   <th>Status</th>
                 </tr>
+                <tr>
+                   <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
+                  Aucune absence trouvé.
+                   </td>
+                </tr>
               </tbody>
             </table>
-            <p style={{ textAlign: "center", padding: "1em" }}>
-              Il n'y a pas d'absence.
-            </p>
-          </>
-        )}{" "}
+        )}
       </div>
 
       <Modal show={justification} onHide={handleClosejustif}>

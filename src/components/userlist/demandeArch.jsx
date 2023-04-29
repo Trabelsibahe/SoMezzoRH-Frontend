@@ -91,12 +91,12 @@ function DemandeArchiveList() {
                 <th>Type de demande</th>
                 <th>Commentaires</th>
                 <th>Etat</th>
-                <th>Attestation or badge</th>
+                <th>Attestation ou badge</th>
               </tr>
               {filteredemande.map((demande) =>
                     <tr key={demande._id}>
                       <td>
-                        ({demande.user.matricule}) {demande.user.nom}{" "}
+                        ({demande.user.matricule}) {demande.user.nom}
                         {demande.user.prenom}
                       </td>
                       <td>{demande.type}</td>
@@ -116,8 +116,8 @@ function DemandeArchiveList() {
                           >
                             Afficher
                           </Button>
-                        ) : (
-                          "Aucune Attestation"
+                        ) : demande.type ==="Badge" ? "Sur place" : (
+                          "En attente"
                         )}
                       </td>
                     </tr>
@@ -125,7 +125,6 @@ function DemandeArchiveList() {
             </tbody>
           </table>
         ) : (
-          <>
             <table className="absences_table">
               <tbody>
                 <tr>
@@ -135,13 +134,15 @@ function DemandeArchiveList() {
                 <th>Etat</th>
                 <th>Attestation or badge</th>
                 </tr>
+     
+            <tr>
+                <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
+                  Aucune demande trouvé.
+                </td>
+              </tr>
               </tbody>
             </table>
-            <p style={{ textAlign: "center", padding: "1em" }}>
-              Il n'y a pas de demande
-            </p>
-          </>
-        )}{" "}
+        )}
       </div>
 
       <Modal show={justification} onHide={handleClosejustif}>
@@ -156,7 +157,7 @@ function DemandeArchiveList() {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClosejustif}>
-            Fermer
+            Annuler
           </Button>
         </Modal.Footer>
       </Modal>

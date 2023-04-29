@@ -47,6 +47,10 @@ function EmployePage() {
 
 
   
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
   return (
 
     <div className="emp_page">
@@ -80,7 +84,7 @@ function EmployePage() {
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>
                : 
             <Button variant="outlined" sx={style2}  size="small" startIcon={<KeyboardReturnIcon/>} 
-              href="/emp">Retour</Button>}
+              onClick={reloadPage}>Retour</Button>}
           </div>
 
 

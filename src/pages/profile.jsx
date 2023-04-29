@@ -184,7 +184,7 @@ const editUser = async () => {
         
           <div className="profile_list">
           <label for="file" class="label-file"><CloudUploadOutlinedIcon fontSize="large" /> Changer votre avatar</label>
-          <input id="file" className="input-file" type="file" onChange={(e) => setAvatar(e.target.files[0])}/>
+          <input id="file" className="input-file" type="file" onChange={(e) => setAvatar(e.target.files[0])} accept="image/png, image/jpeg, image/avif"/>
           </div>
                     
           <div className="profile_list">

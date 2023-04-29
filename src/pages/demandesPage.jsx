@@ -113,7 +113,7 @@ function ExpertDemandesPage() {
           <ExpertAbsArchPage />
         ) : (
           <div className="rrh_body">
-            <p className="rrh_info">Absences</p>
+            <p className="rrh_info">Les demandes d'absence</p>
             <div>
             <InputBase
         className="searchbar"

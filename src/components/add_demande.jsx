@@ -24,8 +24,6 @@ function AddDemandePage() {
   const errors = useSelector((state) => state.errors);
 
   const [form, setForm] = useState({});
-  const [Active, setActive] = useState(true);
-  const [justif, setJustif] = useState(null);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -49,9 +47,10 @@ function AddDemandePage() {
   };
 
   return (
+    <div className="rrh_body">
     <ThemeProvider theme={theme}>
       <div className="addRepoPage">
-        <h5 className="col-md-12 text-center p-4">Demande d'attestation or de badge</h5>
+        <h5 className="col-md-12 text-center p-4">Demande d'attestation et badge</h5>
         <Container className="bg-variant col-md-4 mx-auto p-4">
           <Stack>
             <Form onSubmit={onSubmit}>
@@ -103,16 +102,13 @@ function AddDemandePage() {
                     variant="contained"
                     color="neutral"
                     size="small"
-                    type="submit"
-                  >
-                    <CheckIcon /> Démander la demande
-                  </Button>{" "}
+                    type="submit">
+                    <CheckIcon /> Demander </Button>{" "}
                   <Button
                     variant="outlined"
                     color="neutral"
                     size="small"
-                    onClick={reloadPage}
-                  >
+                    onClick={reloadPage}>
                     Annuler
                   </Button>
                 </div>
@@ -121,6 +117,8 @@ function AddDemandePage() {
         </Container>
       </div>
     </ThemeProvider>
+    </div>
+
   );
 }
 

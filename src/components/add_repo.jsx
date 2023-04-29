@@ -175,7 +175,7 @@ function AddRepoPage() {
                     size="small"
                     type="submit"
                   >
-                    <CheckIcon /> Démander le repos
+                    <CheckIcon /> Démander l'absence
                   </Button>{" "}
                   <Button
                     variant="outlined"

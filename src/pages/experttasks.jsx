@@ -65,6 +65,12 @@ function ExpertTasksPage() {
   }, [dispatch]);
 
 
+  
+
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
 
   return (
     <div className="rrh_page">
@@ -99,7 +105,7 @@ function ExpertTasksPage() {
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>
                : 
             <Button variant="outlined" sx={style2}  size="small" startIcon={<KeyboardReturnIcon/>} 
-              href="/monespace/taches">Retour</Button>}
+              href="/monespace/expertrh/taches">Retour</Button>}
           </div>
 
           {Show_RrhCalendar ? <RrhCalendar/> : (

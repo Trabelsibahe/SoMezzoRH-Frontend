@@ -107,7 +107,7 @@ function DemandePage() {
                           <th>Type de demande</th>
                           <th>Commentaires</th>
                           <th>Etat</th>
-                          <th>Attestation or badge</th>
+                          <th>Document</th>
                         </tr>
                         {demandes.map((demande, index) => (
                           <tr key={index}>
@@ -119,7 +119,7 @@ function DemandePage() {
                             </td>
                             <td>{demande.etat}</td>
                             <td>
-                              {demande.attestation ? (
+                              {demande.attestation && demande.type === "Attestation" ? (
                                 <Button
                                   size="small"
                                   variant="outlined"
@@ -128,8 +128,8 @@ function DemandePage() {
                                 >
                                   Afficher
                                 </Button>
-                              ) : (
-                                "Aucune attestation"
+                              ) : demande.type ==="Badge" ? "Sur place" : (
+                                "En attente"
                               )}
                             </td>
                           </tr>
@@ -143,7 +143,7 @@ function DemandePage() {
                             <th>Type de demande</th>
                           <th>Commentaires</th>
                           <th>Etat</th>
-                          <th>Attestation or badge</th>
+                          <th>Document</th>
                           </tr>
                         </tbody>
                         <tr>
@@ -169,10 +169,9 @@ function DemandePage() {
             )}
             <Modal show={justification} onHide={handleClosejustif}>
               <Modal.Header closeButton>
-                <Modal.Title>attestation or badge</Modal.Title>
+                <Modal.Title>Attestation</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {" "}
                 <Card className="news_item_card">
                   <Card.Img
                     variant="top"
@@ -182,10 +181,13 @@ function DemandePage() {
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClosejustif}>
-                  Fermer
+                  Annuler
                 </Button>
               </Modal.Footer>
             </Modal>
+            <div style={{ padding: "2em", textAlign: "center" }}>
+          <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
+        </div>
           </div>
         </div>
   );

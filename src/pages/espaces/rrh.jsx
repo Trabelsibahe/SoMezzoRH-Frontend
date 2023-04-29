@@ -156,9 +156,8 @@ function RRH_Page() {
                       <th>Actions</th>
                     </tr>
                     {filteredabsence.some((item) =>
-                      item.absences.some(
-                        (absence) => absence.etat === "En attente"
-                      )
+                      item.absences.some( 
+                        (absence) => absence.etat === "En attente")
                     ) ? (
                       absences.map((item) =>
                         item.absences.map(

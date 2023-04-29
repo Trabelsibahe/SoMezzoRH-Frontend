@@ -14,7 +14,6 @@ import Logout from '@mui/icons-material/Logout';
 import logo from "../assets/images/avatar.avif"
 
 
-
 export default function AccountMenu({ profile, LogoutHandler }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

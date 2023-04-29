@@ -10,7 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { InputBase } from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import { Button, ButtonBase, Divider } from "@mui/material";
-import AbsenceList from "../components/userlist/absencelist";
+import AbsenceList from "../components/userlist/absenceArch";
 import DemandeArchiveList from "../components/userlist/demandeArch";
 
 const style = {
