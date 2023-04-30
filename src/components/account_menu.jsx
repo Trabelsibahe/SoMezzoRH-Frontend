@@ -29,8 +29,7 @@ export default function AccountMenu({ profile, LogoutHandler }) {
         <Tooltip title="Paramètre du compte">
           <IconButton
             onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
+            size="medium" 
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}

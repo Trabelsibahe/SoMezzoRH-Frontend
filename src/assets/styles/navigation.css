@@ -36,6 +36,8 @@
 .navbar_item {
   color: rgb(73, 76, 86);
   font-weight: bold;
+  display: flex;
+  flex-direction: row;
 }
 .navbar_logo {
   color: rgb(255, 255, 255);
