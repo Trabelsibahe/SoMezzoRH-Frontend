@@ -18,6 +18,11 @@ export default function (state = intitialState, action) {
         ...state,
         message : action.payload.message
       }
+      case taskConstants.ADD_TASK_FAILURE : 
+      state = {
+        ...state,
+        message : action.payload.message
+      }
     default:
       return state;
   }

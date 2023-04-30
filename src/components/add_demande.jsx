@@ -13,8 +13,6 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import CheckIcon from "@mui/icons-material/Check";
 import Classnames from "classnames";
-import formatDate from "../components/formatdate";
-import "../assets/styles/register.css";
 import dayjs from "dayjs";
 
 import { listerdemande, AddDemande } from "../actions/demande.action";
@@ -45,7 +43,6 @@ function AddDemandePage() {
   const reloadPage = () => {
     window.location.reload();
   };
-
   return (
     <div className="rrh_body">
     <ThemeProvider theme={theme}>
@@ -59,14 +56,12 @@ function AddDemandePage() {
                   <Select
                     labelId="demo-select-small"
                     name="type"
-                    label="Type d'absence"
+                    label="Type de demande"
                     value={form.type}
                     onChange={(event) =>
                       setForm({ ...form, type: event.target.value })
                     }
-                    className={Classnames("w-100", {
-                      "is-invalid": errors.type,
-                    })}
+                    classnames={Classnames("w-100", {"is-invalid": errors.type})}
                   >
                     <MenuItem value="Attestation">Attestation</MenuItem>
                     <MenuItem value="Badge">Badge</MenuItem>

@@ -17,6 +17,8 @@ import { AddTask } from "../../actions/task.action";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import formatDate from "../../components/formatdate";
+import Classnames from "classnames";
+import "../../assets/styles/register.css";
 
 const style = {
   position: "absolute",
@@ -32,6 +34,7 @@ const style = {
 
 export default function Add_Task_Modal() {
   const dispatch = useDispatch();
+  const errors = useSelector((state) => state.errors);
   const [open, setOpen] = React.useState(false);
   const TaskHandleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -40,7 +43,7 @@ export default function Add_Task_Modal() {
   const onSubmit = async (e) => {
     e.preventDefault();
     await dispatch(AddTask(form));
-  };
+      };
 
   return (
     <div>
@@ -84,12 +87,18 @@ export default function Add_Task_Modal() {
                     onChange={(event) =>
                       setForm({ ...form, titre: event.target.value })
                     }
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.titre,
+                    })}
                     variant="outlined"
                     size="medium"
                     label="Nom de tache"
                     type="text"
                     fullWidth
                   />
+                  {errors.titre && (
+                    <div className="invalid-feedback">{errors.titre}</div>
+                  )}
                 </Form.Group>
                 <FormControl size="medium" className="ab_select">
                   <InputLabel>Priorité</InputLabel>
@@ -100,11 +109,17 @@ export default function Add_Task_Modal() {
                     onChange={(event) =>
                       setForm({ ...form, priorite: event.target.value })
                     }
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.priorite,
+                    })}
                   >
                     <MenuItem value="Haut">Haut</MenuItem>
                     <MenuItem value="Moyen">Moyen</MenuItem>
                     <MenuItem value="Optionnel">Optionnel</MenuItem>
                   </Select>
+                  {errors.priorite && (
+                    <div className="invalid-feedback">{errors.priorite}</div>
+                  )}
                 </FormControl>
               </div>
               <div
@@ -137,40 +152,48 @@ export default function Add_Task_Modal() {
                   columnGap: "1em",
                 }}
               >
-                <Form.Group className="mb-4">
+                 <Form.Group className="mb-4">
                   <DatePicker
+                    id="outlined-basic"
+                    variant="outlined"
+                    size="small"
+                    label="Date de debut de période d'absence"
+                    type="date"
+                    name="dateCreation"
+                    disablePast={true}
                     value={form.dateCreation}
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.dateCreation,
+                    })}
                     onChange={(dateCreation) => {
-                      setForm({
-                        ...form,
-                        dateCreation: formatDate(dateCreation),
-                      });
+                      setForm({ ...form, dateCreation: formatDate(dateCreation) });
                     }}
-                    variant="outlined"
-                    size="small"
-                    label="Date de début"
-                    type="date"
-                    name="dateDebut"
-                    disablePast={true}
                   />
+                  {errors.dateCreation && (
+                    <div className="invalid-feedback">{errors.dateCreation}</div>
+                  )}
                 </Form.Group>
-
                 <Form.Group className="mb-4">
                   <DatePicker
-                    value={form.dateSuppression}
-                    onChange={(dateSuppression) => {
-                      setForm({
-                        ...form,
-                        dateSuppression: formatDate(dateSuppression),
-                      });
-                    }}
+                    id="outlined-basic"
                     variant="outlined"
                     size="small"
-                    label="Date de fin"
+                    disablePast
+                    label="Date de fin de période d'absence"
                     type="date"
-                    name="dateDebut"
-                    disablePast={true}
+                    name="dateSuppression"
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.dateSuppression,
+                    })}
+                    value={form.dateSuppression}
+                    onChange={(dateSuppression) =>
+                      setForm({ ...form, dateSuppression: formatDate(dateSuppression) })
+                    }
+                    onError={errors.dateSuppression}
                   />
+                  {errors.dateSuppression && (
+                    <div className="invalid-feedback">{errors.dateSuppression}</div>
+                  )}
                 </Form.Group>
               </div>
               <div style={{ display: "flex", columnGap: "15em" }}>
