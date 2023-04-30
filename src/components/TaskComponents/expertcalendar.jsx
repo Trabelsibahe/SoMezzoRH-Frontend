@@ -5,28 +5,23 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { IconButton } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { GetAllTask, supprimerTask } from "../../actions/task.action";
+import { GetAllTaskExpert, supprimerTask } from "../../actions/task.action";
 import formatDate from "../formatdate";
 import { Collapse, Button } from "@mui/material";
+import SquareIcon from '@mui/icons-material/Square';
 
 
 
 
 
-function Calendar() {
+function ExpertCalendar() {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.task.tasks);
  
   useEffect(() => {
-    dispatch(GetAllTask());
+    dispatch(GetAllTaskExpert());
   }, [dispatch]);
 
-
-  useEffect(() => {
-    dispatch(supprimerTask());
-  }, []);
-
-  
   const [date, setDate] = useState(new Date());
 
 
@@ -76,10 +71,11 @@ function Calendar() {
         titre: task.titre,
         desc: task.description,
         suppressionDate,
+        operation : task.user.operation,
       });
     } else {
       eventsByDate[creationDate] = [
-        { titre: task.titre, desc: task.description, suppressionDate },
+        { titre: task.titre, desc: task.description, operation: task.user.operation, suppressionDate },
       ];
     }
   
@@ -93,11 +89,13 @@ function Calendar() {
           eventsByDate[dateStr].push({
             titre: task.titre,
             desc: task.description,
+            operation : task.user.operation,
             suppressionDate,
+
           });
         } else {
           eventsByDate[dateStr] = [
-            { titre: task.titre, desc: task.description, suppressionDate },
+            { titre: task.titre, desc: task.description, operation: task.user.operation, suppressionDate },
           ];
         }
       }
@@ -142,6 +140,7 @@ function Calendar() {
   setOpenId(openId === id ? null : id);
   };
 
+    
 return (
   <div className="calendar">
 
@@ -182,7 +181,8 @@ return (
                 <ul>
                   {eventsByDate[dateString(year, month + 1, day)].map((task) => (
                     <div className="calendar_datenumber" key={task.id} onClick={() => handleClick(day)}>
-                      <span className="calendar_datetask" style={{ textAlign: "left" }}>
+                      <span className="calendar_datetask" style={{ textAlign: "left", 
+                              background: task.operation ==="DSI" ? "#1492d1" : task.operation ==="Arnaque" ? "#e94e1b" : "#f9b233"}} >
                         {task.titre}
                       </span>
                     </div>
@@ -194,6 +194,13 @@ return (
   </div>
 ))}
     </div>
+            <div className="expertcalendar_guide">
+            <p>Chaque couleur représente une opération:</p>
+                <ul style={{listStyle:"none"}}>
+                    <li style={{textDecoration:"n"}}>DSI : <SquareIcon sx={{color:"#1492d1"}}/></li>
+                    <li>Arnaque : <SquareIcon sx={{color:"#e94e1b"}}/></li>
+                </ul>
+            </div>
   </div>
 )}
-export default Calendar;
+export default ExpertCalendar;

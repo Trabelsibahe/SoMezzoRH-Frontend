@@ -15,6 +15,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 import { GetAllTaskExpert} from "../actions/task.action";
+import ExpertCalendar from "../components/TaskComponents/expertcalendar";
 
 const style2 = {
   left: "58em",
@@ -108,7 +109,7 @@ function ExpertTasksPage() {
               href="/monespace/expertrh/taches">Retour</Button>}
           </div>
 
-          {Show_RrhCalendar ? <RrhCalendar/> : (
+          {Show_RrhCalendar ? <ExpertCalendar/> : (
                   <div className="tasks_grid">
                   {tasks && tasks.length > 0 ? (
                     tasks.map((task, index) => (

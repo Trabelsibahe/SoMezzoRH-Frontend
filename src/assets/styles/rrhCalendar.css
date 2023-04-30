@@ -78,3 +78,8 @@
 .calendar_datetask::first-letter {
   text-transform: uppercase;
 }
+
+.expertcalendar_guide {
+  color: #151582;
+  padding: 0.5em;}
+

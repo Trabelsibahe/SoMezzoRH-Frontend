@@ -48,7 +48,7 @@ function RegisterPage() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="Register">
+      <div className="rrh_body">
         <h5 className="col-md-12 text-center p-3">Créer un nouveau compte</h5>
         <Container className="bg-variant col-md-4 mx-auto p-2">
           <Stack>
