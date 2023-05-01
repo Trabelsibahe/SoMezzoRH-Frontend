@@ -45,7 +45,6 @@ function RegisterPage() {
       },
     },
   });
-
   return (
     <ThemeProvider theme={theme}>
       <div className="rrh_body">

@@ -43,6 +43,7 @@ function AddDemandePage() {
   const reloadPage = () => {
     window.location.reload();
   };
+
   return (
     <div className="rrh_body">
     <ThemeProvider theme={theme}>
@@ -51,17 +52,19 @@ function AddDemandePage() {
         <Container className="bg-variant col-md-4 mx-auto p-4">
           <Stack>
             <Form onSubmit={onSubmit}>
+              
                 <FormControl size="small" className="ab_select" margin="normal">
                   <InputLabel id="demo-select-small">Type de demande</InputLabel>
                   <Select
                     labelId="demo-select-small"
                     name="type"
                     label="Type de demande"
+                    error={errors.type}
                     value={form.type}
                     onChange={(event) =>
                       setForm({ ...form, type: event.target.value })
                     }
-                    classnames={Classnames("w-100", {"is-invalid": errors.type})}
+                    className={Classnames("w-100", {"is-invalid": errors.type})}
                   >
                     <MenuItem value="Attestation">Attestation</MenuItem>
                     <MenuItem value="Badge">Badge</MenuItem>
@@ -71,8 +74,6 @@ function AddDemandePage() {
                     <div className="invalid-feedback">{errors.type}</div>
                   )}
                 </FormControl>
-                <p> </p>
-                
 
                 <Form.Group className="mb-4">
                   <TextField
