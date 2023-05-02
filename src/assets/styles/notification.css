@@ -1,0 +1,10 @@
+
+.red_dot{
+    position: absolute;
+    top:17px;
+    right: 15px;
+    padding: 4px 4px;
+    border-radius: 50%;
+    background: orangered;
+    height: 8px;
+}
