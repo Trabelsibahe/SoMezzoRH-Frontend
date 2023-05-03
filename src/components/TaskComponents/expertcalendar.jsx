@@ -182,7 +182,7 @@ return (
                   {eventsByDate[dateString(year, month + 1, day)].map((task) => (
                     <div className="calendar_datenumber" key={task.id} onClick={() => handleClick(day)}>
                       <span className="calendar_datetask" style={{ textAlign: "left", 
-                              background: task.operation ==="DSI" ? "#1492d1" : task.operation ==="Arnaque" ? "#e94e1b" : "#f9b233"}} >
+                              background: task.operation ==="DSI" ? "#1492d1" : task.operation ==="Télévendeur" ? "#e94e1b" : "#f9b233"}} >
                         {task.titre}
                       </span>
                     </div>
@@ -198,7 +198,8 @@ return (
             <p>Chaque couleur représente une opération:</p>
                 <ul style={{listStyle:"none"}}>
                     <li style={{textDecoration:"n"}}>DSI : <SquareIcon sx={{color:"#1492d1"}}/></li>
-                    <li>Arnaque : <SquareIcon sx={{color:"#e94e1b"}}/></li>
+                    <li>Télévendeur : <SquareIcon sx={{color:"#e94e1b"}}/></li>
+                    <li>Tèlèopérateur : <SquareIcon sx={{color:"#f9b233"}}/></li>
                 </ul>
             </div>
   </div>

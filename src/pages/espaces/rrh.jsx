@@ -233,10 +233,7 @@ function RRH_Page() {
                       )
                     ) : (
                       <tr>
-                        <td
-                          colSpan="8"
-                          style={{ textAlign: "center", padding: "1em" }}
-                        >
+                        <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
                           Il n'y a pas d'absence en attente.
                         </td>
                       </tr>

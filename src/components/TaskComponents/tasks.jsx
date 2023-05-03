@@ -58,8 +58,7 @@ function Tasks() {
                   <i>
                     <InsertInvitationOutlinedIcon />
                   </i>
-                  <span> Debut: {new Date(task.dateCreation).toLocaleDateString()}</span>
-                  <span> Fin: {new Date(task.dateSuppression).toLocaleDateString()}</span>
+                  <span> Période: {new Date(task.dateCreation).toLocaleDateString()} - {new Date(task.dateSuppression).toLocaleDateString()}</span>
                 </div>
                 <div></div>
               </div>

@@ -125,7 +125,7 @@ function ExpertTasksPage() {
                           </div>{" "}
                           <div className="task_info">
                             <i><InsertInvitationOutlinedIcon /></i>
-                            <span> Date: {new Date(task.dateCreation).toLocaleDateString()} - {new Date(task.dateSuppression).toLocaleDateString()}</span>
+                            <span> Période: {new Date(task.dateCreation).toLocaleDateString()} - {new Date(task.dateSuppression).toLocaleDateString()}</span>
                           </div>
 
                           </div>

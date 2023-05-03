@@ -107,7 +107,7 @@ export default function NotificationMenu() {
                       <ListItemIcon>
                         <AnnouncementIcon fontSize="small" />
                       </ListItemIcon>
-                      <ListItemText>Mark has added you to his wanted list.</ListItemText>
+                      <ListItemText>Nouvelle publication, veuillez la consulter.</ListItemText>
                       <Typography variant="body2" color="text.secondary" sx={{fontSize:"10px"}}>
                       Marquer comme lu
                       </Typography>
@@ -117,7 +117,7 @@ export default function NotificationMenu() {
                       <ListItemIcon>
                         <AnnouncementIcon fontSize="small" />
                       </ListItemIcon>
-                      <ListItemText>ahla cv labes alik winek chaaml chfama jdid</ListItemText>
+                      <ListItemText>Nouvelle tâche disponible pour votre opération, veuillez la consulter.</ListItemText>
                       <Typography variant="body2" color="text.secondary" sx={{fontSize:"10px"}}>
                       Marquer comme lu
                       </Typography>
