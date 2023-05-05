@@ -114,7 +114,7 @@ function RrhAbsArchPage() {
                               ? absence.commentaire
                               : "Aucun commentaire"}
                           </td>
-                          <td style={{ color: "orangered" }}>{absence.etat}</td>
+                          <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>{absence.etat}</td>
                      
                         </tr>
                       

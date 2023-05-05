@@ -76,7 +76,6 @@ export const updateBadge = (id, data) => (dispatch) => {
           type:  demandeConstants.UPDATE_DEMANDE_SUCCESS,
           payload: res.data.message,
         });
-        alert("Badge accepté.");
       })
       .catch((err) => {
         dispatch({

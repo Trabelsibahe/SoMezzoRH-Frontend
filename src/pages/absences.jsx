@@ -134,7 +134,7 @@ function AbsencesPage() {
                                 ? absence.commentaire
                                 : "Pas de commentaires."}
                             </td>
-                            <td>{absence.etat}</td>
+                            <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>{absence.etat}</td>
                             <td>
                               {absence.justif ? (
                                 <Button

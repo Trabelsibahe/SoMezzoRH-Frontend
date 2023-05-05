@@ -54,7 +54,7 @@ function ExpertAbsArchPage() {
                           <td>
                             {new Date(absence.dateFin).toLocaleDateString()}
                           </td>
-                          <td>{absence.type}</td>
+                          <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>{absence.etat}</td>
                           <td>
                             {absence.justif ? (
                               <Button

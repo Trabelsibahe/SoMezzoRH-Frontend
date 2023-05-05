@@ -196,27 +196,31 @@ function ExpertDemandesPage() {
                                 {absence.etat}
                               </td>
                               <td>
-                                <Button
-                                  sx={{ margin: "0.5em" }}
-                                  variant="outlined"
-                                  color="success"
-                                  size="small"
-                                  onClick={() =>
-                                    OnChangeHandler(absence._id, "Accepté")
-                                  }
-                                >
-                                  Accepter
-                                </Button>{" "}
-                                <Button
-                                  variant="outlined"
-                                  color="error"
-                                  size="small"
-                                  onClick={() =>
-                                    OnChangeHandler(absence._id, "Refusé")
-                                  }
-                                >
-                                  Refuser
-                                </Button>
+                              <Button
+  sx={{ margin: "0.5em" }}
+  variant="outlined"
+  color="success"
+  size="small"
+  onClick={() => {
+    if (window.confirm("Voulez-vous vraiment accepter cette absence?")) {
+      OnChangeHandler(absence._id, "Accepté");
+    }
+  }}
+>
+  Accepter
+</Button>{" "}
+<Button
+  variant="outlined"
+  color="error"
+  size="small"
+  onClick={() => {
+    if (window.confirm("Voulez-vous vraiment refuser cette absence?")) {
+      OnChangeHandler(absence._id, "Refusé");
+    }
+  }}
+>
+  Refuser
+</Button>
                               </td>
                             </tr>
                           ) : null

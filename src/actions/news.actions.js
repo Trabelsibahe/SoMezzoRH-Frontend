@@ -39,7 +39,7 @@ export const addnews = (data) => {
     }
     }
    export const Deletenews = (id)=>dispatch=>{
-        if(window.confirm("are you sure to delete this news?")){
+        if(window.confirm("Voulez-vous vraiment supprimer cette news?")){
          axios
          .delete(`http://127.0.0.1:3030/api/news/${id}`)
          .then(res => {

@@ -162,7 +162,7 @@ function RRH_Page() {
                       absences.map((item) =>
                         item.absences.map(
                           (absence) =>
-                            absence.etat === "En attente" && (
+                          absence.etat === "En attente" && (
                               <tr key={absence._id}>
                                 <td>
                                   ({item.user.matricule}) {item.user.nom}{" "}
@@ -205,27 +205,33 @@ function RRH_Page() {
                                   {absence.etat}
                                 </td>
                                 <td>
-                                  <Button
-                                    sx={{ margin: "0.5em" }}
-                                    variant="outlined"
-                                    color="success"
-                                    size="small"
-                                    onClick={() =>
-                                      OnChangeHandler(absence._id, "Accepté")
-                                    }
-                                  >
-                                    Accepter
-                                  </Button>{" "}
-                                  <Button
-                                    variant="outlined"
-                                    color="error"
-                                    size="small"
-                                    onClick={() =>
-                                      OnChangeHandler(absence._id, "Refusé")
-                                    }
-                                  >
-                                    Refuser
-                                  </Button>
+                                <Button
+  sx={{ margin: "0.5em" }}
+  variant="outlined"
+  color="success"
+  size="small"
+  onClick={() => {
+    if (window.confirm("Voulez-vous vraiment accepter cette absence?")) {
+      OnChangeHandler(absence._id, "Accepté");
+    }
+  }}
+>
+  Accepter
+</Button>{" "}
+<Button
+  variant="outlined"
+  color="error"
+  size="small"
+  onClick={() => {
+    if (window.confirm("Voulez-vous vraiment refuser cette absence?")) {
+      OnChangeHandler(absence._id, "Refusé");
+    }
+  }}
+>
+  Refuser
+</Button>
+
+
                                 </td>
                               </tr>
                             )

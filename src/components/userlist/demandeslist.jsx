@@ -170,7 +170,19 @@ function DemandesList() {
 
                         <td>
                           {demande.type === "Badge" ? ( 
-                          <Button variant="outlined"  color="success" size="small"  onClick={() => handleShowEdit(demande, "Accordé")}>Accorder</Button>
+                          <Button
+                          variant="outlined"
+                          color="success"
+                          size="small"
+                          onClick={() => {
+                            if (window.confirm("Voulez-vous vraiment accorder ce badge?")) {
+                              handleShowEdit(demande, "Accordé");
+                            }
+                          }}
+                        >
+                          Accorder
+                        </Button>
+                        
                           ) : (<Button variant="outlined" color="success" size="small" onClick={() => handleShowAtt(demande._id)}>Accorder</Button>)}
                         </td>
                       </tr>

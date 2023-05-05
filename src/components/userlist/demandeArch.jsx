@@ -105,7 +105,7 @@ function DemandeArchiveList() {
                           ? demande.commentaire
                           : "Aucun commentaire"}
                       </td>
-                      <td style={{ color: "orangered" }}>{demande.etat}</td>
+                      <td style={{ color: demande.etat === "Réception" ? "blue"  : "green" }}>{demande.etat}</td>
                       <td>
                         {(demande.attestation && demande.type==="Attestation") ? (
                           <Button

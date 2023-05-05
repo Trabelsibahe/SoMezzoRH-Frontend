@@ -80,12 +80,15 @@ function AbsenceList() {
 
   const editetat = async (action) => {
     let newEtat = etat;
+    let message = "";
     if (action === "accepter") {
       newEtat = "accepter";
+      message = "Accepter cette absence";
     } else {
       newEtat = "refuser";
+      message = "Refuser cette absence";
     }
-
+  
     const data = {
       etat: newEtat,
     };
@@ -93,7 +96,11 @@ function AbsenceList() {
     await dispatch(GetAllAbsence());
     handleCloseEdit();
     setEtat(newEtat);
+  
+    // Ajouter une alerte
+    window.alert(message);
   };
+  
   return (
     <div>
         <p className="expert_info">Historique des absences</p>
@@ -126,7 +133,7 @@ function AbsenceList() {
                 <th>Justification</th>
               </tr>
               {filteredabsence.map((item) =>
-                item.absences.map((absence) =>
+                item.absences.map((absence) => 
                     <tr key={absence._id}>
                       <td>
                         ({item.user.matricule}) {item.user.nom}{" "}
@@ -142,7 +149,7 @@ function AbsenceList() {
                           ? absence.commentaire
                           : "Aucun commentaire"}
                       </td>
-                      <td style={{ color: "orangered" }}>{absence.etat}</td>
+                      <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>{absence.etat}</td>
                       <td>
                         {absence.justif ? (
                           <Button
@@ -158,6 +165,7 @@ function AbsenceList() {
                         )}
                       </td>
                     </tr>
+               
                 )
               )}
             </tbody>
