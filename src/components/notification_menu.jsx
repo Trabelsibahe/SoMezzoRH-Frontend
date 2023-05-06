@@ -10,7 +10,7 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { GetNotificationAction } from '../actions/notification.action';
+import { GetMyNotificationAction } from '../actions/notification.action';
 import {
   Divider,
   IconButton,
@@ -26,10 +26,10 @@ import { useNavigate } from 'react-router-dom';
 
 export default function NotificationMenu() {
   const dispatch = useDispatch();
-  const notifications = useSelector((state) => state.notification.notifications);
+  const notifications = useSelector((state) => state.notification.notification);
   const navigate = useNavigate();
     useEffect(() => {
-    dispatch(GetNotificationAction());
+    dispatch(GetMyNotificationAction());
   }, [dispatch]);
   
   const [open, setOpen] = React.useState(false);

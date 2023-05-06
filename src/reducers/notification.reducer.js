@@ -11,7 +11,11 @@ export default function (state = intitialState, action) {
             ...state,
             notifications: action.payload,
           };
-
+          case notificationConstants.GET_ONE_NOTIFICATION:
+            return {
+                ...state,
+                notification: action.payload,
+              };
       case notificationConstants.NOTIFICATION_ERRORS : 
       return {
         ...state,

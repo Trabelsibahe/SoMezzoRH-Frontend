@@ -3,15 +3,15 @@ import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { Divider } from '@mui/material';
 import { useEffect } from "react";
-import { GetNotificationAction } from '../actions/notification.action';
+import { GetMyNotificationAction } from '../actions/notification.action';
 
 function MynotificationsPage() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  const notifications = useSelector((state) => state.notification.notifications);
+  const notifications = useSelector((state) => state.notification.notification);
 
   useEffect(() => {
-    dispatch(GetNotificationAction());
+    dispatch(GetMyNotificationAction());
   }, []);
 
   const CurrentUser = {
