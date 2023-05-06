@@ -8,6 +8,7 @@ import absenceReducer from './absence.reducer';
 import operationReducer from './operation.reducer';
 import taskReducer from "./task.reducer";
 import demandeReducer from './demande.reducer';
+import notificationReducer from './notification.reducer';
 
 const rootReducer = combineReducers({
     auth : authReducer,
@@ -18,7 +19,9 @@ const rootReducer = combineReducers({
     absence : absenceReducer,
     operation : operationReducer,
     task : taskReducer,
-    demande : demandeReducer
+    demande : demandeReducer,
+    notification : notificationReducer
+    
 
 })
 

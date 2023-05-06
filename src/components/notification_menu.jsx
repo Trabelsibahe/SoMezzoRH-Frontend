@@ -8,6 +8,9 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { GetNotificationAction } from '../actions/notification.action';
 import {
   Divider,
   IconButton,
@@ -22,7 +25,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function NotificationMenu() {
+  const dispatch = useDispatch();
+  const notifications = useSelector((state) => state.notification.notifications);
   const navigate = useNavigate();
+    useEffect(() => {
+    dispatch(GetNotificationAction());
+  }, [dispatch]);
+  
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -103,26 +112,26 @@ export default function NotificationMenu() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    <MenuItem onClick={handleClose} sx={{whiteSpace:"initial"}}>
-                      <ListItemIcon>
-                        <AnnouncementIcon fontSize="small" />
-                      </ListItemIcon>
-                      <ListItemText>Nouvelle publication, veuillez la consulter.</ListItemText>
-                      <Typography variant="body2" color="text.secondary" sx={{fontSize:"10px"}}>
-                      Marquer comme lu
-                      </Typography>
-                    </MenuItem>
-
-                    <MenuItem onClick={handleClose} sx={{whiteSpace:"initial"}}>
-                      <ListItemIcon>
-                        <AnnouncementIcon fontSize="small" />
-                      </ListItemIcon>
-                      <ListItemText>Nouvelle tâche disponible pour votre opération, veuillez la consulter.</ListItemText>
-                      <Typography variant="body2" color="text.secondary" sx={{fontSize:"10px"}}>
-                      Marquer comme lu
-                      </Typography>
-                    </MenuItem>
-
+                    {notifications.map((notification) => (
+                      <MenuItem
+                        key={notification._id}
+                        onClick={handleClose}
+                        sx={{ whiteSpace: "initial" }}
+                      >
+                        <ListItemIcon>
+                          <AnnouncementIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>{notification.message}</ListItemText>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ fontSize: "10px" }}
+                        >
+                          Marquer comme lu
+                        </Typography>
+                      </MenuItem>
+                    ))}
+  
                     <Divider />
                     <MenuItem onClick={MyNotificationsPage}>
                       <ListItemText>Voir tout...</ListItemText>
@@ -136,4 +145,5 @@ export default function NotificationMenu() {
       </div>
     </Stack>
   );
+  
 }
