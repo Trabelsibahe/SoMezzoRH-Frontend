@@ -85,7 +85,7 @@ function Row(accounts, index) {
   };
 
   const notification = {
-    message : "Your profile has changed."
+    message : "l'expert RH a modifié votre profile"
   }
   //fonction modifier + getlist
   const EditProfile = async () => {
