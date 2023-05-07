@@ -18,11 +18,7 @@ function NewsLetterPage() {
   const auth = useSelector((state) => state.auth);
 
   const notification = {
-<<<<<<< HEAD
-    message: "Nouvelle publication, jetez-y un coup d'œil."
-=======
     message: "Une nouvelle news a été ajoutée."
->>>>>>> 4a511a964367d67c26fd7faf1ecb2dd6eba2f251
   }
   useEffect(() => {
     dispatch(listernews());
