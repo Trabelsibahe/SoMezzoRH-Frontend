@@ -37,6 +37,25 @@ export const GetNotificationAction = () => dispatch => {
         })
       });
   }
+
+  export const SetNotificationReadaction = () => dispatch => {
+    
+    axios.get("http://127.0.0.1:3030/api/setnotification")
+
+      .then(res => {
+        dispatch({
+          type: notificationConstants.GET_TRUE_NOTIFICATION,
+          payload: res.data
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type: notificationConstants.NOTIFICATION_ERRORS,
+          payload: err.response.data
+        })
+      });
+  }
+
  // Envoyer la notification à tous
   export const SendNotificationToAll = (data) => {
     return async dispatch => {
@@ -59,7 +78,6 @@ export const GetNotificationAction = () => dispatch => {
     }
   }
  // Envoyer la notification à une utilisateur specifique
-
   export const SendNotificationToOneUser = (userId, data) => {
     return async dispatch => {
       dispatch({ type: notificationConstants.CREATE_NOTIFICATION })
