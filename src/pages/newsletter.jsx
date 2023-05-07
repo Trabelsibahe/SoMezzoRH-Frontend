@@ -18,7 +18,7 @@ function NewsLetterPage() {
   const auth = useSelector((state) => state.auth);
 
   const notification = {
-    message: "New newsletter check it out."
+    message: "Une nouvelle news a été ajoutée."
   }
   useEffect(() => {
     dispatch(listernews());
