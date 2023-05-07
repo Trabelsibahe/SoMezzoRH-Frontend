@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { FaFileArchive } from "react-icons/fa";
 import {GetOperaAction,GetOperAbsenceAction,} from "../../actions/operation.action";
-
+import { SendNotificationToOneUser } from "../../actions/notification.action";
 import OperaList from "../../components/userlist/operalist_table";
 import { Button, ButtonBase, Divider } from "@mui/material";
 import Modal from "react-bootstrap/Modal";
@@ -52,11 +52,15 @@ function RRH_Page() {
     setJustification(true);
   };
 
-  const OnChangeHandler = async (id, action) => {
+  const OnChangeHandler = async (id, action,userId) => {
     const data = {
       etat: action,
     };
+    const notification = {
+      message: "le Résponsable RH Opérationnel a " + data.etat + " votre demande d'absence",
+    };
     await dispatch(updateAbsence(id, data));
+    await dispatch(SendNotificationToOneUser(userId, notification));
     await dispatch(GetOperAbsenceAction());
     await dispatch(GetOperAbsenceAction());
   };
@@ -212,7 +216,7 @@ function RRH_Page() {
   size="small"
   onClick={() => {
     if (window.confirm("Voulez-vous vraiment accepter cette absence?")) {
-      OnChangeHandler(absence._id, "Accepté");
+      OnChangeHandler(absence._id, "Accepté",item.user._id);
     }
   }}
 >
@@ -224,7 +228,7 @@ function RRH_Page() {
   size="small"
   onClick={() => {
     if (window.confirm("Voulez-vous vraiment refuser cette absence?")) {
-      OnChangeHandler(absence._id, "Refusé");
+      OnChangeHandler(absence._id, "Refusé",item.user._id);
     }
   }}
 >

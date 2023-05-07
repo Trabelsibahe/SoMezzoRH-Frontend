@@ -13,6 +13,8 @@ import { Button, ButtonBase, Divider } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
+import { SendNotificationToOneUser } from "../actions/notification.action";
+
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
@@ -50,14 +52,19 @@ function ExpertDemandesPage() {
     setJustification(true);
   };
 
-  const OnChangeHandler = async (id, action) => {
+  const OnChangeHandler = async (id, action, userId) => {
     const data = {
       etat: action,
     };
+    const notification = {
+      message: "l'expert a " + data.etat + " votre demande d'absence",
+    };
     await dispatch(updateAbsence(id, data));
-    await dispatch(GetAllAbsence());
+    await dispatch(SendNotificationToOneUser(userId, notification));
     await dispatch(GetAllAbsence());
   };
+  
+  
 
   useEffect(() => {
     dispatch(GetAllAbsence());
@@ -203,7 +210,7 @@ function ExpertDemandesPage() {
   size="small"
   onClick={() => {
     if (window.confirm("Voulez-vous vraiment accepter cette absence?")) {
-      OnChangeHandler(absence._id, "Accepté");
+      OnChangeHandler(absence._id, "Accepté", item.user._id);
     }
   }}
 >
@@ -215,7 +222,7 @@ function ExpertDemandesPage() {
   size="small"
   onClick={() => {
     if (window.confirm("Voulez-vous vraiment refuser cette absence?")) {
-      OnChangeHandler(absence._id, "Refusé");
+      OnChangeHandler(absence._id, "Refusé", item.user._id);
     }
   }}
 >
