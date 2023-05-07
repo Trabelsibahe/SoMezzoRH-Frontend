@@ -2,6 +2,7 @@ import Card from "react-bootstrap/Card";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listernews, addnews, Deletenews,supprimerNews } from "../actions/news.actions";
+import { SendNotificationToAll, SendNotificationToOneUser } from "../actions/notification.action";
 import Navigation from "../components/navigation";
 import "../assets/styles/news.css";
 import divider from "../components/divider";
@@ -10,15 +11,19 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Navigate } from 'react-router-dom';
 
+
 function NewsLetterPage() {
   const dispatch = useDispatch();
   const news = useSelector((state) => state.news.news);
   const auth = useSelector((state) => state.auth);
 
-  
+  const notification = {
+    message: "New newsletter check it out."
+  }
   useEffect(() => {
     dispatch(listernews());
   }, []);
+
   useEffect(() => {
     dispatch(supprimerNews());
   }, []);
@@ -41,6 +46,7 @@ function NewsLetterPage() {
     data.append("imgurl", imgurl);
 
     await dispatch(addnews(data));
+    await dispatch(SendNotificationToAll(notification))
     await dispatch(listernews());
     handleClose();
     setTitre("");

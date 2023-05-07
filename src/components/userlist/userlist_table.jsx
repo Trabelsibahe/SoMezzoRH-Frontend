@@ -26,6 +26,8 @@ import {
   deleteAndArchiveProfile,
   EditProfileAction,
 } from "../../actions/profile.actions";
+import { SendNotificationToOneUser } from "../../actions/notification.action";
+
 
 function Row(accounts, index) {
   const dispatch = useDispatch();
@@ -36,7 +38,9 @@ function Row(accounts, index) {
 
   const { profile } = accounts;
   const [open, setOpen] = React.useState(false);
-  const [id, setId] = useState("");
+  const [Profileid, setProfileId] = useState("");
+  const [_id, setId] = useState("");
+
   const [ville, setVille] = useState("");
   const [pays, setPays] = useState("");
   const [nom, setNom] = useState("");
@@ -58,7 +62,8 @@ function Row(accounts, index) {
   const handleShowEdit = (id) => {
     profiles.forEach((p) => {
       if (p._id === id) {
-        setId(p._id);
+        setProfileId(p._id);
+        setId(p.user._id);
         setNom(p.user.nom);
         setPrenom(p.user.prenom);
         setMatricule(p.user.matricule);
@@ -79,10 +84,14 @@ function Row(accounts, index) {
     setEdit(true);
   };
 
+  const notification = {
+    message : "Your profile has changed."
+  }
   //fonction modifier + getlist
   const EditProfile = async () => {
     const data = {
       user: {
+        _id,
         nom,
         prenom,
         matricule,
@@ -99,12 +108,14 @@ function Row(accounts, index) {
       codepostal,
       adresse,
     };
+    await dispatch(EditProfileAction(Profileid, data));
+    await dispatch(SendNotificationToOneUser(data.user._id, notification));
+    await dispatch(GetProfiles());
+    await dispatch(GetProfiles()); 
 
-    await dispatch(EditProfileAction(id, data));
-    await dispatch(GetProfiles());
-    await dispatch(GetProfiles());
+
     handleCloseEdit();
-    setId("");
+    setProfileId("");
     setNom("");
     setPrenom("");
     setMatricule("");

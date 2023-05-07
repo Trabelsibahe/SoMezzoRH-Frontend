@@ -19,7 +19,6 @@ export const AddDemande = (data) => {
 
       }
     } catch (err) {
-      console.log(err.response.data)
       dispatch({
         type: demandeConstants.ADD_DEMANDE_FAILURE,
         payload: err.response.data
