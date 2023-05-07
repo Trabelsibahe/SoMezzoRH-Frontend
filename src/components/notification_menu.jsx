@@ -16,6 +16,7 @@ import { ListItemText, Typography } from "@mui/material";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
 import { useNavigate } from "react-router-dom";
+import { NotificationAdd, Notifications } from "@mui/icons-material";
 
 export default function NotificationMenu() {
 
@@ -63,18 +64,24 @@ export default function NotificationMenu() {
   };
 
   const [dot, setDot] = React.useState();
-
-  const DotHandler = () => {
-    
-}
+  
+  const DotHandler = React.useCallback(() => {
+    if (notifications) {
+      notifications.forEach(notification => {
+        if (notification.read === false) {
+          return setDot("red_dot");
+        }
+      });
+    }
+  }, [notifications]);
+  
   React.useEffect(() => {
-
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
     prevOpen.current = open;
     DotHandler();
-  }, [open]);
+  }, [open, DotHandler]);
 
   return (
     <Stack direction="row" spacing={2}>

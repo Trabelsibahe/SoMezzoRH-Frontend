@@ -1,5 +1,11 @@
 import axios from 'axios'
 import { notificationConstants } from '../actions/constantes';
+
+
+
+
+
+// all notifications
 export const GetNotificationAction = () => dispatch => {
   
 
@@ -19,7 +25,7 @@ export const GetNotificationAction = () => dispatch => {
       });
   }
 
-
+ /// my notifications
   export const GetMyNotificationAction = () => dispatch => {
     
     axios.get("http://127.0.0.1:3030/api/mynotification")
