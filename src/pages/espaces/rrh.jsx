@@ -57,7 +57,7 @@ function RRH_Page() {
       etat: action,
     };
     const notification = {
-      message: "le Résponsable RH Opérationnel a " + data.etat + " votre demande d'absence",
+      message: "le Résponsable RH  a " + data.etat + " votre demande d'absence",
     };
     await dispatch(updateAbsence(id, data));
     await dispatch(SendNotificationToOneUser(userId, notification));

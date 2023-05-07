@@ -57,7 +57,7 @@ function ExpertDemandesPage() {
       etat: action,
     };
     const notification = {
-      message: "l'expert a " + data.etat + " votre demande d'absence",
+      message: "l'expert RH a " + data.etat + " votre demande d'absence",
     };
     await dispatch(updateAbsence(id, data));
     await dispatch(SendNotificationToOneUser(userId, notification));

@@ -11,6 +11,7 @@ import "@mui/icons-material/OutlinedFlag";
 import "@mui/icons-material/CheckCircleOutline";
 import Form from "react-bootstrap/Form";
 import { Button } from '@mui/material';
+import { SendNotificationToOneUser } from "../../actions/notification.action";
 
 function DemandesList() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function DemandesList() {
 
   const [id, setId] = useState("");
   const [attestation, setAttestation] = useState("");
+  const [userId, setUserId] = useState("");
   const [etat, setEtat] = useState("");
   const [show, setShow] = useState(false);
 
@@ -40,14 +42,12 @@ function DemandesList() {
   const handleCloseEdit = () => setEdit(false);
 
 
-  const handleShowEdit = (demande, action) => {
+  const handleShowEdit = (demande, action, userId) => {
     setId(demande._id);
     setEtat(demande.etat);
-    editetat(action);
+    editetat(action,userId);
     setEdit(true);
   };
-
-
   let action = "";
   const [edit, setEdit] = useState(false);
   useEffect(() => {
@@ -56,47 +56,56 @@ function DemandesList() {
     }
   }, [edit, action]);
 
-  const editetat = async (action) => {
+  const editetat = async (action, userId) => {
     let newEtat = action;
-    if (action === "Accordé") {
-      newEtat = "Accordé";
-    }
     const data = {
       etat: "Accordé",
     };
+    const notification = {
+      message: "l'Expert RH a accordé votre Badge",
+    };
     await dispatch(updateBadge(id, data));
+    await dispatch(SendNotificationToOneUser(userId, notification));
     await dispatch(listerdemandeExpert());
     handleCloseEdit();
     setEtat(newEtat);
   };
   const [att, setAtt] = useState(false);
-  const handleCloseAtt = () => setAtt(false);
-  const handleShowAtt = (id) => {
-    demandes.forEach((demande) => {
-      if (demande._id === id) {
-        setId(demande._id);
-        setAttestation(demande.attestation);
-      }
-    });
-    setAtt(true);
-  };
-  const [error, setError] = useState("");
-  const editattestation = async () => {
-    const data = new FormData();
-    data.append("attestation", attestation);
-    if (attestation === undefined) {
-      setError("Veuillez charger l'attestation.");
-    } else {
-      data.etat = "Accordé";
-      await dispatch(updateAttestation(id, data));
-      await dispatch(listerdemandeExpert());
-      await dispatch(listerdemandeExpert());
-      handleCloseAtt();
-      setAttestation("");
+const handleCloseAtt = () => setAtt(false);
+const handleShowAtt = (id, userId) => {
+  demandes.forEach((demande) => {
+    if (demande._id === id) {
+      setId(demande._id);
+      setAttestation(demande.attestation);
+      setUserId(userId); 
     }
-  };
+  });
+  setAtt(true);
+};
 
-  
+const [error, setError] = useState("");
+const editattestation = async () => {
+  const data = new FormData();
+  data.append("attestation", attestation);
+  if (attestation === undefined) {
+    setError("Veuillez charger l'attestation.");
+  } else {
+    data.append("etat", "Accordé");
+
+    const notification = {
+      message: "l'Expert RH a accordé votre Attestation",
+    };
+
+    await dispatch(updateAttestation(id, data));
+    await dispatch(SendNotificationToOneUser(userId, notification));
+    await dispatch(listerdemandeExpert());
+    await dispatch(listerdemandeExpert());
+    handleCloseAtt();
+    setAttestation("");
+  }
+};
+
+
   const [search, setSearch] = useState("");
   const handleSearch = (event) => {
     setSearch(event.target.value);
@@ -176,14 +185,14 @@ function DemandesList() {
                           size="small"
                           onClick={() => {
                             if (window.confirm("Voulez-vous vraiment accorder ce badge?")) {
-                              handleShowEdit(demande, "Accordé");
+                              handleShowEdit(demande, "Accordé", demande.user._id);
                             }
                           }}
                         >
                           Accorder
                         </Button>
                         
-                          ) : (<Button variant="outlined" color="success" size="small" onClick={() => handleShowAtt(demande._id)}>Accorder</Button>)}
+                          ) : (<Button variant="outlined" color="success" size="small" onClick={() => handleShowAtt(demande._id, demande.user._id)}>Accorder</Button>)}
                         </td>
                       </tr>
                     )
