@@ -117,7 +117,7 @@ function DemandePage() {
                                 ? demande.commentaire
                                 : "Pas de commentaires."}
                             </td>
-                            <td>{demande.etat}</td>
+                      <td style={{ color: demande.etat === "Réception" ? "blue"  : "green" }}>{demande.etat}</td>
                             <td>
                               {demande.attestation && demande.type === "Attestation" ? (
                                 <Button
