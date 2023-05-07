@@ -18,7 +18,7 @@ function NewsLetterPage() {
   const auth = useSelector((state) => state.auth);
 
   const notification = {
-    message: "New newsletter check it out."
+    message: "Nouvelle publication, jetez-y un coup d'œil."
   }
   useEffect(() => {
     dispatch(listernews());
@@ -46,7 +46,7 @@ function NewsLetterPage() {
     data.append("imgurl", imgurl);
 
     await dispatch(addnews(data));
-    await dispatch(SendNotificationToAll(notification))
+    await dispatch(SendNotificationToAll(notification));
     await dispatch(listernews());
     handleClose();
     setTitre("");

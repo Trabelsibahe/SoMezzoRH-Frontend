@@ -10,30 +10,27 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { GetMyNotificationAction } from '../actions/notification.action';
-import {
-  Divider,
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { GetMyNotificationAction } from "../actions/notification.action";
+import { Divider, IconButton, ListItemIcon } from "@mui/material";
+import { ListItemText, Typography } from "@mui/material";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 export default function NotificationMenu() {
+
   const dispatch = useDispatch();
   const notifications = useSelector((state) => state.notification.notification);
   const navigate = useNavigate();
-    useEffect(() => {
-    dispatch(GetMyNotificationAction());
-  }, [dispatch]);
-  
+
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+
+
+  useEffect(() => {
+    dispatch(GetMyNotificationAction());
+  }, [dispatch]);
+
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -58,19 +55,26 @@ export default function NotificationMenu() {
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
 
 
   const MyNotificationsPage = () => {
     navigate("/monespace/notifications");
     handleClose();
-  }
+  };
+
+  const [dot, setDot] = React.useState();
+
+  const DotHandler = () => {
+    
+}
+  React.useEffect(() => {
+
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+    prevOpen.current = open;
+    DotHandler();
+  }, [open]);
 
   return (
     <Stack direction="row" spacing={2}>
@@ -86,7 +90,7 @@ export default function NotificationMenu() {
           onClick={handleToggle}
         >
           <NotificationsNoneIcon />
-          <span className="red_dot"></span>
+          <span className={dot}></span>
         </IconButton>
         <Popper
           open={open}
@@ -106,32 +110,24 @@ export default function NotificationMenu() {
             >
               <Paper sx={{ width: 280, maxWidth: "100%" }}>
                 <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList
-                    autoFocusItem={open}
-                    id="composition-menu"
-                    aria-labelledby="composition-button"
-                    onKeyDown={handleListKeyDown}
-                  >
-                    {notifications.map((notification) => (
-                      <MenuItem
-                        key={notification._id}
-                        onClick={handleClose}
-                        sx={{ whiteSpace: "initial" }}
-                      >
+                  <MenuList autoFocusItem={open}   id="composition-menu" aria-labelledby="composition-button" onKeyDown={handleListKeyDown}>
+                    {notifications && notifications.length >  0 ? (
+                      notifications.some((notification) => notification.read === false) ?
+                      notifications.map((notification) => notification.read === false && (
+                      <MenuItem   key={notification._id}  onClick={handleClose}   sx={{ whiteSpace: "initial" }} >
                         <ListItemIcon>
                           <AnnouncementIcon fontSize="small" />
                         </ListItemIcon>
                         <ListItemText>{notification.message}</ListItemText>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{ fontSize: "10px" }}
-                        >
+                        <Typography variant="body2"  color="text.secondary"   sx={{ fontSize: "10px" }} >
                           Marquer comme lu
                         </Typography>
                       </MenuItem>
-                    ))}
-  
+                    ))
+                    : <MenuItem sx={{ whiteSpace: "initial", textAlign:"center"}} onClick={handleClose}>
+                         <ListItemText>Vous n'avez aucune nouvelle notification.</ListItemText>
+                      </MenuItem>
+                   ) : " " }
                     <Divider />
                     <MenuItem onClick={MyNotificationsPage}>
                       <ListItemText>Voir tout...</ListItemText>
@@ -145,5 +141,4 @@ export default function NotificationMenu() {
       </div>
     </Stack>
   );
-  
 }
