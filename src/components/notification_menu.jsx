@@ -118,23 +118,38 @@ export default function NotificationMenu() {
               <Paper sx={{ width: 280, maxWidth: "100%" }}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open}   id="composition-menu" aria-labelledby="composition-button" onKeyDown={handleListKeyDown}>
-                    {notifications && notifications.length >  0 ? (
-                      notifications.some((notification) => notification.read === false) ?
-                      notifications.map((notification) => notification.read === false && (
-                      <MenuItem   key={notification._id}  onClick={handleClose}   sx={{ whiteSpace: "initial" }} >
-                        <ListItemIcon>
-                          <AnnouncementIcon fontSize="small" />
-                        </ListItemIcon>
-                        <ListItemText>{notification.message}</ListItemText>
-                        <Typography variant="body2"  color="text.secondary"   sx={{ fontSize: "10px" }} >
-                          Marquer comme lu
-                        </Typography>
-                      </MenuItem>
-                    ))
-                    : <MenuItem sx={{ whiteSpace: "initial", textAlign:"center"}} onClick={handleClose}>
-                         <ListItemText>Vous n'avez aucune nouvelle notification.</ListItemText>
-                      </MenuItem>
-                   ) : " " }
+                  {notifications && notifications.length > 0 ? (
+  notifications.map((notification) => notification.read === false) ? (
+    notifications.map((item) =>
+      item.notifications.map((notification) =>
+        notification.read === false && (
+          <MenuItem
+            key={notification._id}
+            onClick={handleClose}
+            sx={{ whiteSpace: "initial" }}
+          >
+            <ListItemIcon>
+              <AnnouncementIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>{notification.message}</ListItemText>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ fontSize: "10px" }}
+            >
+              Marquer comme lu
+            </Typography>
+          </MenuItem>
+        )
+      )
+    )
+  ) : (
+    <MenuItem sx={{ whiteSpace: "initial", textAlign: "center" }} onClick={handleClose}>
+      <ListItemText>Vous n'avez aucune nouvelle notification.</ListItemText>
+    </MenuItem>
+  )
+) : " "}
+
                     <Divider />
                     <MenuItem onClick={MyNotificationsPage}>
                       <ListItemText>Voir tout...</ListItemText>
