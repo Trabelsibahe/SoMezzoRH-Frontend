@@ -55,13 +55,14 @@ function MynotificationsPage() {
           <Divider />
           <p className="rrh_info">Tout</p>
           {notifications && notifications.length > 0 ? (
-            notifications.some((notification) => notification.read === true) ? (
-              notifications.map(
-                (notification) =>
-                  notification.read === true && (
+            notifications.map((notification) => notification.read === true) ? (
+              notifications.map((item) =>
+              item.notifications.map((notification) =>
+              notification.read === true && (
                     <p key={notification._id}>{notification.message} </p>
                   )
               )
+            )
             ) : (
               <p style={{ textAlign: "center" }}>No new notifications.</p>
             )

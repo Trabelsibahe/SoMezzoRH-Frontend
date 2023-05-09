@@ -68,9 +68,11 @@ export default function NotificationMenu() {
   const DotHandler = React.useCallback(() => {
     if (notifications) {
       notifications.forEach(notification => {
-        if (notification.read === false) {
-          return setDot("red_dot");
-        }
+        notification.notifications.forEach(item => {
+          if (item.read === false) {
+            setDot("red_dot");
+          }
+        });
       });
     }
   }, [notifications]);
