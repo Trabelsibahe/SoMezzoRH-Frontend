@@ -44,9 +44,11 @@ export const GetNotificationAction = () => dispatch => {
       });
   }
 
-  export const SetNotificationReadaction = () => dispatch => {
+
+  //marque comme lu
+  export const SetNotificationReadaction = (notificationID) => dispatch => {
     
-    axios.get("http://127.0.0.1:3030/api/setnotification")
+    axios.post(`http://127.0.0.1:3030/api/setnotification/${notificationID}`)
 
       .then(res => {
         dispatch({
@@ -83,6 +85,7 @@ export const GetNotificationAction = () => dispatch => {
       }
     }
   }
+
  // Envoyer la notification à une utilisateur specifique
   export const SendNotificationToOneUser = (userId, data) => {
     return async dispatch => {

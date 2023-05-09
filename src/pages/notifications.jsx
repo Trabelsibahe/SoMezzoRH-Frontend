@@ -37,37 +37,47 @@ function MynotificationsPage() {
           <h4 className="rrh_info">Mes notifications</h4>
           <p className="rrh_info">Récent</p>
           {notifications && notifications.length > 0 ? (
-  notifications.map((notification) => notification.read === false) ? (
-    notifications.map((item) =>
-      item.notifications.map((notification) =>
-        notification.read === false && (
-          <p key={notification._id}>{notification.message}</p>
-        )
-      )
-    )
-  ) : (
-    <p style={{ textAlign: "center" }}>No new notifications.</p>
-  )
-) : (
-  <p style={{ textAlign: "center" }}>No new notifications.</p>
-)}
-
-          <Divider />
-          <p className="rrh_info">Tout</p>
-          {notifications && notifications.length > 0 ? (
-            notifications.map((notification) => notification.read === true) ? (
-              notifications.map((item) =>
-              item.notifications.map((notification) =>
-              notification.read === true && (
-                    <p key={notification._id}>{notification.message} </p>
-                  )
+            notifications.some((item) =>
+              item.notifications.some(
+                (notification) => notification.read === false
               )
-            )
+            ) ? (
+              notifications.map((item) =>
+                item.notifications.map(
+                  (notification) =>
+                    notification.read === false && (
+                      <p key={notification._id}>{notification.message} </p>
+                    )
+                )
+              )
             ) : (
               <p style={{ textAlign: "center" }}>No new notifications.</p>
             )
           ) : (
-            <p style={{ textAlign: "center" }}>No new notifications.</p>
+            ""
+          )}
+
+          <Divider />
+          <p className="rrh_info">Tout</p>
+          {notifications && notifications.length > 0 ? (
+            notifications.some((item) =>
+              item.notifications.some(
+                (notification) => notification.read === true
+              )
+            ) ? (
+              notifications.map((item) =>
+                item.notifications.map(
+                  (notification) =>
+                    notification.read === true && (
+                      <p key={notification._id}>{notification.message} </p>
+                    )
+                )
+              )
+            ) : (
+              <p style={{ textAlign: "center" }}>No new notifications.</p>
+            )
+          ) : (
+            ""
           )}
         </div>
         <div style={{ padding: "2em", textAlign: "center" }}>
