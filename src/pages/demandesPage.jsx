@@ -14,6 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { SendNotificationToOneUser } from "../actions/notification.action";
+import {  TextField } from '@mui/material';
 
 const style = {
   color: "#151582;",
@@ -42,6 +43,20 @@ function ExpertDemandesPage() {
   const [id, setId] = useState("");
   const [justif, setJustif] = useState("");
   const [justification, setJustification] = useState(false);
+  const [isRefuseModalOpen, setRefuseModalOpen] = useState(false);
+  const [motif, setMotif] = useState("");
+  const openRefuseModal = (absence) => {
+    setId(absence._id);
+    setMotif("");
+    setRefuseModalOpen(true);
+  };
+  const closeRefuseModal = () => {
+    setRefuseModalOpen(false);
+    setMotif(""); // Réinitialiser le motif de refus
+  };
+  
+  
+
   const handleClosejustif = () => setJustification(false);
   const [Show_ExpertAbsArchPage, setShow_ExpertAbsArchPage] =
     React.useState(false);
@@ -52,9 +67,10 @@ function ExpertDemandesPage() {
     setJustification(true);
   };
 
-  const OnChangeHandler = async (id, action, userId) => {
+  const OnChangeHandler = async (id, action, userId, motif) => {
     const data = {
       etat: action,
+      motif: motif
     };
     const notification = {
       message: "l'expert RH a " + data.etat + " votre demande d'absence",
@@ -220,14 +236,44 @@ function ExpertDemandesPage() {
   variant="outlined"
   color="error"
   size="small"
-  onClick={() => {
-    if (window.confirm("Voulez-vous vraiment refuser cette absence?")) {
-      OnChangeHandler(absence._id, "Refusé", item.user._id);
-    }
-  }}
+  onClick={() => openRefuseModal(absence._id)}
 >
   Refuser
 </Button>
+<Modal show={isRefuseModalOpen} onHide={closeRefuseModal}>
+<Modal.Header closeButton>
+            <Modal.Title>Motif de refus l'absence</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+  <TextField
+    label="Motif de refus"
+    value={motif}
+    onChange={(e) => setMotif(e.target.value)}
+    fullWidth
+    multiline
+    rows={4}
+    variant="outlined"
+  />
+            </Modal.Body>
+            <Modal.Footer>
+
+  <Button
+variant="contained"
+onClick={() => {
+  OnChangeHandler(absence._id, "Refusé", item.user._id, motif);
+  closeRefuseModal();
+}}
+>
+Soumettre
+</Button>
+<Button variant="secondary" onClick={closeRefuseModal}>
+              Fermer
+            </Button>
+            </Modal.Footer>
+
+</Modal>
+
+
                               </td>
                             </tr>
                           ) : null
@@ -267,6 +313,7 @@ function ExpertDemandesPage() {
                       </tr>
                   </table>
               )}
+
             </div>
           </div>
         )}
@@ -277,7 +324,7 @@ function ExpertDemandesPage() {
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>
 
-
+ 
         <Modal show={justification} onHide={handleClosejustif}>
           <Modal.Header closeButton>
             <Modal.Title>Justification d'absence</Modal.Title>

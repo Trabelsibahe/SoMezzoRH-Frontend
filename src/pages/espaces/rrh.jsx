@@ -15,6 +15,8 @@ import RrhAbsArchPage from "../../components/rrh_AbsArch";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
+import {  TextField } from '@mui/material';
+
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
@@ -43,6 +45,17 @@ function RRH_Page() {
   const [id, setId] = useState("");
   const [justif, setJustif] = useState("");
   const [justification, setJustification] = useState(false);
+  const [isRefuseModalOpen, setRefuseModalOpen] = useState(false);
+  const [motif, setMotif] = useState("");
+  const openRefuseModal = (absence) => {
+    setId(absence._id);
+    setMotif("");
+    setRefuseModalOpen(true);
+  };
+  const closeRefuseModal = () => {
+    setRefuseModalOpen(false);
+    setMotif(""); // Réinitialiser le motif de refus
+  };
   const [Show_RrhAbsArchPage, setShow_RrhAbsArchPage] = React.useState(false);
   const handleClosejustif = () => setJustification(false);
 
@@ -52,9 +65,10 @@ function RRH_Page() {
     setJustification(true);
   };
 
-  const OnChangeHandler = async (id, action,userId) => {
+  const OnChangeHandler = async (id, action,userId, motif) => {
     const data = {
       etat: action,
+      motif: motif
     };
     const notification = {
       message: "le Résponsable RH  a " + data.etat + " votre demande d'absence",
@@ -226,14 +240,42 @@ function RRH_Page() {
   variant="outlined"
   color="error"
   size="small"
-  onClick={() => {
-    if (window.confirm("Voulez-vous vraiment refuser cette absence?")) {
-      OnChangeHandler(absence._id, "Refusé",item.user._id);
-    }
-  }}
+  onClick={() => openRefuseModal(absence._id)}
 >
   Refuser
 </Button>
+<Modal show={isRefuseModalOpen} onHide={closeRefuseModal}>
+<Modal.Header closeButton>
+            <Modal.Title>Motif de refus l'absence</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+  <TextField
+    label="Motif de refus"
+    value={motif}
+    onChange={(e) => setMotif(e.target.value)}
+    fullWidth
+    multiline
+    rows={4}
+    variant="outlined"
+  />
+            </Modal.Body>
+            <Modal.Footer>
+
+  <Button
+variant="contained"
+onClick={() => {
+  OnChangeHandler(absence._id, "Refusé", item.user._id, motif);
+  closeRefuseModal();
+}}
+>
+Soumettre
+</Button>
+<Button variant="secondary" onClick={closeRefuseModal}>
+              Fermer
+            </Button>
+            </Modal.Footer>
+
+</Modal>
 
 
                                 </td>

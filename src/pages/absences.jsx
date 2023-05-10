@@ -119,6 +119,7 @@ function AbsencesPage() {
                           <th>Commentaires</th>
                           <th>Etat</th>
                           <th>justification</th>
+                          <th>Motif de refuse</th>
                         </tr>
                         {absences[0].absences.map((absence, index) => (
                           <tr key={index}>
@@ -148,6 +149,11 @@ function AbsencesPage() {
                               ) : (
                                 "Aucune Justification"
                               )}
+                            </td>
+                            <td>
+                              {absence.motif
+                                ? absence.motif
+                                : ""}
                             </td>
                           </tr>
                         ))}
