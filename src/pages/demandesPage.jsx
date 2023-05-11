@@ -236,7 +236,9 @@ function ExpertDemandesPage() {
   variant="outlined"
   color="error"
   size="small"
-  onClick={() => openRefuseModal(absence._id)}
+  onClick={() =>{
+    if (window.confirm("Voulez-vous vraiment refuser cette absence?")) {
+    openRefuseModal(absence._id)}}}
 >
   Refuser
 </Button>

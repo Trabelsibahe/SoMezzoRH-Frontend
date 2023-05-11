@@ -131,6 +131,7 @@ function AbsenceList() {
                 <th>Commentaire</th>
                 <th>État</th>
                 <th>Justification</th>
+                <th>Motif de refuse</th>
               </tr>
               {filteredabsence.map((item) =>
                 item.absences.map((absence) => 
@@ -163,6 +164,11 @@ function AbsenceList() {
                         ) : (
                           "Aucune Justification"
                         )}
+                      </td>
+                      <td>
+                        {absence.motif
+                          ? absence.motif
+                          : ""}
                       </td>
                     </tr>
                

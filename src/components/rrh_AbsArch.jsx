@@ -80,6 +80,7 @@ function RrhAbsArchPage() {
                     <th>Justification</th>
                     <th>Commentaire</th>
                     <th>État</th>
+                    <th>Motif de refuse</th>
                   </tr>
                   {filteredabsence.map((item) =>
                     item.absences.map((absence) =>
@@ -115,7 +116,11 @@ function RrhAbsArchPage() {
                               : "Aucun commentaire"}
                           </td>
                           <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>{absence.etat}</td>
-                     
+                          <td>
+                        {absence.motif
+                          ? absence.motif
+                          : ""}
+                      </td>
                         </tr>
                       
                     )
