@@ -10,12 +10,14 @@ import Button from "@mui/material/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Navigate } from 'react-router-dom';
+import Classnames from "classnames";
 
 
 function NewsLetterPage() {
   const dispatch = useDispatch();
   const news = useSelector((state) => state.news.news);
   const auth = useSelector((state) => state.auth);
+  const errors = useSelector((state) => state.errors);
 
   const notification = {
     message: "Une nouvelle news a été ajoutée."
@@ -135,15 +137,21 @@ function NewsLetterPage() {
           <Modal.Body>
             {" "}
             <Form>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Titre de votre publication</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={titre}
-                  onChange={(e) => setTitre(e.target.value)}
-                  placeholder="Titre"
-                />
-              </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+  <Form.Label>Titre de votre publication</Form.Label>
+  <Form.Control
+    type="text"
+    value={titre}
+    onChange={(e) => setTitre(e.target.value)}
+    placeholder="Titre"
+    className={Classnames("w-100", {
+      "is-invalid": errors.titre, 
+    })}
+  />
+  {errors.titre && ( 
+    <div className="invalid-feedback">{errors.titre}</div>
+  )}
+</Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Déscription de votre publication</Form.Label>
@@ -152,7 +160,13 @@ function NewsLetterPage() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Déscription"
+                     className={Classnames("w-100", {
+      "is-invalid": errors.description, 
+    })}
                 />
+                 {errors.description && ( 
+    <div className="invalid-feedback">{errors.description}</div>
+  )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Ajouter une date de suppression </Form.Label>
@@ -161,7 +175,13 @@ function NewsLetterPage() {
                   value={dateSuppression}
                   onChange={(e) => setDateSuppression(e.target.value)}
                   placeholder="date Suppression"
+                     className={Classnames("w-100", {
+                      "is-invalid": errors.dateSuppression,
+                    })}
                 />
+                 {errors.dateSuppression && (
+                    <div className="invalid-feedback">{errors.dateSuppression}</div>
+                  )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Charger une image pour votre publication</Form.Label>
@@ -169,7 +189,13 @@ function NewsLetterPage() {
                   type="file"
                   name="imgurl"
                   onChange={(e) => setImgurl(e.target.files[0])}
-                />
+                  className={Classnames("w-100", {
+                      "is-invalid": errors.imgurl,
+                    })}
+               />
+                   {errors.imgurl && (
+                    <div className="invalid-feedback">{errors.imgurl}</div>
+                  )}
               </Form.Group>
               
             </Form>

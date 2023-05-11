@@ -34,7 +34,8 @@ export const addnews = (data) => {
                     }    
         }catch(error){
             dispatch({type : newsConstants.ADD_NEWS_FAILURE,
-                payload : { error : error.response}})  
+                payload: error.response.data
+            })  
         }
     }
     }
