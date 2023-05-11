@@ -1,17 +1,24 @@
 import Card from "react-bootstrap/Card";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listernews, addnews, Deletenews,supprimerNews } from "../actions/news.actions";
-import { SendNotificationToAll, SendNotificationToOneUser } from "../actions/notification.action";
+import {
+  listernews,
+  addnews,
+  Deletenews,
+  supprimerNews,
+} from "../actions/news.actions";
+import {
+  SendNotificationToAll,
+  SendNotificationToOneUser,
+} from "../actions/notification.action";
 import Navigation from "../components/navigation";
 import "../assets/styles/news.css";
 import divider from "../components/divider";
 import Button from "@mui/material/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
 import Classnames from "classnames";
-
 
 function NewsLetterPage() {
   const dispatch = useDispatch();
@@ -20,8 +27,8 @@ function NewsLetterPage() {
   const errors = useSelector((state) => state.errors);
 
   const notification = {
-    message: "Une nouvelle news a été ajoutée."
-  }
+    message: "Une nouvelle news a été ajoutée.",
+  };
   useEffect(() => {
     dispatch(listernews());
   }, []);
@@ -38,23 +45,27 @@ function NewsLetterPage() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+  const [error, setError] = useState("");
+
   const addnewsaction = async (e) => {
     e.preventDefault();
     const data = new FormData();
+    data.append("imgurl", imgurl);
     data.append("titre", titre);
     data.append("description", description);
-    data.append("dateSuppression",dateSuppression);
-    data.append("imgurl", imgurl);
-
-    await dispatch(addnews(data));
-    await dispatch(SendNotificationToAll(notification));
-    await dispatch(listernews());
-    handleClose();
-    setTitre("");
-    setDescription("");
-    setDateSuppression("");
-    setImgurl("");
+    data.append("dateSuppression", dateSuppression);
+    if (imgurl === "" || titre === "" || description === "" || dateSuppression === "") {
+      await dispatch(addnews(data));
+    } else {
+      await dispatch(addnews(data));
+      await dispatch(SendNotificationToAll(notification));
+      await dispatch(listernews());
+      await handleClose();
+      setImgurl("");
+      setDateSuppression("");
+      setDescription("");
+      setTitre("");
+    }
   };
 
   const deletenewsaction = async (id) => {
@@ -70,7 +81,7 @@ function NewsLetterPage() {
     matricule: auth.user.matricule,
     role: auth.user.role,
     password: auth.user.password,
-    active : auth.user.active
+    active: auth.user.active,
   };
 
   if (CurrentProfile.active === false) {
@@ -89,11 +100,16 @@ function NewsLetterPage() {
           <h5>Quoi de neuf ? </h5>
           <hr className="news_hr" />
           {CurrentProfile.role === "EXPERT" && (
-            <Button  color="error" onClick={handleShow} size="small" sx={{width:"40%", textAlign:"center", margin:"0.5em -0.8em"}}>
+            <Button
+              color="error"
+              onClick={handleShow}
+              size="small"
+              sx={{ width: "40%", textAlign: "center", margin: "0.5em -0.8em" }}
+            >
               Ajouter une publication
             </Button>
           )}
-              
+
           {news && news.length > 0
             ? news.map((newsItem, index) => (
                 <div className="news_content">
@@ -110,14 +126,20 @@ function NewsLetterPage() {
                         </Card.Body>
                       </Card>
                       {CurrentProfile.role === "EXPERT" && (
-                            <Button
-                              color="error" variant="contained"
-                              onClick={() => deletenewsaction(newsItem._id)}
-                              size="small" sx={{ textAlign:"center", margin:"1em", backgroundColor:"orangered"}}
-                            >
-                              supprimer
-                            </Button>
-                          )}
+                        <Button
+                          color="error"
+                          variant="contained"
+                          onClick={() => deletenewsaction(newsItem._id)}
+                          size="small"
+                          sx={{
+                            textAlign: "center",
+                            margin: "1em",
+                            backgroundColor: "orangered",
+                          }}
+                        >
+                          supprimer
+                        </Button>
+                      )}
                     </div>
                   </div>
                   <hr className="news_hr" />
@@ -125,9 +147,6 @@ function NewsLetterPage() {
               ))
             : "Aucune newsletter trouvée..."}
         </div>
-
-
-
 
         {/** pop up modal  add */}
         <Modal show={show} onHide={handleClose}>
@@ -137,21 +156,21 @@ function NewsLetterPage() {
           <Modal.Body>
             {" "}
             <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-  <Form.Label>Titre de votre publication</Form.Label>
-  <Form.Control
-    type="text"
-    value={titre}
-    onChange={(e) => setTitre(e.target.value)}
-    placeholder="Titre"
-    className={Classnames("w-100", {
-      "is-invalid": errors.titre, 
-    })}
-  />
-  {errors.titre && ( 
-    <div className="invalid-feedback">{errors.titre}</div>
-  )}
-</Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Titre de votre publication</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={titre}
+                  onChange={(e) => setTitre(e.target.value)}
+                  placeholder="Titre"
+                  className={Classnames("w-100", {
+                    "is-invalid": errors.titre,
+                  })}
+                />
+                {errors.titre && (
+                  <div className="invalid-feedback">{errors.titre}</div>
+                )}
+              </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Déscription de votre publication</Form.Label>
@@ -160,13 +179,13 @@ function NewsLetterPage() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Déscription"
-                     className={Classnames("w-100", {
-      "is-invalid": errors.description, 
-    })}
+                  className={Classnames("w-100", {
+                    "is-invalid": errors.description,
+                  })}
                 />
-                 {errors.description && ( 
-    <div className="invalid-feedback">{errors.description}</div>
-  )}
+                {errors.description && (
+                  <div className="invalid-feedback">{errors.description}</div>
+                )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Ajouter une date de suppression </Form.Label>
@@ -175,29 +194,33 @@ function NewsLetterPage() {
                   value={dateSuppression}
                   onChange={(e) => setDateSuppression(e.target.value)}
                   placeholder="date Suppression"
-                     className={Classnames("w-100", {
-                      "is-invalid": errors.dateSuppression,
-                    })}
+                  className={Classnames("w-100", {
+                    "is-invalid": errors.dateSuppression,
+                  })}
                 />
-                 {errors.dateSuppression && (
-                    <div className="invalid-feedback">{errors.dateSuppression}</div>
-                  )}
+                {errors.dateSuppression && (
+                  <div className="invalid-feedback">
+                    {errors.dateSuppression}
+                  </div>
+                )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Charger une image pour votre publication</Form.Label>
+                <Form.Label>
+                  Charger une image pour votre publication
+                </Form.Label>
                 <Form.Control
                   type="file"
                   name="imgurl"
                   onChange={(e) => setImgurl(e.target.files[0])}
                   className={Classnames("w-100", {
-                      "is-invalid": errors.imgurl,
-                    })}
-               />
-                   {errors.imgurl && (
-                    <div className="invalid-feedback">{errors.imgurl}</div>
-                  )}
+                    "is-invalid": errors.imgurl,
+                  })}
+                />
+                {errors.imgurl && (
+                  <div className="invalid-feedback">{errors.imgurl}</div>
+                )}
               </Form.Group>
-              
+              <p style={{ color: "red", textAlign: "center" }}>{error}</p>
             </Form>
           </Modal.Body>
           <Modal.Footer>

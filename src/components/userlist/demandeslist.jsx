@@ -72,6 +72,7 @@ function DemandesList() {
   };
   const [att, setAtt] = useState(false);
 const handleCloseAtt = () => setAtt(false);
+
 const handleShowAtt = (id, userId) => {
   demandes.forEach((demande) => {
     if (demande._id === id) {
@@ -84,6 +85,7 @@ const handleShowAtt = (id, userId) => {
 };
 
 const [error, setError] = useState("");
+
 const editattestation = async () => {
   const data = new FormData();
   data.append("attestation", attestation);
