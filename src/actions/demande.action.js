@@ -83,6 +83,21 @@ export const updateBadge = (id, data) => (dispatch) => {
         });
       });
   };
+  export const updateRDv = (id, data) => (dispatch) => {
+    axios.post(`http://127.0.0.1:3030/api/demande/modif/${id}`, data)
+      .then((res) => {
+        dispatch({
+          type:  demandeConstants.UPDATE_DEMANDE_SUCCESS,
+          payload: res.data.message,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: demandeConstants.UPDATE_DEMANDE_FAILURE,
+          payload: err.response.data.message,
+        });
+      });
+  };
 
   export const updateAttestation = (id, data) => (dispatch) => {
     axios.post(`http://127.0.0.1:3030/api/demande/add/${id}`, data)

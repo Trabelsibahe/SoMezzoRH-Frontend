@@ -1,6 +1,6 @@
 import React from "react";
 import "../../assets/styles/absencelist.css";
-import {listerdemandeExpert, updateBadge, updateAttestation} from "../../actions/demande.action";
+import {listerdemandeExpert, updateBadge, updateAttestation,updateRDv} from "../../actions/demande.action";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
@@ -12,7 +12,7 @@ import "@mui/icons-material/CheckCircleOutline";
 import Form from "react-bootstrap/Form";
 import { Button } from '@mui/material';
 import { SendNotificationToOneUser } from "../../actions/notification.action";
-
+import DatePicker from 'react-datepicker';
 function DemandesList() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
@@ -35,7 +35,18 @@ function DemandesList() {
   const [userId, setUserId] = useState("");
   const [etat, setEtat] = useState("");
   const [show, setShow] = useState(false);
-
+  const [isCalendrierlOpen, setCalendrierlOpen] = useState(false);
+  const [rdv, setRdv] = useState("");
+  const openCalendrierModal = (demande) => {
+    setId(demande._id);
+    setRdv("");
+    setCalendrierlOpen(true);
+  };
+  const closeCalendrierModal = () => {
+    setCalendrierlOpen(false);
+    setRdv(""); 
+  };
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -107,6 +118,19 @@ const editattestation = async () => {
   }
 };
 
+const editRdv = async (id, action, userId, rdv) => {
+  const data = {
+    etat: action,
+    rdv: rdv
+  };
+  const notification = {
+    message: "l'expert RH a "+ data.etat +" votre RDV avec le médecin",
+  };
+  await dispatch(updateRDv(id, data));
+  await dispatch(SendNotificationToOneUser(userId, notification));
+  await dispatch(listerdemandeExpert());
+  await dispatch(closeCalendrierModal());
+};
 
   const [search, setSearch] = useState("");
   const handleSearch = (event) => {
@@ -115,6 +139,9 @@ const editattestation = async () => {
   //fonction recherche
   const filteredemande = demandes.filter((demande) => {
     if (search === "") {
+      return true;
+    }
+    if (demande.createdAt.toLowerCase().includes(search.toLowerCase())) {
       return true;
     }
     if (demande.user.matricule.toLowerCase().includes(search.toLowerCase())) {
@@ -136,7 +163,7 @@ const editattestation = async () => {
 
   return (
     <div className="rrh_body2">
-      <p className="rrh_info">Les demandes d'attestations et badges</p>
+      <p className="rrh_info">Les demandes d'attestations, badges ou RDV avec le médecin</p>
       <InputBase
         className="searchbar"
         placeholder="Rechercher.."
@@ -156,6 +183,7 @@ const editattestation = async () => {
         <table className="absences_table">
           <tbody>
             <tr>
+              <th>Date de demande</th>
               <th>Demandeur</th>
               <th>Type de demande</th>
               <th>Commentaire</th>
@@ -167,6 +195,8 @@ const editattestation = async () => {
             ) ? (
               demandes.map((demande) => demande.etat === "Réception" && (
                       <tr key={demande._id}>
+                        <td>{new Date(demande.createdAt).toLocaleDateString()}</td>
+
                         <td>
                           ({demande.user.matricule}) {demande.user.nom}{" "}
                           {demande.user.prenom}
@@ -180,22 +210,92 @@ const editattestation = async () => {
                         <td style={{ color: "orangered" }}>{demande.etat}</td>
 
                         <td>
-                          {demande.type === "Badge" ? ( 
-                          <Button
-                          variant="outlined"
-                          color="success"
-                          size="small"
-                          onClick={() => {
-                            if (window.confirm("Voulez-vous vraiment accorder ce badge?")) {
-                              handleShowEdit(demande, "Accordé", demande.user._id);
-                            }
-                          }}
-                        >
-                          Accorder
-                        </Button>
-                        
-                          ) : (<Button variant="outlined" color="success" size="small" onClick={() => handleShowAtt(demande._id, demande.user._id)}>Accorder</Button>)}
-                        </td>
+  {demande.type === "Badge" ? (
+    <Button
+      variant="outlined"
+      color="success"
+      size="small"
+      onClick={() => {
+        if (window.confirm("Voulez-vous vraiment accorder ce badge?")) {
+          handleShowEdit(demande, "Accordé", demande.user._id);
+        }
+      }}
+    >
+      Accorder
+    </Button>
+  ) : demande.type === "RDV Médecin" ? (
+    <>
+    <Button
+  variant="outlined"
+  color="success"
+  size="small"
+  onClick={() => {
+    if (window.confirm("Voulez-vous vraiment accepter cette demande de RDV?")) {
+      openCalendrierModal(demande._id);
+    }
+  }}
+>
+  Accepter
+</Button>
+<Modal show={isCalendrierlOpen} onHide={closeCalendrierModal}>
+  <Modal.Header closeButton>
+    <Modal.Title>RDV Médecin</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form.Group className="mb-4">
+      <DatePicker
+        id="outlined-basic"
+        variant="outlined"
+        size="small"
+        label="Date de RDV"
+        value={rdv}
+        onChange={(date) => setRdv(date)}
+      />
+    </Form.Group>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button
+      variant="contained"
+      onClick={() => {
+        if (demande && demande._id && demande.user && demande.user._id && rdv) {
+          editRdv(demande._id, "Accepter",demande.user._id, rdv);
+          closeCalendrierModal();
+        }
+      }}
+    >
+      Soumettre
+    </Button>
+    <Button variant="secondary" onClick={closeCalendrierModal}>
+      Fermer
+    </Button>
+  </Modal.Footer>
+</Modal>
+
+      <Button
+     variant="outlined"
+     color="error"
+     size="small"
+     onClick={() => {
+      if (window.confirm("Voulez-vous vraiment Refuser cette demande de RDV?")) {
+        editRdv(demande._id, "Refusé", demande.user._id , rdv);
+      }
+    }}
+    >
+      Refuser
+    </Button>
+    </>
+  ) : (
+    <Button
+      variant="outlined"
+      color="success"
+      size="small"
+      onClick={() => handleShowAtt(demande._id, demande.user._id)}
+    >
+      Accorder
+    </Button>
+  )}
+</td>
+
                       </tr>
                     )
                 )

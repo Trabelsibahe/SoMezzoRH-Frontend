@@ -52,7 +52,7 @@ function ExpertDemandesPage() {
   };
   const closeRefuseModal = () => {
     setRefuseModalOpen(false);
-    setMotif(""); // Réinitialiser le motif de refus
+    setMotif(""); 
   };
   
   

@@ -104,20 +104,23 @@ function DemandePage() {
                     <table className="absences_table">
                       <tbody>
                         <tr>
+                          <th>Date de demande</th>
                           <th>Type de demande</th>
                           <th>Commentaires</th>
                           <th>Etat</th>
                           <th>Document</th>
+                          <th>RDV</th>
                         </tr>
                         {demandes.map((demande, index) => (
                           <tr key={index}>
+                        <td>{new Date(demande.createdAt).toLocaleDateString()}</td>
                             <td>{demande.type}</td>
                             <td>
                               {demande.commentaire
                                 ? demande.commentaire
                                 : "Pas de commentaires."}
                             </td>
-                      <td style={{ color: demande.etat === "Réception" ? "blue"  : "green" }}>{demande.etat}</td>
+                      <td style={{ color: demande.etat === "Réception" ? "blue"  : demande.etat ==="Refusé" ? "red" : "green"}}>{demande.etat}</td>
                             <td>
                               {demande.attestation && demande.type === "Attestation" ? (
                                 <Button
@@ -132,6 +135,7 @@ function DemandePage() {
                                 "En attente"
                               )}
                             </td>
+                            <td>{demande.rdv ? new Date(demande.rdv).toLocaleDateString() : " "}</td>
                           </tr>
                         ))}
                       </tbody>

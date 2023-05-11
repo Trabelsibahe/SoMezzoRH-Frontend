@@ -68,6 +68,7 @@ function AddDemandePage() {
                   >
                     <MenuItem value="Attestation">Attestation</MenuItem>
                     <MenuItem value="Badge">Badge</MenuItem>
+                    <MenuItem value="RDV Médecin">RDV Médecin</MenuItem>
                     <MenuItem value="Autre...">Autre...</MenuItem>
                   </Select>
                   {errors.type && (

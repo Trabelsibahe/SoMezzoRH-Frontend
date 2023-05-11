@@ -39,9 +39,13 @@ function DemandeArchiveList() {
     if (search === "") {
       return true;
     }
+    if (demande.createdAt.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
     if (demande.user.matricule.toLowerCase().includes(search.toLowerCase())) {
       return true;
     }
+
     if (demande.user.nom.toLowerCase().includes(search.toLowerCase())) {
       return true;
     }
@@ -66,7 +70,7 @@ function DemandeArchiveList() {
 
   return (
     <div>
-        <p className="expert_info">Historique des demande Attestation ou Badge</p>
+        <p className="expert_info">Historique des demande Attestation , Badge ou RDV avec le médecin</p>
       <InputBase
         className="searchbar"
         placeholder="Rechercher.."
@@ -87,14 +91,17 @@ function DemandeArchiveList() {
           <table className="absences_table">
             <tbody>
               <tr>
+              <th>Date de demande</th>
                 <th>Demandeur</th>
                 <th>Type de demande</th>
                 <th>Commentaires</th>
                 <th>Etat</th>
                 <th>Attestation ou badge</th>
+                <th>Date RDV</th>
               </tr>
               {filteredemande.map((demande) =>
                     <tr key={demande._id}>
+         <td>{new Date(demande.createdAt).toLocaleDateString()}</td>
                       <td>
                         ({demande.user.matricule}) {demande.user.nom}
                         {demande.user.prenom}
@@ -120,6 +127,8 @@ function DemandeArchiveList() {
                           "En attente"
                         )}
                       </td>
+                      <td>{demande.rdv ? new Date(demande.rdv).toLocaleDateString() : " "}</td>
+
                     </tr>
                 )}
             </tbody>
