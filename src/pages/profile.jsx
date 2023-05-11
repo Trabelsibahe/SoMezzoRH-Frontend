@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "../assets/styles/profile.css";
 import { useEffect, useState } from "react";
 import {GetProfileAction, EditMyProfileAction} from "../actions/profile.actions";
-import { Input, TextField } from "@mui/material";
+import { Divider, Input, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
@@ -12,7 +12,15 @@ import altAvatar from "../assets/images/avatar.avif"
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import formatDate from "../components/formatdate";
 import { Navigate } from "react-router-dom";
+const style = {
+  color: "#151582;",
+  borderColor: "#151582;",
 
+  '&:variant': {
+    color: "#151582;",
+  },
+
+}
 function ProfilePage() {
   const auth = useSelector((state) => state.auth);
   const profile = useSelector((state) => state.profiles.profile);
@@ -149,7 +157,8 @@ const editUser = async () => {
               {role === 'EXPERT' ? ("RESPONSABLE RH METIER / EXPERT RH") : role === "EMP" ? ("EMPLOYÉ") : 
                role === "RRH" ? ("RESPONSABLE RH OPÉRATIONNEL") : null }</p>
           </div>
-
+          <Divider orientation="vertical" flexItem></Divider>
+          <a style={{padding:"1em"}} href="/monespace/notifications"><Button sx={style} variant="outlined">Mes notifications</Button></a>
         </div>
         <div className="profile_body">
         <form>

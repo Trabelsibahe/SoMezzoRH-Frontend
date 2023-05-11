@@ -8,3 +8,15 @@
     background: orangered;
     height: 8px;
 }
+
+.notification_message{
+    padding: 0.3em;
+    text-indent: 2.5em;
+    font-size: 14px;
+}
+.notifications_emptymsg{
+    text-align: left;
+    padding: 0.3em;
+    text-indent: 2.5em;
+    font-size: 14px;
+}

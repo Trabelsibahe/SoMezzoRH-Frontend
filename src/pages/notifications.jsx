@@ -1,9 +1,20 @@
 import React from "react";
+import "../assets/styles/notification.css"
 import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { Divider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import { useEffect } from "react";
-import { GetMyNotificationAction } from "../actions/notification.action";
+import { GetMyNotificationAction, SetNotificationReadaction } from "../actions/notification.action";
+const style = {
+  color: "#151582;",
+  borderColor: "#151582;",
+  left: "50em",
+
+  '&:variant': {
+    color: "#151582;",
+  },
+
+}
 function MynotificationsPage() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
@@ -23,6 +34,21 @@ function MynotificationsPage() {
     active: auth.user.active,
   };
 
+  const MarkAllAsRead = React.useCallback(() => {
+
+    if (notifications) {
+      notifications.forEach((notification) => {
+        notification.notifications.forEach((item) => {
+          dispatch(GetMyNotificationAction());
+          dispatch(SetNotificationReadaction(item._id));
+          dispatch(GetMyNotificationAction());
+
+        });
+      });
+    }
+  }, [dispatch, notifications]);
+
+
   return (
     <div className="rrh_page">
       <Navigation user={CurrentUser} />
@@ -34,8 +60,10 @@ function MynotificationsPage() {
           </p>
         </div>
         <div className="rrh_body">
-          <h4 className="rrh_info">Mes notifications</h4>
-          <p className="rrh_info">Récent</p>
+          
+          <div style={{display:"flex", flexDirection:"row"}}> <h4 className="rrh_info">Nouvelles notifications</h4>
+           <Button sx={style} variant="outlined" size="small" onClick={MarkAllAsRead}>Tout marquer comme lu</Button></div>
+
           {notifications && notifications.length > 0 ? (
             notifications.some((item) =>
               item.notifications.some(
@@ -46,19 +74,19 @@ function MynotificationsPage() {
                 item.notifications.map(
                   (notification) =>
                     notification.read === false && (
-                      <p key={notification._id}>{notification.message} </p>
+                      <p className="notification_message" key={notification._id}>{notification.message} </p>
                     )
                 )
               )
             ) : (
-              <p style={{ textAlign: "center" }}>No new notifications.</p>
+              <p className="notifications_emptymsg">Aucune nouvelle notification.</p>
             )
           ) : (
-            ""
+            <p className="notifications_emptymsg">Aucune nouvelle notification.</p>
           )}
 
-          <Divider />
-          <p className="rrh_info">Tout</p>
+          <Divider sx={{margin:"1em"}}/>
+          <h4 className="rrh_info">Anciennes notifications</h4>
           {notifications && notifications.length > 0 ? (
             notifications.some((item) =>
               item.notifications.some(
@@ -69,15 +97,15 @@ function MynotificationsPage() {
                 item.notifications.map(
                   (notification) =>
                     notification.read === true && (
-                      <p key={notification._id}>{notification.message} </p>
+                      <p className="notification_message" key={notification._id}>{notification.message} </p>
                     )
                 )
               )
             ) : (
-              <p style={{ textAlign: "center" }}>No new notifications.</p>
+              <p className="notifications_emptymsg">Aucune notification.</p>
             )
           ) : (
-            ""
+            <p className="notifications_emptymsg">Aucune notification.</p>
           )}
         </div>
         <div style={{ padding: "2em", textAlign: "center" }}>

@@ -10,17 +10,12 @@ import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  GetMyNotificationAction,
-  GetNotificationAction,
-  SetNotificationReadaction,
-} from "../actions/notification.action";
+import {GetMyNotificationAction,  SetNotificationReadaction} from "../actions/notification.action";
 import { Divider, IconButton, ListItemIcon } from "@mui/material";
 import { ListItemText, Typography } from "@mui/material";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
 import { useNavigate } from "react-router-dom";
-import { NotificationAdd, Notifications } from "@mui/icons-material";
 
 export default function NotificationMenu() {
   const dispatch = useDispatch();
