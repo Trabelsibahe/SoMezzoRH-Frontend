@@ -1,7 +1,6 @@
 import './App.css';
-import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import React, { useEffect, useState } from 'react';
 import PrivateRouter from "./routes/privaterouter";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -15,7 +14,6 @@ import NotFoundPage from './pages/notfound';
 import ForceRedirect from "./routes/ForceRedirect"
 import WelcomePage from './pages/welcome';
 import ChangePassword from './pages/profilepassword';
-import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { GetProfileAction } from './actions/profile.actions';
 import WelcomeRouter from './routes/welcomerouter';
@@ -36,7 +34,7 @@ import ExpertDemandesPage from './pages/demandesPage';
 import AbsenceList from './components/userlist/absenceArch';
 import DemandeArchiveList from './components/userlist/demandeArch';
 import MynotificationsPage from './pages/notifications';
-
+import SplashScreen from './pages/intro';
 
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
@@ -57,8 +55,10 @@ if (window.localStorage.jwt) {
 }
 
 function App() {
+
   const auth = useSelector((state) => state.auth);
   const profile = useSelector(state => state.profiles.profile);
+  const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch()
 
@@ -68,6 +68,12 @@ function App() {
     })();
   }, [dispatch]);
 
+  useEffect(() => {
+    // Simulating some asynchronous tasks
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
 
   const user = {
     isConnected: auth.isConnected,
@@ -77,14 +83,18 @@ function App() {
 
   };
 
-
   if (user.active === false) {
     <Navigate to="/inactive" />
   }
 
+  if (!user.isConnected && loading) {
+    return (
+      <SplashScreen />
+    );
+  }
+
   // return
   return (
-
     <div className="App">
 
       <BrowserRouter>

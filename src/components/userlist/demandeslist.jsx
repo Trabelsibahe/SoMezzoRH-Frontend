@@ -12,7 +12,10 @@ import "@mui/icons-material/CheckCircleOutline";
 import Form from "react-bootstrap/Form";
 import { Button } from '@mui/material';
 import { SendNotificationToOneUser } from "../../actions/notification.action";
-import DatePicker from 'react-datepicker';
+import { DatePicker } from "@mui/x-date-pickers";
+
+
+
 function DemandesList() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
