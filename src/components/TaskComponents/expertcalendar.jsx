@@ -139,11 +139,38 @@ function ExpertCalendar() {
   const handleClick = (id) => {
   setOpenId(openId === id ? null : id);
   };
+  const [operationColors, setOperationColors] = useState({});
+  useEffect(() => {
+    const colors = {};
+    tasks.forEach((task) => {
+      const { operation } = task.user;
+      if (!(operation in colors)) {
+        colors[operation] = getRandomColor();
+      }
+    });
+    setOperationColors(colors);
+  }, [tasks]);
+  
+tasks.forEach((task) => {
+  const { operation } = task.user;
+  if (!(operation in operationColors)) {
+    operationColors[operation] = getRandomColor();
+  }
+});
+
+// generate a random color
+function getRandomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
     
 return (
   <div className="calendar">
-
     <div className="Calendar_Menu">
       <h4 className="calendar_date">{`${new Intl.DateTimeFormat("fr-FR", {
         month: "long",
@@ -172,36 +199,50 @@ return (
       ))}
     </div>
     <div className="days">
-    {days.map((day, index) => (
-  <div key={index} className="day">
-    <span style={{ padding: "0.8em" }}>{day}</span>
-    {eventsByDate[dateString(year, month + 1, day)] && (
-      <div>
+      {days.map((day, index) => (
+        <div key={index} className="day">
+          <span style={{ padding: "0.8em" }}>{day}</span>
+          {eventsByDate[dateString(year, month + 1, day)] && (
+            <div>
               <Collapse in={openId === day} collapsedSize={39}>
                 <ul>
                   {eventsByDate[dateString(year, month + 1, day)].map((task) => (
-                    <div className="calendar_datenumber" key={task.id} onClick={() => handleClick(day)}>
-                      <span className="calendar_datetask" style={{ textAlign: "left", 
-                              background: task.operation ==="DSI" ? "#1492d1" : task.operation ==="Télévendeur" ? "#e94e1b" : "#f9b233"}} >
+                    <div
+                      className="calendar_datenumber"
+                      key={task.id}
+                      onClick={() => handleClick(day)}
+                    >
+                      <span
+                        className="calendar_datetask"
+                        style={{
+                          textAlign: "left",
+                          background:
+                            operationColors[task.operation] || "#000000",
+                          color: "#ffffff",
+                        }}
+                      >
                         {task.titre}
                       </span>
                     </div>
                   ))}
                 </ul>
               </Collapse>
-      </div>
-    )}
-  </div>
-))}
-    </div>
-            <div className="expertcalendar_guide">
-            <p>Chaque couleur représente une opération:</p>
-                <ul style={{listStyle:"none"}}>
-                    <li style={{textDecoration:"n"}}>DSI : <SquareIcon sx={{color:"#1492d1"}}/></li>
-                    <li>Télévendeur : <SquareIcon sx={{color:"#e94e1b"}}/></li>
-                    <li>Tèlèopérateur : <SquareIcon sx={{color:"#f9b233"}}/></li>
-                </ul>
             </div>
+          )}
+        </div>
+      ))}
+    </div>
+    <div className="expertcalendar_guide">
+      <p>Chaque couleur représente une opération :</p>
+      <ul style={{ listStyle: "none" }}>
+        {Object.entries(operationColors).map(([operation, color]) => (
+          <li key={operation}>
+            {operation} : <SquareIcon sx={{ color: color }} />
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
-)}
+);
+}
 export default ExpertCalendar;

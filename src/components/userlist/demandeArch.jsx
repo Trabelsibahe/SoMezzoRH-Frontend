@@ -96,8 +96,7 @@ function DemandeArchiveList() {
                 <th>Type de demande</th>
                 <th>Commentaires</th>
                 <th>Etat</th>
-                <th>Attestation ou badge</th>
-                <th>Date RDV</th>
+                <th>Document</th>
               </tr>
               {filteredemande.map((demande) =>
                     <tr key={demande._id}>
@@ -112,23 +111,20 @@ function DemandeArchiveList() {
                           ? demande.commentaire
                           : "Aucun commentaire"}
                       </td>
-                      <td style={{ color: demande.etat === "Réception" ? "blue"  : "green" }}>{demande.etat}</td>
+                      <td style={{ color: demande.etat === "en attente" ? "blue"  : "green" }}>{demande.etat}</td>
                       <td>
-                        {(demande.attestation && demande.type==="Attestation") ? (
-                          <Button
-                            size="small"
-                            variant="outlined"
-                            sx={{ color: "#151582" }}
-                            onClick={() => handleShowJustif(demande)}
-                          >
-                            Afficher
-                          </Button>
-                        ) : demande.type ==="Badge" ? "Sur place" : (
-                          "En attente"
-                        )}
-                      </td>
-                      <td>{demande.rdv ? new Date(demande.rdv).toLocaleDateString() : " "}</td>
-
+                     {demande.attestation && demande.type === "Attestation" ? (
+                     <Button
+                      size="small"
+                       variant="outlined"
+                        sx={{ color: "#151582" }}
+                        onClick={() => handleShowJustif(demande)} >
+                        Afficher
+                        </Button>)
+                         : demande.type === "Badge" && demande.etat === "Accordé" ? ("Dans la réception") 
+                         : demande.rdv ? (<div>{new Date(demande.rdv).toLocaleDateString()}</div>)
+                         : ("En cours de traitement" )}
+                        </td>
                     </tr>
                 )}
             </tbody>

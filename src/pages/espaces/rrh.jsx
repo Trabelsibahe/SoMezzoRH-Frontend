@@ -164,6 +164,7 @@ function RRH_Page() {
                 <table className="absences_table">
                   <tbody>
                     <tr>
+                      <th>Date de demande</th>
                       <th>Demandeur</th>
                       <th>Date de debut d'absence</th>
                       <th>Date de fin d'absence</th>
@@ -182,6 +183,7 @@ function RRH_Page() {
                           (absence) =>
                           absence.etat === "En attente" && (
                               <tr key={absence._id}>
+                                  <td>{new Date(absence.dateCreation).toLocaleDateString()}</td>
                                 <td>
                                   ({item.user.matricule}) {item.user.nom}{" "}
                                   {item.user.prenom}

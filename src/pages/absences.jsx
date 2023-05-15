@@ -113,6 +113,7 @@ function AbsencesPage() {
                     <table className="absences_table">
                       <tbody>
                         <tr>
+                        <th>Date de demande</th>
                           <th>Type d'absence</th>
                           <th>Date de debut de période d'absence</th>
                           <th>Date de fin de période d'absence</th>
@@ -123,6 +124,7 @@ function AbsencesPage() {
                         </tr>
                         {absences[0].absences.map((absence, index) => (
                           <tr key={index}>
+                          <td>{new Date(absence.dateCreation).toLocaleDateString()}</td>
                             <td>{absence.type}</td>
                             <td>
                               {new Date(absence.dateDebut).toLocaleDateString()}

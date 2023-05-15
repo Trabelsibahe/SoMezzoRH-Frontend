@@ -124,6 +124,7 @@ function AbsenceList() {
           <table className="absences_table">
             <tbody>
               <tr>
+              <th>Date de demande</th>
                 <th>Demandeur</th>
                 <th>Type d'absence</th>
                 <th>Date de début</th>
@@ -136,6 +137,7 @@ function AbsenceList() {
               {filteredabsence.map((item) =>
                 item.absences.map((absence) => 
                     <tr key={absence._id}>
+                      <td>{new Date(absence.dateCreation).toLocaleDateString()}</td>
                       <td>
                         ({item.user.matricule}) {item.user.nom}{" "}
                         {item.user.prenom}

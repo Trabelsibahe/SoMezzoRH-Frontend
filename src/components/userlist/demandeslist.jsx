@@ -12,8 +12,9 @@ import "@mui/icons-material/CheckCircleOutline";
 import Form from "react-bootstrap/Form";
 import { Button } from '@mui/material';
 import { SendNotificationToOneUser } from "../../actions/notification.action";
-import { DatePicker } from "@mui/x-date-pickers";
-
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 
 function DemandesList() {
@@ -194,9 +195,9 @@ const editRdv = async (id, action, userId, rdv) => {
               <th>Actions</th>
             </tr>
             {filteredemande.some(() =>
-              demandes.some((demande) => demande.etat === "Réception")
+              demandes.some((demande) => demande.etat === "en attente")
             ) ? (
-              demandes.map((demande) => demande.etat === "Réception" && (
+              demandes.map((demande) => demande.etat === "en attente" && (
                       <tr key={demande._id}>
                         <td>{new Date(demande.createdAt).toLocaleDateString()}</td>
 
@@ -245,6 +246,7 @@ const editRdv = async (id, action, userId, rdv) => {
     <Modal.Title>RDV Médecin</Modal.Title>
   </Modal.Header>
   <Modal.Body>
+  <LocalizationProvider dateAdapter={AdapterDayjs}>
     <Form.Group className="mb-4">
       <DatePicker
         id="outlined-basic"
@@ -255,6 +257,7 @@ const editRdv = async (id, action, userId, rdv) => {
         onChange={(date) => setRdv(date)}
       />
     </Form.Group>
+    </LocalizationProvider>
   </Modal.Body>
   <Modal.Footer>
     <Button

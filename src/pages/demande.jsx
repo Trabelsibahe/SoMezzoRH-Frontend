@@ -109,7 +109,6 @@ function DemandePage() {
                           <th>Commentaires</th>
                           <th>Etat</th>
                           <th>Document</th>
-                          <th>RDV</th>
                         </tr>
                         {demandes.map((demande, index) => (
                           <tr key={index}>
@@ -120,22 +119,20 @@ function DemandePage() {
                                 ? demande.commentaire
                                 : "Pas de commentaires."}
                             </td>
-                      <td style={{ color: demande.etat === "Réception" ? "blue"  : demande.etat ==="Refusé" ? "red" : "green"}}>{demande.etat}</td>
-                            <td>
-                              {demande.attestation && demande.type === "Attestation" ? (
-                                <Button
-                                  size="small"
-                                  variant="outlined"
-                                  sx={{ color: "#151582" }}
-                                  onClick={() => handleShowJustif(demande)}
-                                >
-                                  Afficher
-                                </Button>
-                              ) : demande.type ==="Badge" ? "Sur place" : (
-                                "En attente"
-                              )}
-                            </td>
-                            <td>{demande.rdv ? new Date(demande.rdv).toLocaleDateString() : " "}</td>
+                      <td style={{ color: demande.etat === "en attente" ? "blue"  : demande.etat ==="Refusé" ? "red" : "green"}}>{demande.etat}</td>
+                      <td>
+                     {demande.attestation && demande.type === "Attestation" ? (
+                     <Button
+                      size="small"
+                       variant="outlined"
+                        sx={{ color: "#151582" }}
+                        onClick={() => handleShowJustif(demande)} >
+                        Afficher
+                        </Button>)
+                         : demande.type === "Badge" && demande.etat === "Accordé" ? ("Dans la réception") 
+                         : demande.rdv ? (<div>{new Date(demande.rdv).toLocaleDateString()}</div>)
+                         : ("En cours de traitement" )}
+                        </td>
                           </tr>
                         ))}
                       </tbody>
