@@ -32,7 +32,6 @@ function StepOne({ form, setForm, onSubmit, setPage}) {
        </div>
        <button className="welcome_button_next" type="submit" onClick={() => { 
         if (form.tel.isEmpty || form.tel === "" || form.email.isEmpty || form.email === "" || !form.email.includes("@") ) {
-          console.log("empty")
         } else {
           setPage((currPage) => currPage + 1);
         }

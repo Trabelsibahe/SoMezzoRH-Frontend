@@ -14,17 +14,16 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { SendNotificationToOneUser } from "../actions/notification.action";
-import {  TextField } from '@mui/material';
+import { TextField } from "@mui/material";
 
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
 
-  '&:variant': {
+  "&:variant": {
     color: "#151582;",
   },
-
-}
+};
 function ExpertDemandesPage() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
@@ -52,10 +51,8 @@ function ExpertDemandesPage() {
   };
   const closeRefuseModal = () => {
     setRefuseModalOpen(false);
-    setMotif(""); 
+    setMotif("");
   };
-  
-  
 
   const handleClosejustif = () => setJustification(false);
   const [Show_ExpertAbsArchPage, setShow_ExpertAbsArchPage] =
@@ -67,20 +64,21 @@ function ExpertDemandesPage() {
     setJustification(true);
   };
 
-  const OnChangeHandler = async (id, action, userId, motif) => {
+  const OnChangeHandler = async (id, action, userId, motif, matricule) => {
     const data = {
       etat: action,
-      motif: motif
+      motif: motif,
     };
+
     const notification = {
-      message: "l'expert RH a " + data.etat + " votre demande d'absence",
+      message: `L'Expert RH a ${data.etat} votre demande d'absence.`,
+      journal: `La demande d'absence de RRH sous le matricule "${matricule}" a été ${data.etat} par L'Expert RH.`
     };
+
     await dispatch(updateAbsence(id, data));
     await dispatch(SendNotificationToOneUser(userId, notification));
     await dispatch(GetAllAbsence());
   };
-  
-  
 
   useEffect(() => {
     dispatch(GetAllAbsence());
@@ -106,6 +104,7 @@ function ExpertDemandesPage() {
     }
     return false;
   });
+
   return (
     <div className="rrh_page">
       <Navigation user={CurrentUser} />
@@ -116,20 +115,38 @@ function ExpertDemandesPage() {
             Demandes & Absences
           </p>
         </div>
-     
+
         <div className="rrh_header">
           <div className="rrh_header_titles">
-          <p className="rrh_header_title">Bienvenue {CurrentUser.nom}!</p>
-          <p className="rrh_header_semititle">Titre : {CurrentUser.titre ? CurrentUser.titre : "Aucun titre"}</p>
+            <p className="rrh_header_title">Bienvenue {CurrentUser.nom}!</p>
+            <p className="rrh_header_semititle">
+              Titre : {CurrentUser.titre ? CurrentUser.titre : "Aucun titre"}
+            </p>
           </div>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/expertrh"><Button variant="outlined" size="large" sx={style}>Espace Expert</Button></a>
+          <a className="rrh_header_navs" href="/expertrh">
+            <Button variant="outlined" size="large" sx={style}>
+              Espace Expert
+            </Button>
+          </a>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/expertrh/taches"><Button variant="outlined" size="large" sx={style}>Taches</Button></a>
+          <a className="rrh_header_navs" href="/monespace/expertrh/taches">
+            <Button variant="outlined" size="large" sx={style}>
+              Taches
+            </Button>
+          </a>
           <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/expertrh/demandes"><Button  variant="outlined" size="large" sx={style}>Demandes</Button></a>
+          <a className="rrh_header_navs" href="/monespace/expertrh/demandes">
+            <Button variant="outlined" size="large" sx={style}>
+              Demandes
+            </Button>
+          </a>
           <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/expertrh/archive"><Button  variant="outlined" size="large" sx={style}>Archive</Button></a>
+          <a className="rrh_header_navs" href="/monespace/expertrh/archive">
+            <Button variant="outlined" size="large" sx={style}>
+              Archive
+            </Button>
+          </a>
           <Divider orientation="vertical" flexItem></Divider>
         </div>
         {Show_ExpertAbsArchPage ? (
@@ -138,28 +155,28 @@ function ExpertDemandesPage() {
           <div className="rrh_body">
             <p className="rrh_info">Les demandes d'absence</p>
             <div>
-            <InputBase
-        className="searchbar"
-        placeholder="Rechercher.."
-        type="text"
-        value={search}
-        onChange={handleSearch}
-        startAdornment={
-          <InputAdornment position="start">
-            {" "}
-            <SearchIcon />{" "}
-          </InputAdornment>
-        }
-        margin="normal"
-        sx={{ width: 250 }}
-      />
+              <InputBase
+                className="searchbar"
+                placeholder="Rechercher.."
+                type="text"
+                value={search}
+                onChange={handleSearch}
+                startAdornment={
+                  <InputAdornment position="start">
+                    {" "}
+                    <SearchIcon />{" "}
+                  </InputAdornment>
+                }
+                margin="normal"
+                sx={{ width: 250 }}
+              />
             </div>
             <div style={{ overflowX: "auto" }}>
               {absences.length > 0 ? (
                 <table className="absences_table">
                   <tbody>
                     <tr>
-                    <th>Date de demande</th>
+                      <th>Date de demande</th>
                       <th>Demandeur</th>
                       <th>Date de debut d'absence</th>
                       <th>Date de fin d'absence</th>
@@ -175,118 +192,136 @@ function ExpertDemandesPage() {
                       )
                     ) ? (
                       absences.map((item) =>
-                        item.absences.map((absence) =>
-                          absence.etat === "En attente" &&
-                          item.user.role === "RRH" ? (
-                            <tr key={absence._id}>
-                              <td>{new Date(absence.dateCreation).toLocaleDateString()}</td>
-                              <td>
-                                ({item.user.matricule}) {item.user.nom}{" "}
-                                {item.user.prenom}
-                              </td>
-                              <td>
-                                {" "}
-                                {new Date(
-                                  absence.dateDebut
-                                ).toLocaleDateString()}{" "}
-                              </td>
-                              <td>
-                                {" "}
-                                {new Date(
-                                  absence.dateFin
-                                ).toLocaleDateString()}{" "}
-                              </td>
-                              <td>{absence.type}</td>
-                              <td>
-                                {absence.justif ? (
+                        item.user.role === "RRH" ? (
+                          item.absences.map((absence) =>
+                            absence.etat === "En attente" ? (
+                              <tr key={absence._id}>
+                                <td>
+                                  {new Date(
+                                    absence.dateCreation
+                                  ).toLocaleDateString()}
+                                </td>
+                                <td>
+                                  ({item.user.matricule}) {item.user.nom}{" "}
+                                  {item.user.prenom}
+                                </td>
+                                <td>
+                                  {new Date(
+                                    absence.dateDebut
+                                  ).toLocaleDateString()}
+                                </td>
+                                <td>
+                                  {new Date(
+                                    absence.dateFin
+                                  ).toLocaleDateString()}
+                                </td>
+                                <td>{absence.type}</td>
+                                <td>
+                                  {absence.justif ? (
+                                    <Button
+                                      size="small"
+                                      variant="outlined"
+                                      sx={{ color: "#151582" }}
+                                      onClick={() => handleShowJustif(absence)}
+                                    >
+                                      Afficher
+                                    </Button>
+                                  ) : (
+                                    "Aucune Justification"
+                                  )}
+                                </td>
+                                <td>
+                                  {absence.commentaire
+                                    ? absence.commentaire
+                                    : "Aucun commentaire"}
+                                </td>
+                                <td style={{ color: "orangered" }}>
+                                  {absence.etat}
+                                </td>
+                                <td>
                                   <Button
-                                    size="small"
+                                    sx={{ margin: "0.5em" }}
                                     variant="outlined"
-                                    sx={{ color: "#151582" }}
-                                    onClick={() => handleShowJustif(absence)}
+                                    color="success"
+                                    size="small"
+                                    onClick={() => {
+                                      if (
+                                        window.confirm(
+                                          "Voulez-vous vraiment accepter cette absence?"
+                                        )
+                                      ) {
+                                        OnChangeHandler( absence._id, "Accepté", item.user._id, motif, item.user.matricule);
+                                      }
+                                    }}
                                   >
-                                    Afficher
+                                    Accepter
+                                  </Button>{" "}
+                                  <Button
+                                    variant="outlined"
+                                    color="error"
+                                    size="small"
+                                    onClick={() => {
+                                      if (
+                                        window.confirm(
+                                          "Voulez-vous vraiment refuser cette absence?"
+                                        )
+                                      ) {
+                                        openRefuseModal(absence._id);
+                                      }
+                                    }}
+                                  >
+                                    Refuser
                                   </Button>
-                                ) : (
-                                  "Aucune Justification"
-                                )}
-                              </td>
-                              <td>
-                                {" "}
-                                {absence.commentaire
-                                  ? absence.commentaire
-                                  : "Aucun commentaire"}{" "}
-                              </td>
-                              <td style={{ color: "orangered" }}>
-                                {absence.etat}
-                              </td>
-                              <td>
-                              <Button
-  sx={{ margin: "0.5em" }}
-  variant="outlined"
-  color="success"
-  size="small"
-  onClick={() => {
-    if (window.confirm("Voulez-vous vraiment accepter cette absence?")) {
-      OnChangeHandler(absence._id, "Accepté", item.user._id);
-    }
-  }}
->
-  Accepter
-</Button>{" "}
-<Button
-  variant="outlined"
-  color="error"
-  size="small"
-  onClick={() =>{
-    if (window.confirm("Voulez-vous vraiment refuser cette absence?")) {
-    openRefuseModal(absence._id)}}}
->
-  Refuser
-</Button>
-<Modal show={isRefuseModalOpen} onHide={closeRefuseModal}>
-<Modal.Header closeButton>
-            <Modal.Title>Motif de refus l'absence</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-  <TextField
-    label="Motif de refus"
-    value={motif}
-    onChange={(e) => setMotif(e.target.value)}
-    fullWidth
-    multiline
-    rows={4}
-    variant="outlined"
-  />
-            </Modal.Body>
-            <Modal.Footer>
-
-  <Button
-variant="contained"
-onClick={() => {
-  OnChangeHandler(absence._id, "Refusé", item.user._id, motif);
-  closeRefuseModal();
-}}
->
-Soumettre
-</Button>
-<Button variant="secondary" onClick={closeRefuseModal}>
-              Fermer
-            </Button>
-            </Modal.Footer>
-
-</Modal>
-
-
-                              </td>
-                            </tr>
-                          ) : null
-                        )
+                                  <Modal
+                                    show={isRefuseModalOpen}
+                                    onHide={closeRefuseModal}
+                                  >
+                                    <Modal.Header closeButton>
+                                      <Modal.Title>
+                                        Motif de refus de l'absence
+                                      </Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                      <TextField
+                                        label="Motif de refus"
+                                        value={motif}
+                                        onChange={(e) =>
+                                          setMotif(e.target.value)
+                                        }
+                                        fullWidth
+                                        multiline
+                                        rows={4}
+                                        variant="outlined"
+                                      />
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                      <Button
+                                        variant="contained"
+                                        onClick={() => {
+                                          OnChangeHandler(absence._id,  "Refusé",  item.user._id, motif, item.user.matricule  );
+                                          closeRefuseModal();
+                                        }}
+                                      >
+                                        Soumettre
+                                      </Button>
+                                      <Button
+                                        variant="secondary"
+                                        onClick={closeRefuseModal}
+                                      >
+                                        Fermer
+                                      </Button>
+                                    </Modal.Footer>
+                                  </Modal>
+                                </td>
+                              </tr>
+                            ) : null
+                          )
+                        ) : ""
                       )
                     ) : (
                       <tr>
                         <td
-                          colSpan="8"
+                          colSpan="10"
                           style={{ textAlign: "center", padding: "1em" }}
                         >
                           Il n'y a pas d'absence en attente.
@@ -296,28 +331,27 @@ Soumettre
                   </tbody>
                 </table>
               ) : (
-                  <table className="absences_table">
-                    <tbody>
-                      <tr>
-                        <th>Type d'absence</th>
-                        <th>Date de debut d'absence</th>
-                        <th>Date de fin d'absence</th>
-                        <th>Commentaire</th>
-                        <th>Type d'absence</th>
-                        <th>Etat</th>
-                      </tr>
-                    </tbody>
+                <table className="absences_table">
+                  <tbody>
                     <tr>
-                        <td
-                          colSpan="8"
-                          style={{ textAlign: "center", padding: "1em" }}
-                        >
-                          Il n'y a pas d'absence en attente.
-                        </td>
-                      </tr>
-                  </table>
+                      <th>Type d'absence</th>
+                      <th>Date de debut d'absence</th>
+                      <th>Date de fin d'absence</th>
+                      <th>Commentaire</th>
+                      <th>Type d'absence</th>
+                      <th>Etat</th>
+                    </tr>
+                  </tbody>
+                  <tr>
+                    <td
+                      colSpan="8"
+                      style={{ textAlign: "center", padding: "1em" }}
+                    >
+                      Il n'y a pas d'absence en attente.
+                    </td>
+                  </tr>
+                </table>
               )}
-
             </div>
           </div>
         )}
@@ -328,7 +362,6 @@ Soumettre
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>
 
- 
         <Modal show={justification} onHide={handleClosejustif}>
           <Modal.Header closeButton>
             <Modal.Title>Justification d'absence</Modal.Title>

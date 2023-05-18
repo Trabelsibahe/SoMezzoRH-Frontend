@@ -12,6 +12,8 @@ import altAvatar from "../assets/images/avatar.avif"
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import formatDate from "../components/formatdate";
 import { Navigate } from "react-router-dom";
+import { SendNotificationToOneUser } from "../actions/notification.action";
+
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
@@ -56,6 +58,7 @@ function ProfilePage() {
   const [ codepostal, setCodepostal ] = useState('');
   const [ email, setEmail ] = useState('');
   const [avatar, setAvatar] = useState('null');
+  const [id, setId] = useState('');
 
   const [edit, setEdit] = useState(false);
   const handleCloseEdit = () => setEdit(false);
@@ -71,6 +74,7 @@ function ProfilePage() {
       setRole(user.role);
       setOperation(user.operation);
       setTitre(user.titre)
+      setId(user._id);
     }
 
     setTel(tel);
@@ -86,6 +90,7 @@ function ProfilePage() {
 
   // useeffect
   const [profileLoaded, setProfileLoaded] = useState(false);
+
   useEffect(() => {
     if (profile) {
       handleShowEdit(profile);
@@ -113,8 +118,13 @@ const editUser = async () => {
   data.append('role', role);
   data.append('operation',operation);
   data.append('titre',titre);
+  data.append("id", id);
+  const notification = {
+    journal: `Le titulaire du compte sous le matricule "${matricule}" a modifié son profil.`
+  };
 
   await dispatch(EditMyProfileAction(data));
+  await dispatch(SendNotificationToOneUser(id, notification));
   await dispatch(GetProfileAction());
   await dispatch(GetProfileAction());
   await dispatch(GetProfileAction());

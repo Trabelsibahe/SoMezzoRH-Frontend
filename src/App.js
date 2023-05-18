@@ -35,6 +35,7 @@ import AbsenceList from './components/userlist/absenceArch';
 import DemandeArchiveList from './components/userlist/demandeArch';
 import MynotificationsPage from './pages/notifications';
 import SplashScreen from './pages/intro';
+import Journal from './pages/journal';
 
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
@@ -133,6 +134,7 @@ function App() {
             <ExpertRouter user={user}> {" "} <ExpertDemandesPage />{" "} </ExpertRouter>} />
           <Route path="/demandearchive" element={<DemandeArchiveList />}></Route>
           <Route path="/monespace/notifications" element={<MynotificationsPage />}></Route>
+          <Route path="/monespace/expertrh/journal" element={<ExpertRouter user={user}> {" "} <Journal />{" "} </ExpertRouter>} />
 
         </Routes>
 

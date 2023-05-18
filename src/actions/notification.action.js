@@ -13,7 +13,7 @@ export const GetNotificationAction = () => dispatch => {
 
       .then(res => {
         dispatch({
-          type: notificationConstants.GET_MY_NOTIFICATION,
+          type: notificationConstants.GET_ALL_NOTIFICATIONS,
           payload: res.data
         })
       })

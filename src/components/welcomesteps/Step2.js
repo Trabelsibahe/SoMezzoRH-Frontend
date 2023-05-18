@@ -145,7 +145,6 @@ function StepTwo({ form, setForm, setPage, onSubmit }) {
       <button className="welcome_button_next" type="submit" onClick={() => {
         if (form.ville.isEmpty || form.ville === "" || form.pays.isEmpty || form.pays === "" || form.codepostal.isEmpty || form.codepostal === ""
         || form.gouvernorat.isEmpty || form.gouvernorat === "" || form.adresse.isEmpty || form.adresse === "") {
-          console.log("empty")
         } else {
           setPage((currPage) => currPage + 1);
         }

@@ -26,7 +26,6 @@ function StepThree({ form, setForm, onSubmit }) {
       </div>
       <button className="welcome_button_next" type="datenaiss" onClick={() => {
         if (form.datenaiss.isEmpty || form.datenaiss === "") {
-          console.log("empty")
         }
       }}> Creér mon profil</button>
 

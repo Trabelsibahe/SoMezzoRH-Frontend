@@ -52,7 +52,6 @@ export const GetAllAbsence = () => {
           type: absenceConstants.GET_ALL_ABSENCE,
           payload: res.data,
         })     
-       console.log(res.data);
    
       }
     } catch (error) {

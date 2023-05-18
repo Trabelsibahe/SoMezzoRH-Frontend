@@ -8,7 +8,6 @@ import { archiveConstants } from '../actions/constantes';
 export const GetArchives = () => async (dispatch) => {
     try {
       const res = await axios.get('http://127.0.0.1:3030/api/archive/get');
-      console.log(res.data); // Ajoutez cette ligne pour vérifier ce que renvoie la requête
       dispatch({ type: archiveConstants.GET_ALL_ARCHIVES, payload: res.data });
       return res.data
     } catch (error) {
@@ -40,7 +39,6 @@ export const CountArchives = () => {
     try {
       const res = await axios.get('http://127.0.0.1:3030/api/archives/nb')
       if (res.status === 200) {
-        console.log(res.data.count)
         dispatch({
           type: archiveConstants.COUNT_ARCHIVE,
           payload: {

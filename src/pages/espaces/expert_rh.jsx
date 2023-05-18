@@ -71,7 +71,7 @@ function Expert_Rh_Page() {
           <Divider orientation="vertical" flexItem></Divider>
           <a className="rrh_header_navs" href="/monespace/expertrh/archive"><Button  variant="outlined" size="large" sx={style}>Archive</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
-
+          <a className="rrh_header_navs" href="/monespace/expertrh/journal"><Button  variant="outlined" size="large" sx={style}>Journal</Button></a>
 
         </div>
         { showRegister ? <RegisterPage /> : 

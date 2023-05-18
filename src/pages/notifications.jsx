@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/styles/notification.css"
 import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
@@ -48,6 +48,7 @@ function MynotificationsPage() {
     }
   }, [dispatch, notifications]);
 
+const [read, setRead] = useState(true);
 
   return (
     <div className="rrh_page">
@@ -62,7 +63,7 @@ function MynotificationsPage() {
         <div className="rrh_body">
           
           <div style={{display:"flex", flexDirection:"row"}}> <h4 className="rrh_info">Nouvelles notifications</h4>
-           <Button sx={style} variant="outlined" size="small" onClick={MarkAllAsRead}>Tout marquer comme lu</Button></div>
+          {read ? <Button sx={style} variant="outlined" size="small" onClick={MarkAllAsRead}>Tout marquer comme lu</Button> : ""}</div>
 
           {notifications && notifications.length > 0 ? (
             notifications.some((item) =>
@@ -74,7 +75,8 @@ function MynotificationsPage() {
                 item.notifications.map(
                   (notification) =>
                     notification.read === false && (
-                      <p className="notification_message" key={notification._id}>{notification.message} </p>
+                      
+                      <p className="notification_message" key={notification._id}>{notification.message}</p>
                     )
                 )
               )

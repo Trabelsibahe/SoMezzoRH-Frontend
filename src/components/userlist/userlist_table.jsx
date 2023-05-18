@@ -83,11 +83,8 @@ function Row(accounts, index) {
     });
     setEdit(true);
   };
-
-  const notification = {
-    message : "l'expert RH a modifié votre profile"
-  }
-  //fonction modifier + getlist
+  
+  const [holder, setHolder] = useState("");
   const EditProfile = async () => {
     const data = {
       user: {
@@ -108,12 +105,17 @@ function Row(accounts, index) {
       codepostal,
       adresse,
     };
+
+    const notification = {
+      message: "L'Expert RH a modifié votre profil.",
+      journal: `Le compte sous le matricule "${data.user.matricule}" a été modifié.`,
+    };
+
     await dispatch(EditProfileAction(Profileid, data));
     await dispatch(SendNotificationToOneUser(data.user._id, notification));
     await dispatch(GetProfiles());
-    await dispatch(GetProfiles()); 
-
-
+    await dispatch(GetProfiles());
+    
     handleCloseEdit();
     setProfileId("");
     setNom("");
@@ -131,7 +133,9 @@ function Row(accounts, index) {
     setCodepostal("");
     setAdresse("");
   };
-
+  
+ 
+  
   //fonction supp + getlist
   const deleteContact = async (id) => {
     const data = {

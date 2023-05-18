@@ -65,14 +65,16 @@ function RRH_Page() {
     setJustification(true);
   };
 
-  const OnChangeHandler = async (id, action,userId, motif) => {
+  const OnChangeHandler = async (id, action,userId, motif, matricule) => {
     const data = {
       etat: action,
       motif: motif
     };
     const notification = {
-      message: "le Résponsable RH  a " + data.etat + " votre demande d'absence",
+      message: `le Résponsable RH a ${data.etat} votre demande d'absence.`,
+      journal: `La demande d'absence sous le matricule "${matricule}" a été ${data.etat} par Le responsable RH opérationnel ${CurrentUser.operation}.`
     };
+
     await dispatch(updateAbsence(id, data));
     await dispatch(SendNotificationToOneUser(userId, notification));
     await dispatch(GetOperAbsenceAction());
@@ -232,7 +234,7 @@ function RRH_Page() {
   size="small"
   onClick={() => {
     if (window.confirm("Voulez-vous vraiment accepter cette absence?")) {
-      OnChangeHandler(absence._id, "Accepté",item.user._id);
+      OnChangeHandler(absence._id, "Accepté", item.user._id, motif, item.user.matricule);
     }
   }}
 >
@@ -268,7 +270,7 @@ function RRH_Page() {
   <Button
 variant="contained"
 onClick={() => {
-  OnChangeHandler(absence._id, "Refusé", item.user._id, motif);
+  OnChangeHandler(absence._id, "Refusé", item.user._id, motif, item.user.matricule);
   closeRefuseModal();
 }}
 >
@@ -289,7 +291,7 @@ Soumettre
                       )
                     ) : (
                       <tr>
-                        <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
+                        <td colSpan="10" style={{ textAlign: "center", padding: "1em" }}>
                           Il n'y a pas d'absence en attente.
                         </td>
                       </tr>
@@ -309,7 +311,7 @@ Soumettre
                       </tr>
                     </tbody>
                       <tr>
-                         <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >
+                         <td colSpan="10" style={{ textAlign: "center", padding: "1em" }} >
                           Il n'y a pas d'absence en attente.
                          </td>
                       </tr>
