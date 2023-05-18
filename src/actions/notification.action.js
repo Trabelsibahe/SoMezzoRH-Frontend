@@ -85,7 +85,27 @@ export const GetNotificationAction = () => dispatch => {
       }
     }
   }
+//envoyer jouranl to expert seulment 
+ export const sendNotificationToExperts = (data) => {
+  return async dispatch => {
+    dispatch({ type: notificationConstants.CREATE_JOURNAL })
+    try {
+      const res = await axios.post('http://127.0.0.1:3030/api/journal/expert', data)
+      if (res.status === 200) {
+        dispatch({
+          type: notificationConstants.CREATE_JOURNAL,
+          payload: { createdNotification: res.data }
+        })
 
+      }
+    } catch (err) {
+      dispatch({
+        type: notificationConstants.JOURNAL_ERRORS,
+        payload: err.response.data
+      })
+    }
+  }
+}
  // Envoyer la notification à une utilisateur specifique
   export const SendNotificationToOneUser = (userId, data) => {
     return async dispatch => {

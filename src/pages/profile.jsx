@@ -12,7 +12,7 @@ import altAvatar from "../assets/images/avatar.avif"
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import formatDate from "../components/formatdate";
 import { Navigate } from "react-router-dom";
-import { SendNotificationToOneUser } from "../actions/notification.action";
+import { sendNotificationToExperts } from "../actions/notification.action";
 
 const style = {
   color: "#151582;",
@@ -124,7 +124,7 @@ const editUser = async () => {
   };
 
   await dispatch(EditMyProfileAction(data));
-  await dispatch(SendNotificationToOneUser(id, notification));
+  await dispatch(sendNotificationToExperts(notification));
   await dispatch(GetProfileAction());
   await dispatch(GetProfileAction());
   await dispatch(GetProfileAction());
