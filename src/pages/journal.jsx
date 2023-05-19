@@ -95,8 +95,7 @@ function Journal() {
               notifications.map((item) =>
                 item.notifications.map((notification) => (
                   <p className="notification_message" key={notification._id}>
-                    {formatDate(notification.creationDate)}{" - "}
-                    {notification.journal}
+                    {notification.journal ? formatDate(notification.creationDate)+" - ": ""} {notification.journal}
                   </p>
                 ))
               )
