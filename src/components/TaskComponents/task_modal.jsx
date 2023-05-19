@@ -18,7 +18,10 @@ import { useDispatch, useSelector } from "react-redux";
 import formatDate from "../../components/formatdate";
 import Classnames from "classnames";
 import "../../assets/styles/register.css";
-import { SendNotificationToOneUser } from "../../actions/notification.action";
+import {
+  SendNotificationToOneUser,
+  sendNotificationToExperts,
+} from "../../actions/notification.action";
 import { GetOperaAction } from "../../actions/operation.action";
 import { useEffect, useState } from "react";
 
@@ -36,8 +39,19 @@ const style = {
 
 export default function Add_Task_Modal() {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const opera = useSelector((state) => state.operation.operation);
   const errors = useSelector((state) => state.errors);
+
+  const CurrentUser = {
+    isConnected: auth.isConnected,
+    nom: auth.user.nom,
+    prenom: auth.user.prenom,
+    matricule: auth.user.matricule,
+    role: auth.user.role,
+    operation: auth.user.operation,
+    active: auth.user.active,
+  };
   const [open, setOpen] = React.useState(false);
   const TaskHandleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -49,11 +63,19 @@ export default function Add_Task_Modal() {
     })();
   }, [dispatch]);
 
+  const NotifyExpert = () => {
+    const journalisation = {
+      journal: `Le responsable RH Opérationnel "${CurrentUser.operation}" a ajouté un nouveau challenge.`,
+    };
+    dispatch(sendNotificationToExperts(journalisation));
+
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
     const notification = {
       message: "Un nouveau Challenge est disponible découvrez-le.",
     };
+    await NotifyExpert();
     await dispatch(AddChallenge(form));
     opera.forEach((item) => {
       dispatch(SendNotificationToOneUser(item.user._id, notification));
