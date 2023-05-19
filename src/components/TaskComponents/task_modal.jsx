@@ -21,7 +21,6 @@ import "../../assets/styles/register.css";
 import { SendNotificationToOneUser } from "../../actions/notification.action";
 import { GetOperaAction } from "../../actions/operation.action";
 import { useEffect, useState } from "react";
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -64,7 +63,7 @@ export default function Add_Task_Modal() {
     <div>
       <div className="task_add_card" onClick={TaskHandleOpen}>
         <AddIcon className="task_add_icon" />
-        <p className="task_add_name">Ajouter une tâche</p>
+        <p className="task_add_name">Ajouter une challenge</p>
         <p className="task_add_desc">
           Ajoutez une tâche pour votre équipe opérationnelle.
         </p>
@@ -86,7 +85,7 @@ export default function Add_Task_Modal() {
                   color: "#151582",
                 }}
               >
-                Ajouter une tache
+                Ajouter une challenge
               </h5>
               <div
                 style={{
@@ -107,11 +106,11 @@ export default function Add_Task_Modal() {
                     })}
                     variant="outlined"
                     size="medium"
-                    label="Nom de tache"
+                    label="Nom de challenge"
                     type="text"
                     fullWidth
                   />
-                  {errors.titre && (
+                 {errors.titre && (
                     <div className="invalid-feedback">{errors.titre}</div>
                   )}
                 </Form.Group>
@@ -147,6 +146,9 @@ export default function Add_Task_Modal() {
                     onChange={(event) =>
                       setForm({ ...form, description: event.target.value })
                     }
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.description,
+                    })}
                     variant="outlined"
                     size="medium"
                     label="Description"
@@ -154,10 +156,13 @@ export default function Add_Task_Modal() {
                     type="text"
                     fullWidth
                   />
+                    {errors.description && (
+                    <div className="invalid-feedback">{errors.description}</div>
+                  )}
                 </Form.Group>
               </div>
               <FormHelperText sx={{ padding: "0.5em" }}>
-                Choisissez la période de la tâche, veuillez noter que la tâche
+                Choisissez la période de la challenge, veuillez noter que la challenge
                 sera supprimée automatiquement.
               </FormHelperText>
               <div
@@ -172,7 +177,7 @@ export default function Add_Task_Modal() {
                     id="outlined-basic"
                     variant="outlined"
                     size="small"
-                    label="Date de debut de période d'absence"
+                    label="Date de debut de période de challange"
                     type="date"
                     name="dateCreation"
                     disablePast={true}
@@ -186,11 +191,11 @@ export default function Add_Task_Modal() {
                         dateCreation: formatDate(dateCreation),
                       });
                     }}
+                    onError={errors.dateCreation}
+
                   />
                   {errors.dateCreation && (
-                    <div className="invalid-feedback">
-                      {errors.dateCreation}
-                    </div>
+                    <div className="invalid-feedback">{errors.dateCreation}</div>
                   )}
                 </Form.Group>
                 <Form.Group className="mb-4">
@@ -199,7 +204,7 @@ export default function Add_Task_Modal() {
                     variant="outlined"
                     size="small"
                     disablePast
-                    label="Date de fin de période d'absence"
+                    label="Date de fin de période de challenge"
                     type="date"
                     name="dateSuppression"
                     className={Classnames("w-100", {
@@ -214,10 +219,8 @@ export default function Add_Task_Modal() {
                     }
                     onError={errors.dateSuppression}
                   />
-                  {errors.dateSuppression && (
-                    <div className="invalid-feedback">
-                      {errors.dateSuppression}
-                    </div>
+                   {errors.dateSuppression && (
+                    <div className="invalid-feedback">{errors.dateSuppression}</div>
                   )}
                 </Form.Group>
               </div>

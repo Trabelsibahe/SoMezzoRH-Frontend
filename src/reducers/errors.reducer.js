@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { authConstants, profileConstants, absenceConstants, operaConstants, demandeConstants, newsConstants } from "../actions/constantes";
+import { authConstants, profileConstants, absenceConstants, operaConstants, demandeConstants, newsConstants,ChallengeConstants } from "../actions/constantes";
 
 
 const initialState = {};
@@ -20,6 +20,8 @@ export default function (state = initialState, action) {
     case demandeConstants.ADD_DEMANDE_FAILURE:
       return action.payload;
       case newsConstants.ADD_NEWS_FAILURE:
+      return action.payload;
+      case ChallengeConstants.ADD_Challenge_FAILURE:
       return action.payload;
     default:
       return state;
