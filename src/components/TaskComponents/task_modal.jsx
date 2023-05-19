@@ -13,7 +13,7 @@ import { Form, Container, Stack } from "react-bootstrap";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AddTask } from "../../actions/task.action";
+import { AddChallenge } from "../../actions/Challenge.action";
 import { useDispatch, useSelector } from "react-redux";
 import formatDate from "../../components/formatdate";
 import Classnames from "classnames";
@@ -54,7 +54,7 @@ export default function Add_Task_Modal() {
     const notification = {
       message: "Un nouveau Challenge est disponible découvrez-le.",
     };
-    await dispatch(AddTask(form));
+    await dispatch(AddChallenge(form));
     opera.forEach((item) => {
       dispatch(SendNotificationToOneUser(item.user._id, notification));
     });

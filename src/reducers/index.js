@@ -6,7 +6,7 @@ import archiveReducer from './archive.reducer';
 import newsReduce from './news.reduce';
 import absenceReducer from './absence.reducer';
 import operationReducer from './operation.reducer';
-import taskReducer from "./task.reducer";
+import taskReducer from "./Challenge.reducer";
 import demandeReducer from './demande.reducer';
 import notificationReducer from './notification.reducer';
 

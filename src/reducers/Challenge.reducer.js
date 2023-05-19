@@ -1,4 +1,4 @@
-import { taskConstants } from "../actions/constantes";
+import { ChallengeConstants } from "../actions/constantes";
 
 const intitialState = {
  tasks: [],
@@ -7,18 +7,18 @@ const intitialState = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = intitialState, action) {
   switch (action.type) {
-    case taskConstants.GET_ALL_TASK:
+    case ChallengeConstants.GET_ALL_Challenge:
         return {
             ...state,
             tasks: action.payload,
           };
 
-      case taskConstants.TASK_ERRORS : 
+      case ChallengeConstants.Challenge_ERRORS : 
       state = {
         ...state,
         message : action.payload.message
       }
-      case taskConstants.ADD_TASK_FAILURE : 
+      case ChallengeConstants.ADD_Challenge_FAILURE : 
       state = {
         ...state,
         message : action.payload.message

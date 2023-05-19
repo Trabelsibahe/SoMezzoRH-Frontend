@@ -70,7 +70,7 @@ function TasksPage() {
       <div className="rrh_container">
         <div className="page_name">
           Pages / Mon espace{" "}
-          <p style={{ fontWeight: "bold", fontSize: "14px" }}>Taches & Challenges</p>
+          <p style={{ fontWeight: "bold", fontSize: "14px" }}> Challenges</p>
         </div>
 
         <div className="rrh_header">
@@ -81,7 +81,7 @@ function TasksPage() {
           <Divider orientation="vertical" flexItem></Divider>
             <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/taches"><Button variant="outlined" size="large" sx={style}>Taches & challenges</Button></a>
+            <a className="rrh_header_navs" href="/monespace/Challenges"><Button variant="outlined" size="large" sx={style}> challenges</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
           <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
@@ -89,13 +89,13 @@ function TasksPage() {
 
         <div className="rrh_body">
           <div className="rrh_infos">
-            <p className="rrh_info">Taches & Challenges</p>
+            <p className="rrh_info">Challenges</p>
             { !Show_RrhCalendar ?
             <Button variant="outlined" sx={style2}  size="small" startIcon={<CalendarMonthIcon />}
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>
                : 
             <Button variant="outlined" sx={style2}  size="small" startIcon={<KeyboardReturnIcon/>} 
-              href="/monespace/taches">Retour</Button>}
+              href="/monespace/Challenges">Retour</Button>}
           </div>
 
 

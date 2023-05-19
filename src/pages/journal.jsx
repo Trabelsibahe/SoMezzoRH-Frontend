@@ -62,9 +62,9 @@ function Journal() {
             </Button>
           </a>
           <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/expertrh/taches">
+          <a className="rrh_header_navs" href="/monespace/expertrh/Challenges">
             <Button variant="outlined" size="large" sx={style}>
-              Taches
+            Challenges
             </Button>
           </a>
           <Divider orientation="vertical" flexItem></Divider>

@@ -5,7 +5,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { IconButton } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { GetAllTask, supprimerTask } from "../../actions/task.action";
+import { GetAllChallenge, supprimerChallenge } from "../../actions/Challenge.action";
 import formatDate from "../formatdate";
 import { Collapse, Button } from "@mui/material";
 
@@ -18,12 +18,12 @@ function Calendar() {
   const tasks = useSelector((state) => state.task.tasks);
  
   useEffect(() => {
-    dispatch(GetAllTask());
+    dispatch(GetAllChallenge());
   }, [dispatch]);
 
 
   useEffect(() => {
-    dispatch(supprimerTask());
+    dispatch(supprimerChallenge());
   }, []);
 
   

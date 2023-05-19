@@ -14,7 +14,7 @@ import RrhCalendar from "../components/TaskComponents/rrhcalendar";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
-import { GetAllTaskExpert} from "../actions/task.action";
+import { GetAllChallengeExpert} from "../actions/Challenge.action";
 import ExpertCalendar from "../components/TaskComponents/expertcalendar";
 
 const style2 = {
@@ -62,7 +62,7 @@ function ExpertTasksPage() {
   const onClick_ShowRRHCalendar = () => setShow_RrhCalendar(true);
 
   useEffect(() => {
-    dispatch(GetAllTaskExpert());
+    dispatch(GetAllChallengeExpert());
   }, [dispatch]);
 
 
@@ -79,7 +79,7 @@ function ExpertTasksPage() {
       <div className="rrh_container">
         <div className="page_name">
           Pages / Mon espace{" "}
-          <p style={{ fontWeight: "bold", fontSize: "14px" }}>Taches & Challenges</p>
+          <p style={{ fontWeight: "bold", fontSize: "14px" }}> Challenges</p>
         </div>
 
         <div className="rrh_header">
@@ -90,7 +90,7 @@ function ExpertTasksPage() {
           <Divider orientation="vertical" flexItem></Divider>
             <a className="rrh_header_navs" href="/expertrh"><Button variant="outlined" size="large" sx={style}>Espace Expert</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/expertrh/taches"><Button variant="outlined" size="large" sx={style}>Taches</Button></a>
+            <a className="rrh_header_navs" href="/monespace/expertrh/Challenges"><Button variant="outlined" size="large" sx={style}>Challenges</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
           <a className="rrh_header_navs" href="/monespace/expertrh/demandes"><Button  variant="outlined" size="large" sx={style}>Demandes</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
@@ -100,13 +100,13 @@ function ExpertTasksPage() {
 
         <div className="rrh_body">
           <div className="rrh_infos">
-            <p className="rrh_info">Taches & Challenges</p>
+            <p className="rrh_info"> Challenges</p>
             { !Show_RrhCalendar ?
             <Button variant="outlined" sx={style2}  size="small" startIcon={<CalendarMonthIcon />}
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>
                : 
             <Button variant="outlined" sx={style2}  size="small" startIcon={<KeyboardReturnIcon/>} 
-              href="/monespace/expertrh/taches">Retour</Button>}
+              href="/monespace/expertrh/Challenges">Retour</Button>}
           </div>
 
           {Show_RrhCalendar ? <ExpertCalendar/> : (

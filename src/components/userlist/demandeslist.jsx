@@ -1,6 +1,11 @@
 import React from "react";
 import "../../assets/styles/absencelist.css";
-import {listerdemandeExpert, updateBadge, updateAttestation,updateRDv} from "../../actions/demande.action";
+import {
+  listerdemandeExpert,
+  updateBadge,
+  updateAttestation,
+  updateRDv,
+} from "../../actions/demande.action";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
@@ -10,12 +15,11 @@ import Modal from "react-bootstrap/Modal";
 import "@mui/icons-material/OutlinedFlag";
 import "@mui/icons-material/CheckCircleOutline";
 import Form from "react-bootstrap/Form";
-import { Button } from '@mui/material';
+import { Button } from "@mui/material";
 import { SendNotificationToOneUser } from "../../actions/notification.action";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
 
 function DemandesList() {
   const dispatch = useDispatch();
@@ -48,19 +52,18 @@ function DemandesList() {
   };
   const closeCalendrierModal = () => {
     setCalendrierlOpen(false);
-    setRdv(""); 
+    setRdv("");
   };
-  
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleCloseEdit = () => setEdit(false);
 
-
   const handleShowEdit = (demande, action, userId, matricule) => {
     setId(demande._id);
     setEtat(demande.etat);
-    editetat(action,userId, matricule);
+    editetat(action, userId, matricule);
     setEdit(true);
   };
   let action = "";
@@ -78,8 +81,7 @@ function DemandesList() {
     };
     const notification = {
       message: "l'Expert RH a accordé votre Badge",
-      journal: `La demande de badge sous le matricule "${matricule}" a été accordée.`
-
+      journal: `La demande de badge sous le matricule "${matricule}" a été accordée.`,
     };
     await dispatch(updateBadge(id, data));
     await dispatch(SendNotificationToOneUser(userId, notification));
@@ -88,62 +90,59 @@ function DemandesList() {
     setEtat(newEtat);
   };
 
-const [att, setAtt] = useState(false);
-const handleCloseAtt = () => setAtt(false);
+  const [att, setAtt] = useState(false);
+  const handleCloseAtt = () => setAtt(false);
 
-const handleShowAtt = (id, userId) => {
-  demandes.forEach((demande) => {
-    if (demande._id === id) {
-      setId(demande._id);
-      setAttestation(demande.attestation);
-      setUserId(userId); 
+  const handleShowAtt = (id, userId) => {
+    demandes.forEach((demande) => {
+      if (demande._id === id) {
+        setId(demande._id);
+        setAttestation(demande.attestation);
+        setUserId(userId);
+      }
+    });
+    setAtt(true);
+  };
+
+  const [error, setError] = useState("");
+
+  const editattestation = async (matricule) => {
+    const data = new FormData();
+    setAttestation("");
+    data.append("attestation", attestation);
+    if (attestation === "" || attestation === undefined) {
+      setError("Veuillez charger l'attestation.");
+    } else {
+      data.append("etat", "Accordé");
+
+      const notification = {
+        message: "l'Expert RH a accordé votre Attestation.",
+        journal: `La demande d'attestation sous le matricule "${matricule}" a été accordée.`,
+      };
+
+      await dispatch(updateAttestation(id, data));
+      await dispatch(SendNotificationToOneUser(userId, notification));
+      await dispatch(listerdemandeExpert());
+      await dispatch(listerdemandeExpert());
+      handleCloseAtt();
+      setAttestation("");
     }
-  });
-  setAtt(true);
-};
+  };
 
-const [error, setError] = useState("");
-
-
-const editattestation = async (matricule) => {
-  const data = new FormData();
-  setAttestation("");
-  data.append("attestation", attestation);
-  if (attestation === "" || attestation === undefined) {
-    setError("Veuillez charger l'attestation.");
-  }
-  else {
-    data.append("etat", "Accordé");
-    
-    const notification = {
-      message: "l'Expert RH a accordé votre Attestation.",
-      journal: `La demande d'attestation sous le matricule "${matricule}" a été accordée.`
+  const editRdv = async (id, action, userId, rdv, matricule) => {
+    const data = {
+      etat: action,
+      rdv: rdv,
     };
-
-    await dispatch(updateAttestation(id, data));
+    const notification = {
+      message: "l'expert RH a " + data.etat + " votre demande.",
+      journal: `La demande de RDV avec le Medecin sous le matricule "${matricule}" a été ${data.etat}.`,
+    };
+    await dispatch(updateRDv(id, data));
     await dispatch(SendNotificationToOneUser(userId, notification));
     await dispatch(listerdemandeExpert());
-    await dispatch(listerdemandeExpert());
-    handleCloseAtt();
-    setAttestation("");
-  }
-}
-
-const editRdv = async (id, action, userId, rdv, matricule) => {
-  const data = {
-    etat: action,
-    rdv: rdv
+    await dispatch(closeCalendrierModal());
   };
-  const notification = {
-    message: "l'expert RH a "+ data.etat +" votre demande.",
-    journal: `La demande de RDV avec le Medecin sous le matricule "${matricule}" a été ${data.etat}.`
-
-  };
-  await dispatch(updateRDv(id, data));
-  await dispatch(SendNotificationToOneUser(userId, notification));
-  await dispatch(listerdemandeExpert());
-  await dispatch(closeCalendrierModal());
-};
 
   const [search, setSearch] = useState("");
   const handleSearch = (event) => {
@@ -172,11 +171,11 @@ const editRdv = async (id, action, userId, rdv, matricule) => {
     return false;
   });
 
-
-
   return (
     <div className="rrh_body2">
-      <p className="rrh_info">Les demandes d'attestations, badges ou RDV avec le médecin</p>
+      <p className="rrh_info">
+        Les demandes d'attestations, badges ou RDV avec le médecin
+      </p>
       <InputBase
         className="searchbar"
         placeholder="Rechercher.."
@@ -206,139 +205,204 @@ const editRdv = async (id, action, userId, rdv, matricule) => {
             {filteredemande.some(() =>
               demandes.some((demande) => demande.etat === "en attente")
             ) ? (
-              demandes.map((demande) => demande.etat === "en attente" && (
-                      <tr key={demande._id}>
-                        <td>{new Date(demande.createdAt).toLocaleDateString()}</td>
+              demandes.map(
+                (demande) =>
+                  demande.etat === "en attente" && (
+                    <tr key={demande._id}>
+                      <td>
+                        {new Date(demande.createdAt).toLocaleDateString()}
+                      </td>
 
-                        <td>
-                          ({demande.user.matricule}) {demande.user.nom}{" "}
-                          {demande.user.prenom}
-                        </td>
-                        <td>{demande.type}</td>
-                        <td>
-                          {demande.commentaire
-                            ? demande.commentaire
-                            : "Aucun commentaire"}
-                        </td>
-                        <td style={{ color: "orangered" }}>{demande.etat}</td>
+                      <td>
+                        ({demande.user.matricule}) {demande.user.nom}{" "}
+                        {demande.user.prenom}
+                      </td>
+                      <td>{demande.type}</td>
+                      <td>
+                        {demande.commentaire
+                          ? demande.commentaire
+                          : "Aucun commentaire"}
+                      </td>
+                      <td style={{ color: "orangered" }}>{demande.etat}</td>
 
-                        <td>
-  {demande.type === "Badge" ? (
-    <Button
-      variant="outlined"
-      color="success"
-      size="small"
-      onClick={() => {
-        if (window.confirm("Voulez-vous vraiment accorder ce badge?")) {
-          handleShowEdit(demande, "Accordé", demande.user._id, demande.user.matricule);
-        }
-      }}
-    >
-      Accorder
-    </Button>
-  ) : demande.type === "RDV Médecin" ? (
-    <>
-    <Button
-  variant="outlined"
-  color="success"
-  size="small"
-  onClick={() => {
-    if (window.confirm("Voulez-vous vraiment accepter cette demande de RDV?")) {
-      openCalendrierModal(demande._id);
-    }
-  }}
->
-  Accepter
-</Button>
-<Modal show={isCalendrierlOpen} onHide={closeCalendrierModal}>
-  <Modal.Header closeButton>
-    <Modal.Title>RDV Médecin</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-  <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <Form.Group className="mb-4">
-      <DatePicker
-        id="outlined-basic"
-        variant="outlined"
-        size="small"
-        label="Date de RDV"
-        value={rdv}
-        onChange={(date) => setRdv(date)}
-      />
-    </Form.Group>
-    </LocalizationProvider>
-  </Modal.Body>
-  <Modal.Footer>
-    <Button
-      variant="contained"
-      onClick={() => {
-        if (demande && demande._id && demande.user && demande.user._id && rdv && demande.user.matricule) {
-          editRdv(demande._id, "Accepter",demande.user._id, rdv, demande.user.matricule);
-          closeCalendrierModal();
-        }
-      }}
-    >
-      Soumettre
-    </Button>
-    <Button variant="secondary" onClick={closeCalendrierModal}>
-      Fermer
-    </Button>
-  </Modal.Footer>
-</Modal>
+                      <td>
+                        {demande.type === "Badge" ? (
+                          <Button
+                            variant="outlined"
+                            color="success"
+                            size="small"
+                            onClick={() => {
+                              if (
+                                window.confirm(
+                                  "Voulez-vous vraiment accorder ce badge?"
+                                )
+                              ) {
+                                handleShowEdit(
+                                  demande,
+                                  "Accordé",
+                                  demande.user._id,
+                                  demande.user.matricule
+                                );
+                              }
+                            }}
+                          >
+                            Accorder
+                          </Button>
+                        ) : demande.type === "RDV Médecin" ? (
+                          <>
+                            <Button
+                              variant="outlined"
+                              color="success"
+                              size="small"
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Voulez-vous vraiment Accorder cette demande de RDV?"
+                                  )
+                                ) {
+                                  openCalendrierModal(demande._id);
+                                }
+                              }}
+                            >
+                              Accorder
+                            </Button>
+                            <Modal
+                              show={isCalendrierlOpen}
+                              onHide={closeCalendrierModal}
+                            >
+                              <Modal.Header closeButton>
+                                <Modal.Title>RDV Médecin</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <LocalizationProvider
+                                  dateAdapter={AdapterDayjs}
+                                >
+                                  <Form.Group className="mb-4">
+                                    <DatePicker
+                                      id="outlined-basic"
+                                      variant="outlined"
+                                      size="small"
+                                      label="Date de RDV"
+                                      value={rdv}
+                                      onChange={(date) => setRdv(date)}
+                                    />
+                                  </Form.Group>
+                                </LocalizationProvider>
+                              </Modal.Body>
+                              <Modal.Footer>
+                                <Button
+                                  variant="contained"
+                                  onClick={() => {
+                                    if (
+                                      demande &&
+                                      demande._id &&
+                                      demande.user &&
+                                      demande.user._id &&
+                                      rdv
+                                    ) {
+                                      editRdv(
+                                        demande._id,
+                                        "Accordé",
+                                        demande.user._id,
+                                        rdv
+                                      );
+                                      closeCalendrierModal();
+                                    }
+                                  }}
+                                >
+                                  Soumettre
+                                </Button>
+                                <Button
+                                  variant="secondary"
+                                  onClick={closeCalendrierModal}
+                                >
+                                  Fermer
+                                </Button>
+                              </Modal.Footer>
+                            </Modal>
 
-      <Button
-     variant="outlined"
-     color="error"
-     size="small"
-     onClick={() => {
-      if (window.confirm("Voulez-vous vraiment Refuser cette demande de RDV?")) {
-        editRdv(demande._id, "Refusé", demande.user._id , rdv, demande.user.matricule);
-      }
-    }}
-    >
-      Refuser
-    </Button>
-    </>
-  ) : (
-    <Button
-      variant="outlined"
-      color="success"
-      size="small"
-      onClick={() => handleShowAtt(demande._id, demande.user._id)}
-    >
-      Accorder
-    </Button>
-  )}
-        <Modal show={att} onHide={handleCloseAtt}>
-        <Modal.Header closeButton>
-          <Modal.Title>Accorder l'attestation </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {" "}
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Charger l'attestation</Form.Label>
-              <input
-                type="file"  accept="image/*"
-                name="attestation"
-                onChange={(e) => setAttestation(e.target.files[0])}/>
-            </Form.Group>
-            <p style={{color:"red", textAlign:"center"}}>{error}</p>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseAtt}>Annuler</Button>
-          <Button variant="primary" onClick={() => editattestation(demande.user.matricule)}>
-            Accorder
-          </Button>
-        </Modal.Footer>
-      </Modal>
-</td>
-
-                      </tr>
-                      
-                    )
-                )
+                            <Button
+                              variant="outlined"
+                              color="error"
+                              size="small"
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Voulez-vous vraiment Refuser cette demande de RDV?"
+                                  )
+                                ) {
+                                  editRdv(
+                                    demande._id,
+                                    "Refusé",
+                                    demande.user._id,
+                                    rdv,
+                                    demande.user.matricule
+                                  );
+                                }
+                              }}
+                            >
+                              Refuser
+                            </Button>
+                          </>
+                        ) : (
+                          <Button
+                            variant="outlined"
+                            color="success"
+                            size="small"
+                            onClick={() =>
+                              handleShowAtt(demande._id, demande.user._id)
+                            }
+                          >
+                            Accorder
+                          </Button>
+                        )}
+                        <Modal show={att} onHide={handleCloseAtt}>
+                          <Modal.Header closeButton>
+                            <Modal.Title>Accorder l'attestation </Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            {" "}
+                            <Form>
+                              <Form.Group
+                                className="mb-3"
+                                controlId="formBasicPassword"
+                              >
+                                <Form.Label>Charger l'attestation</Form.Label>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  name="attestation"
+                                  onChange={(e) =>
+                                    setAttestation(e.target.files[0])
+                                  }
+                                />
+                              </Form.Group>
+                              <p style={{ color: "red", textAlign: "center" }}>
+                                {error}
+                              </p>
+                            </Form>
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <Button
+                              variant="secondary"
+                              onClick={handleCloseAtt}
+                            >
+                              Annuler
+                            </Button>
+                            <Button
+                              variant="primary"
+                              onClick={() =>
+                                editattestation(demande.user.matricule)
+                              }
+                            >
+                              Accorder
+                            </Button>
+                          </Modal.Footer>
+                        </Modal>
+                      </td>
+                    </tr>
+                  )
+              )
             ) : (
               <tr>
                 <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
@@ -359,11 +423,11 @@ const editRdv = async (id, action, userId, rdv, matricule) => {
               <th>Actions</th>
             </tr>
             <tr>
-                <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
-                  Pas de demandes en liste d'attente.
-                </td>
-              </tr>
-            </tbody>
+              <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
+                Pas de demandes en liste d'attente.
+              </td>
+            </tr>
+          </tbody>
         </table>
       )}
     </div>
