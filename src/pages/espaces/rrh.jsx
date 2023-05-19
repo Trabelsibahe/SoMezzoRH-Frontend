@@ -124,7 +124,7 @@ function RRH_Page() {
           <Divider orientation="vertical" flexItem></Divider>
             <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/taches"><Button variant="outlined" size="large" sx={style}>Taches & challenges</Button></a>
+            <a className="rrh_header_navs" href="/monespace/Challenges"><Button variant="outlined" size="large" sx={style}> challenges</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
           <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
           <Divider orientation="vertical" flexItem></Divider>

@@ -7,7 +7,7 @@ import MoreHorizTwoToneIcon from "@mui/icons-material/MoreHorizTwoTone";
 import AddIcon from "@mui/icons-material/Add";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { GetAllTask,supprimerTask } from "../../actions/task.action";
+import { GetAllChallenge,supprimerChallenge } from "../../actions/Challenge.action";
 import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 
 import Add_Task_Modal from "./task_modal";
@@ -29,10 +29,10 @@ function Tasks() {
 
 
   useEffect(() => {
-    dispatch(GetAllTask());
+    dispatch(GetAllChallenge());
   }, [dispatch]);
   useEffect(() => {
-    dispatch(supprimerTask());
+    dispatch(supprimerChallenge());
   }, [dispatch]);
 
 

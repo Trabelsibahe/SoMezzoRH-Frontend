@@ -234,12 +234,12 @@ const editRdv = async (id, action, userId, rdv) => {
   color="success"
   size="small"
   onClick={() => {
-    if (window.confirm("Voulez-vous vraiment accepter cette demande de RDV?")) {
+    if (window.confirm("Voulez-vous vraiment Accorder cette demande de RDV?")) {
       openCalendrierModal(demande._id);
     }
   }}
 >
-  Accepter
+Accorder
 </Button>
 <Modal show={isCalendrierlOpen} onHide={closeCalendrierModal}>
   <Modal.Header closeButton>
@@ -264,7 +264,7 @@ const editRdv = async (id, action, userId, rdv) => {
       variant="contained"
       onClick={() => {
         if (demande && demande._id && demande.user && demande.user._id && rdv) {
-          editRdv(demande._id, "Accepter",demande.user._id, rdv);
+          editRdv(demande._id, "Accordé",demande.user._id, rdv);
           closeCalendrierModal();
         }
       }}

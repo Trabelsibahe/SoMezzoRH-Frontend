@@ -68,7 +68,7 @@ function EmployePage() {
           <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
           </div>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/emp"><Button variant="outlined" size="large" sx={style}>Taches & challenges</Button></a>
+            <a className="rrh_header_navs" href="/emp"><Button variant="outlined" size="large" sx={style}>challenges</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
             <a className="rrh_header_navs" href="/monespace/mesdemandes"><Button variant="outlined" size="large" sx={style}>Mes demandes</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
@@ -78,7 +78,7 @@ function EmployePage() {
 
         <div className="rrh_body">
           <div className="rrh_infos">
-            <p className="rrh_info">Taches & Challenges</p>
+            <p className="rrh_info">Challenges</p>
             { !Show_RrhCalendar ?
             <Button variant="outlined" sx={style2}  size="small" startIcon={<CalendarMonthIcon />}
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>

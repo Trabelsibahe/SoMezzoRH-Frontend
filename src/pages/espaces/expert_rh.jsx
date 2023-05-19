@@ -65,7 +65,7 @@ function Expert_Rh_Page() {
           <Divider orientation="vertical" flexItem></Divider>
             <a className="rrh_header_navs" href="/expertrh"><Button variant="outlined" size="large" sx={style}>Espace Expert</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/expertrh/taches"><Button variant="outlined" size="large" sx={style}>Taches</Button></a>
+            <a className="rrh_header_navs" href="/monespace/expertrh/Challenges"><Button variant="outlined" size="large" sx={style}>Challenges</Button></a>
           <Divider orientation="vertical" flexItem></Divider>
           <a className="rrh_header_navs" href="/monespace/expertrh/demandes"><Button  variant="outlined" size="large" sx={style}>Demandes</Button></a>
           <Divider orientation="vertical" flexItem></Divider>

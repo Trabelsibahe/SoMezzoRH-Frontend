@@ -124,12 +124,12 @@ function App() {
 
           <Route path="/emp" element={<ActiveRouter user={user}> <EmployePage /></ActiveRouter>}></Route>
           <Route path="/rrh" element={<ActiveRouter user={user}> <RRH_Page /></ActiveRouter>}></Route>
-          <Route path="/monespace/taches" element={<ActiveRouter user={user}> <TasksPage /></ActiveRouter>}></Route>
+          <Route path="/monespace/Challenges" element={<ActiveRouter user={user}> <TasksPage /></ActiveRouter>}></Route>
 
           <Route path="/inactive" element={<InactivePage />}></Route>
           <Route path="/monespace/mesabsences" element={<AbsencesPage />}></Route>
           <Route path="/monespace/mesdemandes" element={<DemandePage />}></Route>
-          <Route path="/monespace/expertrh/taches" element={<ExpertTasksPage />}></Route>
+          <Route path="/monespace/expertrh/Challenges" element={<ExpertTasksPage />}></Route>
           <Route path="/monespace/expertrh/demandes" element={
             <ExpertRouter user={user}> {" "} <ExpertDemandesPage />{" "} </ExpertRouter>} />
           <Route path="/demandearchive" element={<DemandeArchiveList />}></Route>

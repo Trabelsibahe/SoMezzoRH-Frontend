@@ -13,7 +13,7 @@ import { Form, Container, Stack } from "react-bootstrap";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AddTask } from "../../actions/task.action";
+import { AddChallenge } from "../../actions/Challenge.action";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import formatDate from "../../components/formatdate";
@@ -42,7 +42,7 @@ export default function Add_Task_Modal() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(AddTask(form));
+    await dispatch(AddChallenge(form));
       };
 
   return (
