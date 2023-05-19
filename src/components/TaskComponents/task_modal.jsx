@@ -14,11 +14,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AddTask } from "../../actions/task.action";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import formatDate from "../../components/formatdate";
 import Classnames from "classnames";
 import "../../assets/styles/register.css";
+import { SendNotificationToOneUser } from "../../actions/notification.action";
+import { GetOperaAction } from "../../actions/operation.action";
+import { useEffect, useState } from "react";
 
 const style = {
   position: "absolute",
@@ -34,16 +36,29 @@ const style = {
 
 export default function Add_Task_Modal() {
   const dispatch = useDispatch();
+  const opera = useSelector((state) => state.operation.operation);
   const errors = useSelector((state) => state.errors);
   const [open, setOpen] = React.useState(false);
   const TaskHandleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [form, setForm] = useState({});
 
+  useEffect(() => {
+    (() => {
+      dispatch(GetOperaAction());
+    })();
+  }, [dispatch]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
+    const notification = {
+      message: "Un nouveau Challenge est disponible découvrez-le.",
+    };
     await dispatch(AddTask(form));
-      };
+    opera.forEach((item) => {
+      dispatch(SendNotificationToOneUser(item.user._id, notification));
+    });
+  };
 
   return (
     <div>
@@ -152,7 +167,7 @@ export default function Add_Task_Modal() {
                   columnGap: "1em",
                 }}
               >
-                 <Form.Group className="mb-4">
+                <Form.Group className="mb-4">
                   <DatePicker
                     id="outlined-basic"
                     variant="outlined"
@@ -166,11 +181,16 @@ export default function Add_Task_Modal() {
                       "is-invalid": errors.dateCreation,
                     })}
                     onChange={(dateCreation) => {
-                      setForm({ ...form, dateCreation: formatDate(dateCreation) });
+                      setForm({
+                        ...form,
+                        dateCreation: formatDate(dateCreation),
+                      });
                     }}
                   />
                   {errors.dateCreation && (
-                    <div className="invalid-feedback">{errors.dateCreation}</div>
+                    <div className="invalid-feedback">
+                      {errors.dateCreation}
+                    </div>
                   )}
                 </Form.Group>
                 <Form.Group className="mb-4">
@@ -187,12 +207,17 @@ export default function Add_Task_Modal() {
                     })}
                     value={form.dateSuppression}
                     onChange={(dateSuppression) =>
-                      setForm({ ...form, dateSuppression: formatDate(dateSuppression) })
+                      setForm({
+                        ...form,
+                        dateSuppression: formatDate(dateSuppression),
+                      })
                     }
                     onError={errors.dateSuppression}
                   />
                   {errors.dateSuppression && (
-                    <div className="invalid-feedback">{errors.dateSuppression}</div>
+                    <div className="invalid-feedback">
+                      {errors.dateSuppression}
+                    </div>
                   )}
                 </Form.Group>
               </div>

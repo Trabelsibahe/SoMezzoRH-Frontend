@@ -57,10 +57,10 @@ function DemandesList() {
   const handleCloseEdit = () => setEdit(false);
 
 
-  const handleShowEdit = (demande, action, userId) => {
+  const handleShowEdit = (demande, action, userId, matricule) => {
     setId(demande._id);
     setEtat(demande.etat);
-    editetat(action,userId);
+    editetat(action,userId, matricule);
     setEdit(true);
   };
   let action = "";
@@ -71,13 +71,15 @@ function DemandesList() {
     }
   }, [edit, action]);
 
-  const editetat = async (action, userId) => {
+  const editetat = async (action, userId, matricule) => {
     let newEtat = action;
     const data = {
       etat: "Accordé",
     };
     const notification = {
       message: "l'Expert RH a accordé votre Badge",
+      journal: `La demande de badge sous le matricule "${matricule}" a été accordée.`
+
     };
     await dispatch(updateBadge(id, data));
     await dispatch(SendNotificationToOneUser(userId, notification));
@@ -85,7 +87,8 @@ function DemandesList() {
     handleCloseEdit();
     setEtat(newEtat);
   };
-  const [att, setAtt] = useState(false);
+
+const [att, setAtt] = useState(false);
 const handleCloseAtt = () => setAtt(false);
 
 const handleShowAtt = (id, userId) => {
@@ -101,16 +104,20 @@ const handleShowAtt = (id, userId) => {
 
 const [error, setError] = useState("");
 
-const editattestation = async () => {
-  const data = new FormData();
-  data.append("attestation", attestation);
-  if (attestation === undefined) {
-    setError("Veuillez charger l'attestation.");
-  } else {
-    data.append("etat", "Accordé");
 
+const editattestation = async (matricule) => {
+  const data = new FormData();
+  setAttestation("");
+  data.append("attestation", attestation);
+  if (attestation === "" || attestation === undefined) {
+    setError("Veuillez charger l'attestation.");
+  }
+  else {
+    data.append("etat", "Accordé");
+    
     const notification = {
-      message: "l'Expert RH a accordé votre Attestation",
+      message: "l'Expert RH a accordé votre Attestation.",
+      journal: `La demande d'attestation sous le matricule "${matricule}" a été accordée.`
     };
 
     await dispatch(updateAttestation(id, data));
@@ -120,15 +127,17 @@ const editattestation = async () => {
     handleCloseAtt();
     setAttestation("");
   }
-};
+}
 
-const editRdv = async (id, action, userId, rdv) => {
+const editRdv = async (id, action, userId, rdv, matricule) => {
   const data = {
     etat: action,
     rdv: rdv
   };
   const notification = {
-    message: "l'expert RH a "+ data.etat +" votre RDV avec le médecin",
+    message: "l'expert RH a "+ data.etat +" votre demande.",
+    journal: `La demande de RDV avec le Medecin sous le matricule "${matricule}" a été ${data.etat}.`
+
   };
   await dispatch(updateRDv(id, data));
   await dispatch(SendNotificationToOneUser(userId, notification));
@@ -221,7 +230,7 @@ const editRdv = async (id, action, userId, rdv) => {
       size="small"
       onClick={() => {
         if (window.confirm("Voulez-vous vraiment accorder ce badge?")) {
-          handleShowEdit(demande, "Accordé", demande.user._id);
+          handleShowEdit(demande, "Accordé", demande.user._id, demande.user.matricule);
         }
       }}
     >
@@ -263,8 +272,8 @@ const editRdv = async (id, action, userId, rdv) => {
     <Button
       variant="contained"
       onClick={() => {
-        if (demande && demande._id && demande.user && demande.user._id && rdv) {
-          editRdv(demande._id, "Accepter",demande.user._id, rdv);
+        if (demande && demande._id && demande.user && demande.user._id && rdv && demande.user.matricule) {
+          editRdv(demande._id, "Accepter",demande.user._id, rdv, demande.user.matricule);
           closeCalendrierModal();
         }
       }}
@@ -283,7 +292,7 @@ const editRdv = async (id, action, userId, rdv) => {
      size="small"
      onClick={() => {
       if (window.confirm("Voulez-vous vraiment Refuser cette demande de RDV?")) {
-        editRdv(demande._id, "Refusé", demande.user._id , rdv);
+        editRdv(demande._id, "Refusé", demande.user._id , rdv, demande.user.matricule);
       }
     }}
     >
@@ -300,9 +309,34 @@ const editRdv = async (id, action, userId, rdv) => {
       Accorder
     </Button>
   )}
+        <Modal show={att} onHide={handleCloseAtt}>
+        <Modal.Header closeButton>
+          <Modal.Title>Accorder l'attestation </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {" "}
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Charger l'attestation</Form.Label>
+              <input
+                type="file"  accept="image/*"
+                name="attestation"
+                onChange={(e) => setAttestation(e.target.files[0])}/>
+            </Form.Group>
+            <p style={{color:"red", textAlign:"center"}}>{error}</p>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseAtt}>Annuler</Button>
+          <Button variant="primary" onClick={() => editattestation(demande.user.matricule)}>
+            Accorder
+          </Button>
+        </Modal.Footer>
+      </Modal>
 </td>
 
                       </tr>
+                      
                     )
                 )
             ) : (
@@ -332,30 +366,6 @@ const editRdv = async (id, action, userId, rdv) => {
             </tbody>
         </table>
       )}
-      <Modal show={att} onHide={handleCloseAtt}>
-        <Modal.Header closeButton>
-          <Modal.Title>Accorder l'attestation </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {" "}
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Charger l'attestation</Form.Label>
-              <input
-                type="file"  accept="image/*"
-                name="attestation"
-                onChange={(e) => setAttestation(e.target.files[0])}/>
-            </Form.Group>
-            <p style={{color:"red", textAlign:"center"}}>{error}</p>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseAtt}>Annuler</Button>
-          <Button variant="primary" onClick={editattestation}>
-            Accorder
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }

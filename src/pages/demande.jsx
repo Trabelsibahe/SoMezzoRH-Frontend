@@ -32,9 +32,11 @@ function DemandePage() {
     operation: auth.user.operation,
     titre: auth.user.titre,
   };
+
   const reloadPage = () => {
     window.location.reload();
   };
+  
   const [attestation, setAttestation] = useState("");
   const [justification, setJustification] = useState(false);
   const [id, setId] = useState("");

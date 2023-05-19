@@ -119,6 +119,7 @@ const editUser = async () => {
   data.append('operation',operation);
   data.append('titre',titre);
   data.append("id", id);
+  
   const notification = {
     journal: `Le titulaire du compte sous le matricule "${matricule}" a modifié son profil.`
   };
