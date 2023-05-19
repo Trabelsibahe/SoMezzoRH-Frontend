@@ -51,9 +51,9 @@ function Row(accounts, index) {
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0, }} colSpan={8}>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
             <Collapse in={open} timeout="auto" unmountOnExit>
-              <Box sx={{ margin: 1,  }}>
+              <Box sx={{ margin: 1  }}>
                 <Typography variant="h6" gutterBottom component="div">
                 <p className="typo_title">Coordonnées personelles</p>
                 </Typography>
@@ -162,8 +162,8 @@ export default function OperaList() {
       <Paper className="opera_table" sx={{ width: "100%", boxShadow:"none", border:"2px solid #e0e0e0", borderRadius:"0" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
-            <TableHead >
-              <TableRow >
+            <TableHead>
+              <TableRow>
                 <TableCell  align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
                   <span className="opera_table_tr"> Nom </span>
                 </TableCell>
@@ -180,7 +180,7 @@ export default function OperaList() {
               </TableRow>
             </TableHead>
 
-            <TableBody>
+            <TableBody >
               {filteredOperation.map((operaItem, index) => (
                 <Row key={index} operaItem={operaItem} />
               ))}

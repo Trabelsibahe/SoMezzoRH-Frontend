@@ -1,5 +1,5 @@
+import "../../assets/styles/rrh.css";
 import * as React from "react";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -294,61 +294,44 @@ function Row(accounts, index) {
             <IconButton
               aria-label="expand row"
               size="small"
-              onClick={() => setOpen(!open)}
-            >
+              onClick={() => setOpen(!open)} >
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
 
-          <TableCell component="th" scope="row">
-            {" "}
-            {profile.user.nom}{" "}
-          </TableCell>
-          <TableCell> {profile.user.prenom}</TableCell>
-          <TableCell>{profile.user.matricule}</TableCell>
-          <TableCell>{profile.user.operation}</TableCell>
-          <TableCell>
+          <TableCell  align="center">{profile.user.nom}</TableCell>
+          <TableCell  align="center"> {profile.user.prenom}</TableCell>
+          <TableCell  align="center">{profile.user.matricule}</TableCell>
+          <TableCell  align="center">{profile.user.operation}</TableCell>
+          <TableCell  align="center">
             {profile.user.titre ? profile.user.titre : "Aucun titre"}
           </TableCell>
-
-          <TableCell className="expert_role">
+          <TableCell  align="center" className="expert_role">
             {profile.user.role === "EXPERT"
-              ? "RESPONSABLE RH METIER / EXPERT RH"
+              ? "EXPERT RH"
               : profile.user.role === "EMP"
               ? "EMPLOYÉ"
               : profile.user.role === "RRH"
               ? "RESPONSABLE RH OPÉRATIONNEL"
               : null}
           </TableCell>
+         
+          <TableCell align="center">
+          <Button variant="outlined" size="small" color="primary" onClick={() => handleShowEdit(profile._id)} >Modifier </Button>{" "}
+          <Button variant="outlined" size="small" color="error" onClick={() => deleteContact(profile._id)} > Supprimer  </Button>
 
-          <TableCell align="right">
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => handleShowEdit(profile._id)}
-            >
-              {" "}
-              Modifier{" "}
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => deleteContact(profile._id)}
-            >
-              {" "}
-              Supprimer{" "}
-            </Button>
           </TableCell>
         </TableRow>
         <TableRow>
-          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
             <Collapse in={open} timeout="auto" unmountOnExit>
-              <Box sx={{ margin: 1 }}>
+              <Box sx={{ margin: 0  }}>
                 <Typography variant="h6" gutterBottom component="div">
-                  Coordonnées personnelles
+                <p className="typo_title">Coordonnées personelles</p>
                 </Typography>
-                <Table size="small" aria-label="coordonnées">
+                <Table size="medium" aria-label="coordonnées">
                   <TableHead>
-                    <TableRow>
+                    <TableRow sx={{borderBottom:"2px solid white", borderTop:"2px solid white"}}>
                       <TableCell align="center">Pays</TableCell>
                       <TableCell align="center">Gouvernorat</TableCell>
                       <TableCell align="center">Ville</TableCell>
@@ -361,19 +344,15 @@ function Row(accounts, index) {
                   </TableHead>
 
                   <TableBody>
-                    <TableRow>
+                    <TableRow sx={{borderBottom:"2px solid white"}}>
                       <TableCell align="center">{profile.pays}</TableCell>
-                      <TableCell align="center">
-                        {profile.gouvernorat}
-                      </TableCell>
+                      <TableCell align="center">{profile.gouvernorat}</TableCell>
                       <TableCell align="center">{profile.ville}</TableCell>
                       <TableCell align="center">{profile.codepostal}</TableCell>
                       <TableCell align="center">{profile.adresse}</TableCell>
                       <TableCell align="center">{profile.tel}</TableCell>
                       <TableCell align="center">{profile.email}</TableCell>
-                      <TableCell align="center">
-                        {formatDate(profile.datenaiss)}
-                      </TableCell>
+                      <TableCell align="center">{formatDate(profile.datenaiss)}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -466,32 +445,32 @@ export default function UserList() {
         sx={{ width: 250 }}
       />
 
-      <Paper sx={{ width: "100%" }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+      <Paper  className="opera_table" sx={{ width: "100%", boxShadow:"none", border:"2px solid #e0e0e0", borderRadius:"0" }}>
+        <TableContainer sx={{ maxHeight: 600 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell>
-                  <span className="table_tr"> Nom </span>{" "}
+                <TableCell  align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                  <span className="opera_table_tr" > Nom </span>{" "}
                 </TableCell>
-                <TableCell>
-                  <span className="table_tr"> Prénom </span>{" "}
+                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                  <span className="opera_table_tr"> Prénom </span>{" "}
                 </TableCell>
-                <TableCell>
-                  <span className="table_tr"> Matricule </span>{" "}
+                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                  <span className="opera_table_tr" > Matricule </span>{" "}
                 </TableCell>
-                <TableCell>
-                  <span className="table_tr"> Opération </span>{" "}
+                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                  <span className="opera_table_tr" > Opération </span>{" "}
                 </TableCell>
-                <TableCell>
-                  <span className="table_tr"> Titre </span>{" "}
+                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                  <span className="opera_table_tr"> Titre </span>{" "}
                 </TableCell>
-                <TableCell>
-                  <span className="table_tr"> Role </span>{" "}
+                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                  <span className="opera_table_tr" > Role </span>{" "}
                 </TableCell>
-                <TableCell align="right">
-                  <span className="table_tr"> Actions </span>
+                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                  <span className="opera_table_tr"> Actions </span>
                 </TableCell>
               </TableRow>
             </TableHead>

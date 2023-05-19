@@ -5,7 +5,10 @@ import Navigation from "../../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { FaFileArchive } from "react-icons/fa";
-import {GetOperaAction,GetOperAbsenceAction,} from "../../actions/operation.action";
+import {
+  GetOperaAction,
+  GetOperAbsenceAction,
+} from "../../actions/operation.action";
 import { SendNotificationToOneUser } from "../../actions/notification.action";
 import OperaList from "../../components/userlist/operalist_table";
 import { Button, ButtonBase, Divider } from "@mui/material";
@@ -15,17 +18,16 @@ import RrhAbsArchPage from "../../components/rrh_AbsArch";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
-import {  TextField } from '@mui/material';
+import { TextField } from "@mui/material";
 
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
 
-  '&:variant': {
+  "&:variant": {
     color: "#151582;",
   },
-
-}
+};
 
 function RRH_Page() {
   const dispatch = useDispatch();
@@ -65,14 +67,14 @@ function RRH_Page() {
     setJustification(true);
   };
 
-  const OnChangeHandler = async (id, action,userId, motif, matricule) => {
+  const OnChangeHandler = async (id, action, userId, motif, matricule) => {
     const data = {
       etat: action,
-      motif: motif
+      motif: motif,
     };
     const notification = {
       message: `le Résponsable RH a ${data.etat} votre demande d'absence.`,
-      journal: `La demande d'absence sous le matricule "${matricule}" a été ${data.etat} par Le responsable RH opérationnel ${CurrentUser.operation}.`
+      journal: `La demande d'absence sous le matricule "${matricule}" a été ${data.etat} par Le responsable RH opérationnel ${CurrentUser.operation}.`,
     };
 
     await dispatch(updateAbsence(id, data));
@@ -118,15 +120,32 @@ function RRH_Page() {
 
         <div className="rrh_header">
           <div className="rrh_header_titles">
-          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
-          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
+            <p className="rrh_header_title">
+              Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !
+            </p>
+            <p className="rrh_header_semititle">
+              Votre opération est : {CurrentUser.operation}
+            </p>
           </div>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
+          <a className="rrh_header_navs" href="/rrh">
+            <Button variant="outlined" size="large" sx={style}>
+              Mon équipe
+            </Button>
+          </a>
           <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/Challenges"><Button variant="outlined" size="large" sx={style}> challenges</Button></a>
+          <a className="rrh_header_navs" href="/monespace/Challenges">
+            <Button variant="outlined" size="large" sx={style}>
+              {" "}
+              challenges
+            </Button>
+          </a>
           <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
+          <a className="rrh_header_navs" href="/monespace/mesabsences">
+            <Button variant="outlined" size="large" sx={style}>
+              Mes absences
+            </Button>
+          </a>
           <Divider orientation="vertical" flexItem></Divider>
         </div>
 
@@ -139,20 +158,20 @@ function RRH_Page() {
           <div className="rrh_body2">
             <p className="rrh_info">Les demandes d'absences</p>
             <InputBase
-        className="searchbar"
-        placeholder="Rechercher.."
-        type="text"
-        value={search}
-        onChange={handleSearch}
-        startAdornment={
-          <InputAdornment position="start">
-            {" "}
-            <SearchIcon />{" "}
-          </InputAdornment>
-        }
-        margin="normal"
-        sx={{ width: 250 }}
-      />
+              className="searchbar"
+              placeholder="Rechercher.."
+              type="text"
+              value={search}
+              onChange={handleSearch}
+              startAdornment={
+                <InputAdornment position="start">
+                  {" "}
+                  <SearchIcon />{" "}
+                </InputAdornment>
+              }
+              margin="normal"
+              sx={{ width: 250 }}
+            />
             <Button
               onClick={onClick_RrhAbsArchPage}
               sx={{ margin: "0.5em -25em" }}
@@ -177,15 +196,20 @@ function RRH_Page() {
                       <th>Actions</th>
                     </tr>
                     {filteredabsence.some((item) =>
-                      item.absences.some( 
-                        (absence) => absence.etat === "En attente")
+                      item.absences.some(
+                        (absence) => absence.etat === "En attente"
+                      )
                     ) ? (
                       absences.map((item) =>
                         item.absences.map(
                           (absence) =>
-                          absence.etat === "En attente" && (
+                            absence.etat === "En attente" && (
                               <tr key={absence._id}>
-                                  <td>{new Date(absence.dateCreation).toLocaleDateString()}</td>
+                                <td>
+                                  {new Date(
+                                    absence.dateCreation
+                                  ).toLocaleDateString()}
+                                </td>
                                 <td>
                                   ({item.user.matricule}) {item.user.nom}{" "}
                                   {item.user.prenom}
@@ -227,63 +251,91 @@ function RRH_Page() {
                                   {absence.etat}
                                 </td>
                                 <td>
-                                <Button
-  sx={{ margin: "0.5em" }}
-  variant="outlined"
-  color="success"
-  size="small"
-  onClick={() => {
-    if (window.confirm("Voulez-vous vraiment accepter cette absence?")) {
-      OnChangeHandler(absence._id, "Accepté", item.user._id, motif, item.user.matricule);
-    }
-  }}
->
-  Accepter
-</Button>{" "}
-<Button
-  variant="outlined"
-  color="error"
-  size="small"
-  onClick={() =>{
-    if (window.confirm("Voulez-vous vraiment refuser cette absence?")) {
-    openRefuseModal(absence._id)}}}
->
-  Refuser
-</Button>
-<Modal show={isRefuseModalOpen} onHide={closeRefuseModal}>
-<Modal.Header closeButton>
-            <Modal.Title>Motif de refus l'absence</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-  <TextField
-    label="Motif de refus"
-    value={motif}
-    onChange={(e) => setMotif(e.target.value)}
-    fullWidth
-    multiline
-    rows={4}
-    variant="outlined"
-  />
-            </Modal.Body>
-            <Modal.Footer>
-
-  <Button
-variant="contained"
-onClick={() => {
-  OnChangeHandler(absence._id, "Refusé", item.user._id, motif, item.user.matricule);
-  closeRefuseModal();
-}}
->
-Soumettre
-</Button>
-<Button variant="secondary" onClick={closeRefuseModal}>
-              Fermer
-            </Button>
-            </Modal.Footer>
-
-</Modal>
-
-
+                                  <Button
+                                    sx={{ margin: "0.5em" }}
+                                    variant="outlined"
+                                    color="success"
+                                    size="small"
+                                    onClick={() => {
+                                      if (
+                                        window.confirm(
+                                          "Voulez-vous vraiment accepter cette absence?"
+                                        )
+                                      ) {
+                                        OnChangeHandler(
+                                          absence._id,
+                                          "Accepté",
+                                          item.user._id,
+                                          motif,
+                                          item.user.matricule
+                                        );
+                                      }
+                                    }}
+                                  >
+                                    Accepter
+                                  </Button>{" "}
+                                  <Button
+                                    variant="outlined"
+                                    color="error"
+                                    size="small"
+                                    onClick={() => {
+                                      if (
+                                        window.confirm(
+                                          "Voulez-vous vraiment refuser cette absence?"
+                                        )
+                                      ) {
+                                        openRefuseModal(absence._id);
+                                      }
+                                    }}
+                                  >
+                                    Refuser
+                                  </Button>
+                                  <Modal
+                                    show={isRefuseModalOpen}
+                                    onHide={closeRefuseModal}
+                                  >
+                                    <Modal.Header closeButton>
+                                      <Modal.Title>
+                                        Motif de refus l'absence
+                                      </Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                      <TextField
+                                        label="Motif de refus"
+                                        value={motif}
+                                        onChange={(e) =>
+                                          setMotif(e.target.value)
+                                        }
+                                        fullWidth
+                                        multiline
+                                        rows={4}
+                                        variant="outlined"
+                                      />
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                      <Button
+                                        variant="contained"
+                                        onClick={() => {
+                                          OnChangeHandler(
+                                            absence._id,
+                                            "Refusé",
+                                            item.user._id,
+                                            motif,
+                                            item.user.matricule
+                                          );
+                                          closeRefuseModal();
+                                        }}
+                                      >
+                                        Soumettre
+                                      </Button>
+                                      <Button
+                                        variant="secondary"
+                                        onClick={closeRefuseModal}
+                                      >
+                                        Fermer
+                                      </Button>
+                                    </Modal.Footer>
+                                  </Modal>
                                 </td>
                               </tr>
                             )
@@ -291,7 +343,10 @@ Soumettre
                       )
                     ) : (
                       <tr>
-                        <td colSpan="10" style={{ textAlign: "center", padding: "1em" }}>
+                        <td
+                          colSpan="10"
+                          style={{ textAlign: "center", padding: "1em" }}
+                        >
                           Il n'y a pas d'absence en attente.
                         </td>
                       </tr>
@@ -299,24 +354,26 @@ Soumettre
                   </tbody>
                 </table>
               ) : (
-                  <table className="absences_table">
-                    <tbody>
-                      <tr>
-                        <th>Type d'absence</th>
-                        <th>Date de debut d'absence</th>
-                        <th>Date de fin d'absence</th>
-                        <th>Commentaire</th>
-                        <th>Type d'absence</th>
-                        <th>Etat</th>
-                      </tr>
-                    </tbody>
-                      <tr>
-                         <td colSpan="10" style={{ textAlign: "center", padding: "1em" }} >
-                          Il n'y a pas d'absence en attente.
-                         </td>
-                      </tr>
-                  </table>
-
+                <table className="absences_table">
+                  <tbody>
+                    <tr>
+                      <th>Type d'absence</th>
+                      <th>Date de debut d'absence</th>
+                      <th>Date de fin d'absence</th>
+                      <th>Commentaire</th>
+                      <th>Type d'absence</th>
+                      <th>Etat</th>
+                    </tr>
+                  </tbody>
+                  <tr>
+                    <td
+                      colSpan="10"
+                      style={{ textAlign: "center", padding: "1em" }}
+                    >
+                      Il n'y a pas d'absence en attente.
+                    </td>
+                  </tr>
+                </table>
               )}
             </div>
           </div>

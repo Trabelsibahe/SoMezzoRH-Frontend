@@ -1,7 +1,6 @@
 @import "https://fonts.googleapis.com/css?family=Open+Sans:400,600,300";
 
 
-
 .rrh_page {
   display: flex;
   margin: 0 auto;
@@ -66,9 +65,9 @@
   }
 
 .opera_table_tr{
-    padding: 20px ;
+    padding: 2px ;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     width: 80em;
     color:  #151582;
@@ -84,13 +83,13 @@
 .opera_table td:nth-child(even), .opera_table td:nth-child(odd){
     color: #151582;
     font-family:  Open Sans 600;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .opera_table th:nth-child(even), .opera_table th:nth-child(odd){
     color: #151582;
     font-family:  Open Sans ;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -167,7 +166,7 @@
   padding: 1em;
 
 }
-rrh_header_navs:hover{
+.rrh_header_navs:hover{
   color: #000000;
   background: #ebf0f7;
 
