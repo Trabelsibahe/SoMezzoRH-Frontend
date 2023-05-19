@@ -10,6 +10,7 @@ import { Form, Container, Stack } from "react-bootstrap";
 import Classnames from "classnames";
 import { ChangePasswordAction } from "../actions/auth.actions";
 import { useNavigate } from 'react-router-dom'
+import { sendNotificationToExperts } from "../actions/notification.action";
 
 
 
@@ -20,6 +21,7 @@ function ProfilPassword() {
 
   const Currentexpert = {
     isConnected: auth.isConnected,
+    matricule: auth.user.matricule,
     nom: auth.user.nom,
     prenom: auth.user.prenom,
     matricule: auth.user.matricule,
@@ -28,6 +30,7 @@ function ProfilPassword() {
 
 const [form, setForm] = useState("");
 const navigate = useNavigate();
+const [ matricule, setMatricule ] = useState('');
 
   const onChangeHandler = (e)=>{
     setForm({
@@ -35,10 +38,13 @@ const navigate = useNavigate();
       [e.target.name]: e.target.value
     })
   }
-
-const ChangePassword = (e) => {
+  const notification = {
+    journal: `Le titulaire du compte sous le matricule "${auth.user.matricule}" a modifié son mot de passe.`
+  };
+const ChangePassword = async (e) => {
   e.preventDefault();
-  dispatch(ChangePasswordAction(form, navigate))
+  await dispatch(sendNotificationToExperts(notification));
+  await dispatch(ChangePasswordAction(form, navigate))
 }
 
 
