@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { GetAllChallenge,supprimerChallenge } from "../../actions/Challenge.action";
 import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
-
 import Add_Task_Modal from "./task_modal";
 
 function Tasks() {

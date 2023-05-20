@@ -21,16 +21,15 @@
   z-index: 3;
 }
 .navbar2 {
-  background-color: #24377b;
-  width: 500px;
+  background: linear-gradient(90deg, #1f2f6a  98%, rgba(28,38,87,1) 98%, rgba(28,38,87,1) 100%);
   height: 70px;
+  width: 500px;
   right: 20px;
   padding: 0.9em;
   position: relative;
-  border-bottom-right-radius: 60px;
-  border-top-right-radius: 10px;
-  box-shadow: 1px 2px 3px 0 rgba(60, 60, 60, 0.2) !important;
-
+  box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2) !important;
+  border-bottom: 2px solid #1c2657;
+  border-top: 2px solid #1c2657;
 
 }
 .navbar_item {
@@ -38,6 +37,7 @@
   font-weight: bold;
   display: flex;
   flex-direction: row;
+  
 }
 .navbar_logo {
   color: rgb(255, 255, 255);
@@ -65,10 +65,11 @@
   transition: transform 0.3s ease-in-out;
   box-shadow: 2px 1px 3px 0 rgba(60, 60, 60, 0.2) !important;
   z-index: 3;
+  background: linear-gradient(180deg, #1f2f6a 94%, rgba(28,38,87,1) 94%, rgba(28,38,87,1) 100%);
+  border-right: 2px solid #1c2657;
+  border-left: 2px solid #1c2657;
 
-  background: #24377b;
-}
-
+  }
 .sidebar.hide {
   transform: translateX(-100%);
 }
@@ -76,45 +77,85 @@
 .sidebar_list {
   list-style: none;
   padding: 0em;
-  margin: 0px 1em;
+  margin: 10px 1em;
+}
+.sidebar_list3 {
+  list-style: none;
+  padding: 0em;
+  margin: 1em 0em;
   text-align: center;
 }
+.sidebar_list2 {
+  list-style: none;
+  padding: 0em;
+  margin: 3em 1em;
+}
+.sidebar_lihome{
+}
 
-
+.home_nav {
+  background-color: #d2d2d2;
+}
 .SideNav_Avatar {
   width: 95px;
   height: 95px;
-  border: 2px solid white;
+  border: 3px solid white;
   border-radius: 50%;
 }
 .sidebar_item {
-  font-size: 18px;
-  padding: 0.6em;
+  font-size: 16px;
+  padding: 1em;
+  margin: 0em 0em;
+  display: block;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none !important;
+  letter-spacing: 0.1em;
+  transition: all ease-out 300ms;
+  text-transform: uppercase;
+
+}
+.sidebar_itemhome {
+  font-size: 16px;
+  padding: 1em;
+  margin: 0em 0em;
+  display: block;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none !important;
+  letter-spacing: 0.1em;
+  transition: all ease-out 300ms;
+  background-color: #1c2657;
+  border-radius: 10px;
+  text-transform: uppercase;
+
+}
+
+.sidebar_logout {
+  font-size: 15px;
+  margin: 2em;
+  padding: 0.2em;
+  display: block;
   cursor: pointer;
   color: #ffffff;
   text-align: center;
   text-decoration: none !important;
+  letter-spacing: 0.2em;
+  transition: all ease-out 300ms;
 }
-
-.sidebar_logout {
-  font-size: 18px;
-  margin: 1.5em 3em;
-  cursor: pointer;
-  color: #ffffff;
-  text-decoration: none !important;
-  width: 50%;
-  height: 50%;
+.logout_icon {
+  font-size: 25px;
 }
-
 .sidebar_item:hover {
   color: #d2d2d2;
 }
-
+.sidebar_itemhome:hover {
+  color: #d2d2d2;
+}
 .sidebar_avatar {
   font-size: 20px;
   padding: 20px;
   cursor: pointer;
-  color: #ffffff;
   text-align: center;
   transition-duration: 0.4s;
   pointer-events: none;
@@ -126,11 +167,10 @@
   color: #ffffff;
   text-align: center;
   pointer-events: none;
+  letter-spacing: 0.1em;
 }
 
-.logout_icon {
-  font-size: 35px;
-}
+
 .sidebar_logout:hover {
   color: #d2d2d2;
 }
@@ -142,9 +182,6 @@
   color: rgb(73, 76, 86);
 }
 
-
-
-
 @media screen and (max-width: 768px) {
   .navbar_toggle {
     display: block !important;
@@ -153,7 +190,7 @@
     background: white;
     height: auto;
   }
-  .navbar_item{
+  .navbar_item {
     margin-left: 68%;
   }
   .sidebar {
@@ -171,12 +208,10 @@
     content: url("../../assets/images/logonoir.png");
   }
 
-
   .navbar2 {
     background-color: rgb(255, 255, 255);
     height: 60px;
     box-shadow: none !important;
-
   }
   .navbar_item {
     font-size: 85%;
@@ -195,6 +230,5 @@
   .sidebar_logout {
     font-size: 15px;
     margin: 3em 23%;
-
   }
 }
