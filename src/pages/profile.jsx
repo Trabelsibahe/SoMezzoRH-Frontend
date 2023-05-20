@@ -52,16 +52,12 @@ function ProfilePage() {
   const [ adresse, setAdresse ] = useState('');
   const [ pays, setPays ] = useState('');
   const [ matricule, setMatricule ] = useState('');
-  const [ user, setUser] = useState(" ");
   const [ role, setRole ] = useState('');
   const [ tel, setTel ] = useState('');
   const [ codepostal, setCodepostal ] = useState('');
   const [ email, setEmail ] = useState('');
   const [avatar, setAvatar] = useState('null');
   const [id, setId] = useState('');
-
-  const [edit, setEdit] = useState(false);
-  const handleCloseEdit = () => setEdit(false);
 
   //handleshowedit
   const handleShowEdit = (profile) => {
@@ -130,23 +126,6 @@ const editUser = async () => {
   await dispatch(GetProfileAction());
   await dispatch(GetProfileAction());
   await dispatch(GetProfileAction());
-
-  handleCloseEdit();
-  setNom('');
-  setPrenom('');
-  setOperation('');
-  setMatricule('');
-  setRole('');
-  setTel('');
-  setVille('');
-  setPays('');
-  setCodepostal('');
-  setEmail('');
-  setGouvernorat('');
-  setAdresse('');
-  setDatenaiss('');
-  setTitre('');
-  setAvatar(null);
 };
 
   return (
@@ -224,7 +203,7 @@ const editUser = async () => {
           
 
           <div className="profile_button"> 
-          <Button style={{backgroundColor: "#24377b", width:"50%"}} variant="contained" startIcon={<EditTwoToneIcon />}  onClick={editUser}>modifier</Button>
+          <Button style={{backgroundColor: "#24377b", width:"50%"}} variant="contained" startIcon={<EditTwoToneIcon />} onClick={() => { if (window.confirm("Voulez vous vraiment modifier votre profil?")) editUser()}}  >modifier</Button>
           </div>
           </div>
           

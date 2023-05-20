@@ -21,17 +21,18 @@
   z-index: 3;
 }
 .navbar2 {
-  background: linear-gradient(90deg, #1f2f6a  98%, rgba(28,38,87,1) 98%, rgba(28,38,87,1) 100%);
+  background: linear-gradient(90deg,  #1f2f6a 88%, rgba(28,38,87,1) 88%, rgba(28,38,87,1) 90%);
   height: 70px;
   width: 500px;
-  right: 20px;
+  right:30px;
   padding: 0.9em;
   position: relative;
   box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2) !important;
   border-bottom: 2px solid #1c2657;
   border-top: 2px solid #1c2657;
-
+		transform: skewX(-15deg);
 }
+
 .navbar_item {
   color: rgb(73, 76, 86);
   font-weight: bold;
@@ -41,7 +42,8 @@
 }
 .navbar_logo {
   color: rgb(255, 255, 255);
-  width: 160px;
+  width: 170px;
+  transform: skewX(15deg)
 }
 
 .navbar_toggle {
