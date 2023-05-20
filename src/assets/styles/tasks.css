@@ -81,7 +81,7 @@
 }
 .task_add_name {
   font-size: 18px;
-  color: #151582;
+  color: #1492d1;
   pointer-events: none;
   user-select: none;
 
@@ -100,3 +100,15 @@
     user-select: none;
 
   }
+
+
+  @media screen and (max-width: 600px) {
+    .modal_addtask {
+      width: 50%;
+    }
+  }
+  
+  
+  
+  
+  

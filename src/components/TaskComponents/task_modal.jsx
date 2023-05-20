@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import formatDate from "../../components/formatdate";
 import Classnames from "classnames";
 import "../../assets/styles/register.css";
+import "../../assets/styles/register.css";
+
 import {
   SendNotificationToOneUser,
   sendNotificationToExperts,
@@ -82,46 +84,28 @@ export default function Add_Task_Modal() {
   };
 
   return (
-    <div>
+    <div className="modal_addtask">
       <div className="task_add_card" onClick={TaskHandleOpen}>
         <AddIcon className="task_add_icon" />
-        <p className="task_add_name">Ajouter une challenge</p>
-        <p className="task_add_desc">
-          Ajoutez une tâche pour votre équipe opérationnelle.
-        </p>
+        <p className="task_add_name">Ajouter un challenge</p>
+        <p className="task_add_desc">Ajoutez une tâche pour votre équipe opérationnelle.</p>
       </div>
 
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description" >
         <form onSubmit={onSubmit}>
           <Box sx={style}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <h5
-                style={{
-                  padding: "0.2em",
-                  textAlign: "center",
-                  color: "#151582",
-                }}
-              >
-                Ajouter une challenge
-              </h5>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  columnGap: "1em",
-                }}
-              >
+              <h5 style={{ padding: "0.2em", textAlign: "center", color: "#151582", }}> Ajouter une challenge </h5>
+              <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em",}} >
                 <Form.Group className="mb-2">
                   <TextField
                     name="titre"
                     value={form.titre}
-                    onChange={(event) =>
-                      setForm({ ...form, titre: event.target.value })
+                    onChange={(event) => setForm({ ...form, titre: event.target.value })
                     }
                     className={Classnames("w-100", {
                       "is-invalid": errors.titre,

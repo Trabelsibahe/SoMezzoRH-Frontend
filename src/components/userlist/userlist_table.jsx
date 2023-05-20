@@ -20,13 +20,27 @@ import { useDispatch, useSelector } from "react-redux";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import formatDate from "../../components/formatdate";
-import { Modal, Form } from "react-bootstrap";
+import Modal from "@mui/material/Modal";
+import { Form } from "react-bootstrap";
 import {
   GetProfiles,
   deleteAndArchiveProfile,
   EditProfileAction,
 } from "../../actions/profile.actions";
 import { SendNotificationToOneUser } from "../../actions/notification.action";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "auto",
+  bgcolor: "background.paper",
+  border: "2px solid #1492d1",
+  boxShadow: 24,
+  p: 4,
+};
+
 
 
 function Row(accounts, index) {
@@ -70,7 +84,6 @@ function Row(accounts, index) {
         setRole(p.user.role);
         setOperation(p.user.operation);
         setTitre(p.user.titre);
-        setActive(p.user.active);
         setPays(p.pays);
         setGouvernorat(p.gouvernorat);
         setVille(p.ville);
@@ -78,12 +91,11 @@ function Row(accounts, index) {
         setAdresse(p.adresse);
         setTel(p.tel);
         setEmail(p.email);
-        setDatenaiss(p.datenais);
+        setDatenaiss(p.datenaiss);
       }
     });
     setEdit(true);
   };
-  
   const [holder, setHolder] = useState("");
   const EditProfile = async () => {
     const data = {
@@ -115,7 +127,7 @@ function Row(accounts, index) {
     await dispatch(SendNotificationToOneUser(data.user._id, notification));
     await dispatch(GetProfiles());
     await dispatch(GetProfiles());
-    
+
     handleCloseEdit();
     setProfileId("");
     setNom("");
@@ -133,20 +145,18 @@ function Row(accounts, index) {
     setCodepostal("");
     setAdresse("");
   };
-  
- 
-  
+
   //fonction supp + getlist
   const deleteContact = async (id) => {
     const data = {
       user: {
-        nom : profile.user.nom,
-        prenom : profile.user.prenom,
-        matricule : profile.user.matricule,
-        role : profile.user.role,
-        operation : profile.user.operation,
-        titre : profile.user.titre,
-        active : false,
+        nom: profile.user.nom,
+        prenom: profile.user.prenom,
+        matricule: profile.user.matricule,
+        role: profile.user.role,
+        operation: profile.user.operation,
+        titre: profile.user.titre,
+        active: false,
       },
       email,
       tel,
@@ -166,147 +176,99 @@ function Row(accounts, index) {
   return (
     <>
       {/** pop up edit */}
-      <Modal show={edit} onHide={handleCloseEdit}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modifier un Contact</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {" "}
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Nom</Form.Label>
-              <Form.Control
-                type="text"
-                value={nom}
-                onChange={(e) => setNom(e.target.value)}
-                placeholder="modifier le nom"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Prénom</Form.Label>
-              <Form.Control
-                type="text"
-                value={prenom}
-                onChange={(e) => setPrenom(e.target.value)}
-                placeholder="modifier le prenom"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>matricule</Form.Label>
-              <Form.Control
-                type="text"
-                value={matricule}
-                onChange={(e) => setMatricule(e.target.value)}
-                placeholder="modifier le matricule"
-              />
-            </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Role</Form.Label>
-              <Form.Control
-                type="text"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                placeholder="modifier le role"
-              />
+      <Modal open={edit}  onClose={handleCloseEdit} aria-labelledby="modal-modal-title"  aria-describedby="modal-modal-description">
+        <form>
+           <Box sx={style}>
+           <p className="task_add_name">Modifier ce profil.</p>
+            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
+            <Form.Group className="mb-2">
+            <TextField label="Nom" type="text" value={nom} onChange={(e) => setNom(e.target.value)} margin="normal" size="small" required/>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Opération</Form.Label>
-              <Form.Control
-                type="text"
-                value={operation}
-                onChange={(e) => setOperation(e.target.value)}
-                placeholder="modifier l'opération "
-              />
+            <Form.Group className="mb-2">
+              <TextField label="Prénom" type="text" value={prenom} onChange={(e) => setPrenom(e.target.value)} margin="normal" size="small"/>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Titre</Form.Label>
-              <Form.Control
-                type="text"
-                value={titre}
-                onChange={(e) => setTitre(e.target.value)}
-                placeholder="modifier le titre"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="modifier l'email"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>tel</Form.Label>
-              <Form.Control
-                type="number"
-                value={tel}
-                onChange={(e) => setTel(e.target.value)}
-                placeholder="modifier le ville"
-              />
-            </Form.Group>
+            </div>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Ville</Form.Label>
-              <Form.Control
-                type="text"
-                value={ville}
-                onChange={(e) => setVille(e.target.value)}
-                placeholder="modifier le ville"
-              />
+            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
+            <Form.Group className="mb-2">
+              <TextField label="Matricule" type="text" value={matricule} onChange={(e) => setMatricule(e.target.value)} margin="normal" size="small" disabled />
             </Form.Group>
+            <Form.Group className="mb-2">
+              <TextField label="Role" type="text" value={role} onChange={(e) => setRole(e.target.value)} margin="normal" size="small"/>
+            </Form.Group>
+            </div>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Pays</Form.Label>
-              <Form.Control
-                type="text"
-                value={pays}
-                onChange={(e) => setPays(e.target.value)}
-                placeholder="modifier le pays"
-              />
+            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
+            <Form.Group className="mb-2">
+              <TextField label="Opération" type="text" value={operation} onChange={(e) => setOperation(e.target.value)} margin="normal" size="small"/>
             </Form.Group>
+            <Form.Group className="mb-2">
+              <TextField label="Titre" type="text"  value={titre} onChange={(e) => setTitre(e.target.value)} margin="normal" size="small" />
+            </Form.Group>
+            </div>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Code postal</Form.Label>
-              <Form.Control
-                type="text"
-                value={codepostal}
-                onChange={(e) => setCodepostal(e.target.value)}
-                placeholder="modifier le code postal"
-              />
+            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
+            <Form.Group className="mb-2">
+              <TextField label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} margin="normal" size="small"/>
             </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEdit}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={EditProfile}>
-            Modifier
-          </Button>
-        </Modal.Footer>
+            <Form.Group className="mb-2">
+              <TextField label="Numéro de télèphone" type="number" value={tel} onChange={(e) => setTel(e.target.value)} margin="normal" size="small"/>
+            </Form.Group>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
+            <Form.Group className="mb-2">
+              <TextField label="Date de naissance" type="text" value={formatDate(datenaiss)} onChange={(e) => setDatenaiss(e.target.value)} margin="normal" size="small"/>
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <TextField label="Pays" type="text" value={pays}  onChange={(e) => setPays(e.target.value)} placeholder="modifier le pays" margin="normal" size="small"/>
+            </Form.Group>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
+            <Form.Group className="mb-2">
+              <TextField label="Gouvernorat" type="text" value={gouvernorat} onChange={(e) => setGouvernorat(e.target.value)} margin="normal" size="small"/>
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <TextField label="Ville" type="text" value={ville} onChange={(e) => setVille(e.target.value)} margin="normal" size="small"/>
+            </Form.Group>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
+            <Form.Group className="mb-2">
+              <TextField label="Adresse" type="text" value={adresse} onChange={(e) => setAdresse(e.target.value)} margin="normal" size="small"/>
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <TextField label="Code postale" type="text" value={codepostal} onChange={(e) => setCodepostal(e.target.value)} margin="normal" size="small"/>
+            </Form.Group>
+            </div>
+
+          <Button variant="outlined" onClick={handleCloseEdit}>Annuler</Button>{" "}
+          <Button variant="outlined" onClick={EditProfile}>Modifier</Button>
+          </Box>
+          </form>
       </Modal>
-
       <React.Fragment key={index}>
         <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
           <TableCell>
             <IconButton
               aria-label="expand row"
               size="small"
-              onClick={() => setOpen(!open)} >
+              onClick={() => setOpen(!open)}
+            >
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
 
-          <TableCell  align="center">{profile.user.nom}</TableCell>
-          <TableCell  align="center"> {profile.user.prenom}</TableCell>
-          <TableCell  align="center">{profile.user.matricule}</TableCell>
-          <TableCell  align="center">{profile.user.operation}</TableCell>
-          <TableCell  align="center">
+          <TableCell align="center">{profile.user.nom}</TableCell>
+          <TableCell align="center"> {profile.user.prenom}</TableCell>
+          <TableCell align="center">{profile.user.matricule}</TableCell>
+          <TableCell align="center">{profile.user.operation}</TableCell>
+          <TableCell align="center">
             {profile.user.titre ? profile.user.titre : "Aucun titre"}
           </TableCell>
-          <TableCell  align="center" className="expert_role">
+          <TableCell align="center" className="expert_role">
             {profile.user.role === "EXPERT"
               ? "EXPERT RH"
               : profile.user.role === "EMP"
@@ -315,23 +277,42 @@ function Row(accounts, index) {
               ? "RESPONSABLE RH OPÉRATIONNEL"
               : null}
           </TableCell>
-         
-          <TableCell align="center">
-          <Button variant="outlined" size="small" color="primary" onClick={() => handleShowEdit(profile._id)} >Modifier </Button>{" "}
-          <Button variant="outlined" size="small" color="error" onClick={() => deleteContact(profile._id)} > Supprimer  </Button>
 
+          <TableCell align="center">
+            <Button
+              variant="outlined"
+              size="small"
+              color="primary"
+              onClick={() => handleShowEdit(profile._id)}
+            >
+              Modifier{" "}
+            </Button>{" "}
+            <Button
+              variant="outlined"
+              size="small"
+              color="error"
+              onClick={() => deleteContact(profile._id)}
+            >
+              {" "}
+              Supprimer{" "}
+            </Button>
           </TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={10}>
             <Collapse in={open} timeout="auto" unmountOnExit>
-              <Box sx={{ margin: 0  }}>
+              <Box sx={{ margin: 0 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                <p className="typo_title">Coordonnées personelles</p>
+                  <p className="typo_title">Coordonnées personelles</p>
                 </Typography>
                 <Table size="medium" aria-label="coordonnées">
                   <TableHead>
-                    <TableRow sx={{borderBottom:"2px solid white", borderTop:"2px solid white"}}>
+                    <TableRow
+                      sx={{
+                        borderBottom: "2px solid white",
+                        borderTop: "2px solid white",
+                      }}
+                    >
                       <TableCell align="center">Pays</TableCell>
                       <TableCell align="center">Gouvernorat</TableCell>
                       <TableCell align="center">Ville</TableCell>
@@ -344,15 +325,19 @@ function Row(accounts, index) {
                   </TableHead>
 
                   <TableBody>
-                    <TableRow sx={{borderBottom:"2px solid white"}}>
+                    <TableRow sx={{ borderBottom: "2px solid white" }}>
                       <TableCell align="center">{profile.pays}</TableCell>
-                      <TableCell align="center">{profile.gouvernorat}</TableCell>
+                      <TableCell align="center">
+                        {profile.gouvernorat}
+                      </TableCell>
                       <TableCell align="center">{profile.ville}</TableCell>
                       <TableCell align="center">{profile.codepostal}</TableCell>
                       <TableCell align="center">{profile.adresse}</TableCell>
                       <TableCell align="center">{profile.tel}</TableCell>
                       <TableCell align="center">{profile.email}</TableCell>
-                      <TableCell align="center">{formatDate(profile.datenaiss)}</TableCell>
+                      <TableCell align="center">
+                        {formatDate(profile.datenaiss)}
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -425,7 +410,6 @@ export default function UserList() {
     }
     return false;
   });
-  
 
   return (
     <>
@@ -445,31 +429,60 @@ export default function UserList() {
         sx={{ width: 250 }}
       />
 
-      <Paper  className="opera_table" sx={{ width: "100%", boxShadow:"none", border:"2px solid #e0e0e0", borderRadius:"0" }}>
+      <Paper
+        className="opera_table"
+        sx={{
+          width: "100%",
+          boxShadow: "none",
+          border: "2px solid #e0e0e0",
+          borderRadius: "0",
+        }}
+      >
         <TableContainer sx={{ maxHeight: 600 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell  align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
-                  <span className="opera_table_tr" > Nom </span>{" "}
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "2px solid #e0e0e0" }}
+                >
+                  <span className="opera_table_tr"> Nom </span>{" "}
                 </TableCell>
-                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "2px solid #e0e0e0" }}
+                >
                   <span className="opera_table_tr"> Prénom </span>{" "}
                 </TableCell>
-                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
-                  <span className="opera_table_tr" > Matricule </span>{" "}
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "2px solid #e0e0e0" }}
+                >
+                  <span className="opera_table_tr"> Matricule </span>{" "}
                 </TableCell>
-                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
-                  <span className="opera_table_tr" > Opération </span>{" "}
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "2px solid #e0e0e0" }}
+                >
+                  <span className="opera_table_tr"> Opération </span>{" "}
                 </TableCell>
-                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "2px solid #e0e0e0" }}
+                >
                   <span className="opera_table_tr"> Titre </span>{" "}
                 </TableCell>
-                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
-                  <span className="opera_table_tr" > Role </span>{" "}
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "2px solid #e0e0e0" }}
+                >
+                  <span className="opera_table_tr"> Role </span>{" "}
                 </TableCell>
-                <TableCell align="center" sx={{borderBottom:"2px solid #e0e0e0"}}>
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "2px solid #e0e0e0" }}
+                >
                   <span className="opera_table_tr"> Actions </span>
                 </TableCell>
               </TableRow>
