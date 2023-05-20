@@ -1,8 +1,7 @@
 import Card from "react-bootstrap/Card";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  listernews,
+import { listernews,
   addnews,
   Deletenews,
   supprimerNews,
@@ -15,10 +14,25 @@ import Navigation from "../components/navigation";
 import "../assets/styles/news.css";
 import divider from "../components/divider";
 import Button from "@mui/material/Button";
-import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { Navigate } from "react-router-dom";
 import Classnames from "classnames";
+import { Box, Modal } from "@mui/material";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  border: "2px solid #151582",
+  boxShadow: 24,
+  p: 4,
+    width: "100%",
+    maxWidth: "500px",
+    margin: "0 auto",
+    padding: "20px",
+};
 
 function NewsLetterPage() {
   const dispatch = useDispatch();
@@ -148,16 +162,15 @@ function NewsLetterPage() {
             : "Aucune newsletter trouvée..."}
         </div>
 
+
+
         {/** pop up modal  add */}
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Ajouter une publication </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {" "}
-            <Form>
+        <Modal open={show} onHide={handleClose}>
+            <form className="news_form">
+            <Box sx={style}>
+              <p className="task_add_name">Ajouter une newsletter</p>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Titre de votre publication</Form.Label>
+                <Form.Label>Titre</Form.Label>
                 <Form.Control
                   type="text"
                   value={titre}
@@ -173,7 +186,7 @@ function NewsLetterPage() {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Déscription de votre publication</Form.Label>
+                <Form.Label>Déscription</Form.Label>
                 <Form.Control
                   type="text"
                   value={description}
@@ -187,26 +200,29 @@ function NewsLetterPage() {
                   <div className="invalid-feedback">{errors.description}</div>
                 )}
               </Form.Group>
+              
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Ajouter une date de suppression </Form.Label>
-                <Form.Control
-                  type="date"
-                  value={dateSuppression}
+                <Form.Label>Date d'expiration</Form.Label>
+                <Form.Control type="date"   value={dateSuppression}
                   onChange={(e) => setDateSuppression(e.target.value)}
                   placeholder="date Suppression"
                   className={Classnames("w-100", {
                     "is-invalid": errors.dateSuppression,
                   })}
+                 disablePast
+                 min={new Date().toISOString().split('T')[0]}
+
                 />
                 {errors.dateSuppression && (
                   <div className="invalid-feedback">
                     {errors.dateSuppression}
                   </div>
                 )}
+                
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>
-                  Charger une image pour votre publication
+                  Charger une image pour votre newsletter.
                 </Form.Label>
                 <Form.Control
                   type="file"
@@ -221,17 +237,16 @@ function NewsLetterPage() {
                 )}
               </Form.Group>
               <p style={{ color: "red", textAlign: "center" }}>{error}</p>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="outlined" onClick={handleClose}>
               Annuler
-            </Button>
-            <Button variant="primary" onClick={addnewsaction}>
+            </Button>{" "}
+            <Button variant="outlined" onClick={addnewsaction}>
               Publier
             </Button>
-          </Modal.Footer>
+            </Box>
+            </form>
         </Modal>
+
       </div>
     </div>
   );

@@ -34,12 +34,16 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "auto",
   bgcolor: "background.paper",
-  border: "2px solid #1492d1",
+  border: "2px solid #151582",
   boxShadow: 24,
   p: 4,
+    width: "100%",
+    maxWidth: "500px",
+    margin: "0 auto",
+    padding: "20px",
 };
+
 
 
 
