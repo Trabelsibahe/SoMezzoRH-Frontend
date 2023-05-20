@@ -1,9 +1,10 @@
 import "../assets/styles/expert.css";
+import "../assets/styles/journal.css";
+
 import React from "react";
 import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { CountProfiles, GetProfileAction } from "../actions/profile.actions";
 import { useNavigate } from "react-router-dom";
 import { Divider, Button } from "@mui/material";
 import { GetNotificationAction } from "../actions/notification.action";
@@ -64,7 +65,7 @@ function Journal() {
           <Divider orientation="vertical" flexItem></Divider>
           <a className="rrh_header_navs" href="/monespace/expertrh/Challenges">
             <Button variant="outlined" size="large" sx={style}>
-            Challenges
+              Challenges
             </Button>
           </a>
           <Divider orientation="vertical" flexItem></Divider>
@@ -86,28 +87,28 @@ function Journal() {
             </Button>
           </a>
         </div>
-        <div className="rrh_body">
+        <div className="journal_body">
           <p className="rrh_info">Journal</p>
           {notifications && notifications.length > 0 ? (
             notifications.some((item) =>
               item.notifications.some((notification) => notification)
             ) ? (
-              notifications.map((item) =>
-                item.notifications.map((notification) => (
-                  <p className="notification_message" key={notification._id}>
-                    {notification.journal ? formatDate(notification.creationDate)+" - ": ""} {notification.journal}
-                  </p>
-                ))
-              )
+              <>
+                {notifications.map((item) =>
+                  item.notifications.map((notification) =>
+                    notification.journal ? (
+                      <p className="notification_message" key={notification._id}>
+                        {formatDate(notification.creationDate)}{" "}{notification.journal}
+                      </p>
+                    ) : null
+                  )
+                )}
+              </>
             ) : (
-              <p className="notifications_emptymsg">
-                Le journal est vide.
-              </p>
+              <p className="notifications_emptymsg">Le journal est vide.</p>
             )
           ) : (
-            <p className="notifications_emptymsg">
-              Le journal est vide.
-            </p>
+            <p className="notifications_emptymsg">Le journal est vide.</p>
           )}
         </div>
 

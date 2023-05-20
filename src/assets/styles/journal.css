@@ -1,0 +1,13 @@
+.journal_body {
+    position: relative;
+    margin: 1em 4em;
+    display: flex;
+    width: 88%;
+    max-height: 600px ;
+    background-color: #fbfcfd;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
+    padding: 1rem;
+    flex-direction: column;
+    overflow: auto;
+  }

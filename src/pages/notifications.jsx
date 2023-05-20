@@ -60,56 +60,60 @@ const [read, setRead] = useState(true);
             Mes notifications
           </p>
         </div>
+
+
         <div className="rrh_body">
-          
-          <div style={{display:"flex", flexDirection:"row"}}> <h4 className="rrh_info">Nouvelles notifications</h4>
-          {read ? <Button sx={style} variant="outlined" size="small" onClick={MarkAllAsRead}>Tout marquer comme lu</Button> : ""}</div>
+  <div style={{display:"flex", flexDirection:"row"}}>
+    <h4 className="rrh_info">Nouvelles notifications</h4>
+    {read ? <Button sx={style} variant="outlined" size="small" onClick={MarkAllAsRead}>Tout marquer comme lu</Button> : ""}
+  </div>
 
-          {notifications && notifications.length > 0 ? (
-            notifications.some((item) =>
-              item.notifications.some(
-                (notification) => notification.read === false
-              )
-            ) ? (
-              notifications.map((item) =>
-                item.notifications.map(
-                  (notification) =>
-                    notification.read === false && (
-                      
-                      <p className="notification_message" key={notification._id}>{notification.message}</p>
-                    )
-                )
-              )
-            ) : (
-              <p className="notifications_emptymsg">Aucune nouvelle notification.</p>
+  {notifications && notifications.length > 0 ? (
+    notifications.some((item) =>
+      item.notifications.some(
+        (notification) => notification.read === false
+      )
+    ) ? (
+      notifications.map((item) =>
+        item.notifications.map(
+          (notification) =>
+            notification.read === false && (
+              <p className="notification_message" key={notification._id}>{notification.message}</p>
             )
-          ) : (
-            <p className="notifications_emptymsg">Aucune nouvelle notification.</p>
-          )}
+        )
+      )
+    ) : (
+      <p className="notifications_emptymsg">Aucune nouvelle notification.</p>
+    )
+  ) : (
+    <p className="notifications_emptymsg">Aucune nouvelle notification.</p>
+  )}
 
-          <Divider sx={{margin:"1em"}}/>
-          <h4 className="rrh_info">Anciennes notifications</h4>
-          {notifications && notifications.length > 0 ? (
-            notifications.some((item) =>
-              item.notifications.some(
-                (notification) => notification.read === true
-              )
-            ) ? (
-              notifications.map((item) =>
-                item.notifications.map(
-                  (notification) =>
-                    notification.read === true && (
-                      <p className="notification_message" key={notification._id}>{notification.message} </p>
-                    )
-                )
-              )
-            ) : (
-              <p className="notifications_emptymsg">Aucune notification.</p>
-            )
-          ) : (
-            <p className="notifications_emptymsg">Aucune notification.</p>
-          )}
-        </div>
+  <Divider sx={{margin:"1em"}}/>
+  <h4 className="rrh_info">Anciennes notifications</h4>
+  {notifications && notifications.length > 0 ? (
+    notifications.some((item) =>
+      item.notifications.some(
+        (notification) => notification.read === true && notification.message
+      )
+    ) ? (
+      notifications.map((item) =>
+        item.notifications.map(
+          (notification) =>
+            notification.read === true && notification.message ? (
+              <p className="notification_message" key={notification._id}>
+                {notification.message}
+              </p>
+            ) : null,
+        )
+      )
+    ) : (
+      <p className="notifications_emptymsg">Aucune notification.</p>
+    )
+  ) : (
+    <p className="notifications_emptymsg">Aucune notification.</p>
+  )}
+</div>
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>

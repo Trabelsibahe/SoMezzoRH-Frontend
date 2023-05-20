@@ -71,19 +71,21 @@ export default function Add_Task_Modal() {
     dispatch(sendNotificationToExperts(journalisation));
 
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const notification = {
       message: "Un nouveau Challenge est disponible découvrez-le.",
     };
-    await NotifyExpert();
-    await dispatch(AddChallenge(form));
+    dispatch(AddChallenge(form));
+    if (Object.keys(form).length === 5){
+    NotifyExpert();
     opera.forEach((item) => {
       dispatch(SendNotificationToOneUser(item.user._id, notification));
     });
+  }
   };
-
-  return (
+    return (
     <div className="modal_addtask">
       <div className="task_add_card" onClick={TaskHandleOpen}>
         <AddIcon className="task_add_icon" />
