@@ -119,59 +119,6 @@
 }
 
 
-.rrh_header_title {
-  font-weight: bold;
-  font-size: 18px;
-  color: rgb(73, 76, 86);
-  letter-spacing: 1px;
-  text-indent: 20px;
-}
-.rrh_header_semititle {
-  font-weight: bold;
-  font-size: 14px;
-  color: rgb(73, 76, 86);
-  letter-spacing: 1px;
-  text-indent: 35px;
-  line-height: 0;
-
-}
-
-.rrh_header_semititle2 {
-  font-weight: bold;
-  font-size: 14px;
-  color: rgb(73, 76, 86);
-  letter-spacing: 1px;
-  text-indent: 35px;
-  line-height: 1;
-
-}
-
-.rrh_header_titles{
-  flex-direction: column;
-  display: flex;
-}
-.rrh_header_navbar {
-  flex-direction: row;
-  display: flex;
-  column-gap: 2em;
-  padding: 1em;
-
-
-}
-.rrh_header_navs{
-  text-decoration: none;
-  color: #3b3b3b;
-  font-weight: 600;
-  font-size: 12px;
-  padding: 1em;
-
-}
-.rrh_header_navs:hover{
-  color: #000000;
-  background: #ebf0f7;
-
-}
-
 .rrh_infos{
   display: flex;
   flex-direction: row;
