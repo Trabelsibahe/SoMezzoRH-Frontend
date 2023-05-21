@@ -104,7 +104,7 @@ export default function Add_Task_Modal() {
         <form onSubmit={onSubmit}>
           <Box sx={style}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <h5 style={{ padding: "0.2em", textAlign: "center", color: "#151582", }}> Ajouter une challenge </h5>
+              <h5 style={{ padding: "0.2em", textAlign: "center", color: "#151582", }}> Ajouter un challenge </h5>
               <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em",}} >
                 <Form.Group className="mb-2">
                   <TextField

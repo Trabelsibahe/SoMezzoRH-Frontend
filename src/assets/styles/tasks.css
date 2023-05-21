@@ -7,7 +7,7 @@
 }
 .tasks_grid_item {
   background-color: #fbfcfd;
-  padding: 20px;
+  padding: 15px;
   font-size: 30px;
   font-weight: 600;
   text-align: center;
@@ -18,7 +18,7 @@
   width: 100%;
   background: linear-gradient(
     180deg,
-    rgba(235, 240, 247, 1) 36%,
+    rgba(235, 240, 247, 1) 42%,
     rgba(255, 255, 255, 1) 36%,
     rgba(255, 255, 255, 1) 36%
   );
@@ -45,9 +45,9 @@
   color: #464e56;
   text-align: left;
 }
-.task_operation{
+.task_operation {
   display: flex;
-  justify-content:left ;
+  justify-content: left;
   font-size: 12px;
   font-weight: 600;
   color: #464e56;
@@ -71,7 +71,6 @@
   cursor: pointer;
   height: 210px !important;
   transition: 0.4s;
-
 }
 .task_add_card:hover {
   background-color: rgb(243, 246, 250);
@@ -79,36 +78,34 @@
 .task_add_card:active {
   background-color: #ffffff;
 }
-.task_add_name {
+.task_add_name2 {
   font-size: 18px;
   color: #1492d1;
   pointer-events: none;
   user-select: none;
-
-
 }
+.task_add_name {
+  font-size: 18px;
+  color: #151582;
+  pointer-events: none;
+  user-select: none;
+}
+
 .task_add_icon {
   font-size: 60px !important;
   color: #151582;
 }
 
 .task_add_desc {
-    font-size: 12px;
-    font-weight: 600;
-    color: #464e56;
-    text-align: center;
-    user-select: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: #464e56;
+  text-align: center;
+  user-select: none;
+}
 
+@media screen and (max-width: 600px) {
+  .modal_addtask {
+    width: 50%;
   }
-
-
-  @media screen and (max-width: 600px) {
-    .modal_addtask {
-      width: 50%;
-    }
-  }
-  
-  
-  
-  
-  
+}
