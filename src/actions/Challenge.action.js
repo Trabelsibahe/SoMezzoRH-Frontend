@@ -15,7 +15,7 @@ export const AddChallenge = (data) => {
           payload: { createdChallenge: res.data }
         })
         window.location.reload()
-        alert("Challenge added.");
+        alert("Challenge ajouté.");
 
       }
     } catch (err) {
@@ -86,4 +86,45 @@ export const GetAllChallengeExpert = () => {
           payload: err.response.data,
         });
       });
+  };
+  export const participerChallenge = (id,data) => {
+    return async dispatch => {
+      dispatch({ type: ChallengeConstants.PARTICIPER_Challenge_REQUEST })
+      try {
+        const res = await axios.post(`http://127.0.0.1:3030/api/participer/${id}`, data)
+        if (res.status === 200) {
+          dispatch({
+            type: ChallengeConstants.PARTICIPER_Challenge_SUCCESS,
+            payload: { createdChallenge: res.data }
+          })
+          window.location.reload()
+          alert("vous avez participé à ce challenge.");
+        }
+      } catch (err) {
+        dispatch({
+          type: ChallengeConstants.PARTICIPER_Challenge_FAILURE,
+          payload: err.response.data
+        })
+      }
+    }
+  }
+  //Recuperer tous les participant pour RRH
+  export const ListerOperationparticiper = (id) => {
+    return async (dispatch) => {
+      dispatch({ type: ChallengeConstants.GET_ALL_PARTICIPANT_REQUEST });
+      try {
+        const res = await axios.get(`http://127.0.0.1:3030/api/operation/participants/${id}`);
+        if (res.status === 200) {
+          dispatch({
+            type: ChallengeConstants.GET_ALL_PARTICIPANT_SUCCESS,
+            payload: res.data,
+          });
+        }
+      } catch (error) {
+        dispatch({
+          type: ChallengeConstants.GET_ALL_PARTICIPANT_FAILURE,
+          payload: { error: error.response },
+        });
+      }
+    };
   };
