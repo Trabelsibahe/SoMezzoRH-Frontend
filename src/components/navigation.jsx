@@ -64,7 +64,8 @@ function Navigation({ user }) {
       <aside className={`sidebar ${showSidebar ? "show" : ""}`}>
       <ul className="sidebar_list">   
       <li className="sidebar_avatar"><img className="SideNav_Avatar" src={`http://localhost:3030/${profile?.avatar}`} alt="avatar"></img></li>
-          <li className="sidebar_name">{user.nom}{" "} {user.prenom}</li></ul>
+          <li className="sidebar_name">{user.nom}{" "} {user.prenom}</li>
+          <li className="sidebar_name2">{user.titre}</li></ul>
 
         <ul className="sidebar_list2">
         <li><a href="/acceuil" className="sidebar_itemhome"><HomeOutlinedIcon/> Acceuil</a></li>

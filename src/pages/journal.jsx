@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Divider, Button } from "@mui/material";
 import { GetNotificationAction } from "../actions/notification.action";
 import formatDate from "../components/formatdate";
+import Expertheader from "../components/headers/expert_header";
 
 const style = {
   color: "#151582;",
@@ -49,44 +50,7 @@ function Journal() {
           Pages / Espace Expert RESPONSABLE RH METIER{" "}
           <p style={{ fontWeight: "bold", fontSize: "14px" }}>Journal</p>
         </div>
-        <div className="rrh_header">
-          <div className="rrh_header_titles">
-            <p className="rrh_header_title">Bienvenue {CurrentUser.nom}!</p>
-            <p className="rrh_header_semititle">
-              Titre : {CurrentUser.titre ? CurrentUser.titre : "Aucun titre"}
-            </p>
-          </div>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/expertrh">
-            <Button variant="outlined" size="large" sx={style}>
-              Espace Expert
-            </Button>
-          </a>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/expertrh/Challenges">
-            <Button variant="outlined" size="large" sx={style}>
-              Challenges
-            </Button>
-          </a>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/expertrh/demandes">
-            <Button variant="outlined" size="large" sx={style}>
-              Demandes
-            </Button>
-          </a>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/expertrh/archive">
-            <Button variant="outlined" size="large" sx={style}>
-              Archive
-            </Button>
-          </a>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/expertrh/journal">
-            <Button variant="outlined" size="large" sx={style}>
-              Journal
-            </Button>
-          </a>
-        </div>
+        <Expertheader/>
         <div className="journal_body">
           <p className="rrh_info">Journal</p>
           {notifications && notifications.length > 0 ? (

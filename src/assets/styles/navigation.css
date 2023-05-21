@@ -90,7 +90,7 @@
 .sidebar_list2 {
   list-style: none;
   padding: 0em;
-  margin: 3em 1em;
+  margin: 2.5em 1em;
 }
 .sidebar_lihome{
 }
@@ -112,7 +112,7 @@
   cursor: pointer;
   color: #ffffff;
   text-decoration: none !important;
-  letter-spacing: 0.1em;
+  letter-spacing: 1px;
   transition: all ease-out 300ms;
   text-transform: uppercase;
 
@@ -171,7 +171,15 @@
   pointer-events: none;
   letter-spacing: 0.1em;
 }
-
+.sidebar_name2{
+  font-size: 13px;
+  padding: 0px;
+  cursor: pointer;
+  color: #dbdbdb;
+  text-align: center;
+  pointer-events: none;
+  letter-spacing: 0.1em;
+}
 
 .sidebar_logout:hover {
   color: #d2d2d2;
