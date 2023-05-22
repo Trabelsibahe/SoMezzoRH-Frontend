@@ -128,3 +128,25 @@ export const GetAllChallengeExpert = () => {
       }
     };
   };
+  export const Countchallenge = () => {
+    return async dispatch => {
+      dispatch({ type: ChallengeConstants.CHALLENGE_REQUEST })
+      try {
+        const res = await axios.get('http://127.0.0.1:3030/api/nb/challenges')
+        if (res.status === 200) {
+          dispatch({
+            type: ChallengeConstants.COUNT_CHALLENGE,
+            payload: {
+              count: res.data.count 
+            }
+          })
+        }
+      } catch (error) {
+        dispatch({
+          type: ChallengeConstants.COUNT_CHALLENGE_ERREUR,
+          payload: { error: error.response }
+        })
+  
+      }
+    }
+  }
