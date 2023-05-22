@@ -1,0 +1,88 @@
+.espace_sante {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.espace_sante_background {
+  background-color: #222;
+  border-radius: 15px;
+  height: 550px;
+  width: 1200px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 100%;
+    background-image: url(../images/sante.jpg);
+  }
+}
+
+.espace_sante_form {
+  position: absolute;
+  border-radius: 15px;
+  padding: 1em;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  width: 50%;
+  z-index: 5;
+  -webkit-transition: all 0.3s ease;
+
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(4.5px);
+}
+
+.espace_sante_btn {
+  background: rgba(36, 55, 123, 0.7);
+  color: rgba(256, 256, 256, 0.7);
+  border: 0;
+  border-radius: 15px;
+  display: block;
+  margin: 15px auto;
+  padding: 15px 45px;
+  width: 80%;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: all 0.3s ease;
+  backdrop-filter: blur(10.5px);
+  -webkit-backdrop-filter: blur(10.5px);
+
+  &:hover {
+    transition: all 0.3s ease;
+    background: rgba(36, 55, 123, 0.9);
+}
+}
+
+.espace_sante_title {
+    position: absolute;
+    color: #1c2657;
+    text-align: center;
+    top: 20%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    z-index: 5;
+    -webkit-transition: all 0.3s ease;
+  }
+  .espace_sante_formtitle{
+    color: #2b2b2b;
+    font-size: 14px;
+  }

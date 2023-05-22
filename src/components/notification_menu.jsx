@@ -120,7 +120,7 @@ export default function NotificationMenu() {
                   placement === "bottom-start" ? "left top" : "left bottom",
               }}
             >
-              <Paper sx={{ width: 280, maxWidth: "100%" }}>
+              <Paper sx={{ width: 310, maxWidth: "100%" }}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
                     autoFocusItem={open}

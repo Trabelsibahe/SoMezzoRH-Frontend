@@ -89,7 +89,7 @@ function Expert_header() {
           Journal
         </a>
         <Divider orientation="vertical" flexItem></Divider>
-        <a className="espace_header_navs" href="/monespace/santé">
+        <a className="espace_header_navs" href="/monespace/expertrh/sante">
           Espace santé
         </a>
       </div>

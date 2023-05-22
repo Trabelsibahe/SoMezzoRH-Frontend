@@ -1,17 +1,17 @@
-import "../../assets/styles/rrh.css";
+import "../assets/styles/rrh.css";
 
 import React from "react";
-import Navigation from "../../components/navigation";
+import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { Button, ButtonBase, Divider } from "@mui/material";
-import RrhAbsArchPage from "../../components/rrh_AbsArch";
-import Tasks from "../../components/TaskComponents/tasks";
-import RrhCalendar from "../../components/TaskComponents/rrhcalendar";
+import RrhAbsArchPage from "../components/rrh_AbsArch";
+import Tasks from "../components/TaskComponents/tasks";
+import RrhCalendar from "../components/TaskComponents/rrhcalendar";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import RRHheader from "../../components/headers/rrh_header";
+import RRHheader from "../components/headers/rrh_header";
 
 const style2 = {
   left: "58em",

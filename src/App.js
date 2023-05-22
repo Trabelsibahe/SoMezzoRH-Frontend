@@ -28,7 +28,7 @@ import { Redirect } from 'react-router-dom'
 import ActiveRouter from './routes/ActiveRouter';
 import AbsencesPage from './pages/absences';
 import DemandePage from './pages/demande';
-import TasksPage from './pages/espaces/taskspage';
+import TasksPage from './pages/taskspage';
 import ExpertTasksPage from './pages/experttasks';
 import ExpertDemandesPage from './pages/demandesPage';
 import AbsenceList from './components/userlist/absenceArch';
@@ -36,7 +36,8 @@ import DemandeArchiveList from './components/userlist/demandeArch';
 import MynotificationsPage from './pages/notifications';
 import SplashScreen from './pages/intro';
 import Journal from './pages/journal';
-import Espace_Sante from './pages/espace_sante';
+import Espace_Sante from './pages/sante/espace_sante';
+import Expert_Sante from './pages/sante/expert_sante';
 
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
@@ -137,6 +138,7 @@ function App() {
           <Route path="/monespace/notifications" element={<MynotificationsPage />}></Route>
           <Route path="/monespace/expertrh/journal" element={<ExpertRouter user={user}> {" "} <Journal />{" "} </ExpertRouter>} />
           <Route path="/monespace/santé" element={<Espace_Sante />}></Route>
+          <Route path="/monespace/expertrh/sante" element={<Expert_Sante />}></Route>
 
         </Routes>
 
