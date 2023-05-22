@@ -132,7 +132,6 @@ function AbsenceList() {
                 <th>Commentaire</th>
                 <th>État</th>
                 <th>Justification</th>
-                <th>Motif de refuse</th>
               </tr>
               {filteredabsence.map((item) =>
                 item.absences.map((absence) => 
@@ -152,8 +151,15 @@ function AbsenceList() {
                           ? absence.commentaire
                           : "Aucun commentaire"}
                       </td>
-                      <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>{absence.etat}</td>
-                      <td>
+                      <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>
+  {absence.etat}
+  {absence.etat === "Refusé" && absence.motif ? (
+    <>
+      <br />
+      {absence.motif}
+    </>
+  ) : null}
+</td>                      <td>
                         {absence.justif ? (
                           <Button
                             size="small"
@@ -166,11 +172,6 @@ function AbsenceList() {
                         ) : (
                           "Aucune Justification"
                         )}
-                      </td>
-                      <td>
-                        {absence.motif
-                          ? absence.motif
-                          : ""}
                       </td>
                     </tr>
                
