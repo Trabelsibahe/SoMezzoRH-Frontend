@@ -74,6 +74,10 @@ function RRH_header() {
         <a className="espace_header_navs" href="/monespace/mesdemandes">
           Mes demandes
         </a>
+        <Divider orientation="vertical" flexItem></Divider>
+        <a className="espace_header_navs" href="/monespace/santé">
+          Espace santé
+        </a>
       </div>
     </div>
   );

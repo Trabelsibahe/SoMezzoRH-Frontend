@@ -70,6 +70,10 @@ function EMPheader() {
         <a className="espace_header_navs" href="/monespace/mesabsences">
           Mes absences
         </a>
+        <Divider orientation="vertical" flexItem></Divider>
+        <a className="espace_header_navs" href="/monespace/santé">
+          Espace santé
+        </a>
       </div>
     </div>
   );
