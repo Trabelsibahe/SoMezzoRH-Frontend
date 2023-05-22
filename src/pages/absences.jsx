@@ -120,7 +120,6 @@ function AbsencesPage() {
                           <th>Commentaires</th>
                           <th>Etat</th>
                           <th>justification</th>
-                          <th>Motif de refuse</th>
                         </tr>
                         {absences[0].absences.map((absence, index) => (
                           <tr key={index}>
@@ -137,7 +136,15 @@ function AbsencesPage() {
                                 ? absence.commentaire
                                 : "Pas de commentaires."}
                             </td>
-                            <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>{absence.etat}</td>
+                            <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>
+  {absence.etat}
+  {absence.etat === "Refusé" && absence.motif ? (
+    <>
+      <br />
+      {absence.motif}
+    </>
+  ) : null}
+</td>
                             <td>
                               {absence.justif ? (
                                 <Button
@@ -151,11 +158,6 @@ function AbsencesPage() {
                               ) : (
                                 "Aucune Justification"
                               )}
-                            </td>
-                            <td>
-                              {absence.motif
-                                ? absence.motif
-                                : ""}
                             </td>
                           </tr>
                         ))}
