@@ -9,9 +9,9 @@ import {
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
-import { InputBase } from "@mui/material";
+import { Box, InputBase, Modal } from "@mui/material";
+import Modals from "react-bootstrap/Modal";
 import InputAdornment from "@mui/material/InputAdornment";
-import Modal from "react-bootstrap/Modal";
 import "@mui/icons-material/OutlinedFlag";
 import "@mui/icons-material/CheckCircleOutline";
 import Form from "react-bootstrap/Form";
@@ -20,7 +20,21 @@ import { SendNotificationToOneUser } from "../../actions/notification.action";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  border: "2px solid #151582",
+  boxShadow: 24,
+  textAlign: "center",
+  p: 4,
+  width: "100%",
+  maxWidth: "500px",
+  margin: "0 auto",
+  padding: "20px",
+};
 function DemandesList() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
@@ -253,7 +267,7 @@ function DemandesList() {
                             <Button
                               variant="outlined"
                               color="success"
-                              size="small" 
+                              size="small"
                               onClick={() => {
                                 if (
                                   window.confirm(
@@ -267,13 +281,10 @@ function DemandesList() {
                               Accorder
                             </Button>
                             <Modal
-                              show={isCalendrierlOpen}
-                              onHide={closeCalendrierModal}
+                              open={isCalendrierlOpen}
+                              onClose={closeCalendrierModal}
                             >
-                              <Modal.Header closeButton>
-                                <Modal.Title>RDV Médecin</Modal.Title>
-                              </Modal.Header>
-                              <Modal.Body>
+                              <Box sx={style}>
                                 <LocalizationProvider
                                   dateAdapter={AdapterDayjs}
                                 >
@@ -281,17 +292,23 @@ function DemandesList() {
                                     <DatePicker
                                       id="outlined-basic"
                                       variant="outlined"
-                                      size="small" disablePast
+                                      size="small"
+                                      disablePast
                                       label="Date de RDV"
                                       value={rdv}
                                       onChange={(date) => setRdv(date)}
                                     />
                                   </Form.Group>
                                 </LocalizationProvider>
-                              </Modal.Body>
-                              <Modal.Footer>
+                               
                                 <Button
-                                  variant="contained"
+                                  variant="secondary"
+                                  onClick={closeCalendrierModal}
+                                >
+                                  Annuler
+                                </Button>
+                                <Button
+                                  variant="outlined"
                                   onClick={() => {
                                     if (
                                       demande &&
@@ -304,7 +321,8 @@ function DemandesList() {
                                         demande._id,
                                         "Accordé",
                                         demande.user._id,
-                                        rdv
+                                        rdv,
+                                        demande.user.matricule
                                       );
                                       closeCalendrierModal();
                                     }
@@ -312,20 +330,20 @@ function DemandesList() {
                                 >
                                   Soumettre
                                 </Button>
-                                <Button
-                                  variant="secondary"
-                                  onClick={closeCalendrierModal}
-                                >
-                                  Fermer
-                                </Button>
-                              </Modal.Footer>
+                              </Box>
                             </Modal>
 
                             <Button
                               variant="outlined"
-                              color="error" size="small"  sx={{ margin: "0.5em" }}
+                              color="error"
+                              size="small"
+                              sx={{ margin: "0.5em" }}
                               onClick={() => {
-                                if (  window.confirm( "Voulez-vous vraiment Refuser cette demande de RDV?"   )    ) {
+                                if (
+                                  window.confirm(
+                                    "Voulez-vous vraiment Refuser cette demande de RDV?"
+                                  )
+                                ) {
                                   editRdv(
                                     demande._id,
                                     "Refusé",
@@ -343,7 +361,7 @@ function DemandesList() {
                           <Button
                             variant="outlined"
                             color="success"
-                            size="small" 
+                            size="small"
                             onClick={() =>
                               handleShowAtt(demande._id, demande.user._id)
                             }
@@ -351,48 +369,40 @@ function DemandesList() {
                             Accorder
                           </Button>
                         )}
-                        <Modal show={att} onHide={handleCloseAtt}>
-                          <Modal.Header closeButton>
-                            <Modal.Title>Accorder l'attestation </Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>
-                            {" "}
-                            <Form>
-                              <Form.Group
-                                className="mb-3"
-                                controlId="formBasicPassword"
-                              >
-                                <Form.Label>Charger l'attestation</Form.Label>
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  name="attestation"
-                                  onChange={(e) =>
-                                    setAttestation(e.target.files[0])
-                                  }
-                                />
-                              </Form.Group>
+
+                        <Modal open={att} onClose={handleCloseAtt}>
+                          <form>
+                            <Box sx={style}>
+                              <h5 style={{ textAlign: "center" }}>
+                                Veuillez charger une attestation
+                              </h5>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                name="attestation"
+                                onChange={(e) =>
+                                  setAttestation(e.target.files[0])
+                                }
+                              />
                               <p style={{ color: "red", textAlign: "center" }}>
                                 {error}
                               </p>
-                            </Form>
-                          </Modal.Body>
-                          <Modal.Footer>
-                            <Button
-                              variant="secondary"
-                              onClick={handleCloseAtt}
-                            >
-                              Annuler
-                            </Button>
-                            <Button
-                              variant="primary"
-                              onClick={() =>
-                                editattestation(demande.user.matricule)
-                              }
-                            >
-                              Accorder
-                            </Button>
-                          </Modal.Footer>
+                              <Button
+                                variant="secondary"
+                                onClick={handleCloseAtt}
+                              >
+                                Annuler
+                              </Button>
+                              <Button
+                                variant="outlined"
+                                onClick={() =>
+                                  editattestation(demande.user.matricule)
+                                }
+                              >
+                                Accorder
+                              </Button>
+                            </Box>
+                          </form>
                         </Modal>
                       </td>
                     </tr>

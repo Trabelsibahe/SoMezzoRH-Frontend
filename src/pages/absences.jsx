@@ -132,7 +132,7 @@ function AbsencesPage() {
                                 >
                                   Afficher
                                 </Button>
-                              ) : (
+                              ) : absence.etat === "Refusé" ? "Refusé..." : (
                                 "Aucune Justification"
                               )}
                             </td>

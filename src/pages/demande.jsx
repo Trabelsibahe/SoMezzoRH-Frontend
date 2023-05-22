@@ -108,9 +108,10 @@ function DemandePage() {
                         onClick={() => handleShowJustif(demande)} >
                         Afficher
                         </Button>)
-                         : demande.type === "Badge" && demande.etat === "Accordé" ? ("Dans la réception") 
-                         : demande.rdv ? (<div>{new Date(demande.rdv).toLocaleDateString()}</div>)
-                         : ("En cours de traitement" )}
+                         : demande.type === "Badge" && demande.etat === "Accordé" ? "Dans la réception"
+                         : demande.rdv ? (<div>{new Date(demande.rdv).toLocaleDateString()}</div>) : demande.etat === "Refusé" ?
+                          "Refusé..."
+                         : ("En cours de traitements" )}
                         </td>
                           </tr>
                         ))}

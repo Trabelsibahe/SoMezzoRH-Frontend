@@ -111,7 +111,7 @@ function DemandeArchiveList() {
                           ? demande.commentaire
                           : "Aucun commentaire"}
                       </td>
-                      <td style={{ color: demande.etat === "en attente" ? "blue"  : "green" }}>{demande.etat}</td>
+                      <td style={{ color: demande.etat === "en attente" ? "blue" : demande.etat==="Refusé" ? "red" : "green" }}>{demande.etat}</td>
                       <td>
                      {demande.attestation && demande.type === "Attestation" ? (
                      <Button
@@ -121,8 +121,8 @@ function DemandeArchiveList() {
                         onClick={() => handleShowJustif(demande)} >
                         Afficher
                         </Button>)
-                         : demande.type === "Badge" && demande.etat === "Accordé" ? ("Dans la réception") 
-                         : demande.rdv ? (<div>{new Date(demande.rdv).toLocaleDateString()}</div>)
+                         : demande.type === "Badge" && demande.etat === "Accordé" ? "Dans la réception"
+                         : demande.rdv ? (<div>{new Date(demande.rdv).toLocaleDateString()}</div>) : demande.etat === "Refusé" ? "Refusé."
                          : ("En cours de traitement" )}
                         </td>
                     </tr>
