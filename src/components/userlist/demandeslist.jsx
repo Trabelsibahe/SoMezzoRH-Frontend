@@ -143,20 +143,7 @@ function DemandesList() {
     }
   };
 
-  const editRdv = async (id, action, userId, rdv, matricule) => {
-    const data = {
-      etat: action,
-      rdv: rdv,
-    };
-    const notification = {
-      message: "l'expert RH a " + data.etat + " votre demande.",
-      journal: `La demande de RDV avec le Medecin sous le matricule "${matricule}" a été ${data.etat}.`,
-    };
-    await dispatch(updateRDv(id, data));
-    await dispatch(SendNotificationToOneUser(userId, notification));
-    await dispatch(listerdemandeExpert());
-    await dispatch(closeCalendrierModal());
-  };
+  
 
   const [search, setSearch] = useState("");
   const handleSearch = (event) => {
@@ -188,7 +175,7 @@ function DemandesList() {
   return (
     <div className="rrh_body2">
       <p className="rrh_info">
-        Les demandes d'attestations, badges ou RDV avec le médecin
+        Les demandes d'attestations ou des badges 
       </p>
       <InputBase
         className="searchbar"
@@ -262,102 +249,7 @@ function DemandesList() {
                           >
                             Accorder
                           </Button>
-                        ) : demande.type === "RDV Médecin" ? (
-                          <>
-                            <Button
-                              variant="outlined"
-                              color="success"
-                              size="small"
-                              onClick={() => {
-                                if (
-                                  window.confirm(
-                                    "Voulez-vous vraiment Accorder cette demande de RDV?"
-                                  )
-                                ) {
-                                  openCalendrierModal(demande._id);
-                                }
-                              }}
-                            >
-                              Accorder
-                            </Button>
-                            <Modal
-                              open={isCalendrierlOpen}
-                              onClose={closeCalendrierModal}
-                            >
-                              <Box sx={style}>
-                                <LocalizationProvider
-                                  dateAdapter={AdapterDayjs}
-                                >
-                                  <Form.Group className="mb-4">
-                                    <DatePicker
-                                      id="outlined-basic"
-                                      variant="outlined"
-                                      size="small"
-                                      disablePast
-                                      label="Date de RDV"
-                                      value={rdv}
-                                      onChange={(date) => setRdv(date)}
-                                    />
-                                  </Form.Group>
-                                </LocalizationProvider>
-                               
-                                <Button
-                                  variant="secondary"
-                                  onClick={closeCalendrierModal}
-                                >
-                                  Annuler
-                                </Button>
-                                <Button
-                                  variant="outlined"
-                                  onClick={() => {
-                                    if (
-                                      demande &&
-                                      demande._id &&
-                                      demande.user &&
-                                      demande.user._id &&
-                                      rdv
-                                    ) {
-                                      editRdv(
-                                        demande._id,
-                                        "Accordé",
-                                        demande.user._id,
-                                        rdv,
-                                        demande.user.matricule
-                                      );
-                                      closeCalendrierModal();
-                                    }
-                                  }}
-                                >
-                                  Soumettre
-                                </Button>
-                              </Box>
-                            </Modal>
-
-                            <Button
-                              variant="outlined"
-                              color="error"
-                              size="small"
-                              sx={{ margin: "0.5em" }}
-                              onClick={() => {
-                                if (
-                                  window.confirm(
-                                    "Voulez-vous vraiment Refuser cette demande de RDV?"
-                                  )
-                                ) {
-                                  editRdv(
-                                    demande._id,
-                                    "Refusé",
-                                    demande.user._id,
-                                    rdv,
-                                    demande.user.matricule
-                                  );
-                                }
-                              }}
-                            >
-                              Refuser
-                            </Button>
-                          </>
-                        ) : (
+                        ) :  (
                           <Button
                             variant="outlined"
                             color="success"
@@ -369,7 +261,6 @@ function DemandesList() {
                             Accorder
                           </Button>
                         )}
-
                         <Modal open={att} onClose={handleCloseAtt}>
                           <form>
                             <Box sx={style}>

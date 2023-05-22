@@ -70,7 +70,7 @@ function DemandeArchiveList() {
 
   return (
     <div>
-        <p className="expert_info">Historique des demande Attestation , Badge ou RDV avec le médecin</p>
+        <p className="expert_info">Historique des demande Attestation ou Badge </p>
       <InputBase
         className="searchbar"
         placeholder="Rechercher.."
@@ -122,7 +122,6 @@ function DemandeArchiveList() {
                         Afficher
                         </Button>)
                          : demande.type === "Badge" && demande.etat === "Accordé" ? "Dans la réception"
-                         : demande.rdv ? (<div>{new Date(demande.rdv).toLocaleDateString()}</div>) : demande.etat === "Refusé" ? "Refusé."
                          : ("En cours de traitement" )}
                         </td>
                     </tr>
