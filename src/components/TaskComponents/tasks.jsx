@@ -102,7 +102,7 @@ function Tasks() {
                         </Button>
                       ) : (
                         <Button
-                          onClick={() => Pariciper(task._id)}
+                          onClick={() => { if (window.confirm("Voulez vous vraiment participer à ce challenge?")) Pariciper(task._id)}}
                           style={{ color: "#151582" }}
                           startIcon={<GroupOutlinedIcon />}
                           size="small"

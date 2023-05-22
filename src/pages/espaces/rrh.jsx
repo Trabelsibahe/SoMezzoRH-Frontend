@@ -19,6 +19,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { TextField } from "@mui/material";
+import RRHheader from "../../components/headers/rrh_header";
 
 const style = {
   color: "#151582;",
@@ -118,36 +119,7 @@ function RRH_Page() {
           </p>
         </div>
 
-        <div className="rrh_header">
-          <div className="rrh_header_titles">
-            <p className="rrh_header_title">
-              Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !
-            </p>
-            <p className="rrh_header_semititle">
-              Votre opération est : {CurrentUser.operation}
-            </p>
-          </div>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/rrh">
-            <Button variant="outlined" size="large" sx={style}>
-              Mon équipe
-            </Button>
-          </a>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/Challenges">
-            <Button variant="outlined" size="large" sx={style}>
-              {" "}
-              challenges
-            </Button>
-          </a>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/mesabsences">
-            <Button variant="outlined" size="large" sx={style}>
-              Mes absences
-            </Button>
-          </a>
-          <Divider orientation="vertical" flexItem></Divider>
-        </div>
+        <RRHheader/>
 
         <div className="rrh_body">
           <OperaList />

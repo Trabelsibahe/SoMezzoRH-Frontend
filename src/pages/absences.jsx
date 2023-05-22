@@ -9,6 +9,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { GetAbsence, AddAbsence } from "../actions/absence.action";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
+import RRHheader from "../components/headers/rrh_header";
+import EMPheader from "../components/headers/emp_header";
 
 const style = {
   color: "#151582;",
@@ -72,34 +74,9 @@ function AbsencesPage() {
             Mes Absences
           </p>
         </div>
-        { CurrentUser.role === "RRH" ? (
-        <div className="rrh_header">
-          <div className="rrh_header_titles">
-          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
-          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
-          </div>
-          <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
-          <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/Challenges"><Button variant="outlined" size="large" sx={style}> challenges</Button></a>
-          <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
-          <Divider orientation="vertical" flexItem></Divider>
-        </div>)
+        { CurrentUser.role === "RRH" ? (<RRHheader/>)
         :
-        <div className="rrh_header">
-          <div className="rrh_header_titles">
-          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
-          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
-          </div>
-          <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/emp"><Button variant="outlined" size="large" sx={style}> Challenges</Button></a>
-          <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/mesdemandes"><Button variant="outlined" size="large" sx={style}>Mes demandes</Button></a>
-          <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
-          <Divider orientation="vertical" flexItem></Divider>
-        </div>
+        <EMPheader/>
         }
           <div> 
             {showRepo ? (

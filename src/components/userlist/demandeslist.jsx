@@ -253,7 +253,7 @@ function DemandesList() {
                             <Button
                               variant="outlined"
                               color="success"
-                              size="small"
+                              size="small" 
                               onClick={() => {
                                 if (
                                   window.confirm(
@@ -281,7 +281,7 @@ function DemandesList() {
                                     <DatePicker
                                       id="outlined-basic"
                                       variant="outlined"
-                                      size="small"
+                                      size="small" disablePast
                                       label="Date de RDV"
                                       value={rdv}
                                       onChange={(date) => setRdv(date)}
@@ -323,14 +323,9 @@ function DemandesList() {
 
                             <Button
                               variant="outlined"
-                              color="error"
-                              size="small"
+                              color="error" size="small"  sx={{ margin: "0.5em" }}
                               onClick={() => {
-                                if (
-                                  window.confirm(
-                                    "Voulez-vous vraiment Refuser cette demande de RDV?"
-                                  )
-                                ) {
+                                if (  window.confirm( "Voulez-vous vraiment Refuser cette demande de RDV?"   )    ) {
                                   editRdv(
                                     demande._id,
                                     "Refusé",
@@ -348,7 +343,7 @@ function DemandesList() {
                           <Button
                             variant="outlined"
                             color="success"
-                            size="small"
+                            size="small" 
                             onClick={() =>
                               handleShowAtt(demande._id, demande.user._id)
                             }

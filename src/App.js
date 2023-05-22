@@ -124,7 +124,7 @@ function App() {
 
           <Route path="/emp" element={<ActiveRouter user={user}> <EmployePage /></ActiveRouter>}></Route>
           <Route path="/rrh" element={<ActiveRouter user={user}> <RRH_Page /></ActiveRouter>}></Route>
-          <Route path="/monespace/Challenges" element={<ActiveRouter user={user}> <TasksPage /></ActiveRouter>}></Route>
+          <Route path="/monespace/challenges" element={<ActiveRouter user={user}> <TasksPage /></ActiveRouter>}></Route>
 
           <Route path="/inactive" element={<InactivePage />}></Route>
           <Route path="/monespace/mesabsences" element={<AbsencesPage />}></Route>

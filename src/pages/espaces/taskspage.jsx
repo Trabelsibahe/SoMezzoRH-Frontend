@@ -11,6 +11,7 @@ import Tasks from "../../components/TaskComponents/tasks";
 import RrhCalendar from "../../components/TaskComponents/rrhcalendar";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import RRHheader from "../../components/headers/rrh_header";
 
 const style2 = {
   left: "58em",
@@ -73,19 +74,7 @@ function TasksPage() {
           <p style={{ fontWeight: "bold", fontSize: "14px" }}> Challenges</p>
         </div>
 
-        <div className="rrh_header">
-          <div className="rrh_header_titles">
-          <p className="rrh_header_title">Bienvenue {CurrentUser.nom} {CurrentUser.prenom} !</p>
-          <p className="rrh_header_semititle">Votre opération est : {CurrentUser.operation}</p>
-          </div>
-          <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/rrh"><Button variant="outlined" size="large" sx={style}>Mon équipe</Button></a>
-          <Divider orientation="vertical" flexItem></Divider>
-            <a className="rrh_header_navs" href="/monespace/Challenges"><Button variant="outlined" size="large" sx={style}> challenges</Button></a>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a className="rrh_header_navs" href="/monespace/mesabsences"><Button  variant="outlined" size="large" sx={style}>Mes absences</Button></a>
-          <Divider orientation="vertical" flexItem></Divider>
-        </div>
+        <RRHheader/>
 
         <div className="rrh_body">
           <div className="rrh_infos">
