@@ -4,13 +4,26 @@ import { Button, ButtonBase, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-
+import {CountProfiles} from "../../actions/profile.actions"
+import {CountOperation } from "../../actions/operation.action"
+import {Countchallenge} from "../../actions/Challenge.action"
 function Expert_header() {
   const auth = useSelector((state) => state.auth);
+  const count = useSelector((state) => state.profiles.count.count);
+  const count1 = useSelector((state) => state.operation.count.count);
+  const count2 = useSelector((state) => state.task.count.count);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(CountProfiles());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(CountOperation());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(Countchallenge());
+  }, [dispatch]);
   const CurrentUser = {
     isConnected: auth.isConnected,
     nom: auth.user.nom,
@@ -33,13 +46,13 @@ function Expert_header() {
           <div className="espace_header_card1">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">102</span>
+                <span className="espace_header_carditem">{count}</span>
                 <span className="espace_header_carditem2">Collaborateurs</span>
               </span>
             </span>
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">8</span>
+                <span className="espace_header_carditem">{count1}</span>
                 <span className="espace_header_carditem2">Opérations</span>
               </span>
             </span>
@@ -48,7 +61,7 @@ function Expert_header() {
           <div className="espace_header_card2">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">10</span>
+                <span className="espace_header_carditem">{count2}</span>
                 <span className="espace_header_carditem2">Challenges</span>
               </span>
             </span>

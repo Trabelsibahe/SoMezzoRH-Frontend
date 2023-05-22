@@ -4,6 +4,8 @@ import { operaConstants } from "../actions/constantes";
 const intitialState = {
     operation: [],
     absences:[],
+    count: 0 ,
+    countch:0,
 };
 export default function (state = intitialState, action) {
 
@@ -32,8 +34,18 @@ export default function (state = intitialState, action) {
                 ...state,
                 message: action.payload.message
             }
-
-
+            case operaConstants.COUNT_OPERATION:
+                return {
+                  ...state,
+                  count: action.payload,
+      
+                };
+                case operaConstants.COUNT_CHALLENGE:
+                    return {
+                      ...state,
+                      countch: action.payload,
+          
+                    };
         default:
             return state;
     }
