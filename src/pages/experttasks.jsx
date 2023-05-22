@@ -1,13 +1,13 @@
 import "../assets/styles/rrh.css";
-
+import "../assets/styles/tasks.css";
 import React from "react";
+import { Box, Button, Divider, IconButton, Modal } from "@mui/material";
 import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import InsertInvitationOutlinedIcon from "@mui/icons-material/InsertInvitationOutlined";
 import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
 import MoreHorizTwoToneIcon from "@mui/icons-material/MoreHorizTwoTone";
-import {Button, ButtonBase, Divider, IconButton } from "@mui/material";
 import RrhAbsArchPage from "../components/rrh_AbsArch";
 import Tasks from "../components/TaskComponents/tasks";
 import RrhCalendar from "../components/TaskComponents/rrhcalendar";
@@ -17,6 +17,7 @@ import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 import { GetAllChallengeExpert} from "../actions/Challenge.action";
 import ExpertCalendar from "../components/TaskComponents/expertcalendar";
 import Expertheader from "../components/headers/expert_header";
+import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 
 const style2 = {
   left: "58em",
@@ -29,14 +30,19 @@ const style2 = {
 }
 
 const style = {
-  color: "#151582;",
-  borderColor: "#151582;",
-
-  '&:variant': {
-    color: "#151582;",
-  },
-
-}
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  border: "2px solid #151582",
+  boxShadow: 24,
+  p: 4,
+  width: "100%",
+  maxWidth: "500px",
+  margin: "0 auto",
+  padding: "20px",
+};
 function ExpertTasksPage() {
 
   
@@ -61,11 +67,30 @@ function ExpertTasksPage() {
   const [Show_RrhCalendar, setShow_RrhCalendar] = React.useState(false);
 
   const onClick_ShowRRHCalendar = () => setShow_RrhCalendar(true);
+  const [participants, setParticipants] = useState([]);
 
   useEffect(() => {
     dispatch(GetAllChallengeExpert());
   }, [dispatch]);
+  const [detais, setDetais] = useState(false);
+  const handleClosedetais = () => setDetais(false);
+  const handleShowdetails = (id) => {
+    const task = tasks.find((task) => task._id === id);
+    if (task) {
+      const taskParticipants = task.participantsIds.map((participant) => ({
+        user: {
+          _id: participant.user._id,
+          matricule: participant.user.matricule,
+          nom: participant.user.nom,
+          prenom: participant.user.prenom,
+        },
+        participations: participant.participations,
+      }));
 
+      setParticipants(taskParticipants);
+      setDetais(true);
+    }
+  };
 
   
 
@@ -102,7 +127,15 @@ function ExpertTasksPage() {
                     tasks.map((task, index) => (
                       <div className="tasks_grid_item" key={index}>
                         <div className="task_card">
-                          <div className="task_menu"><IconButton size="small"><MoreHorizTwoToneIcon /></IconButton>
+                          <div className="task_menu">
+                          <Button
+                          onClick={() => handleShowdetails(task._id)}
+                          style={{ color: "#151582" }}
+                          startIcon={<GroupOutlinedIcon />}
+                          size="small"
+                        >
+                          Participants
+                        </Button>
                           </div>
                           <p className="task_name">({task.user.operation}) {task.titre}</p>
                           <p className="task_desc">{task.description}</p>
@@ -133,7 +166,31 @@ function ExpertTasksPage() {
                 </div>
           )}
         </div>
+        <Modal open={detais} onHide={handleClosedetais}>
+        <Box sx={style}>
+          <ul style={{ listStyle: "none" }}>
+            <h5>Participants à ce challenge:</h5>
+            {participants.length > 0
+              ? participants.map((participant) => (
+                  <div>
+                    <Divider />
+                    <li key={participant.user._id}>
+                      Participant(e): {participant.user.nom}{" "}
+                      {participant.user.prenom}
+                      <br />
+                      Points de participation : {participant.participations}
+                      <Divider />
+                    </li>
+                  </div>
+                ))
+              : "Aucune participation."}
+          </ul>
 
+          <Button variant="outlined" onClick={handleClosedetais}>
+            Fermer
+          </Button>
+        </Box>
+      </Modal>
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>
