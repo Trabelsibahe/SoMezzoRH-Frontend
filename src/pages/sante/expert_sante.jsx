@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Expertheader from "../../components/headers/expert_header";
-
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
 import Navigation from "../../components/navigation";
 import "../../assets/styles/espace_sante.css"
 import { Button, TextField } from "@mui/material";
@@ -10,6 +9,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { BiUnderline } from "react-icons/bi";
+import {afficherdv,ajouterdate} from "../../actions/sante.action"
+import moment from 'moment';
+import formatDate from "../../components/formatdate";
 const style = {
     'label.Mui-focused': {
         color: '#2b2b2b;',
@@ -28,8 +30,11 @@ const style = {
 
 function Expert_Sante() {
   const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const date = useSelector(state => state.sante.date);
 
+  const dispatch = useDispatch();
+  const [data, setData] = useState();
+  const navigate = useNavigate();
   const CurrentUser = {
     isConnected: auth.isConnected,
     nom: auth.user.nom,
@@ -39,7 +44,24 @@ function Expert_Sante() {
     operation: auth.user.operation,
     active: auth.user.active,
   };
-
+  useEffect(() => {
+    dispatch(afficherdv());
+  }, [dispatch]);
+  const formattedDate = moment(date).format('DD-MM-YYYY')
+  //moment.tz.setDefault('America/Los_Angeles')
+  const onChangeHandler = (formattedDate) => {
+    setData({
+      ...data,
+      date: formattedDate,
+    });
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(data)
+    dispatch(ajouterdate(data, navigate));
+    
+  };
+  
   return (
     <div className="emp_page">
       <Navigation user={CurrentUser} />
@@ -57,14 +79,17 @@ function Expert_Sante() {
             <div className="espace_sante">
                 <div className="espace_sante_background">
                 <h3 className="espace_sante_title">La prochaine visite médicale aura lieu le 
-                <span style={{textDecoration:"underline"}}> 22 Mai 2023</span></h3>
-                    <form className="espace_sante_form">
+                <span style={{textDecoration:"underline"}}> {formattedDate}</span></h3>
+                <form className="espace_sante_form" onSubmit={onSubmit}>
                         <p className="espace_sante_formtitle">Veuillez sélectionner la date de la prochaine visite médicale.</p>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker sx={style} type="text" margin="normal" disablePast />{" "}
-                        <TextField sx={style} type="number" placeholder="Capacité" InputProps={{ inputProps: { min: 1, max: 1000 } }}/>
+                        <DatePicker  
+                        onChange={(date) =>
+                      setData({ ...data, date: formatDate(date) })
+                    }sx={style} margin="normal"  />
+                       <TextField sx={style} type="number" placeholder="Capacité" InputProps={{ inputProps: { min: 1, max: 1000 } }}/>
                         <p>{" "}</p>
-                        <button className="espace_sante_btn" variant="outlined">Mettre à jour</button>
+                        <button type="submit" className="espace_sante_btn" variant="outlined">Mettre à jour</button>
                         </LocalizationProvider>
                     </form>
                 </div>

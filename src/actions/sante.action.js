@@ -29,7 +29,7 @@ export const afficherdv = () => dispatch => {
             payload: { createddemande: res.data }
           })
           window.location.reload()
-          alert("Demande RDV added.");
+          alert("Demande visite médicale ajoutée.");
   
         }
       } catch (err) {
@@ -40,3 +40,25 @@ export const afficherdv = () => dispatch => {
       }
     }
   }
+  export const ajouterdate = (data) => {
+    return async (dispatch) => {
+      dispatch({ type: santeConstants.ADD_DATE_REQUEST });
+      try {
+        const res = await axios.post('http://127.0.0.1:3030/api/date/add', data);
+        if (res.status === 200) {
+          dispatch({
+            type: santeConstants.ADD_DATE_SUCCESS,
+            payload: res.data 
+          });
+          window.location.reload();
+          alert("Date de visite médicale ajoutée.");
+        }
+      } catch (err) {
+        dispatch({
+          type: santeConstants.ADD_DATE_FAILURE,
+          payload: err.response.data
+        });
+      }
+    };
+  };
+  

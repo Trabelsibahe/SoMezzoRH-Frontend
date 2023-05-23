@@ -50,7 +50,6 @@ function Espace_Sante() {
   const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
-    const formattedDate = moment(date).format('DD MMMM YYYY');
     setData({
       ...data,
       date: date,
