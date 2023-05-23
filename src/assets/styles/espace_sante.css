@@ -38,7 +38,7 @@
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   width: 50%;
-  z-index: 5;
+  z-index: 1;
   -webkit-transition: all 0.3s ease;
 
   background: rgba(255, 255, 255, 0.11);
@@ -69,20 +69,28 @@
   &:hover {
     transition: all 0.3s ease;
     background: rgba(36, 55, 123, 0.9);
-}
+  }
 }
 
 .espace_sante_title {
-    position: absolute;
-    color: #1c2657;
-    text-align: center;
-    top: 20%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    z-index: 5;
-    -webkit-transition: all 0.3s ease;
-  }
-  .espace_sante_formtitle{
-    color: #2b2b2b;
-    font-size: 14px;
-  }
+  position: absolute;
+  color: #1c2657;
+  text-align: center;
+  top: 20%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  z-index: 1;
+  -webkit-transition: all 0.3s ease;
+}
+.espace_sante_formtitle {
+  color: #2b2b2b;
+  font-size: 14px;
+}
+
+.espace_sante_notice {
+  padding: 0.5em;
+  color: #1c2657;
+  font-weight: 500;
+  border: 2px solid #ebf0f7;
+  text-align: center;
+}
