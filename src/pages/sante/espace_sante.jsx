@@ -1,13 +1,15 @@
 import React from "react";
 import EMPheader from "../../components/headers/emp_header";
 import RRHheader from "../../components/headers/rrh_header";
-
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Navigation from "../../components/navigation";
 import "../../assets/styles/espace_sante.css"
 import { Button, TextField } from "@mui/material";
-
+import {afficherdv,ajouterdemande} from "../../actions/sante.action"
+import moment from 'moment';
+import { useParams } from "react-router-dom";
 const style = {
     'label.Mui-focused': {
         color: '#2b2b2b;',
@@ -21,9 +23,13 @@ const style = {
         },
       }
     }
+    
+
 function Espace_Sante() {
   const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const date = useSelector(state => state.sante.date);
+
+    const dispatch = useDispatch();
 
   const CurrentUser = {
     isConnected: auth.isConnected,
@@ -34,7 +40,29 @@ function Espace_Sante() {
     operation: auth.user.operation,
     active: auth.user.active,
   };
+  useEffect(() => {
+    dispatch(afficherdv());
+  }, [dispatch]);
+  const formattedDate = moment(date).format('DD MMMM YYYY');
 
+  const [data, setData] = useState({});
+  const errors = useSelector((state) => state.errors);
+  const navigate = useNavigate();
+
+  const onChangeHandler = (e) => {
+    const formattedDate = moment(date).format('DD MMMM YYYY');
+    setData({
+      ...data,
+      date: date,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(ajouterdemande(data, navigate));
+  };
+  
   return (
     <div className="emp_page">
       <Navigation user={CurrentUser} />
@@ -51,14 +79,15 @@ function Espace_Sante() {
 
             <div className="espace_sante">
                 <div className="espace_sante_background">
-                <h3 className="espace_sante_title">La prochaine visite médicale est prévue le 22 Juillet</h3>
-                    <form className="espace_sante_form">
-                        <p className="espace_sante_formtitle">Réservez votre visite médicale dès maintenant.</p>
-                        <TextField sx={style} label="Maladie" type="text" margin="normal" autoComplete="off" required/>{" "}
-                        <TextField sx={style} label="Commentaire" type="text"  margin="normal" autoComplete="off"/>
-                        <p>{" "}</p>
-                        <button className="espace_sante_btn" variant="outlined">Demander le rendez-vous</button>
-                    </form>
+                <h3 className="espace_sante_title">La prochaine visite médicale est prévue {formattedDate}</h3>
+                <form className="espace_sante_form" onSubmit={onSubmit}>
+  <p className="espace_sante_formtitle">Réservez votre visite médicale dès maintenant.</p>
+  <TextField onChange={onChangeHandler} name="maladie" sx={style} label="Maladie" type="text" margin="normal" autoComplete="off" required/>{" "}
+  <TextField onChange={onChangeHandler} name="commentaire" sx={style} label="Commentaire" type="text"  margin="normal" autoComplete="off"/>
+  <p>{" "}</p>
+  <Button type="submit" className="espace_sante_btn" variant="outlined">Demander le rendez-vous</Button>
+</form>
+
                 </div>
             </div>
 

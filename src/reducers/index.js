@@ -9,6 +9,7 @@ import operationReducer from './operation.reducer';
 import taskReducer from "./Challenge.reducer";
 import demandeReducer from './demande.reducer';
 import notificationReducer from './notification.reducer';
+import santeReduce from './sante.reduce';
 
 const rootReducer = combineReducers({
     auth : authReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     operation : operationReducer,
     task : taskReducer,
     demande : demandeReducer,
-    notification : notificationReducer
+    notification : notificationReducer,
+    sante: santeReduce,
     
 
 })

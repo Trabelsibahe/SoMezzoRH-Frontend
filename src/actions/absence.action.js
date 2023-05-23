@@ -14,7 +14,7 @@ export const AddAbsence = (data) => {
           payload: { createdabsence: res.data }
         })
         window.location.reload()
-        alert("Absence added.");
+        alert("Absence ajouté.");
 
       }
     } catch (err) {
