@@ -8,11 +8,8 @@ import { Button, TextField } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-<<<<<<< HEAD
-=======
 import { BiUnderline } from "react-icons/bi";
 import Modal from "react-bootstrap/Modal";
->>>>>>> 72012582010bb060bfbcce8dbab4916d173e1128
 import {
   afficherdv,
   ajouterdate,
@@ -99,6 +96,8 @@ function Expert_Sante() {
   var demandeDate = new Date(date);
   var options = { day: 'numeric', month: 'long', year: 'numeric' };
   var frDate = demandeDate.toLocaleString('fr-FR', options);
+
+  
   return (
     <div className="emp_page">
       <Navigation user={CurrentUser} />

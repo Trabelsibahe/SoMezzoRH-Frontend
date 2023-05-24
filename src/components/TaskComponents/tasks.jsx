@@ -99,11 +99,11 @@ function Tasks() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(valide, " ", prime)
+    console.log(valide, " ", prime);
     dispatch(updateChallenge(participantId))
-  
   }
-  console.log(participantId)
+  console.log(participantId);
+
   return (
     <div>
       <div className="tasks_grid">
