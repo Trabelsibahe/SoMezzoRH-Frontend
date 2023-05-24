@@ -61,4 +61,44 @@ export const afficherdv = () => dispatch => {
       }
     };
   };
+  export const afficherdemande = () => {
+    return async dispatch => {
+      dispatch({ type: santeConstants.GET_ALL_DEMANDE_REQUEST })
+      try {
+        const res = await axios.get('http://127.0.0.1:3030/api/demande/afficher')
+        if (res.status === 200) {
+          dispatch({
+            type: santeConstants.GET_ALL_DEMANDE,
+            payload: res.data,
+          })     
+     
+        }
+      } catch (error) {
+        dispatch({
+          type: santeConstants.DEMANDE_ERRORS,
+          payload: { error: error.response }
+        })
+  
+      }
+    }
+  }
+  export const etatrdv = (id, data) => dispatch => {
+    axios.post(`http://127.0.0.1:3030/api/date/etat/${id}`, data)
+      .then((res) => {
+        dispatch({
+          type: santeConstants.GET_DATE,
+          payload: res.data
+        })
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 403 && err.response.data.message === "Le nombre maximum d'utilisateurs acceptés a été atteint") {
+          alert("Le nombre maximum d'utilisateurs acceptés a été atteint");
+        } else {
+          alert("Une erreur est survenue lors de la modification de la rdv");
+        }
+      });
+  };
+  
+  
+  
   

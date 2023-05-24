@@ -9,9 +9,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { BiUnderline } from "react-icons/bi";
-import {afficherdv,ajouterdate} from "../../actions/sante.action"
+import {afficherdv,ajouterdate,afficherdemande,etatrdv} from "../../actions/sante.action"
 import moment from 'moment';
 import formatDate from "../../components/formatdate";
+import { SendNotificationToOneUser } from "../../actions/notification.action";
+
 const style = {
     'label.Mui-focused': {
         color: '#2b2b2b;',
@@ -31,6 +33,7 @@ const style = {
 function Expert_Sante() {
   const auth = useSelector((state) => state.auth);
   const date = useSelector(state => state.sante.date);
+  const demandes = useSelector((state) => state.demande.demandes);
 
   const dispatch = useDispatch();
   const [data, setData] = useState();
@@ -47,21 +50,32 @@ function Expert_Sante() {
   useEffect(() => {
     dispatch(afficherdv());
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(afficherdemande());
+  }, [dispatch]);
   const formattedDate = moment(date).format('DD-MM-YYYY')
-  //moment.tz.setDefault('America/Los_Angeles')
-  const onChangeHandler = (formattedDate) => {
-    setData({
-      ...data,
-      date: formattedDate,
-    });
-  };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     console.log(data)
-    dispatch(ajouterdate(data, navigate));
-    
+    await dispatch(ajouterdate(data, navigate));
+    await dispatch(afficherdemande());
+
   };
-  
+  const editrdv = async (id, action, userId, matricule) => {
+    const data = {
+      etat: action,
+    };
+
+    const notification = {
+      message: `L'Expert RH a ${data.etat} votre demande de rdv médicale.`,
+      journal: `La demande de rdv médicale de l'employé  sous le matricule "${matricule}" a été ${data.etat} par L'Expert RH.`
+    };
+
+    await dispatch(etatrdv(id, data));
+    await dispatch(SendNotificationToOneUser(userId, notification));
+    await dispatch(afficherdemande());
+      
+  };
   return (
     <div className="emp_page">
       <Navigation user={CurrentUser} />
@@ -99,27 +113,89 @@ function Expert_Sante() {
           <h5 className="espace_sante_notice">Remarque: La capacité des visites médicales des patients est limitée à : 5 </h5>
           <div style={{ overflowX: "auto" }}>
           <table className="absences_table">
+          <thead>
+            <tr>
+              <th>Date de demande</th>
+              <th>Demandeur</th>
+              <th>Maladie</th>
+              <th>Commentaire</th>
+              <th>État</th>
+              <th>Action</th>
+            </tr>
+          </thead>
           <tbody>
-                        <tr>
-                        <th>Date de demande</th>
-                          <th>Demandeur</th>
-                          <th>Maladie</th>
-                          <th>Commentaire</th>
-                          <th>Etat</th>
-                          <th>Action</th>
-                        </tr>
-                        <tr>
-                          <td>23/05/2023 8h</td>
-                          <td>Trabelsi Baha</td>
-                          <td>Grippe</td>
-                          <td>Aucune Commentaire</td>
-                          <td style={{ }}> En attente</td>
-                          <td><Button sx={{ margin: "0.5em" }} variant="outlined" size="small" >Accepter </Button>{" "}
-                              <Button variant="outlined" color="error" size="small"onClick={() => {  }}>Refuser</Button>
-                          </td>
-                        </tr>
-          </tbody>
-          </table>
+  {demandes.length > 0 ? (
+    demandes.map((demande) =>
+      (demande.user.role === "EMP" && demande.etat === "en attente") ? (
+        <tr key={demande._id}>
+          <td>
+            {new Date(demande.createdAt).toLocaleDateString()}
+          </td>
+          <td>{demande.user.nom} {demande.user.prenom}</td>
+          <td>{demande.maladie}</td>
+          <td>
+            {demande.commentaire ? demande.commentaire : "Aucun commentaire"}
+          </td>
+          <td style={{ color: "orangered" }}>
+            {demande.etat}
+          </td>
+          <td>
+          <Button
+  sx={{ margin: "0.5em" }}
+  variant="outlined"
+  size="small"
+  onClick={async () => {
+    if (
+      window.confirm(
+        "Voulez-vous vraiment accepter ce RDV médical?"
+      )
+    ) {
+      await editrdv(
+        demande._id,
+        "accepté",
+        demande.user._id,
+        demande.user.matricule
+      );
+    }
+  }}
+>
+  Accepter
+</Button>
+
+<Button
+  variant="outlined"
+  color="error"
+  size="small"
+  onClick={async () => {
+    if (
+      window.confirm(
+        "Voulez-vous vraiment refuser ce RDV médical?"
+      )
+    ) {
+      await editrdv(
+        demande._id,
+        "refusé",
+        demande.user._id,
+        demande.user.matricule
+      );
+    }
+  }}
+>
+  Refuser
+</Button>
+
+          </td>
+        </tr>
+      ) : null
+    )
+  ) : (
+    <tr>
+      <td>Aucune demande</td>
+    </tr>
+  )}
+</tbody>
+
+        </table>
           </div>
         </div>
         <div style={{ padding: "2em", textAlign: "center" }}>
