@@ -128,6 +128,25 @@ export const GetAllChallengeExpert = () => {
       }
     };
   };
+
+
+  // Modifier le challenge (Valide, Prime)
+  export const updateChallenge = (id) => (dispatch) => {
+    axios.post(`http://127.0.0.1:3030/api/challenge/update${id}`)
+      .then((res) => {
+        dispatch({
+          type:  ChallengeConstants.SET_CHALLENGE,
+          payload: res.data.message,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: ChallengeConstants.SET_CHALLENGE_ERROR,
+          payload: err.response.data.message,
+        });
+      });
+  };
+
   export const Countchallenge = () => {
     return async dispatch => {
       dispatch({ type: ChallengeConstants.CHALLENGE_REQUEST })

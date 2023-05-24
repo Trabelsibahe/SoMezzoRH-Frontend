@@ -8,7 +8,6 @@ import { Button, TextField } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { BiUnderline } from "react-icons/bi";
 import {
   afficherdv,
   ajouterdate,
@@ -70,7 +69,7 @@ function Expert_Sante() {
 
     const notification = {
       message: `L'Expert RH a ${data.etat} votre demande de rdv médicale.`,
-      journal: `La demande de rdv médicale de l'employé  sous le matricule "${matricule}" a été ${data.etat} par L'Expert RH.`,
+      journal: `La demande de rdv médicale de l'employé sous le matricule "${matricule}" a été ${data.etat} par L'Expert RH.`,
     };
 
     await dispatch(etatrdv(id, data));

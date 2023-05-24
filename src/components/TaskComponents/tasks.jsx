@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Divider, IconButton, Modal } from "@mui/material";
+import { Box, Button, Divider, IconButton, Modal, Switch } from "@mui/material";
 import "../../assets/styles/tasks.css";
 import InsertInvitationOutlinedIcon from "@mui/icons-material/InsertInvitationOutlined";
 import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
@@ -13,6 +13,7 @@ import {
   supprimerChallenge,
   participerChallenge,
   ListerOperationparticiper,
+  updateChallenge
 } from "../../actions/Challenge.action";
 import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 import Add_Task_Modal from "./task_modal";
@@ -48,21 +49,27 @@ function Tasks() {
   const [id, setId] = useState("");
   const [participants, setParticipants] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
+
+
   useEffect(() => {
     dispatch(GetAllChallenge());
   }, [dispatch]);
   useEffect(() => {
     dispatch(supprimerChallenge());
   }, [dispatch]);
+
+
   const Pariciper = (challengeId) => {
     const data = {
       participer: "oui",
     };
     dispatch(participerChallenge(challengeId, data, CurrentUser.id));
-    setShowMenu(false); // Ferme le menu après le clic
+    setShowMenu(false); 
   };
-  const [detais, setDetais] = useState(false);
-  const handleClosedetais = () => setDetais(false);
+
+
+  const [details, setDetails] = useState(false);
+  const handleClosedetails = () => setDetails(false);
   const handleShowdetails = (id) => {
     const task = tasks.find((task) => task._id === id);
     if (task) {
@@ -77,10 +84,26 @@ function Tasks() {
       }));
 
       setParticipants(taskParticipants);
-      setDetais(true);
+      setDetails(true);
     }
   };
 
+  const [valide, setValide] = useState(false);
+  const [prime, setPrime] = useState("OFF");
+  const [participantId, setParticipantId] = useState("");
+
+  const HandleSwitch = (event) => {
+    const value = event.target.checked ? "ON" : "OFF";
+    setPrime(value);
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log(valide, " ", prime)
+    dispatch(updateChallenge(participantId))
+  
+  }
+  console.log(participantId)
   return (
     <div>
       <div className="tasks_grid">
@@ -96,8 +119,7 @@ function Tasks() {
                           onClick={() => handleShowdetails(task._id)}
                           style={{ color: "#151582" }}
                           startIcon={<GroupOutlinedIcon />}
-                          size="small"
-                        >
+                          size="small">
                           Participants
                         </Button>
                       ) : (
@@ -159,7 +181,7 @@ function Tasks() {
         )}
       </div>
 
-      <Modal open={detais} onHide={handleClosedetais}>
+      <Modal open={details} onClose={handleClosedetails}>
         <Box sx={style}>
           <ul style={{ listStyle: "none" }}>
             <h5>Participants à ce challenge:</h5>
@@ -172,6 +194,12 @@ function Tasks() {
                       {participant.user.prenom}
                       <br />
                       Points de participation : {participant.participations}
+                      <form onSubmit={onSubmit}>
+                      <input type="hidden"  name="participantId"  value={participant.user._id}
+                       onChange={(event) => setParticipantId(event.target.value)}/>
+                      <p>Valide: <Switch name="Valide" onChange={(event)=>{setValide(event.target.checked)}}/>{" "} 
+                         Prime: <Switch name="Prime" value={""} onChange={HandleSwitch}/></p>
+                      </form>
                       <Divider />
                     </li>
                   </div>
@@ -179,8 +207,11 @@ function Tasks() {
               : "Aucune participation."}
           </ul>
 
-          <Button variant="outlined" onClick={handleClosedetais}>
+          <Button variant="outlined" onClick={handleClosedetails}>
             Fermer
+          </Button>{" "}
+          <Button variant="outlined" type="submit" onClick={onSubmit}>
+            Enregistrer
           </Button>
         </Box>
       </Modal>

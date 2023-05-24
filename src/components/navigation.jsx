@@ -63,15 +63,15 @@ function Navigation({ user }) {
 
       <aside className={`sidebar ${showSidebar ? "show" : ""}`}>
       <ul className="sidebar_list">   
-      <li className="sidebar_avatar"><img className="SideNav_Avatar" src={`http://localhost:3030/${profile?.avatar}`} alt="avatar"></img></li>
+      <li className="sidebar_avatar"><img className="SideNav_Avatar" src={`http://localhost:3030/${profile?.avatar}`} alt=""></img></li>
           <li className="sidebar_name">{user.nom}{" "} {user.prenom}</li>
           <li className="sidebar_name2">{user.titre}</li></ul>
 
         <ul className="sidebar_list2">
         <li><a href="/acceuil" className="sidebar_itemhome"><HomeOutlinedIcon/> Acceuil</a></li>
-{user.role === 'EXPERT'? (<li><a href="/expertrh" className="sidebar_item"><DashboardOutlinedIcon/> Mon espace</a></li>) :
- user.role === "EMP" ? (<li><a href="/emp" className="sidebar_item">Mon espace</a></li>) : 
- user.role === "RRH" ? (<li><a href="/rrh" className="sidebar_item">Mon espace</a></li>) : null }
+        {user.role === 'EXPERT'? (<li><a href="/expertrh" className="sidebar_item"><DashboardOutlinedIcon/> Mon espace</a></li>) :
+         user.role === "EMP" ? (<li><a href="/emp" className="sidebar_item">Mon espace</a></li>) : 
+         user.role === "RRH" ? (<li><a href="/rrh" className="sidebar_item">Mon espace</a></li>) : null }
           <li><a href="/profil" className="sidebar_item"><Person2OutlinedIcon/> Profil</a></li>
           <li><a href="/profil/securité" className="sidebar_item"><ShieldOutlinedIcon/> Securité</a></li>
 
