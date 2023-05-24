@@ -13,7 +13,7 @@ import { Button, ButtonBase, Divider } from "@mui/material";
 import AbsenceList from "../components/userlist/absenceArch";
 import DemandeArchiveList from "../components/userlist/demandeArch";
 import Expertheader from "../components/headers/expert_header";
-
+import Archive_Sante from "../pages/sante/archive_sante"
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
@@ -178,12 +178,14 @@ function Archive() {
       } 
       </div>
         </div>
-
         <div className="rrh_body">
           <AbsenceList/>
         </div>
         <div className="rrh_body">
           <DemandeArchiveList/>
+        </div>
+        <div className="rrh_body">
+          <Archive_Sante/>
         </div>
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>

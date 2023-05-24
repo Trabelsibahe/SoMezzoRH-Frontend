@@ -121,7 +121,7 @@ function AbsencesPage() {
       {absence.motif}
     </>
   ) : null}
-</td>
+                            </td>
                             <td>
                               {absence.justif ? (
                                 <Button

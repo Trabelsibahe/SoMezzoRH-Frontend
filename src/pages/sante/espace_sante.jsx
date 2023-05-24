@@ -125,8 +125,15 @@ function Espace_Sante() {
           <td>
             {demande.commentaire ? demande.commentaire : "Aucun commentaire"}
           </td>
-          <td style={{ color: demande.etat === "en attente" ? "blue"  : demande.etat ==="refusé" ? "red" : "green"}}>{demande.etat}</td>
-
+          <td style={{ color: demande.etat === "en attente" ? "blue" : demande.etat === "refusé" ? "red" : "green" }}>
+  {demande.etat}
+  {demande.etat === "refusé" && demande.motif ? (
+    <>
+      <br />
+      {demande.motif}
+    </>
+  ) : null}
+           </td>
         </tr>
      
     )
