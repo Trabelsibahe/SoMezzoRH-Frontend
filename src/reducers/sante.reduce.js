@@ -1,7 +1,7 @@
 import { santeConstants } from "../actions/constantes";
 
 const initialState = {
-  demandes: [],
+  demandesrdv: [],
 };
 
 export default function(state = initialState, action) {
@@ -17,10 +17,10 @@ export default function(state = initialState, action) {
         ...state,
         message: action.payload.message,
       };
-      case santeConstants.GET_ALL_DEMANDE:
+      case santeConstants.GET_ALL_DEMANDERDV:
         return {
             ...state,
-            demandes: action.payload,
+            demandesrdv: action.payload,
           };
           case santeConstants.GET_MYRDV:
             return {

@@ -63,12 +63,12 @@ export const afficherdv = () => dispatch => {
   };
   export const afficherdemande = () => {
     return async dispatch => {
-      dispatch({ type: santeConstants.GET_ALL_DEMANDE_REQUEST })
+      dispatch({ type: santeConstants.GET_ALL_DEMANDERDV_REQUEST })
       try {
         const res = await axios.get('http://127.0.0.1:3030/api/demande/afficher')
         if (res.status === 200) {
           dispatch({
-            type: santeConstants.GET_ALL_DEMANDE,
+            type: santeConstants.GET_ALL_DEMANDERDV,
             payload: res.data,
           })     
      

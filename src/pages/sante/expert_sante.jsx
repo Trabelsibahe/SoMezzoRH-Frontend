@@ -8,6 +8,11 @@ import { Button, TextField } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+<<<<<<< HEAD
+=======
+import { BiUnderline } from "react-icons/bi";
+import Modal from "react-bootstrap/Modal";
+>>>>>>> 72012582010bb060bfbcce8dbab4916d173e1128
 import {
   afficherdv,
   ajouterdate,
@@ -35,7 +40,7 @@ const style = {
 function Expert_Sante() {
   const auth = useSelector((state) => state.auth);
   const date = useSelector((state) => state.sante.date);
-  const demandes = useSelector((state) => state.demande.demandes);
+  const demandes = useSelector((state) => state.sante.demandesrdv);
 
   const dispatch = useDispatch();
   const [data, setData] = useState();
@@ -49,12 +54,24 @@ function Expert_Sante() {
     operation: auth.user.operation,
     active: auth.user.active,
   };
-
+  const [id, setId] = useState("");
+  const [isRefuseModalOpen, setRefuseModalOpen] = useState(false);
+  const [motif, setMotif] = useState("");
+  const openRefuseModal = (demande) => {
+    setId(demande._id);
+    setMotif("");
+    setRefuseModalOpen(true);
+  };
+  const closeRefuseModal = () => {
+    setRefuseModalOpen(false);
+    setMotif("");
+  };
   useEffect(() => {
     dispatch(afficherdv());
   }, [dispatch]);
   useEffect(() => {
     dispatch(afficherdemande());
+    console.log(demandes)
   }, [dispatch]);
 
   const onSubmit = async (e) => {
@@ -62,9 +79,10 @@ function Expert_Sante() {
     await dispatch(ajouterdate(data, navigate));
     await dispatch(afficherdemande());
   };
-  const editrdv = async (id, action, userId, matricule) => {
+  const editrdv = async (id, action,userId,motif, matricule) => {
     const data = {
       etat: action,
+      motif: motif,
     };
 
     const notification = {
@@ -150,10 +168,9 @@ function Expert_Sante() {
                 </tr>
               </thead>
               <tbody>
-                {demandes.length > 0 ? (
-                  demandes.map((demande) =>
-                    demande.user.role === "EMP" &&
-                    demande.etat === "en attente" ? (
+              {demandes.length > 0 ? (
+    demandes.map((demande) =>
+      (demande.user.role === "EMP" && demande.etat === "en attente") ? (
                       <tr key={demande._id}>
                         <td>{new Date(demande.createdAt).toLocaleString()}</td>
                         <td>{demande.user.nom} {demande.user.prenom}</td>
@@ -175,17 +192,52 @@ function Expert_Sante() {
                                   "Voulez-vous vraiment refuser ce RDV médical?"
                                 )
                               ) {
-                                await editrdv(
-                                  demande._id,
-                                  "refusé",
-                                  demande.user._id,
-                                  demande.user.matricule
-                                );
+                                openRefuseModal(demande._id);
                               }
                             }}
                           >
                             Refuser
                           </Button>
+                          <Modal
+                                    show={isRefuseModalOpen}
+                                    onHide={closeRefuseModal}
+                                  >
+                                    <Modal.Header closeButton>
+                                      <Modal.Title>
+                                        Motif de refus visites médicales
+                                      </Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                      <TextField
+                                        label="Motif de refus"
+                                        value={motif}
+                                        onChange={(e) =>
+                                          setMotif(e.target.value)
+                                        }
+                                        fullWidth
+                                        multiline
+                                        rows={4}
+                                        variant="outlined"
+                                      />
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                      <Button
+                                        variant="contained"
+                                        onClick={() => {
+                                          editrdv(demande._id,  "refusé",  demande.user._id, motif, demande.user.matricule  );
+                                          closeRefuseModal();
+                                        }}
+                                      >
+                                        Soumettre
+                                      </Button>
+                                      <Button
+                                        variant="secondary"
+                                        onClick={closeRefuseModal}
+                                      >
+                                        Fermer
+                                      </Button>
+                                    </Modal.Footer>
+                                  </Modal>
                         </td>
                       </tr>
                     ) : (

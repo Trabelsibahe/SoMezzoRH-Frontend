@@ -38,7 +38,7 @@ import SplashScreen from './pages/intro';
 import Journal from './pages/journal';
 import Espace_Sante from './pages/sante/espace_sante';
 import Expert_Sante from './pages/sante/expert_sante';
-
+import Archive_Sante from './pages/sante/archive_sante';
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
   const minute = 1000 * 60;
@@ -139,6 +139,7 @@ function App() {
           <Route path="/monespace/expertrh/journal" element={<ExpertRouter user={user}> {" "} <Journal />{" "} </ExpertRouter>} />
           <Route path="/monespace/santé" element={<Espace_Sante />}></Route>
           <Route path="/monespace/expertrh/sante" element={<Expert_Sante />}></Route>
+          <Route path="/archive/sante" element={<ExpertRouter user={user}> {" "} <Archive_Sante />{" "} </ExpertRouter>} />
 
         </Routes>
 
