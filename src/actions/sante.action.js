@@ -98,6 +98,21 @@ export const afficherdv = () => dispatch => {
         }
       });
   };
+  export const MesRDV = () => dispatch => {
+    axios.get("http://127.0.0.1:3030/api/rdv/afficher")
+      .then(res => {
+        dispatch({
+          type: santeConstants.GET_MYRDV,
+          payload: res.data
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type: santeConstants.GET_MYRDV_FAILURE,
+          payload: err.response.data
+        })
+      });
+  }
   
   
   

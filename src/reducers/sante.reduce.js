@@ -22,6 +22,11 @@ export default function(state = initialState, action) {
             ...state,
             demandes: action.payload,
           };
+          case santeConstants.GET_MYRDV:
+            return {
+                ...state,
+                demande: action.payload,
+              };
     default:
       return state;
   }

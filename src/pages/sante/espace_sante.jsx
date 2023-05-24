@@ -7,8 +7,10 @@ import { useEffect, useState } from "react";
 import Navigation from "../../components/navigation";
 import "../../assets/styles/espace_sante.css"
 import { Button, TextField } from "@mui/material";
-import {afficherdv,ajouterdemande} from "../../actions/sante.action"
+import {afficherdv,ajouterdemande,MesRDV} from "../../actions/sante.action"
 import moment from 'moment';
+import { format } from 'date-fns';
+
 import { useParams } from "react-router-dom";
 const style = {
     'label.Mui-focused': {
@@ -28,6 +30,7 @@ const style = {
 function Espace_Sante() {
   const auth = useSelector((state) => state.auth);
   const date = useSelector(state => state.sante.date);
+  const demandes = useSelector((state) => state.sante.demande);
 
     const dispatch = useDispatch();
 
@@ -43,6 +46,10 @@ function Espace_Sante() {
   useEffect(() => {
     dispatch(afficherdv());
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(MesRDV());
+  }, [dispatch]);
+  console.log(demandes)
   const formattedDate = moment(date).format('DD MMMM YYYY');
 
   const [data, setData] = useState({});
@@ -89,7 +96,47 @@ function Espace_Sante() {
 
                 </div>
             </div>
+         
+        </div>
+        <div className="rrh_body2">
+          <h5 className="espace_sante_notice">Remarque: La capacité des visites médicales des patients est limitée à : 5 </h5>
+          <div style={{ overflowX: "auto" }}>
+          <table className="absences_table">
+          <thead>
+            <tr>
+              <th>Date de demande</th>
+              <th>date de RDV</th>
+              <th>Maladie</th>
+              <th>Commentaire</th>
+              <th>État</th>
+            </tr>
+          </thead>
+          <tbody>
+  {demandes && demandes.length > 0  ? (
+    demandes.map((demande) =>
+        <tr key={demande._id}>
+          <td>
+            {new Date(demande.createdAt).toLocaleDateString()}
+          </td>
+          <td> {format(new Date(demande.date), 'dd MMMM yyyy')}</td>
+          <td>{demande.maladie}</td>
+          <td>
+            {demande.commentaire ? demande.commentaire : "Aucun commentaire"}
+          </td>
+          <td style={{ color: demande.etat === "en attente" ? "blue"  : demande.etat ==="refusé" ? "red" : "green"}}>{demande.etat}</td>
 
+        </tr>
+     
+    )
+  ) : (
+    <tr>
+      <td>Aucune demande</td>
+    </tr>
+  )}
+</tbody>
+
+        </table>
+          </div>
         </div>
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
