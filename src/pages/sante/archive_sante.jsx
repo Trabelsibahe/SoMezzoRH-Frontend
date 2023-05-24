@@ -72,6 +72,7 @@ function Archive_Sante() {
                 <tr>
                   <th>Date de demande</th>
                   <th>Demandeur</th>
+                  <th>Date de rendez-vous</th>
                   <th>Maladie</th>
                   <th>Commentaire</th>
                   <th>État</th>
@@ -84,6 +85,7 @@ function Archive_Sante() {
         <tr key={demanderdv._id}>
           <td>{new Date(demanderdv.createdAt).toLocaleString()}</td>
           <td>{demanderdv.user.nom} {demanderdv.user.prenom}</td>
+          <td>{format(new Date(demanderdv.date), 'dd MMMM yyyy')}</td>
           <td>{demanderdv.maladie}</td>
           <td>{demanderdv.commentaire ? demanderdv.commentaire : "Aucun commentaire"}</td>
           <td style={{ color: demanderdv.etat === "en attente" ? "blue" : demanderdv.etat === "refusé" ? "red" : "green" }}>
