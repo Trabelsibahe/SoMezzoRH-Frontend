@@ -8,10 +8,10 @@ import Navigation from "../../components/navigation";
 import "../../assets/styles/espace_sante.css"
 import { Button, TextField } from "@mui/material";
 import {afficherdv,ajouterdemande,MesRDV} from "../../actions/sante.action"
-import moment from 'moment';
 import { format } from 'date-fns';
 
 import { useParams } from "react-router-dom";
+import formatDate from "../../components/formatdate";
 const style = {
     'label.Mui-focused': {
         color: '#2b2b2b;',
@@ -49,8 +49,6 @@ function Espace_Sante() {
   useEffect(() => {
     dispatch(MesRDV());
   }, [dispatch]);
-  console.log(demandes)
-  const formattedDate = moment(date).format('DD MMMM YYYY');
 
   const [data, setData] = useState({});
   const errors = useSelector((state) => state.errors);
@@ -68,7 +66,10 @@ function Espace_Sante() {
     e.preventDefault();
     dispatch(ajouterdemande(data, navigate));
   };
-  
+  var demandeDate = new Date(date);
+  var options = { day: 'numeric', month: 'long', year: 'numeric' };
+  var frDate = demandeDate.toLocaleString('fr-FR', options);
+
   return (
     <div className="emp_page">
       <Navigation user={CurrentUser} />
@@ -85,16 +86,19 @@ function Espace_Sante() {
 
             <div className="espace_sante">
                 <div className="espace_sante_background">
-                <h3 className="espace_sante_title">La prochaine visite médicale est prévue {formattedDate}</h3>
+                <h3 className="espace_sante_title">La prochaine visite médicale est prévue le{" "}
+                {frDate === "Invalid Date" ? "Chargement..." : frDate}</h3>
                 <form className="espace_sante_form" onSubmit={onSubmit}>
-  <p className="espace_sante_formtitle">Réservez votre visite médicale dès maintenant.</p>
-  <TextField onChange={onChangeHandler} name="maladie" sx={style} label="Maladie" type="text" margin="normal" autoComplete="off" required/>{" "}
-  <TextField onChange={onChangeHandler} name="commentaire" sx={style} label="Commentaire" type="text"  margin="normal" autoComplete="off"/>
-  <p>{" "}</p>
-  <Button type="submit" className="espace_sante_btn" variant="outlined">Demander le rendez-vous</Button>
-</form>
-
-                </div>
+                <p className="espace_sante_formtitle">Réservez votre visite médicale dès maintenant.</p>
+                <TextField onChange={onChangeHandler} name="maladie" sx={style} label="Maladie" type="text" margin="normal" 
+                autoComplete="off" required/>{" "}
+                <TextField onChange={onChangeHandler} name="commentaire" sx={style} label="Commentaire"
+                 type="text" margin="normal" autoComplete="off"/>
+                <p>{" "}</p>
+                <button type="submit" className="espace_sante_btn" variant="outlined">Demander le rendez-vous</button>
+                
+            </form>
+            </div>
             </div>
          
         </div>
@@ -105,7 +109,7 @@ function Espace_Sante() {
           <thead>
             <tr>
               <th>Date de demande</th>
-              <th>date de RDV</th>
+              <th>Date de rendez-vous</th>
               <th>Maladie</th>
               <th>Commentaire</th>
               <th>État</th>
@@ -115,10 +119,8 @@ function Espace_Sante() {
   {demandes && demandes.length > 0  ? (
     demandes.map((demande) =>
         <tr key={demande._id}>
-          <td>
-            {new Date(demande.createdAt).toLocaleDateString()}
-          </td>
-          <td> {format(new Date(demande.date), 'dd MMMM yyyy')}</td>
+          <td>{new Date(demande.createdAt).toLocaleString()}</td>
+          <td>{format(new Date(demande.date), 'dd MMMM yyyy')}</td>
           <td>{demande.maladie}</td>
           <td>
             {demande.commentaire ? demande.commentaire : "Aucun commentaire"}

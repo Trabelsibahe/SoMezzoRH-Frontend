@@ -52,6 +52,7 @@
   background: rgba(36, 55, 123, 0.7);
   color: rgba(256, 256, 256, 0.7);
   border: 0;
+  text-transform: uppercase;
   border-radius: 15px;
   display: block;
   margin: 15px auto;
