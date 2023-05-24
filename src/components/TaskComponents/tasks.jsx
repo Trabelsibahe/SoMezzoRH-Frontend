@@ -90,7 +90,7 @@ function Tasks() {
 
   const [valide, setValide] = useState(false);
   const [prime, setPrime] = useState("OFF");
-  const [participantId, setParticipantId] = useState("");
+  const [participantId, setParticipantId] = useState("sss");
 
   const HandleSwitch = (event) => {
     const value = event.target.checked ? "ON" : "OFF";
@@ -100,9 +100,12 @@ function Tasks() {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(valide, " ", prime);
-    dispatch(updateChallenge(participantId))
+    const data = {
+      valide: valide,
+      prime: prime,
+    }
+    dispatch(updateChallenge(participantId, data))
   }
-  console.log(participantId);
 
   return (
     <div>
@@ -206,7 +209,6 @@ function Tasks() {
                 ))
               : "Aucune participation."}
           </ul>
-
           <Button variant="outlined" onClick={handleClosedetails}>
             Fermer
           </Button>{" "}

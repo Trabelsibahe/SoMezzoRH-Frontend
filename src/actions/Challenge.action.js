@@ -131,8 +131,8 @@ export const GetAllChallengeExpert = () => {
 
 
   // Modifier le challenge (Valide, Prime)
-  export const updateChallenge = (id) => (dispatch) => {
-    axios.post(`http://127.0.0.1:3030/api/challenge/update${id}`)
+  export const updateChallenge = (id, data) => (dispatch) => {
+    axios.post(`http://127.0.0.1:3030/api/challenge/update/${id}`, data)
       .then((res) => {
         dispatch({
           type:  ChallengeConstants.SET_CHALLENGE,
