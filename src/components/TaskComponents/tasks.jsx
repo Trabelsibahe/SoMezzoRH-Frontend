@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Divider, IconButton, Modal, Switch } from "@mui/material";
+import { Box, Button, Divider, FormControlLabel, FormGroup, IconButton, Modal, Switch } from "@mui/material";
 import "../../assets/styles/tasks.css";
 import InsertInvitationOutlinedIcon from "@mui/icons-material/InsertInvitationOutlined";
 import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
@@ -13,11 +13,12 @@ import {
   supprimerChallenge,
   participerChallenge,
   ListerOperationparticiper,
-  updateChallenge
+  updateChallenge,
 } from "../../actions/Challenge.action";
 import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 import Add_Task_Modal from "./task_modal";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { FormControl } from "react-bootstrap";
 
 const style = {
   position: "absolute",
@@ -50,7 +51,6 @@ function Tasks() {
   const [participants, setParticipants] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
 
-
   useEffect(() => {
     dispatch(GetAllChallenge());
   }, [dispatch]);
@@ -58,15 +58,13 @@ function Tasks() {
     dispatch(supprimerChallenge());
   }, [dispatch]);
 
-
   const Pariciper = (challengeId) => {
     const data = {
       participer: "oui",
     };
     dispatch(participerChallenge(challengeId, data, CurrentUser.id));
-    setShowMenu(false); 
+    setShowMenu(false);
   };
-
 
   const [details, setDetails] = useState(false);
   const handleClosedetails = () => setDetails(false);
@@ -89,23 +87,22 @@ function Tasks() {
   };
 
   const [valide, setValide] = useState(false);
-  const [prime, setPrime] = useState("OFF");
-  const [participantId, setParticipantId] = useState("sss");
+  const [pid, setPid] = useState("");
 
-  const HandleSwitch = (event) => {
-    const value = event.target.checked ? "ON" : "OFF";
-    setPrime(value);
+  const handleSwitchChange = (event, id) => {
+    setPid(id);
+    console.log(pid);
+    setValide(event.target.checked);
+    console.log(valide)
   }
-
-  const onSubmit = (event) => {
+  
+  const onSubmit = (event, id) => {
     event.preventDefault();
-    console.log(valide, " ", prime);
     const data = {
       valide: valide,
-      prime: prime,
-    }
-    dispatch(updateChallenge(participantId, data))
-  }
+    };
+    dispatch(updateChallenge(id, data));
+  };
 
   return (
     <div>
@@ -122,12 +119,20 @@ function Tasks() {
                           onClick={() => handleShowdetails(task._id)}
                           style={{ color: "#151582" }}
                           startIcon={<GroupOutlinedIcon />}
-                          size="small">
+                          size="small"
+                        >
                           Participants
                         </Button>
                       ) : (
                         <Button
-                          onClick={() => { if (window.confirm("Voulez vous vraiment participer à ce challenge?")) Pariciper(task._id)}}
+                          onClick={() => {
+                            if (
+                              window.confirm(
+                                "Voulez vous vraiment participer à ce challenge?"
+                              )
+                            )
+                              Pariciper(task._id);
+                          }}
                           style={{ color: "#151582" }}
                           startIcon={<GroupOutlinedIcon />}
                           size="small"
@@ -188,33 +193,38 @@ function Tasks() {
         <Box sx={style}>
           <ul style={{ listStyle: "none" }}>
             <h5>Participants à ce challenge:</h5>
-            {participants.length > 0
-              ? participants.map((participant) => (
-                  <div>
-                    <Divider />
-                    <li key={participant.user._id}>
-                      Participant(e): {participant.user.nom}{" "}
-                      {participant.user.prenom}
-                      <br />
-                      Points de participation : {participant.participations}
-                      <form onSubmit={onSubmit}>
-                      <input type="hidden"  name="participantId"  value={participant.user._id}
-                       onChange={(event) => setParticipantId(event.target.value)}/>
-                      <p>Valide: <Switch name="Valide" onChange={(event)=>{setValide(event.target.checked)}}/>{" "} 
-                         Prime: <Switch name="Prime" value={""} onChange={HandleSwitch}/></p>
-                      </form>
+            {participants.length > 0 ? (
+              participants.map((participant) => (
+                <div key={participant.user._id}>
+                  <Divider />
+                  <li>
+                    Participant(e): {participant.user.nom}{" "}
+                    {participant.user.prenom}
+                    <br />
+                    Points de participation: {participant.participations}
+                    <form>
+                      <FormGroup>
+                    <FormControlLabel                  
+                        value={participant.user._id}
+                        control={<Switch
+                            checked={valide === true}
+                            onChange={() => handleSwitchChange(participant.user._id)}
+                            />}
+                        label={"Valide: "}
+                             />
+                  </FormGroup>
                       <Divider />
-                    </li>
-                  </div>
-                ))
-              : "Aucune participation."}
+                    </form>
+                  </li>
+                </div>
+              ))
+            ) : (
+              <p>Aucune participation.</p>
+            )}
           </ul>
           <Button variant="outlined" onClick={handleClosedetails}>
             Fermer
           </Button>{" "}
-          <Button variant="outlined" type="submit" onClick={onSubmit}>
-            Enregistrer
-          </Button>
         </Box>
       </Modal>
     </div>
