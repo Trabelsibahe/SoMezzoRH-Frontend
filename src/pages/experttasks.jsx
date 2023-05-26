@@ -112,7 +112,7 @@ function ExpertTasksPage() {
 
         <div className="rrh_body">
           <div className="rrh_infos">
-            <p className="rrh_info"> Challenges</p>
+            <p className="rrh_info"> Motiver l'équipe MEZZO</p>
             { !Show_RrhCalendar ?
             <Button variant="outlined" sx={style2}  size="small" startIcon={<CalendarMonthIcon />}
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>

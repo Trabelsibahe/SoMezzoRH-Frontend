@@ -15,6 +15,7 @@ import {
   ajouterdate,
   afficherdemande,
   etatrdv,
+  archiverRdv,
 } from "../../actions/sante.action";
 import formatDate from "../../components/formatdate";
 import { SendNotificationToOneUser } from "../../actions/notification.action";
@@ -36,7 +37,7 @@ const style = {
 
 function Expert_Sante() {
   const auth = useSelector((state) => state.auth);
-  const date = useSelector((state) => state.sante.date);
+  const date = useSelector((state) => state.sante.info);
   const demandes = useSelector((state) => state.sante.demandesrdv);
 
   const dispatch = useDispatch();
@@ -64,11 +65,13 @@ function Expert_Sante() {
     setMotif("");
   };
   useEffect(() => {
+    dispatch(archiverRdv());
+  }, [dispatch]);
+  useEffect(() => {
     dispatch(afficherdv());
   }, [dispatch]);
   useEffect(() => {
     dispatch(afficherdemande());
-    console.log(demandes)
   }, [dispatch]);
 
   const onSubmit = async (e) => {
@@ -93,7 +96,7 @@ function Expert_Sante() {
   };
 
     
-  var demandeDate = new Date(date);
+  var demandeDate = new Date(date.date);
   var options = { day: 'numeric', month: 'long', year: 'numeric' };
   var frDate = demandeDate.toLocaleString('fr-FR', options);
 
@@ -130,12 +133,16 @@ function Expert_Sante() {
                     sx={style}
                     margin="normal"
                   />{" "}
-                  <TextField
-                    sx={style}
-                    type="number"
-                    placeholder="Capacité"
-                    InputProps={{ inputProps: { min: 1, max: 1000 } }}
-                  />
+                <TextField
+  onChange={(event) =>
+    setData({ ...data, capacite: event.target.value })
+  }
+  sx={style}
+  type="number"
+  placeholder="Capacité"
+  inputProps={{ min: 1, max: 10 }}
+/>
+
                   <p> </p>
                   <button
                     type="submit"
@@ -152,7 +159,7 @@ function Expert_Sante() {
         <div className="rrh_body2">
           <h5 className="espace_sante_notice">
             Remarque: La capacité des visites médicales des patients est limitée
-            à : 5{" "}
+            à : {date.capacite}{" "}
           </h5>
           <div style={{ overflowX: "auto" }}>
             <table className="absences_table">
@@ -169,14 +176,14 @@ function Expert_Sante() {
               <tbody>
               {demandes.length > 0 ? (
     demandes.map((demande) =>
-      (demande.user.role === "EMP" && demande.etat === "en attente") ? (
+      (demande.user.role === "EMP" ) ? (
                       <tr key={demande._id}>
                         <td>{new Date(demande.createdAt).toLocaleString()}</td>
                         <td>{demande.user.nom} {demande.user.prenom}</td>
                         <td>{demande.maladie}</td>
                         <td>{demande.commentaire ? demande.commentaire : "Aucun commentaire"}
                         </td>
-                        <td style={{ color: "orangered" }}>{demande.etat}</td>
+                        <td style={{ color: demande.etat === "en attente" ? "blue" : demande.etat === "refusé" ? "red" : "green" }}>{demande.etat}</td>
                         <td> <Button sx={{ margin: "0.5em" }} variant="outlined" size="small" onClick={async () => {
                               if (window.confirm("Voulez-vous vraiment accepter ce RDV médical?")
                               ) {await editrdv(demande._id, "accepté", demande.user._id, demande.user.matricule);}

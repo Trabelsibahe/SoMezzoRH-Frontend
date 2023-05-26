@@ -81,7 +81,7 @@ export default function Add_Task_Modal() {
       message: "Un nouveau Challenge est disponible découvrez-le.",
     };
     dispatch(AddChallenge(form));
-    if (Object.keys(form).length === 5){
+    if (Object.keys(form).length === 7){
     NotifyExpert();
     opera.forEach((item) => {
       dispatch(SendNotificationToOneUser(item.user._id, notification));
@@ -123,6 +123,25 @@ export default function Add_Task_Modal() {
                   />
                  {errors.titre && (
                     <div className="invalid-feedback">{errors.titre}</div>
+                  )}
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <TextField
+                    name="prime"
+                    value={form.prime}
+                    onChange={(event) => setForm({ ...form, prime: event.target.value })
+                    }
+                    className={Classnames("w-100", {
+                      "is-invalid": errors.prime,
+                    })}
+                    variant="outlined"
+                    size="medium"
+                    label="Prime en DT"
+                    type="number"
+                    fullWidth
+                  />
+                 {errors.prime && (
+                    <div className="invalid-feedback">{errors.prime}</div>
                   )}
                 </Form.Group>
                 <FormControl size="medium" className="ab_select">

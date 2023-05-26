@@ -6,32 +6,25 @@ const intitialState = {
 
 };
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function (state = intitialState, action) {
+export default function(state = intitialState, action) {
   switch (action.type) {
     case ChallengeConstants.GET_ALL_Challenge:
-        return {
-            ...state,
-            tasks: action.payload,
-          };
-
-      case ChallengeConstants.Challenge_ERRORS : 
-      state = {
+      return {
         ...state,
-        message : action.payload.message
-      }
-      case ChallengeConstants.ADD_Challenge_FAILURE : 
-      state = {
+        tasks: action.payload,
+      };
+    case ChallengeConstants.Challenge_ERRORS:
+      return {
         ...state,
-        message : action.payload.message
-      }
-
-      case ChallengeConstants.COUNT_CHALLENGE:
-        return {
-          ...state,
-          count: action.payload,
-
-        };
+        message: action.payload.message,
+      };
+    case ChallengeConstants.COUNT_CHALLENGE:
+      return {
+        ...state,
+        count: action.payload,
+      };
     default:
       return state;
   }
 }
+

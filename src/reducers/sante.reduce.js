@@ -2,6 +2,8 @@ import { santeConstants } from "../actions/constantes";
 
 const initialState = {
   demandesrdv: [],
+  info : {},
+  archiverdv: [],
 };
 
 export default function(state = initialState, action) {
@@ -9,7 +11,7 @@ export default function(state = initialState, action) {
     case santeConstants.GET_DATE:
       return {
         ...state,
-        date: action.payload,
+        info: action.payload,
       };
 
     case santeConstants.GET_DATE_FAILURE:
@@ -26,6 +28,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 demande: action.payload,
+              };
+               case santeConstants.GET_ALL_ARCHIVERDV:
+            return {
+                ...state,
+                archiverdv: action.payload,
               };
     default:
       return state;

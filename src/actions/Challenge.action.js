@@ -8,7 +8,7 @@ export const AddChallenge = (data) => {
   return async dispatch => {
     dispatch({ type: ChallengeConstants.ADD_Challenge_REQUEST })
     try {
-      const res = await axios.post('http://127.0.0.1:3030/api/operation/Challenge/add', data)
+      const res = await axios.post('http://127.0.0.1:3030/api/add/Challenge', data)
       if (res.status === 200) {
         dispatch({
           type: ChallengeConstants.ADD_Challenge_SUCCESS,
@@ -169,3 +169,18 @@ export const GetAllChallengeExpert = () => {
       }
     }
   }
+  export const updateTotale = (id, data) => (dispatch) => {
+    axios.post(`http://127.0.0.1:3030/api/challenge/total/${id}`, data)
+      .then((res) => {
+        dispatch({
+          type:  ChallengeConstants.SET_TOTAL,
+          payload: res.data.message,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: ChallengeConstants.SET_TOTAL_ERROR,
+          payload: err.response.data.message,
+        });
+      });
+  };

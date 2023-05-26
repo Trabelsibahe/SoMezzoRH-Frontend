@@ -12,6 +12,7 @@ import { BiUnderline } from "react-icons/bi";
 import {
   afficherdv,
   afficherdemande,
+  FindArchiverdv,
 } from "../../actions/sante.action";
 import formatDate from "../../components/formatdate";
 import { SendNotificationToOneUser } from "../../actions/notification.action";
@@ -34,7 +35,7 @@ const style = {
 function Archive_Sante() {
   const auth = useSelector((state) => state.auth);
   const date = useSelector((state) => state.sante.date);
-  const demandesrdv = useSelector((state) => state.sante.demandesrdv);
+  const archiverdv = useSelector((state) => state.sante.archiverdv);
 
   const dispatch = useDispatch();
   const [data, setData] = useState();
@@ -53,7 +54,7 @@ function Archive_Sante() {
     dispatch(afficherdv());
   }, [dispatch]);
   useEffect(() => {
-    dispatch(afficherdemande());
+    dispatch(FindArchiverdv());
   }, [dispatch]);
 
 
@@ -79,8 +80,8 @@ function Archive_Sante() {
                 </tr>
               </thead>
               <tbody>
-  {(demandesrdv ?? []).length > 0 ? (
-    demandesrdv.map((demanderdv) =>
+  {(archiverdv ?? []).length > 0 ? (
+    archiverdv.map((demanderdv) =>
       demanderdv.user.role === "EMP" ? (
         <tr key={demanderdv._id}>
           <td>{new Date(demanderdv.createdAt).toLocaleString()}</td>

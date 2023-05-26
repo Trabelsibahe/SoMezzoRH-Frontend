@@ -80,5 +80,21 @@ export const Countchallenge = () => {
     }
   }
 }
+export const mesprime = (id) => dispatch => {
+    
+  axios.get(`http://127.0.0.1:3030/api/mesprime/${id}`)
+    .then(res => {
+      dispatch({
+        type: operaConstants.GET_MY_PRIME,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: operaConstants.PRIME_ERRORS,
+        payload: err.response.data
+      })
+    });
+}
 
 

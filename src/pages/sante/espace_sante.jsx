@@ -29,7 +29,7 @@ const style = {
 
 function Espace_Sante() {
   const auth = useSelector((state) => state.auth);
-  const date = useSelector(state => state.sante.date);
+  const date = useSelector(state => state.sante.info);
   const demandes = useSelector((state) => state.sante.demande);
 
     const dispatch = useDispatch();
@@ -57,7 +57,7 @@ function Espace_Sante() {
   const onChangeHandler = (e) => {
     setData({
       ...data,
-      date: date,
+      date: date.date,
       [e.target.name]: e.target.value,
     });
   };
@@ -65,8 +65,9 @@ function Espace_Sante() {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(ajouterdemande(data, navigate));
+    console.log(data)
   };
-  var demandeDate = new Date(date);
+  var demandeDate = new Date(date.date);
   var options = { day: 'numeric', month: 'long', year: 'numeric' };
   var frDate = demandeDate.toLocaleString('fr-FR', options);
 
@@ -103,7 +104,7 @@ function Espace_Sante() {
          
         </div>
         <div className="rrh_body2">
-          <h5 className="espace_sante_notice">Remarque: La capacité des visites médicales des patients est limitée à : 5 </h5>
+          <h5 className="espace_sante_notice">Remarque: La capacité des visites médicales des patients est limitée à : {date.capacite} </h5>
           <div style={{ overflowX: "auto" }}>
           <table className="absences_table">
           <thead>

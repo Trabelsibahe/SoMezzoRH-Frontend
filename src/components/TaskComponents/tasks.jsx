@@ -7,6 +7,7 @@ import MoreHorizTwoToneIcon from "@mui/icons-material/MoreHorizTwoTone";
 import AddIcon from "@mui/icons-material/Add";
 import { useSelector, useDispatch } from "react-redux";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { useEffect } from "react";
 import {
   GetAllChallenge,
@@ -14,6 +15,7 @@ import {
   participerChallenge,
   ListerOperationparticiper,
   updateChallenge,
+  updateTotale,
 } from "../../actions/Challenge.action";
 import HourglassDisabledIcon from "@mui/icons-material/HourglassDisabled";
 import Add_Task_Modal from "./task_modal";
@@ -40,24 +42,29 @@ function Tasks() {
   const tasks = useSelector((state) => state.task.tasks);
   const CurrentUser = {
     isConnected: auth.isConnected,
-    nom: auth.user.nom,
-    prenom: auth.user.prenom,
-    matricule: auth.user.matricule,
-    role: auth.user.role,
-    operation: auth.user.operation,
-    active: auth.user.active,
+    id: auth.user && auth.user.id, // Check if auth.user is defined before accessing its 'id' property
+    nom: auth.user && auth.user.nom,
+    prenom: auth.user && auth.user.prenom,
+    matricule: auth.user && auth.user.matricule,
+    role: auth.user && auth.user.role,
+    operation: auth.user && auth.user.operation,
+    active: auth.user && auth.user.active,
   };
   const [id, setId] = useState("");
   const [participants, setParticipants] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
-
+  const [details, setDetails] = useState(false);
+  const [detailsEMP, setDetailsEMP] = useState(false);
+  const [valide, setValide] = useState([]);
+  
   useEffect(() => {
     dispatch(GetAllChallenge());
   }, [dispatch]);
+  
   useEffect(() => {
     dispatch(supprimerChallenge());
   }, [dispatch]);
-
+  
   const Pariciper = (challengeId) => {
     const data = {
       participer: "oui",
@@ -65,11 +72,13 @@ function Tasks() {
     dispatch(participerChallenge(challengeId, data, CurrentUser.id));
     setShowMenu(false);
   };
-
-  const [details, setDetails] = useState(false);
+  
   const handleClosedetails = () => setDetails(false);
-  const handleShowdetails = (id) => {
-    const task = tasks.find((task) => task._id === id);
+  const handleClosedetailsEMP = () => setDetailsEMP(false);
+
+
+  const handleShowdetails = (taskId) => {
+    const task = tasks.find((task) => task._id === taskId);
     if (task) {
       const taskParticipants = task.participantsIds.map((participant) => ({
         user: {
@@ -79,30 +88,83 @@ function Tasks() {
           prenom: participant.user.prenom,
         },
         participations: participant.participations,
+        valide: participant.valide || false,
+        total: participant.total,
       }));
-
+  
+      const initialValide = taskParticipants.map((participant) => ({
+        userId: participant.user._id,
+        value: participant.valide || false,
+        total: participant.total,
+      }));
+  
+      setId(taskId);
       setParticipants(taskParticipants);
+      setValide(initialValide);
       setDetails(true);
     }
   };
-
-  const [valide, setValide] = useState(false);
-  const [pid, setPid] = useState("");
-
-  const handleSwitchChange = (event, id) => {
-    setPid(id);
-    console.log(pid);
-    setValide(event.target.checked);
-    console.log(valide)
-  }
+  const handleShowdetailsEMP = (taskId, CurrentUser) => {
+    const task = tasks.find((task) => task._id === taskId);
+    if (task && task.participantsIds) {
+      const taskParticipants = task.participantsIds
+        .filter(
+          (participant) => participant.user && participant.user._id === CurrentUser.id
+        )
+        .map((participant) => ({
+          user: {
+            _id: participant.user._id,
+            matricule: participant.user.matricule,
+            nom: participant.user.nom,
+            prenom: participant.user.prenom,
+          },
+          participations: participant.participations,
+          total: participant.total,
+        }));
   
-  const onSubmit = (event, id) => {
+      const initialValide = taskParticipants.map((participant) => ({
+        userId: participant.user._id,
+        total: participant.total,
+      }));
+  
+      setId(taskId);
+      setParticipants(taskParticipants);
+      setValide(initialValide);
+      setDetailsEMP(true);
+    }
+  };
+  
+  
+  
+  const handleSwitchChange = (event, userId) => {
+    const updatedValide = valide.map((item) => {
+      if (item.userId === userId) {
+        return {
+          userId: item.userId,
+          value: event.target.checked,
+          total:item.total
+        };
+      }
+      return item;
+    });
+    setValide(updatedValide);
+  };
+  
+  
+  const onSubmit =  (event, id) => {
     event.preventDefault();
     const data = {
-      valide: valide,
+      participants: valide.map((item) => ({
+        userId: item.userId,
+        valide: item.value, 
+        total : item.total,
+      })),
     };
-    dispatch(updateChallenge(id, data));
+    
+    dispatch(updateTotale(id, data))
   };
+  
+  
 
   return (
     <div>
@@ -113,34 +175,45 @@ function Tasks() {
               <div className="task_card">
                 <div className="task_menu">
                   {
-                    <div className="menu">
-                      {CurrentUser.role === "RRH" ? (
-                        <Button
-                          onClick={() => handleShowdetails(task._id)}
-                          style={{ color: "#151582" }}
-                          startIcon={<GroupOutlinedIcon />}
-                          size="small"
-                        >
-                          Participants
-                        </Button>
-                      ) : (
-                        <Button
-                          onClick={() => {
-                            if (
-                              window.confirm(
-                                "Voulez vous vraiment participer à ce challenge?"
-                              )
+                  <div className="menu">
+                  {CurrentUser.role === "RRH" ? (
+                    <Button
+                      onClick={() => handleShowdetails(task._id)}
+                      style={{ color: "#151582" }}
+                      startIcon={<GroupOutlinedIcon />}
+                      size="small"
+                    >
+                      Participants
+                    </Button>
+                  ) : (
+                    <div>
+                      <Button
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Voulez-vous vraiment participer à ce challenge?"
                             )
-                              Pariciper(task._id);
-                          }}
-                          style={{ color: "#151582" }}
-                          startIcon={<GroupOutlinedIcon />}
-                          size="small"
-                        >
-                          Participer
-                        </Button>
-                      )}
+                          )
+                            Pariciper(task._id);
+                        }}
+                        style={{ color: "#151582" }}
+                        startIcon={<GroupOutlinedIcon />}
+                        size="small"
+                      >
+                        Participer
+                      </Button>{" "}
+                      <Button
+                        onClick={() => handleShowdetailsEMP(task._id, CurrentUser)}
+                        style={{ color: "#151582" }}
+                        startIcon={<AttachMoneyIcon />}
+                        size="small"
+                      >
+                       Bénéfices
+                      </Button>
                     </div>
+                  )}
+                </div>
+                
                   }
                 </div>
                 <p className="task_name">{task.titre}</p>
@@ -150,6 +223,12 @@ function Tasks() {
                     <HelpCenterOutlinedIcon />
                   </i>
                   <span>Priorité: {task.priorite}</span>
+                </div>{" "}
+                <div className="task_info">
+                  <i>
+                    <AttachMoneyIcon />
+                  </i>
+                  <span>Prime: {task.prime} DT</span>
                 </div>{" "}
                 <div className="task_info">
                   <i>
@@ -194,37 +273,76 @@ function Tasks() {
           <ul style={{ listStyle: "none" }}>
             <h5>Participants à ce challenge:</h5>
             {participants.length > 0 ? (
-              participants.map((participant) => (
-                <div key={participant.user._id}>
-                  <Divider />
-                  <li>
-                    Participant(e): {participant.user.nom}{" "}
-                    {participant.user.prenom}
-                    <br />
-                    Points de participation: {participant.participations}
-                    <form>
-                      <FormGroup>
-                    <FormControlLabel                  
+            participants.map((participant) => (
+              <div key={participant.user._id}>
+                <Divider />
+                <li>
+                  Participant(e): {participant.user.nom} {participant.user.prenom}
+                  <br />
+                  Points de participation: {participant.participations}<br />
+                  total de ce  Participant(e) {participant.total}
+                  <form>
+                    <FormGroup>
+                      <FormControlLabel
                         value={participant.user._id}
-                        control={<Switch
-                            checked={valide === true}
-                            onChange={() => handleSwitchChange(participant.user._id)}
-                            />}
+                        control={
+                          <Switch
+  checked={valide.find((item) => item.userId === participant.user._id)?.value || false}
+  onChange={(event) => handleSwitchChange(event, participant.user._id)}
+/>
+
+                        }
                         label={"Valide: "}
-                             />
-                  </FormGroup>
-                      <Divider />
-                    </form>
-                  </li>
-                </div>
-              ))
+                      />
+                    </FormGroup>
+                    <Divider />
+                  </form>
+                </li>
+              </div>
+            ))
+            
             ) : (
               <p>Aucune participation.</p>
             )}
           </ul>
           <Button variant="outlined" onClick={handleClosedetails}>
             Fermer
-          </Button>{" "}
+          </Button>
+          {" "}
+          <Button variant="outlined" onClick={(event) => onSubmit(event, id)}>
+  Valider
+</Button>
+
+        </Box>
+      </Modal>
+      <Modal open={detailsEMP} onClose={handleClosedetailsEMP}>
+        <Box sx={style}>
+          <ul style={{ listStyle: "none" }}>
+            <h5>Mes Bénéfices </h5>
+            {participants.length > 0 ? (
+            participants.map((participant) => (
+              <div key={participant.user._id}>
+                <Divider />
+                <li>
+                  Points de participation: {participant.participations}<br />
+                  Mes totale de Bénéfices {participant.total}
+                  <form>
+                    <Divider />
+                  </form>
+                </li>
+              </div>
+            ))
+            
+            ) : (
+              <p>Vous n'avez pas participé .</p>
+            )}
+          </ul>
+          <Button variant="outlined" onClick={handleClosedetailsEMP}>
+            Fermer
+          </Button>
+          {" "}
+
+
         </Box>
       </Modal>
     </div>
