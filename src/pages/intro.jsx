@@ -2,7 +2,10 @@ import React from "react";
 import "../assets/styles/intro.css";
 import logo from "../assets/images/logo1_blanc.png";
 
+
+
 function SplashScreen() {
+  
   return (
     <div className="splash_page">
       <div id="stars"></div>
