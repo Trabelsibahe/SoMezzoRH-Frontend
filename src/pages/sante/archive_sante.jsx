@@ -57,63 +57,74 @@ function Archive_Sante() {
     dispatch(FindArchiverdv());
   }, [dispatch]);
 
-
-
-    
   var demandeDate = new Date(date);
-  var options = { day: 'numeric', month: 'long', year: 'numeric' };
-  var frDate = demandeDate.toLocaleString('fr-FR', options);
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var frDate = demandeDate.toLocaleString("fr-FR", options);
   return (
-    <div >
-          <p className="rrh_info">Historique des Rendez-vous médicaux</p>
-      
-          <div style={{ overflowX: "auto" }}>
-            <table className="absences_table">
-              <thead>
-                <tr>
-                  <th>Date de demande</th>
-                  <th>Demandeur</th>
-                  <th>Date de rendez-vous</th>
-                  <th>Maladie</th>
-                  <th>Commentaire</th>
-                  <th>État</th>
-                </tr>
-              </thead>
-              <tbody>
-  {(archiverdv ?? []).length > 0 ? (
-    archiverdv.map((demanderdv) =>
-      demanderdv.user.role === "EMP" ? (
-        <tr key={demanderdv._id}>
-          <td>{new Date(demanderdv.createdAt).toLocaleString()}</td>
-          <td>{demanderdv.user.nom} {demanderdv.user.prenom}</td>
-          <td>{format(new Date(demanderdv.date), 'dd MMMM yyyy')}</td>
-          <td>{demanderdv.maladie}</td>
-          <td>{demanderdv.commentaire ? demanderdv.commentaire : "Aucun commentaire"}</td>
-          <td style={{ color: demanderdv.etat === "en attente" ? "blue" : demanderdv.etat === "refusé" ? "red" : "green" }}>
-            {demanderdv.etat}
-            {demanderdv.etat === "refusé" && demanderdv.motif ? (
-              <>
-                <br />
-                {demanderdv.motif}
-              </>
-            ) : null}
-          </td>
-        </tr>
-      ) : (
-        ""
-      )
-    )
-  ) : (
-    <tr>
-      <td>Aucune demande</td>
-    </tr>
-  )}
-</tbody>
+    <div>
+      <p className="rrh_info">Historique des Rendez-vous médicaux</p>
 
-            </table>
-          </div>
-      
-     
+      <div style={{ overflowX: "auto" }}>
+        <table className="absences_table">
+          <thead>
+            <tr>
+              <th>Date de demande</th>
+              <th>Demandeur</th>
+              <th>Date de rendez-vous</th>
+              <th>Maladie</th>
+              <th>Commentaire</th>
+              <th>État</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(archiverdv ?? []).length > 0 ? (
+              archiverdv.map((demanderdv) =>
+                demanderdv.user.role === "EMP" ? (
+                  <tr key={demanderdv._id}>
+                    <td>{new Date(demanderdv.createdAt).toLocaleString()}</td>
+                    <td>
+                      {demanderdv.user.nom} {demanderdv.user.prenom}
+                    </td>
+                    <td>{format(new Date(demanderdv.date), "dd MMMM yyyy")}</td>
+                    <td>{demanderdv.maladie}</td>
+                    <td>
+                      {demanderdv.commentaire
+                        ? demanderdv.commentaire
+                        : "Aucun commentaire"}
+                    </td>
+                    <td
+                      style={{
+                        color:
+                          demanderdv.etat === "en attente"
+                            ? "blue"
+                            : demanderdv.etat === "refusé"
+                            ? "red"
+                            : "green",
+                      }}
+                    >
+                      {demanderdv.etat}
+                      {demanderdv.etat === "refusé" && demanderdv.motif ? (
+                        <>
+                          <br />
+                          {demanderdv.motif}
+                        </>
+                      ) : null}
+                    </td>
+                  </tr>
+                ) : (
+                  ""
+                )
+              )
+            ) : (
+              <tr>
+                <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
+                  Aucune demande trouvée.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

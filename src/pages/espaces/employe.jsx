@@ -66,7 +66,7 @@ function EmployePage() {
         <EMPheader/>
         <div className="rrh_body">
           <div className="rrh_infos">
-            <p className="rrh_info">Motiver mon équipe</p>
+            <p className="rrh_info">Challenges: Motivation d'équipe</p>
             { !Show_RrhCalendar ?
             <Button variant="outlined" sx={style2}  size="small" startIcon={<CalendarMonthIcon />}
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>

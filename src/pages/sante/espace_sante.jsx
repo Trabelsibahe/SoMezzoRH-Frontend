@@ -6,10 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Navigation from "../../components/navigation";
 import "../../assets/styles/espace_sante.css"
-import { Button, TextField } from "@mui/material";
+import { Button, InputAdornment, TextField } from "@mui/material";
 import {afficherdv,ajouterdemande,MesRDV} from "../../actions/sante.action"
 import { format } from 'date-fns';
-
+import CommentTwoToneIcon from '@mui/icons-material/CommentTwoTone';
+import HealingTwoToneIcon from '@mui/icons-material/HealingTwoTone';
 import { useParams } from "react-router-dom";
 import formatDate from "../../components/formatdate";
 const style = {
@@ -17,6 +18,7 @@ const style = {
         color: '#2b2b2b;',
       },
       '.MuiOutlinedInput-root': {
+        "width": "210px",
         '&:hover fieldset': {
           borderColor: '#2b2b2b;',
         },
@@ -91,9 +93,11 @@ function Espace_Sante() {
                 {frDate === "Invalid Date" ? "Chargement..." : frDate}</h3>
                 <form className="espace_sante_form" onSubmit={onSubmit}>
                 <p className="espace_sante_formtitle">Réservez votre visite médicale dès maintenant.</p>
-                <TextField onChange={onChangeHandler} name="maladie" sx={style} label="Maladie" type="text" margin="normal" 
+                <TextField onChange={onChangeHandler} name="maladie" sx={style} label="Maladie" type="text" margin="normal"
+                 InputProps={{ endAdornment: <HealingTwoToneIcon sx={{color:"#2b2b2b"}}/>}}
                 autoComplete="off" required/>{" "}
                 <TextField onChange={onChangeHandler} name="commentaire" sx={style} label="Commentaire"
+                    InputProps={{ endAdornment: <CommentTwoToneIcon sx={{color:"#2b2b2b"}}/>}}
                  type="text" margin="normal" autoComplete="off"/>
                 <p>{" "}</p>
                 <button type="submit" className="espace_sante_btn" variant="outlined">Demander le rendez-vous</button>
@@ -140,8 +144,8 @@ function Espace_Sante() {
     )
   ) : (
     <tr>
-      <td>Aucune demande</td>
-    </tr>
+    <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >Aucune demande trouvée. </td>
+  </tr>
   )}
 </tbody>
 

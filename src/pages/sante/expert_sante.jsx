@@ -21,13 +21,27 @@ import formatDate from "../../components/formatdate";
 import { SendNotificationToOneUser } from "../../actions/notification.action";
 import { format } from "date-fns";
 
-const style = {
+const TextfieldStyle = {
   "label.Mui-focused": {
-    color: "#2b2b2b;",
+    color: "#2b2b2b",
   },
-  ".MuiOutlinedInput-root": {
+  ".MuiOutlinedInput-root:not(.date-picker)": {
+    width: "110px",
     "&:hover fieldset": {
-      borderColor: "#2b2b2b;",
+      borderColor: "#2b2b2b",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "rgba(36, 55, 123, 0.9)",
+    },
+  },
+};
+const DatepickerStyle = {
+  "label.Mui-focused": {
+    color: "#2b2b2b",
+  },
+  ".MuiOutlinedInput-root:not(.date-picker)": {
+    "&:hover fieldset": {
+      borderColor: "#2b2b2b",
     },
     "&.Mui-focused fieldset": {
       borderColor: "rgba(36, 55, 123, 0.9)",
@@ -79,15 +93,15 @@ function Expert_Sante() {
     await dispatch(ajouterdate(data, navigate));
     await dispatch(afficherdemande());
   };
-  const editrdv = async (id, action,userId,motif, matricule) => {
+  const editrdv = async (id, action, userId, motif, matricule) => {
     const data = {
       etat: action,
       motif: motif,
     };
-
+    console.log(matricule);
     const notification = {
-      message: `L'Expert RH a ${data.etat} votre demande de rdv médicale.`,
-      journal: `La demande de rdv médicale de l'employé sous le matricule "${matricule}" a été ${data.etat} par L'Expert RH.`,
+      message: `L'Expert RH a ${data.etat} votre demande de rendez-vous médicale.`,
+      journal: `La demande de rendez-vous médicale de l'employé sous le matricule "${matricule}" a été ${data.etat} par L'Expert RH.`,
     };
 
     await dispatch(etatrdv(id, data));
@@ -95,12 +109,10 @@ function Expert_Sante() {
     await dispatch(afficherdemande());
   };
 
-    
   var demandeDate = new Date(date.date);
-  var options = { day: 'numeric', month: 'long', year: 'numeric' };
-  var frDate = demandeDate.toLocaleString('fr-FR', options);
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var frDate = demandeDate.toLocaleString("fr-FR", options);
 
-  
   return (
     <div className="emp_page">
       <Navigation user={CurrentUser} />
@@ -117,8 +129,11 @@ function Expert_Sante() {
             <div className="espace_sante_background">
               <h3 className="espace_sante_title">
                 La prochaine visite médicale aura lieu le{" "}
-                <span style={{ textDecoration: "underline" }}>{" "}
-                <td>{frDate === "Invalid Date" ? "Chargement..." : frDate}</td>
+                <span style={{ textDecoration: "underline" }}>
+                  {" "}
+                  <td>
+                    {frDate === "Invalid Date" ? "Chargement..." : frDate}
+                  </td>
                 </span>
               </h3>
               <form className="espace_sante_form" onSubmit={onSubmit}>
@@ -130,26 +145,25 @@ function Expert_Sante() {
                     onChange={(date) =>
                       setData({ ...data, date: formatDate(date) })
                     }
-                    sx={style}
+                    sx={DatepickerStyle}
                     margin="normal"
                   />{" "}
-                <TextField
-  onChange={(event) =>
-    setData({ ...data, capacite: event.target.value })
-  }
-  sx={style}
-  type="number"
-  placeholder="Capacité"
-  inputProps={{ min: 1, max: 10 }}
-/>
-
+                  <TextField
+                    onChange={(event) =>
+                      setData({ ...data, capacite: event.target.value })
+                    }
+                    sx={TextfieldStyle}
+                    type="number"
+                    placeholder="Capacité"
+                    inputProps={{ min: 1, max: 10 }} required
+                  />
                   <p> </p>
                   <button
                     type="submit"
                     className="espace_sante_btn"
                     variant="outlined"
                   >
-                    Mettre à jour
+                    Mettre à jour{" "}
                   </button>
                 </LocalizationProvider>
               </form>
@@ -174,86 +188,97 @@ function Expert_Sante() {
                 </tr>
               </thead>
               <tbody>
-              {demandes.length > 0 ? (
-    demandes.map((demande) =>
-      (demande.user.role === "EMP" ) ? (
+                {demandes.length > 0 ? (
+                  demandes.map((demande) =>
+                    demande.user.role === "EMP" ? (
                       <tr key={demande._id}>
                         <td>{new Date(demande.createdAt).toLocaleString()}</td>
-                        <td>{demande.user.nom} {demande.user.prenom}</td>
+                        <td>
+                          {demande.user.nom} {demande.user.prenom}
+                        </td>
                         <td>{demande.maladie}</td>
-                        <td>{demande.commentaire ? demande.commentaire : "Aucun commentaire"}
+                        <td>
+                          {demande.commentaire
+                            ? demande.commentaire
+                            : "Aucun commentaire"}
                         </td>
-                        <td style={{ color: demande.etat === "en attente" ? "blue" : demande.etat === "refusé" ? "red" : "green" }}>{demande.etat}</td>
-                        <td> <Button sx={{ margin: "0.5em" }} variant="outlined" size="small" onClick={async () => {
-                              if (window.confirm("Voulez-vous vraiment accepter ce RDV médical?")
-                              ) {await editrdv(demande._id, "accepté", demande.user._id, demande.user.matricule);}
-                          }}>{" "}  Accepter </Button>
-                          <Button
-                            variant="outlined"
-                            color="error"
-                            size="small"
-                            onClick={async () => {
-                              if (
-                                window.confirm(
-                                  "Voulez-vous vraiment refuser ce RDV médical?"
-                                )
-                              ) {
-                                openRefuseModal(demande._id);
-                              }
-                            }}
-                          >
-                            Refuser
-                          </Button>
-                          <Modal
-                                    show={isRefuseModalOpen}
-                                    onHide={closeRefuseModal}
-                                  >
-                                    <Modal.Header closeButton>
-                                      <Modal.Title>
-                                        Motif de refus visites médicales
-                                      </Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                      <TextField
-                                        label="Motif de refus"
-                                        value={motif}
-                                        onChange={(e) =>
-                                          setMotif(e.target.value)
-                                        }
-                                        fullWidth
-                                        multiline
-                                        rows={4}
-                                        variant="outlined"
-                                      />
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                      <Button
-                                        variant="contained"
-                                        onClick={() => {
-                                          editrdv(demande._id,  "refusé",  demande.user._id, motif, demande.user.matricule  );
-                                          closeRefuseModal();
-                                        }}
-                                      >
-                                        Soumettre
-                                      </Button>
-                                      <Button
-                                        variant="secondary"
-                                        onClick={closeRefuseModal}
-                                      >
-                                        Fermer
-                                      </Button>
-                                    </Modal.Footer>
-                                  </Modal>
+                        <td
+                          style={{
+                            color:
+                              demande.etat === "en attente"
+                                ? "blue"
+                                : demande.etat === "refusé"
+                                ? "red"
+                                : "green",
+                          }}
+                        >
+                          {demande.etat}
                         </td>
+
+
+              {demande.etat === "en attente" ? 
+              <td style={{width:"19%"}}>
+                  <Button  sx={{ margin: "0.5em" }} variant="outlined"  size="small" onClick={async () => {
+                  if ( window.confirm( "Voulez-vous vraiment accepter ce RDV médical?" ) ) {
+                      await editrdv( demande._id, "accepté",   demande.user._id,  motif, demande.user.matricule ) } }}>Accepter</Button>
+                  <Button variant="outlined" color="error" size="small"  onClick={async () => {
+                   if ( window.confirm(  "Voulez-vous vraiment refuser ce RDV médical?")) {openRefuseModal(demande._id) } }}> Refuser</Button>
+                          
+                          <Modal show={isRefuseModalOpen} onHide={closeRefuseModal}  >
+                            <Modal.Header closeButton>
+                              <Modal.Title>
+                                Motif de refus visites médicales
+                              </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <TextField
+                                label="Motif de refus"
+                                value={motif}
+                                onChange={(e) => setMotif(e.target.value)}
+                                fullWidth
+                                multiline
+                                rows={4}
+                                variant="outlined"
+                              />
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <Button
+                                variant="contained"
+                                onClick={() => {
+                                  editrdv(
+                                    demande._id,
+                                    "refusé",
+                                    demande.user._id,
+                                    motif,
+                                    demande.user.matricule
+                                  );
+                                  closeRefuseModal();
+                                }}
+                              >
+                                Soumettre
+                              </Button>
+                              <Button
+                                variant="secondary"
+                                onClick={closeRefuseModal}
+                              >
+                                Fermer
+                              </Button>
+                            </Modal.Footer>
+                          </Modal>
+              </td> : (<td style={{padding:"1em"}}>Traitée</td>)}
+
+
                       </tr>
                     ) : (
-                      ""
+                    <tr>
+                      <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >Aucune demande trouvée. </td>
+                    </tr>
                     )
                   )
                 ) : (
                   <tr>
-                    <td>Aucune demande</td>
-                  </tr>
+                  <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >Aucune demande trouvée. </td>
+                </tr>
                 )}
               </tbody>
             </table>

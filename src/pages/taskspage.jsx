@@ -14,7 +14,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import RRHheader from "../components/headers/rrh_header";
 
 const style2 = {
-  left: "58em",
+  left: "50em",
   color: "#151582;",
   margin:"1.1em",
   '&:hover': {
@@ -78,7 +78,7 @@ function TasksPage() {
 
         <div className="rrh_body">
           <div className="rrh_infos">
-            <p className="rrh_info">Motiver mon équipe</p>
+            <p className="rrh_info">Challenges: Motivation d'équipe</p>
             { !Show_RrhCalendar ?
             <Button variant="outlined" sx={style2}  size="small" startIcon={<CalendarMonthIcon />}
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>

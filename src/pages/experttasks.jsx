@@ -18,6 +18,7 @@ import { GetAllChallengeExpert} from "../actions/Challenge.action";
 import ExpertCalendar from "../components/TaskComponents/expertcalendar";
 import Expertheader from "../components/headers/expert_header";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
+import RedeemIcon from '@mui/icons-material/Redeem';
 
 const style2 = {
   left: "58em",
@@ -85,6 +86,7 @@ function ExpertTasksPage() {
           prenom: participant.user.prenom,
         },
         participations: participant.participations,
+        total: participant.total
       }));
 
       setParticipants(taskParticipants);
@@ -112,7 +114,7 @@ function ExpertTasksPage() {
 
         <div className="rrh_body">
           <div className="rrh_infos">
-            <p className="rrh_info"> Motiver l'équipe MEZZO</p>
+            <p className="rrh_info"> Challenges</p>
             { !Show_RrhCalendar ?
             <Button variant="outlined" sx={style2}  size="small" startIcon={<CalendarMonthIcon />}
               onClick={onClick_ShowRRHCalendar}>Agenda </Button>
@@ -147,6 +149,12 @@ function ExpertTasksPage() {
                             <i><InsertInvitationOutlinedIcon /></i>
                             <span> Période: {new Date(task.dateCreation).toLocaleDateString()} - {new Date(task.dateSuppression).toLocaleDateString()}</span>
                           </div>
+                          <div className="task_info">
+                  <i>
+                    <RedeemIcon />
+                  </i>
+                  <span>Prime: {task.prime} DT</span>
+                </div>
 
                           </div>
                         </div>
@@ -166,7 +174,7 @@ function ExpertTasksPage() {
                 </div>
           )}
         </div>
-        <Modal open={detais} onHide={handleClosedetais}>
+        <Modal open={detais} onClose={handleClosedetais}>
         <Box sx={style}>
           <ul style={{ listStyle: "none" }}>
             <h5>Participants à ce challenge:</h5>
@@ -178,7 +186,7 @@ function ExpertTasksPage() {
                       Participant(e): {participant.user.nom}{" "}
                       {participant.user.prenom}
                       <br />
-                      Points de participation : {participant.participations}
+                      Points de participation: {participant.participations} - Prime totale: {participant.total}
                       <Divider />
                     </li>
                   </div>

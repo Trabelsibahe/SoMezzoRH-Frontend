@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
-import { Button } from '@mui/material';
+import { Button } from "@mui/material";
 import Modal from "react-bootstrap/Modal";
 import Card from "react-bootstrap/Card";
 import { BsFillFileTextFill } from "react-icons/bs";
@@ -48,10 +48,7 @@ function AbsenceList() {
     }
     return false;
   });
-  
-  
-  
-  
+
   const [id, setId] = useState("");
   const [justif, setJustif] = useState("");
   const [etat, setEtat] = useState("");
@@ -88,7 +85,7 @@ function AbsenceList() {
       newEtat = "refuser";
       message = "Refuser cette absence";
     }
-  
+
     const data = {
       etat: newEtat,
     };
@@ -96,14 +93,14 @@ function AbsenceList() {
     await dispatch(GetAllAbsence());
     handleCloseEdit();
     setEtat(newEtat);
-  
+
     // Ajouter une alerte
     window.alert(message);
   };
-  
+
   return (
     <div>
-        <p className="expert_info">Historique des absences</p>
+      <p className="expert_info">Historique des absences</p>
       <InputBase
         className="searchbar"
         placeholder="Rechercher.."
@@ -124,7 +121,7 @@ function AbsenceList() {
           <table className="absences_table">
             <tbody>
               <tr>
-              <th>Date de demande</th>
+                <th>Date de demande</th>
                 <th>Demandeur</th>
                 <th>Type d'absence</th>
                 <th>Date de début</th>
@@ -134,68 +131,66 @@ function AbsenceList() {
                 <th>Justification</th>
               </tr>
               {filteredabsence.map((item) =>
-                item.absences.map((absence) => 
-                    <tr key={absence._id}>
-                      <td>{new Date(absence.dateCreation).toLocaleDateString()}</td>
-                      <td>
-                        ({item.user.matricule}) {item.user.nom}{" "}
-                        {item.user.prenom}
-                      </td>
-                      <td>{absence.type}</td>
-                      <td>
-                        {new Date(absence.dateDebut).toLocaleDateString()}
-                      </td>
-                      <td>{new Date(absence.dateFin).toLocaleDateString()}</td>
-                      <td>
-                        {absence.commentaire
-                          ? absence.commentaire
-                          : "Aucun commentaire"}
-                      </td>
-                      <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>
-  {absence.etat}
-  {absence.etat === "Refusé" && absence.motif ? (
-    <>
-      <br />
-      {absence.motif}
-    </>
-  ) : null}
-</td>                      <td>
-                        {absence.justif ? (
-                          <Button
-                            size="small"
-                            variant="outlined"
-                            sx={{ color: "#151582" }}
-                            onClick={() => handleShowJustif(absence)}
-                          >
-                            Afficher
-                          </Button>
-                        ) : absence.etat === "Refusé" ? "Refusé." : (
-                          "Aucune Justification"
-                        )}
-                      </td>
-                    </tr>
-               
-                )
+                item.absences.map((absence) => (
+                  <tr key={absence._id}>
+                    <td>
+                      {new Date(absence.dateCreation).toLocaleDateString()}
+                    </td>
+                    <td>
+                      ({item.user.matricule}) {item.user.nom} {item.user.prenom}
+                    </td>
+                    <td>{absence.type}</td>
+                    <td>{new Date(absence.dateDebut).toLocaleDateString()}</td>
+                    <td>{new Date(absence.dateFin).toLocaleDateString()}</td>
+                    <td>
+                      {absence.commentaire
+                        ? absence.commentaire
+                        : "Aucun commentaire"}
+                    </td>
+                    <td style={{width:"19%", color: absence.etat === "En attente" ? "blue"  : absence.etat === "Refusé"  ? "red"  : "green", }}>
+                      {absence.etat}
+                      {absence.etat === "Refusé" && absence.motif ? ( 
+                      <> <br />  {absence.motif} </>
+                      ) : null}
+                    </td>
+                    <td>
+                      {absence.justif ? (
+                        <Button
+                          size="small"
+                          variant="outlined"
+                          sx={{ color: "#151582" }}
+                          onClick={() => handleShowJustif(absence)}
+                        >
+                          Afficher
+                        </Button>
+                      ) : absence.etat === "Refusé" ? (
+                        "Refusé."
+                      ) : (
+                        "Aucune Justification"
+                      )}
+                    </td>
+                  </tr>
+                ))
               )}
             </tbody>
           </table>
         ) : (
-            <table className="absences_table">
-              <tbody>
-                <tr>
-                  <th>Type d'absence</th>
-                  <th>Date de debut de période d'absence</th>
-                  <th>Date de fin de période d'absence</th>
-                  <th>Commentaires</th>
-                  <th>Status</th>
-                </tr>
-                <tr>
-                   <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
+          <table className="absences_table">
+            <tbody>
+              <tr>
+                <th>Type d'absence</th>
+                <th>Date de debut de période d'absence</th>
+                <th>Date de fin de période d'absence</th>
+                <th>Commentaires</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td colSpan="8" style={{ textAlign: "center", padding: "1em" }}>
                   Aucune absence trouvé.
-                   </td>
-                </tr>
-              </tbody>
-            </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         )}
       </div>
 
