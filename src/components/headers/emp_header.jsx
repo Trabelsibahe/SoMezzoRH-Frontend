@@ -48,13 +48,13 @@ function EMPheader() {
           <div className="espace_header_card1">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count}</span>
+                <span className="espace_header_carditem">{count ? count : "0"}</span>
                 <span className="espace_header_carditem2">Collaborateurs</span>
               </span>
             </span>
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count1}</span>
+                <span className="espace_header_carditem">{count1 ? count1 : "0"}</span>
                 <span className="espace_header_carditem2">Opérations</span>
               </span>
             </span>
@@ -63,7 +63,7 @@ function EMPheader() {
           <div className="espace_header_card2">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count2}</span>
+                <span className="espace_header_carditem">{count2 ? count2 : "0"}</span>
                 <span className="espace_header_carditem2">Challenges</span>
               </span>
             </span>

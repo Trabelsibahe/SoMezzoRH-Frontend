@@ -34,6 +34,7 @@ export const LoginAction = (form, navigate)=>dispatch=>{
          dispatch(setUser(decode));
          setAuth(token);
          alert("Bievenue " +decode.matricule);
+         window.location.reload();
          navigate("/bienvenue")
     })
     .catch(err=>{
@@ -83,3 +84,4 @@ export const setUser = (decode)=>({
     type: authConstants.SET_USER,
     payload: decode
 })
+

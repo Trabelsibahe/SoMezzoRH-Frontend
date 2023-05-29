@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import Expertheader from "../../components/headers/expert_header";
 
 
-
 function Expert_Rh_Page() {
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -40,9 +39,13 @@ function Expert_Rh_Page() {
   const onClickArchive = () => {
     navigate("/monespace/expertrh/archive");
   };
+
+
+
   return (
     <div className="expert_page">
       <Navigation user={CurrentUser} />
+
       <div className="expert_container">
         <div className="page_name">
           Pages / Mon espace{" "}
@@ -76,6 +79,7 @@ function Expert_Rh_Page() {
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>
       </div>
+
     </div>
   );
 }

@@ -39,6 +39,9 @@ import Journal from './pages/journal';
 import Espace_Sante from './pages/sante/espace_sante';
 import Expert_Sante from './pages/sante/expert_sante';
 import Archive_Sante from './pages/sante/archive_sante';
+import IsLoading from './components/isLoading';
+
+
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
   const minute = 1000 * 60;
@@ -96,14 +99,14 @@ function App() {
     );
   }
 
+
+
   // return
   return (
-    <div className="App">
 
+    <div className="App">
       <BrowserRouter>
         <Routes>
-
-
           <Route path="/login" element={
             <ForceRedirect user={user}> {" "} <LoginPage />{" "} </ForceRedirect>} />
 
@@ -140,6 +143,7 @@ function App() {
           <Route path="/monespace/santé" element={<Espace_Sante />}></Route>
           <Route path="/monespace/expertrh/sante" element={<Expert_Sante />}></Route>
           <Route path="/archive/sante" element={<ExpertRouter user={user}> {" "} <Archive_Sante />{" "} </ExpertRouter>} />
+          <Route path="/test" element={<IsLoading />}></Route>
 
         </Routes>
 

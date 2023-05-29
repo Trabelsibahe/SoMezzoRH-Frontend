@@ -21,7 +21,7 @@ const style = {
 
 }
 const style2 = {
-  left: "58em",
+  left: "50em",
   color: "#151582;",
   margin:"1.1em",
   '&:hover': {
