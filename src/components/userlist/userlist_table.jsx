@@ -38,18 +38,16 @@ const style = {
   border: "2px solid #151582",
   boxShadow: 24,
   p: 4,
-    width: "100%",
-    maxWidth: "500px",
-    margin: "0 auto",
-    padding: "20px",
+  width: "100%",
+  maxWidth: "500px",
+  margin: "0 auto",
+  padding: "20px",
 };
-
-
-
 
 function Row(accounts, index) {
   const dispatch = useDispatch();
   const profiles = useSelector((state) => state.profiles.profiles);
+
   useEffect(() => {
     dispatch(GetProfiles());
   }, [dispatch]);
@@ -181,77 +179,227 @@ function Row(accounts, index) {
     <>
       {/** pop up edit */}
 
-      <Modal open={edit}  onClose={handleCloseEdit} aria-labelledby="modal-modal-title"  aria-describedby="modal-modal-description">
+      <Modal
+        open={edit}
+        onClose={handleCloseEdit}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
         <form>
-           <Box sx={style}>
-           <p className="task_add_name">Modifier ce profil.</p>
-            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
-            <Form.Group className="mb-2">
-            <TextField label="Nom" type="text" value={nom} onChange={(e) => setNom(e.target.value)} margin="normal" size="small" required/>
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <TextField label="Prénom" type="text" value={prenom} onChange={(e) => setPrenom(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
+          <Box sx={style}>
+            <p className="task_add_name">Modifier ce profil.</p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                columnGap: "1em",
+              }}
+            >
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Nom"
+                  type="text"
+                  value={nom}
+                  onChange={(e) => setNom(e.target.value)}
+                  margin="normal"
+                  size="small"
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Prénom"
+                  type="text"
+                  value={prenom}
+                  onChange={(e) => setPrenom(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
             </div>
-
-            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
-            <Form.Group className="mb-2">
-              <TextField  sx={{"& .MuiInputBase-input.Mui-disabled": { WebkitTextFillColor: "black"}}} label="Matricule" type="text" value={matricule} onChange={(e) => setMatricule(e.target.value)} margin="normal" size="small" disabled />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <TextField label="Role" type="text" value={role} onChange={(e) => setRole(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                columnGap: "1em",
+              }}
+            >
+              <Form.Group className="mb-2">
+                <TextField
+                  sx={{
+                    "& .MuiInputBase-input.Mui-disabled": {
+                      WebkitTextFillColor: "black",
+                    },
+                  }}
+                  label="Matricule"
+                  type="text"
+                  value={matricule}
+                  onChange={(e) => setMatricule(e.target.value)}
+                  margin="normal"
+                  size="small"
+                  disabled
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Role"
+                  type="text"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
             </div>
-
-            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
-            <Form.Group className="mb-2">
-              <TextField label="Opération" type="text" value={operation} onChange={(e) => setOperation(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <TextField label="Titre" type="text"  value={titre} onChange={(e) => setTitre(e.target.value)} margin="normal" size="small" />
-            </Form.Group>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                columnGap: "1em",
+              }}
+            >
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Opération"
+                  type="text"
+                  value={operation}
+                  onChange={(e) => setOperation(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Titre"
+                  type="text"
+                  value={titre}
+                  onChange={(e) => setTitre(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
             </div>
-
-            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
-            <Form.Group className="mb-2">
-              <TextField label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <TextField label="Numéro de télèphone" type="number" value={tel} onChange={(e) => setTel(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                columnGap: "1em",
+              }}
+            >
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Numéro de télèphone"
+                  type="number"
+                  value={tel}
+                  onChange={(e) => setTel(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
             </div>
-
-            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
-            <Form.Group className="mb-2">
-              <TextField label="Date de naissance" type="text" value={formatDate(datenaiss)} onChange={(e) => setDatenaiss(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <TextField label="Pays" type="text" value={pays}  onChange={(e) => setPays(e.target.value)} placeholder="modifier le pays" margin="normal" size="small"/>
-            </Form.Group>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                columnGap: "1em",
+              }}
+            >
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Date de naissance"
+                  type="text"
+                  value={formatDate(datenaiss)}
+                  onChange={(e) => setDatenaiss(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Pays"
+                  type="text"
+                  value={pays}
+                  onChange={(e) => setPays(e.target.value)}
+                  placeholder="modifier le pays"
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
             </div>
-
-            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
-            <Form.Group className="mb-2">
-              <TextField label="Gouvernorat" type="text" value={gouvernorat} onChange={(e) => setGouvernorat(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <TextField label="Ville" type="text" value={ville} onChange={(e) => setVille(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                columnGap: "1em",
+              }}
+            >
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Gouvernorat"
+                  type="text"
+                  value={gouvernorat}
+                  onChange={(e) => setGouvernorat(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Ville"
+                  type="text"
+                  value={ville}
+                  onChange={(e) => setVille(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
             </div>
-
-            <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em", }}>
-            <Form.Group className="mb-2">
-              <TextField label="Adresse" type="text" value={adresse} onChange={(e) => setAdresse(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <TextField label="Code postale" type="text" value={codepostal} onChange={(e) => setCodepostal(e.target.value)} margin="normal" size="small"/>
-            </Form.Group>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                columnGap: "1em",
+              }}
+            >
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Adresse"
+                  type="text"
+                  value={adresse}
+                  onChange={(e) => setAdresse(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <TextField
+                  label="Code postale"
+                  type="text"
+                  value={codepostal}
+                  onChange={(e) => setCodepostal(e.target.value)}
+                  margin="normal"
+                  size="small"
+                />
+              </Form.Group>
             </div>
-
-          <Button variant="outlined" onClick={handleCloseEdit}>Annuler</Button>{" "}
-          <Button variant="outlined" onClick={EditProfile}>Modifier</Button>
+            <Button variant="outlined" onClick={handleCloseEdit}>
+              Annuler
+            </Button>{" "}
+            <Button variant="outlined" onClick={EditProfile}>
+              Modifier
+            </Button>
           </Box>
-          </form>
+        </form>
       </Modal>
       <React.Fragment key={index}>
         <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -493,9 +641,14 @@ export default function UserList() {
             </TableHead>
 
             <TableBody>
-              {filteredUserList.map((profile, index) => (
-                <Row key={index} profile={profile} />
-              ))}
+              {filteredUserList.length > 0 ? (
+                filteredUserList.map((profile, index) => (
+                  <Row key={index} profile={profile} />
+                ))
+              ) : (
+                <td colSpan="15" style={{ textAlign: "center", padding: "1.5em",borderBottom: "2px solid #e0e0e0"  }} >
+                Aucun utilisateur trouvé.
+              </td>              )}
             </TableBody>
           </Table>
         </TableContainer>

@@ -49,7 +49,7 @@ function Expert_header() {
           <div className="espace_header_card1">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count ? count : "..."}</span>
+                <span className="espace_header_carditem">{count ? count : "0"}</span>
                 <span className="espace_header_carditem2">Collaborateurs</span>
               </span>
             </span>

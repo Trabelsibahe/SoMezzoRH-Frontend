@@ -58,16 +58,17 @@ function Journal() {
               item.notifications.some((notification) => notification)
             ) ? (
               <>
-                {notifications.map((item) =>
-                  item.notifications.map((notification) =>
-                    notification.journal ? (
-                      <p className="notification_message" key={notification._id}>
-                        {formatDate(notification.creationDate)}{" "}{notification.journal}
-                      </p>
-                    ) : null
-                  )
-                )}
-              </>
+              {notifications
+                .flatMap((item) => item.notifications)
+                .filter((notification) => notification.journal)
+                .sort((a, b) => new Date(b.creationDate) - new Date(a.creationDate))
+                .map((notification) => (
+                  <p className="notification_message" key={notification._id}>
+                    {new Date(notification.creationDate).toLocaleString()} - {notification.journal}
+                  </p>
+                ))}
+            </>
+            
             ) : (
               <p className="notifications_emptymsg">Le journal est vide.</p>
             )
