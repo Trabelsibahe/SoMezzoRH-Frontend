@@ -63,7 +63,7 @@ function AddRepoPage() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="addRepoPage">
+      <div className="rrh_body">
         <h5 className="col-md-12 text-center p-4">Demande d'absence</h5>
         <Container className="bg-variant col-md-4 mx-auto p-4">
           <Stack>
