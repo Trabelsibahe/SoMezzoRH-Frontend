@@ -79,7 +79,7 @@ function Row(accounts, index) {
                       <TableCell align="center">{operaItem.codepostal}</TableCell>
                       <TableCell align="center">{operaItem.adresse}</TableCell>
                       <TableCell align="center">{operaItem.tel}</TableCell>
-                      <TableCell align="center">{operaItem.email}</TableCell>
+                      <TableCell align="center">{operaItem.user.email}</TableCell>
                       <TableCell align="center">{formatDate(operaItem.datenaiss)}</TableCell>
                     </TableRow>
                   </TableBody>

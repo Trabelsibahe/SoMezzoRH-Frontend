@@ -71,13 +71,14 @@ function ProfilePage() {
       setOperation(user.operation);
       setTitre(user.titre)
       setId(user._id);
+      setEmail(user.email);
+
     }
 
     setTel(tel);
     setVille(ville);
     setPays(pays);
     setCodepostal(codepostal);
-    setEmail(email);
     setAvatar(avatar);
     setGouvernorat(gouvernorat);
     setAdresse(adresse);

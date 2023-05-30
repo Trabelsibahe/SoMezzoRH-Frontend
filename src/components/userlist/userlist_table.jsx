@@ -94,7 +94,7 @@ function Row(accounts, index) {
         setCodepostal(p.codepostal);
         setAdresse(p.adresse);
         setTel(p.tel);
-        setEmail(p.email);
+        setEmail(p.user.email);
         setDatenaiss(p.datenaiss);
       }
     });
@@ -338,7 +338,7 @@ function Row(accounts, index) {
                       <TableCell align="center">{profile.codepostal}</TableCell>
                       <TableCell align="center">{profile.adresse}</TableCell>
                       <TableCell align="center">{profile.tel}</TableCell>
-                      <TableCell align="center">{profile.email}</TableCell>
+                      <TableCell align="center">{profile.user.email}</TableCell>
                       <TableCell align="center">
                         {formatDate(profile.datenaiss)}
                       </TableCell>

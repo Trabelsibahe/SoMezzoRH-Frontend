@@ -5,6 +5,7 @@ import isEmpty from "../util/isEmpty";
 const initialState = {
   isConnected: false,
   user: {},
+  user:[],
 };
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -14,7 +15,7 @@ export default function (state = initialState, action) {
         isConnected: !isEmpty(action.payload),
         user: action.payload,
       };
-
+     
     default:
       return state;
   }

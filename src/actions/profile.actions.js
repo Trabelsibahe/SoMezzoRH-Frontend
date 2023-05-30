@@ -9,8 +9,8 @@ export const SetProfileAction = (form, setShow, setMessage, navigate) => dispatc
     .then(res => {
       setShow(true)
       navigate("/profil");
-      alert("profile created, you will be redirected to your profile now")
-      setMessage("Profile created.")
+      alert("Votre profil a été créé avec succès !")
+      setMessage("Profile crée.")
       dispatch({
         type: profileConstants.PROFILE_ERRORS,
         payload: {}

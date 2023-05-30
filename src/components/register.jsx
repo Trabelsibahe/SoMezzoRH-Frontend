@@ -102,6 +102,24 @@ function RegisterPage() {
                 </Form.Text>
               </Form.Group>
 
+              <Form.Group className="mb-1" controlId="formBasicEmail">
+                <TextField  id="outlined-basic" variant="outlined" size="small" label="email" margin="dense"
+                  type="email"
+                  name="email" 
+                  
+                  className={Classnames("w-100", {
+                    "is-invalid": errors.email,
+                  })}
+                  onChange={onChangeHandler}
+                  error={errors.email} 
+                />
+                {errors.email && (
+                  <div className="invalid-feedback">{errors.email}</div>
+                )}
+                <Form.Text className="text-muted">
+                  L'email doit etre unique.
+                </Form.Text>
+              </Form.Group>
               <Form.Group className="mb-1">
                 <TextField id="outlined-basic" variant="outlined" size="small" label="Opération" margin="dense"
                   type="text"
