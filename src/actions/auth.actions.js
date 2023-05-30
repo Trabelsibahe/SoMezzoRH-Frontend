@@ -85,7 +85,6 @@ export const setUser = (decode)=>({
     payload: decode
 })
 
-<<<<<<< HEAD
   export const sendPasswordResetEmail = (email) => async (dispatch) => {
     try {
       await axios.post('http://127.0.0.1:3030/api/mot-de-passe-oublie', { email });
@@ -142,5 +141,3 @@ export const setUser = (decode)=>({
     }
   }
   
-=======
->>>>>>> 2ae3686a748ca0bb2c2d93017b1f712dc8cf56c9

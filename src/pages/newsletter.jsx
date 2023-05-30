@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import { Navigate } from "react-router-dom";
 import Classnames from "classnames";
 import { Box, Modal } from "@mui/material";
-
+import image from "../assets/images/banner.avif"
 import {
   listernews,
   addnews,
@@ -38,6 +38,68 @@ const style = {
 };
 
 function NewsLetterPage() {
+
+  useEffect(() => {
+    const el = document.querySelector('.slider');
+    const slides = Array.from(el.querySelectorAll('li'));
+    const nav = Array.from(el.querySelectorAll('nav a'));
+    const totalSlides = slides.length;
+    let current = 0;
+    let autoPlay = true;
+    const timeTrans = 4000;
+    const indexElements = [];
+
+    for (let i = 0; i < totalSlides; i++) {
+      indexElements.push(i);
+    }
+
+    const setCurret = () => {
+      slides[current].classList.add('current');
+      nav[current].classList.add('current_dot');
+    };
+
+    const changeSlide = (index) => {
+      nav.forEach((allDot) => allDot.classList.remove('current_dot'));
+
+      slides.forEach((allSlides) =>
+        allSlides.classList.remove('prev', 'current')
+      );
+
+      const getAllPrev = (value) => value < index;
+
+      const prevElements = indexElements.filter(getAllPrev);
+
+      prevElements.forEach((indexPrevEle) =>
+        slides[indexPrevEle].classList.add('prev')
+      );
+
+      slides[index].classList.add('current');
+      nav[index].classList.add('current_dot');
+    };
+
+    const initEvents = () => {
+      nav.forEach((dot) => {
+        dot.addEventListener('click', (ele) => {
+          ele.preventDefault();
+          changeSlide(nav.indexOf(dot));
+        });
+      });
+
+      el.addEventListener('mouseenter', () => (autoPlay = false));
+      el.addEventListener('mouseleave', () => (autoPlay = true));
+
+      setInterval(() => {
+        if (autoPlay) {
+          current = current < slides.length - 1 ? current + 1 : 0;
+          changeSlide(current);
+        }
+      }, timeTrans);
+    };
+
+    setCurret();
+    initEvents();
+  }, []);
+
   const dispatch = useDispatch();
   const news = useSelector((state) => state.news.news);
   const [loading, setLoading] = useState(false); // New loading state
@@ -47,8 +109,8 @@ function NewsLetterPage() {
   const notification = {
     message: "Une nouvelle news a été ajoutée.",
   };
-  // ...
 
+  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -70,11 +132,13 @@ function NewsLetterPage() {
 
     fetchData();
   }, []);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const [titre, setTitre] = useState("");
   const [description, setDescription] = useState("");
   const [dateSuppression, setDateSuppression] = useState("");
   const [imgurl, setImgurl] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -133,70 +197,69 @@ function NewsLetterPage() {
     <div className="news_page">
       <Navigation user={CurrentProfile} />
       <div className="news_container">
-        <div className="page_name">
-          Pages / Acceuil{" "}
-          <p style={{ fontWeight: "bold", fontSize: "14px" }}>Newsletter</p>
+      <section className="intro">
+      <div className="left">
+        <div>
+          <span>Explore</span>
+          <h1>The Places Where You Will</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos
+            eveniet amet excepturi voluptates dolorem totam ad quod hic, porro
+            accusamus, repellat, corrupti at obcaecati ducimus, dolor quibusdam
+            sequi nemo inventore?
+          </p>
+          <a href="https://unsplash.com/" target="_blank">
+            Images by Unsplash
+          </a>
         </div>
-        <div className="news_body">
-          <h5>Quoi de neuf ? </h5>
-          <hr className="news_hr" />
-          {CurrentProfile.role === "EXPERT" && (
-            <Button
-              color="error"
-              onClick={handleShow}
-              size="small"
-              sx={{ width: "40%", textAlign: "center", margin: "0.5em -0.8em" }}
-            >
-              Ajouter une publication
-            </Button>
-          )}
+      </div>
 
-          {loading ? (
-            <div className="loading_spinner">
-              <CircularProgress />
+      <div className="slider">
+        <ul>
+          <li
+            style={{
+              backgroundImage:
+                'url(https://images.unsplash.com/photo-1458640904116-093b74971de9?crop=entropy&fit=crop&fm=jpg&h=675&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375)',
+            }}
+          >
+            <div className="center-y">
+              <h3>Slider Title #1</h3>
+              <a href="#">View Project</a>
             </div>
-          ) : (
-            <>
-              {news && news.length > 0
-                ? news.map((newsItem, index) => (
-                    <div className="news_content">
-                      <div className="news_card">
-                        <div key={index} className="news_item">
-                          <Card className="news_item_card">
-                            <Card.Img
-                              variant="top"
-                              src={`http://localhost:3030/${newsItem?.imgurl}`}
-                            />
-                            <Card.Body>
-                              <Card.Title>{newsItem.titre}</Card.Title>
-                              <Card.Text>{newsItem.description}</Card.Text>
-                            </Card.Body>
-                          </Card>
-                          {CurrentProfile.role === "EXPERT" && (
-                            <Button
-                              color="error"
-                              variant="contained"
-                              onClick={() => deletenewsaction(newsItem._id)}
-                              size="small"
-                              sx={{
-                                textAlign: "center",
-                                margin: "1em",
-                                backgroundColor: "orangered",
-                              }}
-                            >
-                              supprimer
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                      <hr className="news_hr" />
-                    </div>
-                  ))
-                : "Aucune newsletter trouvée..."}
-            </>
-          )}
-        </div>
+          </li>
+          <li
+            style={{
+              backgroundImage:
+                'url(https://images.unsplash.com/photo-1451906278231-17b8ff0a8880?crop=entropy&fit=crop&fm=jpg&h=675&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375)',
+            }}
+          >
+            <div className="center-y">
+              <h3>Slider Title #2</h3>
+              <a href="#">View Project</a>
+            </div>
+          </li>
+          <li
+            style={{
+              backgroundImage:
+                'url(https://images.unsplash.com/photo-1456428199391-a3b1cb5e93ab?crop=entropy&fit=crop&fm=jpg&h=675&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375)',
+            }}
+          >
+            <div className="center-y">
+              <h3>Slider Title #3</h3>
+              <a href="#">View Project</a>
+            </div>
+          </li>
+        </ul>
 
+        <ul>
+          <nav>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+          </nav>
+        </ul>
+      </div>
+    </section>
         {/** pop up modal  add */}
         <Modal open={show} onHide={handleClose}>
           <form className="news_form">
@@ -278,7 +341,7 @@ function NewsLetterPage() {
           </form>
         </Modal>
       </div>
-    </div>
+      </div>
   );
 }
 
