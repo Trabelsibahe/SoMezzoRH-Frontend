@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "../assets/styles/profile.css";
 import { useEffect, useState } from "react";
 import {GetProfileAction, EditMyProfileAction} from "../actions/profile.actions";
-import { Divider, Input, TextField } from "@mui/material";
+import { Divider, Input, Skeleton, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
@@ -23,6 +23,7 @@ const style = {
   },
 
 }
+
 function ProfilePage() {
   const auth = useSelector((state) => state.auth);
   const profile = useSelector((state) => state.profiles.profile);
@@ -140,9 +141,17 @@ const editUser = async () => {
         </div>
 
         <div className="profile_header">
-          <img className="profile_header_avatar" alt={altAvatar} src={`http://localhost:3030/${profile?.avatar}`} ></img>
+          {profile.avatar ? <img className="profile_header_avatar" alt="" src={`http://localhost:3030/${profile?.avatar}`} ></img>
+          : (<img className="profile_header_avatar" alt="" src={altAvatar} ></img>)
+        }
           <div className="profile_header_content">
-            <p className="profile_header_p1">{nom}{" "}{prenom}</p>
+            { nom && prenom ? <p className="profile_header_p1">{nom}{" "}{prenom}</p>
+            : (
+            <div className="profile_header_p1">
+            <Skeleton animation="wave" width={150} height={20} />
+            <Skeleton animation="wave" width={70} height={10} />
+            </div>)
+          }
 
             <p className="profile_header_p2">
               {role === 'EXPERT' ? ("RESPONSABLE RH METIER / EXPERT RH") : role === "EMP" ? ("EMPLOYÉ") : 
@@ -158,8 +167,9 @@ const editUser = async () => {
             <p className="profile_info">Mes informations</p>
 
             <div className="profile_list">
-             <TextField  className="profile_item" margin="normal" value={matricule} onChange={e => setMatricule(e.target.value)} size="small" label="Matricule" disabled/>{" "}
-             <TextField  className="profile_item" margin="normal" value={email}onChange={e => setEmail(e.target.value)}  size="small" label="Email"/> 
+             <TextField sx={{"& .MuiInputBase-input.Mui-disabled": { WebkitTextFillColor: "black"}}} className="profile_item" margin="normal" value={matricule} onChange={e => setMatricule(e.target.value)} size="small" label="Matricule" disabled/>
+             <TextField className="profile_item" margin="normal" value={email} onChange={e => setEmail(e.target.value)}  size="small" label="Email"
+             />
              </div>
 
              <div className="profile_list">

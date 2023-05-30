@@ -39,8 +39,14 @@ import Journal from './pages/journal';
 import Espace_Sante from './pages/sante/espace_sante';
 import Expert_Sante from './pages/sante/expert_sante';
 import Archive_Sante from './pages/sante/archive_sante';
+<<<<<<< HEAD
 import EmailFormPage from './pages/EmailFormPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
+=======
+import IsLoading from './components/isLoading';
+
+
+>>>>>>> 2ae3686a748ca0bb2c2d93017b1f712dc8cf56c9
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
   const minute = 1000 * 60;
@@ -97,15 +103,19 @@ function App() {
       <SplashScreen />
     );
   }
+<<<<<<< HEAD
  
+=======
+
+
+
+>>>>>>> 2ae3686a748ca0bb2c2d93017b1f712dc8cf56c9
   // return
   return (
-    <div className="App">
 
+    <div className="App">
       <BrowserRouter>
         <Routes>
-
-
           <Route path="/login" element={
             <ForceRedirect user={user}> {" "} <LoginPage />{" "} </ForceRedirect>} />
 
@@ -142,8 +152,13 @@ function App() {
           <Route path="/monespace/santé" element={<Espace_Sante />}></Route>
           <Route path="/monespace/expertrh/sante" element={<Expert_Sante />}></Route>
           <Route path="/archive/sante" element={<ExpertRouter user={user}> {" "} <Archive_Sante />{" "} </ExpertRouter>} />
+<<<<<<< HEAD
           <Route path="/recupere/motdepasse" element={< EmailFormPage/>}></Route>
           <Route path="/newmotdepasse/:resetToken" element={<ResetPasswordPage />} />
+=======
+          <Route path="/test" element={<IsLoading />}></Route>
+
+>>>>>>> 2ae3686a748ca0bb2c2d93017b1f712dc8cf56c9
         </Routes>
 
       </BrowserRouter>

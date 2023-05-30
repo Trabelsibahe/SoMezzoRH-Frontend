@@ -1,7 +1,15 @@
-import Card from "react-bootstrap/Card";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listernews,
+import CircularProgress from "@mui/material/CircularProgress";
+import Card from "react-bootstrap/Card";
+import Button from "@mui/material/Button";
+import Form from "react-bootstrap/Form";
+import { Navigate } from "react-router-dom";
+import Classnames from "classnames";
+import { Box, Modal } from "@mui/material";
+
+import {
+  listernews,
   addnews,
   Deletenews,
   supprimerNews,
@@ -13,11 +21,6 @@ import {
 import Navigation from "../components/navigation";
 import "../assets/styles/news.css";
 import divider from "../components/divider";
-import Button from "@mui/material/Button";
-import Form from "react-bootstrap/Form";
-import { Navigate } from "react-router-dom";
-import Classnames from "classnames";
-import { Box, Modal } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -28,27 +31,44 @@ const style = {
   border: "2px solid #151582",
   boxShadow: 24,
   p: 4,
-    width: "100%",
-    maxWidth: "500px",
-    margin: "0 auto",
-    padding: "20px",
+  width: "100%",
+  maxWidth: "500px",
+  margin: "0 auto",
+  padding: "20px",
 };
 
 function NewsLetterPage() {
   const dispatch = useDispatch();
   const news = useSelector((state) => state.news.news);
+  const [loading, setLoading] = useState(false); // New loading state
   const auth = useSelector((state) => state.auth);
   const errors = useSelector((state) => state.errors);
 
   const notification = {
     message: "Une nouvelle news a été ajoutée.",
   };
-  useEffect(() => {
-    dispatch(listernews());
-  }, []);
+  // ...
 
   useEffect(() => {
-    dispatch(supprimerNews());
+    const fetchData = async () => {
+      setLoading(true);
+      await dispatch(listernews());
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  // ...
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      await dispatch(supprimerNews());
+      setLoading(false);
+    };
+
+    fetchData();
   }, []);
 
   const [titre, setTitre] = useState("");
@@ -63,12 +83,18 @@ function NewsLetterPage() {
 
   const addnewsaction = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = new FormData();
     data.append("imgurl", imgurl);
     data.append("titre", titre);
     data.append("description", description);
     data.append("dateSuppression", dateSuppression);
-    if (imgurl === "" || titre === "" || description === "" || dateSuppression === "") {
+    if (
+      imgurl === "" ||
+      titre === "" ||
+      description === "" ||
+      dateSuppression === ""
+    ) {
       await dispatch(addnews(data));
     } else {
       await dispatch(addnews(data));
@@ -80,6 +106,7 @@ function NewsLetterPage() {
       setDescription("");
       setTitre("");
     }
+    setLoading(false); // Set loading to false after fetching data
   };
 
   const deletenewsaction = async (id) => {
@@ -124,49 +151,55 @@ function NewsLetterPage() {
             </Button>
           )}
 
-          {news && news.length > 0
-            ? news.map((newsItem, index) => (
-                <div className="news_content">
-                  <div className="news_card">
-                    <div key={index} className="news_item">
-                      <Card className="news_item_card">
-                        <Card.Img
-                          variant="top"
-                          src={`http://localhost:3030/${newsItem?.imgurl}`}
-                        />
-                        <Card.Body>
-                          <Card.Title>{newsItem.titre}</Card.Title>
-                          <Card.Text>{newsItem.description}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                      {CurrentProfile.role === "EXPERT" && (
-                        <Button
-                          color="error"
-                          variant="contained"
-                          onClick={() => deletenewsaction(newsItem._id)}
-                          size="small"
-                          sx={{
-                            textAlign: "center",
-                            margin: "1em",
-                            backgroundColor: "orangered",
-                          }}
-                        >
-                          supprimer
-                        </Button>
-                      )}
+          {loading ? (
+            <div className="loading_spinner">
+              <CircularProgress />
+            </div>
+          ) : (
+            <>
+              {news && news.length > 0
+                ? news.map((newsItem, index) => (
+                    <div className="news_content">
+                      <div className="news_card">
+                        <div key={index} className="news_item">
+                          <Card className="news_item_card">
+                            <Card.Img
+                              variant="top"
+                              src={`http://localhost:3030/${newsItem?.imgurl}`}
+                            />
+                            <Card.Body>
+                              <Card.Title>{newsItem.titre}</Card.Title>
+                              <Card.Text>{newsItem.description}</Card.Text>
+                            </Card.Body>
+                          </Card>
+                          {CurrentProfile.role === "EXPERT" && (
+                            <Button
+                              color="error"
+                              variant="contained"
+                              onClick={() => deletenewsaction(newsItem._id)}
+                              size="small"
+                              sx={{
+                                textAlign: "center",
+                                margin: "1em",
+                                backgroundColor: "orangered",
+                              }}
+                            >
+                              supprimer
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                      <hr className="news_hr" />
                     </div>
-                  </div>
-                  <hr className="news_hr" />
-                </div>
-              ))
-            : "Aucune newsletter trouvée..."}
+                  ))
+                : "Aucune newsletter trouvée..."}
+            </>
+          )}
         </div>
-
-
 
         {/** pop up modal  add */}
         <Modal open={show} onHide={handleClose}>
-            <form className="news_form">
+          <form className="news_form">
             <Box sx={style}>
               <p className="task_add_name">Ajouter une newsletter</p>
               <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -184,7 +217,6 @@ function NewsLetterPage() {
                   <div className="invalid-feedback">{errors.titre}</div>
                 )}
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Déscription</Form.Label>
                 <Form.Control
@@ -200,25 +232,24 @@ function NewsLetterPage() {
                   <div className="invalid-feedback">{errors.description}</div>
                 )}
               </Form.Group>
-              
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Date d'expiration</Form.Label>
-                <Form.Control type="date"   value={dateSuppression}
+                <Form.Control
+                  type="date"
+                  value={dateSuppression}
                   onChange={(e) => setDateSuppression(e.target.value)}
                   placeholder="date Suppression"
                   className={Classnames("w-100", {
                     "is-invalid": errors.dateSuppression,
                   })}
-                 disablePast
-                 min={new Date().toISOString().split('T')[0]}
-
+                  disablePast
+                  min={new Date().toISOString().split("T")[0]}
                 />
                 {errors.dateSuppression && (
                   <div className="invalid-feedback">
                     {errors.dateSuppression}
                   </div>
                 )}
-                
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>
@@ -237,16 +268,15 @@ function NewsLetterPage() {
                 )}
               </Form.Group>
               <p style={{ color: "red", textAlign: "center" }}>{error}</p>
-            <Button variant="outlined" onClick={handleClose}>
-              Annuler
-            </Button>{" "}
-            <Button variant="outlined" onClick={addnewsaction}>
-              Publier
-            </Button>
+              <Button variant="outlined" onClick={handleClose}>
+                Annuler
+              </Button>{" "}
+              <Button variant="outlined" onClick={addnewsaction}>
+                Publier
+              </Button>
             </Box>
-            </form>
+          </form>
         </Modal>
-
       </div>
     </div>
   );
