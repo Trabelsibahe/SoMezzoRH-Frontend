@@ -44,21 +44,18 @@ function NewsLetterPage() {
   const [loading, setLoading] = useState(true);
   const auth = useSelector((state) => state.auth);
   const errors = useSelector((state) => state.errors);
+  const [isLoading, setIsLoading] = useState(true);
 
   const notification = {
     message: "Une nouvelle news a été ajoutée.",
   };
 
-  // ...
   useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(listernews());
-
-    };
-
-    fetchData();
+    (() => {
+        setIsLoading(false);
+        dispatch(listernews());
+    })();
   }, []);
-  // ...
 
   const [titre, setTitre] = useState("");
   const [description, setDescription] = useState("");
@@ -124,81 +121,80 @@ function NewsLetterPage() {
 
   return (
     <div className="news_page">
-      <Navigation user={CurrentProfile} />
-      <div className="news_container">
-        <div className="news_body">
+             {isLoading ? <IsLoading /> :
+      <><Navigation user={CurrentProfile} /><div className="news_container">
+          <div className="news_body">
 
-          {news && news.length > 0 ? (
-            <Carousel showArrows={true} showThumbs={false} width="1210px" infiniteLoop>
-              {news.map((newsItem, index) => (
-                <div className="news_content" key={index}>
-                 <span className="news_header">
-                  <img style={{ width: "100px", minHeight:"100px" }} src={logoblanc} alt=""></img>
+            {news && news.length > 0 ? (
+              <Carousel showArrows={true} showThumbs={false} width="1210px" infiniteLoop>
+                {news.map((newsItem, index) => (
+                  <div className="news_content" key={index}>
+                    <span className="news_header">
+                      <img style={{ width: "100px", minHeight: "100px" }} src={logoblanc} alt=""></img>
 
-                  {CurrentProfile.role==="EXPERT" ? <Button variant="outlined" color="secondary" size="small"  startIcon={<AddBoxOutlinedIcon />} sx={{ color: "white" }}
-                   onClick={handleShow} >Ajouter</Button>:""}
-                   </span>
+                      {CurrentProfile.role === "EXPERT" ? <Button variant="outlined" color="secondary" size="small" startIcon={<AddBoxOutlinedIcon />} sx={{ color: "white" }}
+                        onClick={handleShow}>Ajouter</Button> : ""}
+                    </span>
 
-                  <div className="news_text">
-                    <h1>{newsItem.titre}</h1>
-                    <p>{newsItem.description}</p>
-                    {CurrentProfile.role==="EXPERT" ? <Button
-                      startIcon={<DeleteOutlineIcon />}
-                      sx={{ color: "white" }}
-                      onClick={() => deletenewsaction(newsItem._id)}>
-                      Supprimer
-                    </Button>:""}
+                    <div className="news_text">
+                      <h1>{newsItem.titre}</h1>
+                      <p>{newsItem.description}</p>
+                      {CurrentProfile.role === "EXPERT" ? <Button
+                        startIcon={<DeleteOutlineIcon />}
+                        sx={{ color: "white" }}
+                        onClick={() => deletenewsaction(newsItem._id)}>
+                        Supprimer
+                      </Button> : ""}
+                    </div>
+
+                    <div className="news_image">
+                      {newsItem?.imgurl ?
+                        <Card.Img style={{
+                          padding: "1em",
+                          borderTopLeftRadius: "50%",
+                          borderBottomLeftRadius: "20%",
+                          borderBottomRightRadius: "45%",
+                          borderTopRightRadius: "30%",
+                          border: "4px solid #ebf0f7",
+                          maxHeight: "450px",
+                          minHeight: "450px", transition: "opacity 0.5s ease",
+                        }} variant="top"
+                          src={`http://localhost:3030/${newsItem?.imgurl}`} /> :
+                        (<Card.Img className="CardImg"
+                          style={{
+                            padding: "1em",
+                            borderTopLeftRadius: "50%",
+                            borderBottomLeftRadius: "20%",
+                            borderBottomRightRadius: "45%",
+                            borderTopRightRadius: "30%",
+                            border: "4px solid #ebf0f7",
+                            maxHeight: "450px"
+                          }}
+                          variant="top"
+                          src={wallpaper} />)}
+                    </div>
                   </div>
 
-                  <div className="news_image">
-                    {newsItem?.imgurl ? 
-                    <Card.Img style={{
-                      padding: "1em",
-                      borderTopLeftRadius: "50%",
-                      borderBottomLeftRadius: "20%",
-                      borderBottomRightRadius: "45%",
-                      borderTopRightRadius: "30%",
-                      border: "4px solid #ebf0f7",
-                      maxHeight: "450px",
-                      minHeight: "450px", transition:"opacity 0.5s ease",
-                    }} variant="top"
-                      src={`http://localhost:3030/${newsItem?.imgurl}`} /> : 
-                  ( <Card.Img className="CardImg"
-                      style={{
-                      padding: "1em",
-                      borderTopLeftRadius: "50%",
-                      borderBottomLeftRadius: "20%",
-                      borderBottomRightRadius: "45%",
-                      borderTopRightRadius: "30%",
-                      border: "4px solid #ebf0f7",
-                      maxHeight: "450px"
-                    }}
-                    variant="top"
-                      src={wallpaper}
-                      /> )}
-                      </div>
-                  </div>
+                ))}
+              </Carousel>
+            ) : (
 
-              ))}
-            </Carousel>
-          ) : (
+              <div className="news_content">
+                <span className="news_header">
+                  <img style={{ width: "100px", minHeight: "100px" }} src={logoblanc} alt=""></img>
+                  {CurrentProfile.role === "EXPERT" ?
+                    <Button variant="outlined" color="secondary" size="small" startIcon={<AddBoxOutlinedIcon />} sx={{ color: "white" }}
+                      onClick={handleShow}>Ajouter</Button> : ""} </span>
 
-            <div className="news_content">
-                  <span className="news_header">
-                  <img style={{ width: "100px", minHeight:"100px" }} src={logoblanc} alt=""></img>
-                     {CurrentProfile.role==="EXPERT" ? 
-                  <Button variant="outlined" color="secondary" size="small" startIcon={<AddBoxOutlinedIcon />} sx={{ color: "white" }}
-                   onClick={handleShow}>Ajouter</Button>: "" } </span>
-      
-            </div>
+              </div>
 
-          )}
-           </div>
-        <div className="newsletter_footer">
-          <p>Tous droits réservés - SoMezzo</p>
-          <img src={somezzologo} alt="logo"></img>
+            )}
+          </div>
+          <div className="newsletter_footer">
+            <p>Tous droits réservés - SoMezzo</p>
+            <img src={somezzologo} alt="logo"></img>
+          </div>
         </div>
-      </div>
           
       {/** pop up modal  add */}
       <Modal open={show} onClose={handleClose}>
@@ -280,6 +276,7 @@ function NewsLetterPage() {
           </Box>
         </form>
       </Modal>
+</>}
     </div>
   
 );

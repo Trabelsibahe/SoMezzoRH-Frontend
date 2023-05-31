@@ -9,6 +9,7 @@ import StepOne from "../components/welcomesteps/Step1";
 import StepTwo from "../components/welcomesteps/Step2";
 import StepThree from "../components/welcomesteps/Step3";
 import StepFour from "../components/welcomesteps/Step4";
+import IsLoading from '../components/isLoading';
 
 import { BiLogIn } from "react-icons/bi";
 import { Logout } from "../actions/auth.actions";
@@ -16,6 +17,7 @@ import { Logout } from "../actions/auth.actions";
 function WelcomePage() {
   const auth = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   const CurrentUser = {
     isConnected: auth.isConnected,
@@ -56,7 +58,10 @@ function WelcomePage() {
 
   useEffect(() => {
     (() => {
+      setTimeout(() => {
+        setIsLoading(false);
       dispatch(GetProfileAction());
+      }, 1000 );
     })();
   }, []);
 
@@ -97,59 +102,56 @@ function WelcomePage() {
   };
   return (
     <div className="welcome_page">
-      <div className="welcome_progressbar1">
-        <div
-          className="welcome_progressbar"
-          style={{
-            width:
-              page === 0
+       {isLoading ? <IsLoading /> :
+      <><div className="welcome_progressbar1">
+          <div
+            className="welcome_progressbar"
+            style={{
+              width: page === 0
                 ? "25%"
                 : page === 1
-                ? "50%"
-                : page === 2
-                ? "75%"
-                : "100%",
-          }}
-        >
-          <p>⠀</p>
-        </div>
-      </div>
-      <p></p>
-      <ul>
+                  ? "50%"
+                  : page === 2
+                    ? "75%"
+                    : "100%",
+            }}
+          >
+            <p>⠀</p>
+          </div>
+        </div><p></p><ul>
 
-          <button className="welcome_logout" onClick={LogoutHandler}>
-            <BiLogIn /> Se deconnecter
-          </button>
-      </ul>
+            <button className="welcome_logout" onClick={LogoutHandler}>
+              <BiLogIn /> Se deconnecter
+            </button>
+          </ul><div className="welcome_card">
+            <div className="welcome_card-image">
+              <h2 className="welcome_card-heading">
+                Bienvenue {CurrentUser.prenom} !
+              </h2>
+              <div className="welcome_step">{FormTitles[page]}</div>
+            </div>
+            <div className="welcome_card-form">{PageDisplay()}</div>
 
-      <div className="welcome_card">
-        <div className="welcome_card-image">
-          <h2 className="welcome_card-heading">
-            Bienvenue {CurrentUser.prenom} !
-          </h2>
-          <div className="welcome_step">{FormTitles[page]}</div>
-        </div>
-        <div className="welcome_card-form">{PageDisplay()}</div>
+            <button
+              className="welcome_button_previous"
+              disabled={page === 0}
+              onClick={() => {
+                setPage((currPage) => currPage - 1);
+              } }
+            >
+              {" "}
+              Précédent{" "}
+            </button>
 
-        <button
-          className="welcome_button_previous"
-          disabled={page === 0}
-          onClick={() => {
-            setPage((currPage) => currPage - 1);
-          }}
-        >
-          {" "}
-          Précédent{" "}
-        </button>
-
-        <div className="welcome_card-info">
-          <p className="welcome_p">
-            Merci de bien vouloir remplir le formulaire.
-          </p>
-        </div>
-      </div>
-      <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
+            <div className="welcome_card-info">
+              <p className="welcome_p">
+                Merci de bien vouloir remplir le formulaire.
+              </p>
+            </div>
+          </div><p className="welcome_footer">Tous droits réservés - SoMezzo</p></>
+        }
     </div>
+        
   );
 }
 

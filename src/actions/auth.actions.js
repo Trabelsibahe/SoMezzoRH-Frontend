@@ -26,16 +26,16 @@ export const RegisterAction = (form, navigate) => dispatch => {
 // login
 export const LoginAction = (form, navigate) => dispatch => {
   axios.post('http://127.0.0.1:3030/api/login', form)
-
     .then(res => {
       const { token } = res.data
       localStorage.setItem('jwt', token);
       const decode = jwt_decode(token);
       dispatch(setUser(decode));
       setAuth(token);
-      alert("Bievenue " + decode.matricule);
+      if (decode.active === true) {
+        navigate("/bienvenue")
+      }
       window.location.reload();
-      navigate("/bienvenue")
     })
     .catch(err => {
       dispatch({
@@ -43,8 +43,8 @@ export const LoginAction = (form, navigate) => dispatch => {
         payload: err.response.data
       })
     })
-
 }
+
 
 // Change Password 
 export const ChangePasswordAction = (form, navigate) => dispatch => {
@@ -69,10 +69,8 @@ export const ChangePasswordAction = (form, navigate) => dispatch => {
 }
 
 // logout
-export const Logout = (navigate) => dispatch => {
+export const Logout = () => dispatch => {
   localStorage.removeItem('jwt')
-  navigate("/login")
-
   dispatch({
     type: authConstants.SET_USER,
     payload: {}

@@ -13,7 +13,8 @@ function InactivePage() {
   const dispatch = useDispatch();
 
   const LogoutHandler = () => {
-    dispatch(Logout(navigate));
+    dispatch(Logout())
+    navigate("/login");
   };
  
   
