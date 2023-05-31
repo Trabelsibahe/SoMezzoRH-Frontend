@@ -52,14 +52,14 @@ function RRH_header() {
           <div className="espace_header_card1">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count3 ? count3 : "0"}</span>
-                <span className="espace_header_carditem2">nombre de mon équipe</span>
+                <span className="espace_header_carditem">{count2 ? count2 : "0"}</span>
+                <span className="espace_header_carditem2">Challenges</span>
               </span>
             </span>
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
                 <span className="espace_header_carditem">{count1 ? count1 : "0"}</span>
-                <span className="espace_header_carditem2">Opérations</span>
+                <span className="espace_header_carditem2">Participants</span>
               </span>
             </span>
           </div>
@@ -67,8 +67,8 @@ function RRH_header() {
           <div className="espace_header_card2">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count2 ? count2 : "0"}</span>
-                <span className="espace_header_carditem2">Challenges</span>
+                <span className="espace_header_carditem">{count3 ? count3 : "0"}</span>
+                <span className="espace_header_carditem2">Équipiers</span>
               </span>
             </span>
           </div>

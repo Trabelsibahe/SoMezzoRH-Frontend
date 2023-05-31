@@ -6,28 +6,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {CountProfiles} from "../../actions/profile.actions"
 import {CountOperation,Countchallenge,countmesparticipation,countmestotal } from "../../actions/operation.action"
+
+
 function EMPheader() {
   const auth = useSelector((state) => state.auth);
   const count1 = useSelector((state) => state.operation.count.count);
   const count2 = useSelector((state) => state.operation.countch.operationChallengesCount);
   const count3 = useSelector((state) => state.operation.countparemp.participationSum);
   const count4 = useSelector((state) => state.operation.counttotal.totalSum);
-console.log(count4)
+
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(CountProfiles());
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(CountOperation());
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(Countchallenge());
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(countmesparticipation());
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(countmestotal());
   }, [dispatch]);
 
@@ -56,14 +52,14 @@ console.log(count4)
           <div className="espace_header_card1">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count3 ? count3 : "0"}</span>
-                <span className="espace_header_carditem2">Mes participation</span>
+                <span className="espace_header_carditem">{count2 ? count2 : "0"}</span>
+                <span className="espace_header_carditem2">Challenges</span>
               </span>
             </span>
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count4 ? count4 : "0"}</span>
-                <span className="espace_header_carditem2">Mes total de prime</span>
+                <span className="espace_header_carditem">{count3 ? count3 : "0"}</span>
+                <span className="espace_header_carditem2">Participations</span>
               </span>
             </span>
           </div>
@@ -71,8 +67,8 @@ console.log(count4)
           <div className="espace_header_card2">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count2 ? count2 : "0"}</span>
-                <span className="espace_header_carditem2">Challenges</span>
+                <span className="espace_header_carditem">{count4 ? count4+"DT" : "0DT"}</span>
+                <span className="espace_header_carditem2">gagnés</span>
               </span>
             </span>
           </div>

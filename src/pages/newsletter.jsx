@@ -5,18 +5,23 @@ import Button from "@mui/material/Button";
 import Form from "react-bootstrap/Form";
 import { Navigate } from "react-router-dom";
 import Classnames from "classnames";
-import { Box, Modal, Skeleton } from "@mui/material";
+import { Box, CircularProgress, Modal, Skeleton } from "@mui/material";
 import Navigation from "../components/navigation";
 import "../assets/styles/news.css";
 import test from "../assets/images/banner.avif";
 import somezzologo from "../assets/images/icone.png";
 import logoblanc from "../assets/images/logo_blanc.png";
+import wallpaper from "../assets/images/wallpaper.jpg";
+
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import { listernews, addnews, Deletenews, supprimerNews, } from "../actions/news.actions";
 import { SendNotificationToAll, SendNotificationToOneUser, } from "../actions/notification.action";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import the carousel styles
 import { Carousel } from "react-responsive-carousel"; // Import the Carousel component
+import NotFoundPage from "./notfound";
+import IsLoading from "../components/isLoading";
+import SplashScreen from "./intro";
 
 const style = {
   position: "absolute",
@@ -36,7 +41,7 @@ const style = {
 function NewsLetterPage() {
   const dispatch = useDispatch();
   const news = useSelector((state) => state.news.news);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const auth = useSelector((state) => state.auth);
   const errors = useSelector((state) => state.errors);
 
@@ -47,9 +52,8 @@ function NewsLetterPage() {
   // ...
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       await dispatch(listernews());
-      setLoading(false);
+
     };
 
     fetchData();
@@ -106,14 +110,13 @@ function NewsLetterPage() {
 
   const deletenewsaction = async (id) => {
     await dispatch(Deletenews(id));
-    await dispatch(listernews());
+    await window.location.reload();
+
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       await dispatch(supprimerNews());
-      setLoading(false);
     };
 
     fetchData();
@@ -126,59 +129,78 @@ function NewsLetterPage() {
         <div className="news_body">
 
           {news && news.length > 0 ? (
-            <Carousel showArrows={true} showThumbs={false}>
+            <Carousel showArrows={true} showThumbs={false} width="1210px" infiniteLoop
+            autoPlay>
               {news.map((newsItem, index) => (
                 <div className="news_content" key={index}>
                  <span className="news_header">
-                  <img style={{ width: "100px" }} src={logoblanc} alt=""></img>
-                  <Button variant="outlined" color="secondary" size="small"  startIcon={<AddBoxOutlinedIcon />} sx={{ color: "white" }}
-                   onClick={handleShow} >Ajouter</Button> </span>
+                  <img style={{ width: "100px", minHeight:"100px" }} src={logoblanc} alt=""></img>
+
+                  {CurrentProfile.role==="EXPERT" ? <Button variant="outlined" color="secondary" size="small"  startIcon={<AddBoxOutlinedIcon />} sx={{ color: "white" }}
+                   onClick={handleShow} >Ajouter</Button>:""}
+                   </span>
+
                   <div className="news_text">
                     <h1>{newsItem.titre}</h1>
                     <p>{newsItem.description}</p>
-                    <Button
+                    {CurrentProfile.role==="EXPERT" ? <Button
                       startIcon={<DeleteOutlineIcon />}
                       sx={{ color: "white" }}
-                      onClick={() => deletenewsaction(newsItem._id)}
-                    >
+                      onClick={() => deletenewsaction(newsItem._id)}>
                       Supprimer
-                    </Button>
+                    </Button>:""}
                   </div>
 
                   <div className="news_image">
-                    {newsItem.imgurl ? <Card.Img
+                    {newsItem?.imgurl ? 
+                    <Card.Img style={{
+                      padding: "1em",
+                      borderTopLeftRadius: "50%",
+                      borderBottomLeftRadius: "20%",
+                      borderBottomRightRadius: "45%",
+                      borderTopRightRadius: "30%",
+                      border: "4px solid #ebf0f7",
+                      maxHeight: "450px",
+                      minHeight: "450px", transition:"opacity 0.5s ease",
+                    }} variant="top"
+                      src={`http://localhost:3030/${newsItem?.imgurl}`} /> : 
+                  ( <Card.Img className="CardImg"
                       style={{
-                        padding: "1em",
-                        borderTopLeftRadius: "50%",
-                        borderBottomLeftRadius: "20%",
-                        borderBottomRightRadius: "45%",
-                        borderTopRightRadius: "30%",
-                        border: "4px solid #ebf0f7",
-                        maxHeight: "450px"
-                      }}
-                      variant="top"
-                      src={`http://localhost:3030/${newsItem?.imgurl}`}
-                    /> : <span style={{maxWidth:"450px", background:"gray"}}>
-                      </span>}
+                      padding: "1em",
+                      borderTopLeftRadius: "50%",
+                      borderBottomLeftRadius: "20%",
+                      borderBottomRightRadius: "45%",
+                      borderTopRightRadius: "30%",
+                      border: "4px solid #ebf0f7",
+                      maxHeight: "450px"
+                    }}
+                    variant="top"
+                      src={wallpaper}
+                      /> )}
+                      </div>
                   </div>
-                </div>
+
               ))}
             </Carousel>
           ) : (
-            <div className="news_content">
-                    <span className="news_header">
-                  <img style={{ width: "100px" }} src={logoblanc ? logoblanc : logoblanc} alt=""></img>
-                  <Button variant="outlined" color="secondary" size="small"  startIcon={<AddBoxOutlinedIcon />} sx={{ color: "white" }}
-                   onClick={handleShow} >Ajouter</Button> </span>
-            </div>
-          )}
-        </div>
 
+            <div className="news_content">
+                  <span className="news_header">
+                  <img style={{ width: "100px", minHeight:"100px" }} src={logoblanc} alt=""></img>
+                     {CurrentProfile.role==="EXPERT" ? 
+                  <Button variant="outlined" color="secondary" size="small" startIcon={<AddBoxOutlinedIcon />} sx={{ color: "white" }}
+                   onClick={handleShow}>Ajouter</Button>: "" } </span>
+      
+            </div>
+
+          )}
+           </div>
         <div className="newsletter_footer">
           <p>Tous droits réservés - SoMezzo</p>
           <img src={somezzologo} alt="logo"></img>
         </div>
       </div>
+          
       {/** pop up modal  add */}
       <Modal open={show} onClose={handleClose}>
         <form className="news_form">
@@ -260,7 +282,8 @@ function NewsLetterPage() {
         </form>
       </Modal>
     </div>
-  );
+  
+);
 }
 
 export default NewsLetterPage;

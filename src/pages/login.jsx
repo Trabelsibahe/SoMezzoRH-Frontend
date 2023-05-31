@@ -109,7 +109,7 @@ function LoginPage() {
               {loading ? <CircularProgress size={24} style={{color:"white"}} /> : 'Connexion'}
             </button>
             <div className="signup_link">
-               <a href="/recupere/motdepasse">Mot de passe oublié?</a>
+            Mot de passe oublié?<a href="/recupere/motdepasse"> Réinitialiser</a>
             </div>
           </form>
         </div>

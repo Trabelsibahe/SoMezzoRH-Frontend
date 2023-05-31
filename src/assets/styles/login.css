@@ -33,6 +33,8 @@
   border-radius: 10px;
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
   transition: 0.5s;
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
 }
 .login_whitebox h5 {
   text-align: center;
@@ -167,5 +169,16 @@ form .txt_field {
   }
   100% {
     opacity: 100;
+  }
+}
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
