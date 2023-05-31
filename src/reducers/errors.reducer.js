@@ -23,6 +23,10 @@ export default function (state = initialState, action) {
       return action.payload;
       case ChallengeConstants.ADD_Challenge_FAILURE:
       return action.payload;
+      case authConstants.SEND_EMAIL_FAILURE:
+        return action.payload;
+        case authConstants.RESET_PASSWORD_FAILURE:
+          return action.payload;
     default:
       return state;
   }

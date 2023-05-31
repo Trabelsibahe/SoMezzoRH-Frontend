@@ -87,35 +87,38 @@ export const setUser = (decode) => ({
 
 export const sendPasswordResetEmail = (email) => async (dispatch) => {
   try {
-    await axios.post('http://127.0.0.1:3030/api/mot-de-passe-oublie', { email });
-
+    const res = await axios.post('http://127.0.0.1:3030/api/mot-de-passe-oublie', { email });
+    if (res.status === 200) {
     dispatch({
       type: authConstants.SEND_EMAIL_SUCCESS,
-      payload: "Un e-mail de réinitialisation de mot de passe a été envoyé.",
+      payload: res.data,
     });
-  } catch (error) {
+    window.location.reload()
+    alert("email a été envoyé avec succès.\nVoir votre boite email");
+  } }catch (error) {
     dispatch({
       type: authConstants.SEND_EMAIL_FAILURE,
-      payload: "Une erreur s'est produite lors de l'envoi de l'e-mail de réinitialisation.",
+      payload: error.response.data,
     });
   }
 };
 
-export const resetPassword = (resetToken, newPassword, email) => async (dispatch) => {
+export const resetPassword = (resetToken, newPassword,confirmPassword) => async (dispatch) => {
   try {
-    const res = await axios.post('http://127.0.0.1:3030/api/new-mot-de-passe', { resetToken, newPassword, email });
+    const res = await axios.post('http://127.0.0.1:3030/api/new-mot-de-passe', { resetToken, newPassword,confirmPassword});
 
     alert("Mot de passe modifié, veuillez vous reconnecter");
     localStorage.clear();
     window.location.reload();
+    window.location.replace('/login');
     dispatch({
       type: authConstants.RESET_PASSWORD_SUCCESS,
-      payload: "Votre mot de passe a été réinitialisé avec succès.",
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
       type: authConstants.RESET_PASSWORD_FAILURE,
-      payload: "Une erreur s'est produite lors de la réinitialisation du mot de passe.",
+      payload: error.response.data,
     });
   }
 };

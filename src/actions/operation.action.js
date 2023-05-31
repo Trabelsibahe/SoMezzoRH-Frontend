@@ -96,5 +96,52 @@ export const mesprime = (id) => dispatch => {
       })
     });
 }
-
+export const countmesparticipation = (id) => dispatch => {
+    
+  axios.get(`http://127.0.0.1:3030/api/nb/${id}`)
+    .then(res => {
+      dispatch({
+        type: operaConstants.GET_MY_COUNT,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: operaConstants.COUNT_ERRORS,
+        payload: err.response.data
+      })
+    });
+}
+export const countmestotal = (id) => dispatch => {
+    
+  axios.get(`http://127.0.0.1:3030/api/nbtotal/${id}`)
+    .then(res => {
+      dispatch({
+        type: operaConstants.GET_MY_TOTAL,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: operaConstants.TOTAL_ERRORS,
+        payload: err.response.data
+      })
+    });
+}
+export const countempop = (id) => dispatch => {
+    
+  axios.get(`http://localhost:3030/api/nbemp/${id}`)
+    .then(res => {
+      dispatch({
+        type: operaConstants.GET_MY_EMP,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: operaConstants.EMP_ERRORS,
+        payload: err.response.data
+      })
+    });
+}
 

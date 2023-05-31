@@ -29,6 +29,7 @@ export const authConstants = {
 GET_ALL_USER:'GET_ALL_USER',
 USER_ERRORS:'USER_ERRORS',
 USER_REQUEST:'USER_REQUEST',
+
 };
 
 export const profileConstants = {
@@ -99,6 +100,12 @@ export const operaConstants = {
   COUNT_CHALLENGE_ERREUR: 'COUNT_CHALLENGE_ERREUR',
   GET_MY_PRIME:'GET_MY_PRIME',
   PRIME_ERRORS:'PRIME_ERRORS',
+  GET_MY_COUNT:'GET_MY_COUNT',
+  COUNT_ERRORS:'COUNT_ERRORS',
+  GET_MY_TOTAL:'GET_MY_TOTAL',
+  TOTAL_ERRORS:'TOTAL_ERRORS',
+  GET_MY_EMP:'GET_MY_EMP',
+EMP_ERRORS:'EMP_ERRORS',
 };
 export const ChallengeConstants = {
   ADD_Challenge_REQUEST: 'ADD_Challenge_REQUEST',

@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {CountProfiles} from "../../actions/profile.actions"
-import {CountOperation,Countchallenge } from "../../actions/operation.action"
+import {CountOperation,Countchallenge ,countempop } from "../../actions/operation.action"
 function RRH_header() {
   const auth = useSelector((state) => state.auth);
   const count = useSelector((state) => state.profiles.count.count);
   const count1 = useSelector((state) => state.operation.count.count);
   const count2 = useSelector((state) => state.operation.countch.operationChallengesCount);
+  const count3 = useSelector((state) => state.operation.countemp.userCount);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,6 +23,9 @@ function RRH_header() {
   }, [dispatch]);
   useEffect(() => {
     dispatch(Countchallenge());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(countempop());
   }, [dispatch]);
   const CurrentUser = {
     isConnected: auth.isConnected,
@@ -47,8 +52,8 @@ function RRH_header() {
           <div className="espace_header_card1">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count ? count : "0"}</span>
-                <span className="espace_header_carditem2">Collaborateurs</span>
+                <span className="espace_header_carditem">{count3 ? count3 : "0"}</span>
+                <span className="espace_header_carditem2">nombre de mon équipe</span>
               </span>
             </span>
             <span className="espace_header_cardlist">

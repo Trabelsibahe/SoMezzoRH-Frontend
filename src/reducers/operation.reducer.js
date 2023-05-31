@@ -6,6 +6,10 @@ const intitialState = {
     absences:[],
     count: 0 ,
     countch:0,
+    countparemp: 0 ,
+    counttotal: 0 ,
+    countemp:0 ,
+
 };
 export default function (state = intitialState, action) {
 
@@ -46,6 +50,24 @@ export default function (state = intitialState, action) {
                       countch: action.payload,
           
                     };
+                    case operaConstants.GET_MY_COUNT:
+                        return {
+                          ...state,
+                          countparemp: action.payload,
+              
+                        };
+                        case operaConstants.GET_MY_TOTAL:
+                            return {
+                              ...state,
+                              counttotal: action.payload,
+                  
+                            };
+                            case operaConstants.GET_MY_EMP:
+                                return {
+                                  ...state,
+                                  countemp: action.payload,
+                      
+                                };
         default:
             return state;
     }

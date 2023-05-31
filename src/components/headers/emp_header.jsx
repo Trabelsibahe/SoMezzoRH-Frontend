@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {CountProfiles} from "../../actions/profile.actions"
-import {CountOperation,Countchallenge } from "../../actions/operation.action"
+import {CountOperation,Countchallenge,countmesparticipation,countmestotal } from "../../actions/operation.action"
 function EMPheader() {
   const auth = useSelector((state) => state.auth);
-  const count = useSelector((state) => state.profiles.count.count);
   const count1 = useSelector((state) => state.operation.count.count);
   const count2 = useSelector((state) => state.operation.countch.operationChallengesCount);
-
+  const count3 = useSelector((state) => state.operation.countparemp.participationSum);
+  const count4 = useSelector((state) => state.operation.counttotal.totalSum);
+console.log(count4)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,6 +24,13 @@ function EMPheader() {
   useEffect(() => {
     dispatch(Countchallenge());
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(countmesparticipation());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(countmestotal());
+  }, [dispatch]);
+
   const CurrentUser = {
     isConnected: auth.isConnected,
     nom: auth.user.nom,
@@ -48,14 +56,14 @@ function EMPheader() {
           <div className="espace_header_card1">
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count ? count : "0"}</span>
-                <span className="espace_header_carditem2">Collaborateurs</span>
+                <span className="espace_header_carditem">{count3 ? count3 : "0"}</span>
+                <span className="espace_header_carditem2">Mes participation</span>
               </span>
             </span>
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count1 ? count1 : "0"}</span>
-                <span className="espace_header_carditem2">Opérations</span>
+                <span className="espace_header_carditem">{count4 ? count4 : "0"}</span>
+                <span className="espace_header_carditem2">Mes total de prime</span>
               </span>
             </span>
           </div>
