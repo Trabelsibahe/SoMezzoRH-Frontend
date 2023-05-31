@@ -27,6 +27,8 @@ function Expert_header() {
   useEffect(() => {
     dispatch(Countchallenge());
   }, [dispatch]);
+
+
   const CurrentUser = {
     isConnected: auth.isConnected,
     nom: auth.user.nom,
@@ -35,6 +37,13 @@ function Expert_header() {
     role: auth.user.role,
     titre: auth.user.titre,
   };
+    
+  useEffect(() => {
+    if (!CurrentUser.isConnected) {
+      navigate("/login")
+    }
+    }, []);
+
 
   return (
     <div className="espace_header">

@@ -42,6 +42,7 @@ import Archive_Sante from './pages/sante/archive_sante';
 import EmailFormPage from './pages/EmailFormPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
 import IsLoading from './components/isLoading';
+import { useNavigate } from "react-router-dom";
 
 if (window.localStorage.jwt) {
   const decode = jwt_decode(window.localStorage.jwt);
@@ -73,6 +74,9 @@ function App() {
   useEffect(() => {
     (() => {
       dispatch(GetProfileAction());
+      if (user.active === false) {
+        <Navigate to="/inactive" />
+      }
     })();
   }, [dispatch]);
 
@@ -90,17 +94,18 @@ function App() {
     active: auth.user.active,
 
   };
-
-  if (user.active === false) {
-    <Navigate to="/inactive" />
-  }
+ 
+  useEffect(() => {
+    if (!user.isConnected) {
+      <Navigate to="/login" />
+    }
+  }, []);
 
   if (!user.isConnected && loading) {
     return (
       <SplashScreen />
     );
   }
-
 
 
   // return
@@ -145,9 +150,9 @@ function App() {
           <Route path="/monespace/santé" element={<Espace_Sante />}></Route>
           <Route path="/monespace/expertrh/sante" element={<Expert_Sante />}></Route>
           <Route path="/archive/sante" element={<ExpertRouter user={user}> {" "} <Archive_Sante />{" "} </ExpertRouter>} />
-          <Route path="/recupere/motdepasse" element={< EmailFormPage/>}></Route>
+          <Route path="/recupere/motdepasse" element={< EmailFormPage />}></Route>
           <Route path="/newmotdepasse/:resetToken" element={<ResetPasswordPage />} />
-          <Route path="/test" element={<IsLoading/>}/>
+          <Route path="/test" element={<IsLoading />} />
         </Routes>
 
       </BrowserRouter>

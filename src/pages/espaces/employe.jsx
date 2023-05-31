@@ -10,6 +10,7 @@ import RrhCalendar from "../../components/TaskComponents/rrhcalendar";
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import EMPheader from "../../components/headers/emp_header";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   color: "#151582;",
@@ -32,6 +33,7 @@ const style2 = {
 function EmployePage() {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const CurrentUser = {
     isConnected: auth.isConnected,
@@ -42,6 +44,15 @@ function EmployePage() {
     operation: auth.user.operation,
     active: auth.user.active
   };
+
+  
+  useEffect(() => {
+    if (!CurrentUser.isConnected) {
+      navigate("/login")
+    }
+  }, []);
+
+
   const [Show_RrhCalendar, setShow_RrhCalendar] = React.useState(false);
 
   const onClick_ShowRRHCalendar = () => setShow_RrhCalendar(true);

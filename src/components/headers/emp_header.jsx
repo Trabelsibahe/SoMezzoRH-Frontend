@@ -36,6 +36,12 @@ function EMPheader() {
     titre: auth.user.titre,
     operation: auth.user.operation
   };
+  
+  useEffect(() => {
+    if (!CurrentUser.isConnected) {
+      navigate("/login")
+    }
+    }, []);
 
   return (
     <div className="espace_header">

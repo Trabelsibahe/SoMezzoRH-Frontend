@@ -19,10 +19,6 @@ function Expert_Rh_Page() {
   const dispatch = useDispatch();
   const count = useSelector((state) => state.profiles.count.count);
   const errors = useSelector((state) => state.errors);
-  useEffect(() => {
-    dispatch(GetProfileAction());
-    dispatch(CountProfiles());
-  }, [dispatch]);
 
   const CurrentUser = {
     isConnected: auth.isConnected,
@@ -32,6 +28,16 @@ function Expert_Rh_Page() {
     role: auth.user.role,
     titre: auth.user.titre,
   };
+
+  useEffect(() => {
+    dispatch(GetProfileAction());
+    dispatch(CountProfiles());
+      if (!CurrentUser.isConnected) {
+        navigate("/login")
+      }
+  }, [dispatch]);
+
+
   const [showRegister, setRegister] = React.useState(false);
   const onClick = () => setRegister(true);
 

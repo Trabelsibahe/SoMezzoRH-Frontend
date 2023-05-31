@@ -27,6 +27,9 @@ function RRH_header() {
   useEffect(() => {
     dispatch(countempop());
   }, [dispatch]);
+
+
+
   const CurrentUser = {
     isConnected: auth.isConnected,
     nom: auth.user.nom,
@@ -36,6 +39,13 @@ function RRH_header() {
     titre: auth.user.titre,
     operation: auth.user.operation
   };
+    
+  useEffect(() => {
+    if (!CurrentUser.isConnected) {
+      navigate("/login")
+    }
+    }, []);
+
 
   return (
     <div className="espace_header">

@@ -8,15 +8,31 @@ import { Button } from 'react-bootstrap';
 
 
 function InactivePage() {
+  const auth = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const CurrentUser = {
+    isConnected: auth.isConnected,
+    nom: auth.user.nom,
+    prenom: auth.user.prenom,
+    matricule: auth.user.matricule,
+    role: auth.user.role,
+    operation: auth.user.operation,
+    active: auth.user.active
+  };
 
   const LogoutHandler = () => {
     dispatch(Logout())
     navigate("/login");
   };
- 
+
+  useEffect(() => {
+      if (!CurrentUser.isConnected) {
+        navigate("/login")
+      }
+      }, []);
+
   
   return (
     <div className="inactive">

@@ -20,6 +20,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { TextField } from "@mui/material";
 import RRHheader from "../../components/headers/rrh_header";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   color: "#151582;",
@@ -34,6 +35,7 @@ function RRH_Page() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const absences = useSelector((state) => state.operation.absences);
+  const navigate = useNavigate();
 
   const CurrentUser = {
     isConnected: auth.isConnected,
@@ -86,7 +88,11 @@ function RRH_Page() {
 
   useEffect(() => {
     dispatch(GetOperAbsenceAction());
+          if (!CurrentUser.isConnected) {
+      navigate("/login")
+          }
   }, []);
+
 
   const onClick_RrhAbsArchPage = () => setShow_RrhAbsArchPage(true);
   const [search, setSearch] = useState("");
@@ -108,6 +114,9 @@ function RRH_Page() {
     }
     return false;
   });
+
+
+
   return (
     <div className="rrh_page">
       <Navigation user={CurrentUser} />
