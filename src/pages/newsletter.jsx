@@ -129,8 +129,7 @@ function NewsLetterPage() {
         <div className="news_body">
 
           {news && news.length > 0 ? (
-            <Carousel showArrows={true} showThumbs={false} width="1210px" infiniteLoop
-            autoPlay>
+            <Carousel showArrows={true} showThumbs={false} width="1210px" infiniteLoop>
               {news.map((newsItem, index) => (
                 <div className="news_content" key={index}>
                  <span className="news_header">

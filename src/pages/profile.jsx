@@ -203,14 +203,14 @@ const editUser = async () => {
              </div>
 
           <div className="profile_list">
-             <TextField className="profile_item" margin="normal" value={operation} onChange={e => setOperation(e.target.value)} size="small" label="Votre opération"/>{" "}
-             <TextField className="profile_item" margin="normal" value={titre} onChange={e => setTitre(e.target.value)} size="small" label="Votre titre"/>
+             <TextField disabled sx={{"& .MuiInputBase-input.Mui-disabled": { WebkitTextFillColor: "black"}}}  className="profile_item" margin="normal" value={operation} onChange={e => setOperation(e.target.value)} size="small" label="Opération"/>{" "}
+             <TextField disabled sx={{"& .MuiInputBase-input.Mui-disabled": { WebkitTextFillColor: "black"}}}  className="profile_item" margin="normal" value={titre} onChange={e => setTitre(e.target.value)} size="small" label="Titre"/>
           </div>
 
-          <div className="profile_list">
+          {/*<div className="profile_list">
           <TextField className="profile_item" margin="normal" value={ville} onChange={e => setVille(e.target.value)} size="small" label="Vacant"/>{" "}
              <TextField className="profile_item" margin="normal" value={codepostal} onChange={e => setCodepostal(e.target.value)} size="small"  label="Vacant"/>
-          </div>
+        </div>*/}
           
 
           <div className="profile_button"> 

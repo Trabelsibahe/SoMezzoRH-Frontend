@@ -93,8 +93,7 @@ export const sendPasswordResetEmail = (email) => async (dispatch) => {
       type: authConstants.SEND_EMAIL_SUCCESS,
       payload: res.data,
     });
-    window.location.reload()
-    alert("email a été envoyé avec succès.\nVoir votre boite email");
+    alert("Email envoyé..\nVeuillez vérifier votre boîte de réception.");
   } }catch (error) {
     dispatch({
       type: authConstants.SEND_EMAIL_FAILURE,
