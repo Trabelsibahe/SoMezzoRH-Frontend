@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import {CountProfiles} from "../../actions/profile.actions"
-import {CountOperation,Countchallenge ,countempop } from "../../actions/operation.action"
+import {CountOperation,Countchallenge ,countempop,countparticipant } from "../../actions/operation.action"
 function RRH_header() {
   const auth = useSelector((state) => state.auth);
   const count = useSelector((state) => state.profiles.count.count);
   const count1 = useSelector((state) => state.operation.count.count);
   const count2 = useSelector((state) => state.operation.countch.operationChallengesCount);
   const count3 = useSelector((state) => state.operation.countemp.userCount);
-
+  const count4 = useSelector((state) => state.operation.countpar.participantCount);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -30,7 +30,9 @@ function RRH_header() {
 
 
 
+
   const CurrentUser = {
+    id : auth.user.id,
     isConnected: auth.isConnected,
     nom: auth.user.nom,
     prenom: auth.user.prenom,
@@ -39,7 +41,9 @@ function RRH_header() {
     titre: auth.user.titre,
     operation: auth.user.operation
   };
-    
+  useEffect(() => {
+    dispatch(countparticipant(CurrentUser._id));
+  }, [dispatch]);
   useEffect(() => {
     if (!CurrentUser.isConnected) {
       navigate("/login")
@@ -68,7 +72,7 @@ function RRH_header() {
             </span>
             <span className="espace_header_cardlist">
               <span className="espace_header_cardchild">
-                <span className="espace_header_carditem">{count1 ? count1 : "0"}</span>
+                <span className="espace_header_carditem">{count4 ? count4 : "0"}</span>
                 <span className="espace_header_carditem2">Participants</span>
               </span>
             </span>

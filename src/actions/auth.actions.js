@@ -2,6 +2,8 @@ import axios from 'axios';
 import { authConstants } from './constantes';
 import jwt_decode from 'jwt-decode';
 import { setAuth } from '../util/setAuth';
+import Swal from 'sweetalert2';
+import { Timer } from '@mui/icons-material';
 
 // register
 export const RegisterAction = (form, navigate) => dispatch => {
@@ -25,25 +27,33 @@ export const RegisterAction = (form, navigate) => dispatch => {
 
 // login
 export const LoginAction = (form, navigate) => dispatch => {
-  axios.post('http://127.0.0.1:3030/api/login', form)
-    .then(res => {
-      const { token } = res.data
-      localStorage.setItem('jwt', token);
-      const decode = jwt_decode(token);
-      dispatch(setUser(decode));
-      setAuth(token);
-      if (decode.active === true) {
-        navigate("/bienvenue")
-      }
-      window.location.reload();
-    })
-    .catch(err => {
-      dispatch({
-        type: authConstants.ERRORS,
-        payload: err.response.data
+    axios.post('http://127.0.0.1:3030/api/login', form)
+      .then(res => {
+        const { token } = res.data;
+        localStorage.setItem('jwt', token);
+        const decode = jwt_decode(token);
+        dispatch(setUser(decode));
+        setAuth(token);
+        if (decode.active === true) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Successful',
+            text: 'Welcome to your account!',
+          }).then(() => {
+            navigate("/bienvenue");
+          });
+        }
+        window.location.reload();
       })
-    })
-}
+      .catch(err => {
+        dispatch({
+          type: authConstants.ERRORS,
+          payload: err.response.data
+        });
+      });
+  }
+  
+  
 
 
 // Change Password 
@@ -70,12 +80,24 @@ export const ChangePasswordAction = (form, navigate) => dispatch => {
 
 // logout
 export const Logout = () => dispatch => {
-  localStorage.removeItem('jwt')
-  dispatch({
-    type: authConstants.SET_USER,
-    payload: {}
-  })
+  Swal.fire({
+    title: 'Logging Out',
+    html: 'Logging out...',
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading();
+    },
+    willClose: () => {
+      localStorage.removeItem('jwt');
+      dispatch({
+        type: authConstants.SET_USER,
+        payload: {}
+      });
+    }
+  });
 }
+
 
 
 export const setUser = (decode) => ({

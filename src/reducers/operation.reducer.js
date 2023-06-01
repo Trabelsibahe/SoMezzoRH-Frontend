@@ -9,6 +9,7 @@ const intitialState = {
     countparemp: 0 ,
     counttotal: 0 ,
     countemp:0 ,
+    countpar:0,
 
 };
 export default function (state = intitialState, action) {
@@ -66,6 +67,12 @@ export default function (state = intitialState, action) {
                                 return {
                                   ...state,
                                   countemp: action.payload,
+                      
+                                };
+                                  case operaConstants.GET_PARTICIPANT:
+                                return {
+                                  ...state,
+                                  countpar: action.payload,
                       
                                 };
         default:

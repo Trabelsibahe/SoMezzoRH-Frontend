@@ -145,3 +145,20 @@ export const countempop = (id) => dispatch => {
     });
 }
 
+export const countparticipant = (id) => dispatch => {
+    
+  axios.get(`http://localhost:3030/api/nbparticipant/${id}`)
+    .then(res => {
+      dispatch({
+        type: operaConstants.GET_PARTICIPANT,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      dispatch({
+        type: operaConstants.PARTICIPANT_ERRORS,
+        payload: err.response.data
+      })
+    });
+}
+
