@@ -13,6 +13,7 @@ import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import formatDate from "../components/formatdate";
 import { Navigate } from "react-router-dom";
 import { sendNotificationToExperts } from "../actions/notification.action";
+import somezzologo from "../assets/images/icone.png";
 
 const style = {
   color: "#151582;",
@@ -219,8 +220,10 @@ const editUser = async () => {
           </div>
           
         </div>
+        <div className="newsletter_footer">
+            <p>Tous droits réservés - SoMezzo</p>
+          </div>
       </div>
-      
     </div>
 
   );

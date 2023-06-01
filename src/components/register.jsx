@@ -10,14 +10,12 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 
 import Classnames from "classnames";
 import "../assets/styles/register.css";
 
 function RegisterPage() {
-
-  
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +32,6 @@ function RegisterPage() {
     e.preventDefault();
     form.active = "true";
     dispatch(RegisterAction(form, navigate));
-
   };
 
   const theme = createTheme({
@@ -52,9 +49,12 @@ function RegisterPage() {
         <Container className="bg-variant col-md-4 mx-auto p-2">
           <Stack>
             <Form onSubmit={onSubmit}>
-
               <Form.Group className="mb-1">
-                <TextField id="outlined-basic" variant="outlined" size="small" label="Nom"
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  size="small"
+                  label="Nom"
                   type="text"
                   name="nom"
                   onChange={onChangeHandler}
@@ -69,7 +69,12 @@ function RegisterPage() {
               </Form.Group>
 
               <Form.Group className="mb-1">
-                <TextField id="outlined-basic" variant="outlined" size="small" label="Prénom" margin="dense"
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  size="small"
+                  label="Prénom"
+                  margin="dense"
                   type="text"
                   name="prenom"
                   onChange={onChangeHandler}
@@ -84,16 +89,21 @@ function RegisterPage() {
               </Form.Group>
 
               <Form.Group className="mb-1" controlId="formBasicEmail">
-                <TextField  id="outlined-basic" variant="outlined" size="small" label="Matricule" margin="dense"
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  size="small"
+                  label="Matricule"
+                  margin="dense"
                   type="text"
-                  name="matricule" 
-                  
+                  name="matricule"
                   className={Classnames("w-100", {
                     "is-invalid": errors.matricule,
                   })}
                   onChange={onChangeHandler}
-                  error={errors.matricule} 
+                  error={errors.matricule}
                 />
+
                 {errors.matricule && (
                   <div className="invalid-feedback">{errors.matricule}</div>
                 )}
@@ -103,31 +113,39 @@ function RegisterPage() {
               </Form.Group>
 
               <Form.Group className="mb-1" controlId="formBasicEmail">
-                <TextField  id="outlined-basic" variant="outlined" size="small" label="email" margin="dense"
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  size="small"
+                  label="Email"
+                  margin="dense"
                   type="email"
-                  name="email" 
-                  
+                  name="email"
                   className={Classnames("w-100", {
                     "is-invalid": errors.email,
                   })}
                   onChange={onChangeHandler}
-                  error={errors.email} 
+                  error={errors.email}
                 />
                 {errors.email && (
                   <div className="invalid-feedback">{errors.email}</div>
                 )}
-                <Form.Text className="text-muted">
-                  L'email doit etre unique.
-                </Form.Text>
               </Form.Group>
               <Form.Group className="mb-1">
-                <TextField id="outlined-basic" variant="outlined" size="small" label="Opération" margin="dense"
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  size="small"
+                  label="Opération"
+                  margin="dense"
                   type="text"
                   name="operation"
                   onChange={onChangeHandler}
                   className={Classnames("w-100", {
                     "is-invalid": errors.operation,
                   })}
+                  disabled={form.role === "EXPERT"}
+                  value={form.role === "EXPERT" ? form.operation = "" : form.operation }
                   error={errors.operation}
                 />
                 {errors.operation && (
@@ -135,18 +153,25 @@ function RegisterPage() {
                 )}
               </Form.Group>
 
-
               <FormControl>
-                <FormLabel id="demo-radio-buttons-group-label">{errors.role ? <span style={{fontSize:"14px"}} class="text-danger">Veuillez choisir le rôle</span>: "Role"}</FormLabel>
+                <FormLabel id="demo-radio-buttons-group-label">
+                  {errors.role ? (
+                    <span style={{ fontSize: "14px" }} class="text-danger">
+                      Veuillez choisir le rôle
+                    </span>
+                  ) : (
+                    "Role"
+                  )}
+                </FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   name="role"
-                  onChange={onChangeHandler} 
+                  onChange={onChangeHandler}
                 >
                   <FormControlLabel
                     value="EMP"
                     control={<Radio />}
-                    label="Employé" 
+                    label="Employé"
                   />
                   <FormControlLabel
                     value="RRH"
@@ -161,35 +186,48 @@ function RegisterPage() {
                 </RadioGroup>
               </FormControl>
 
-              
               <Form.Group className="mb-1">
-                <TextField id="outlined-basic" variant="outlined" size="small" label="Titre (optionnel) " margin="dense"
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  size="small"
+                  label="Titre (optionnel) "
+                  margin="dense"
                   type="text"
                   name="titre"
                   onChange={onChangeHandler}
-                  className={Classnames("w-100" )}  />
+                  className={Classnames("w-100")}
+                />
               </Form.Group>
 
               <Form.Group className="mb-1" controlId="formBasicPassword">
-                <TextField  id="outlined-basic" variant="outlined" size="small" label="Mot de passe" margin="dense"
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  size="small"
+                  label="Mot de passe"
+                  margin="dense"
                   type="password"
                   name="password"
-                  
                   className={Classnames("w-100", {
                     "is-invalid": errors.password,
                   })}
                   onChange={onChangeHandler}
-                  error={errors.password} 
+                  error={errors.password}
                 />
                 {errors.password && (
                   <div className="invalid-feedback">{errors.password}</div>
                 )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-                <TextField  id="outlined-basic" variant="outlined" size="small" label="Confirmer le mot de passe" margin="dense"
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  size="small"
+                  label="Confirmer le mot de passe"
+                  margin="dense"
                   type="password"
                   name="confirm"
-                  
                   className={Classnames("w-100", {
                     "is-invalid": errors.confirm,
                   })}

@@ -11,6 +11,7 @@ import Classnames from "classnames";
 import { ChangePasswordAction } from "../actions/auth.actions";
 import { useNavigate } from 'react-router-dom'
 import { sendNotificationToExperts } from "../actions/notification.action";
+import somezzologo from "../assets/images/icone.png";
 
 
 
@@ -68,7 +69,7 @@ const ChangePassword = async (e) => {
         </div>
 
         <ThemeProvider theme={theme}>
-          <div className="profile_security">{" "}
+          <div className="rrh_body">
             <h5 className="col-md-12 text-center p-4">Changer votre mot de passe</h5>
             <Container className="bg-variant col-md-4 mx-auto p-4">
               <Stack>
@@ -112,7 +113,6 @@ const ChangePassword = async (e) => {
                       margin="dense"
                       type="password" error={errors.pConfirm} />
                       { errors.pConfirm && (<div  className="invalid-feedback">{errors.pConfirm}</div>)}
-                    <Form.Text className="text-muted"><a href="#" style={{color:"#24377b"}}>Mot de passe oublié?</a></Form.Text>
                   </Form.Group>
                   
 
@@ -134,6 +134,10 @@ const ChangePassword = async (e) => {
             </Container>
           </div>
         </ThemeProvider>
+        <div className="newsletter_footer">
+<p>Tous droits réservés - SoMezzo</p>
+<img src={somezzologo} alt="logo"></img>
+</div>
       </div>
     </div>
   );
