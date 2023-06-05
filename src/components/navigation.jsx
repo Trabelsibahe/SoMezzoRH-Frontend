@@ -43,6 +43,7 @@ function Navigation({ user }) {
   };
   const LogoutHandler = () => {
     dispatch(Logout(navigate));
+    navigate("/login")
   };
 
   return (

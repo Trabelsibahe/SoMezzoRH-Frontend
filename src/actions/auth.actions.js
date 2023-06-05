@@ -36,9 +36,9 @@ export const LoginAction = (form, navigate) => dispatch => {
         setAuth(token);
         if (decode.active === true) {
           Swal.fire({
-            icon: 'success',
-            title: 'Login Successful',
-            text: 'Welcome to your account!',
+            icon: 'succès',
+            title: 'Connexion réussie',
+            text: 'Bienvenue sur votre compte !',
           }).then(() => {
             navigate("/bienvenue");
           });
@@ -81,8 +81,8 @@ export const ChangePasswordAction = (form, navigate) => dispatch => {
 // logout
 export const Logout = () => dispatch => {
   Swal.fire({
-    title: 'Logging Out',
-    html: 'Logging out...',
+    title: 'Déconnecter',
+    html: 'Déconnecter...',
     timer: 1500,
     timerProgressBar: true,
     didOpen: () => {

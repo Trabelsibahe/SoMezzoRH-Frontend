@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { archiveConstants } from '../actions/constantes';
+import Swal from 'sweetalert2';
 
 
 
@@ -15,23 +16,41 @@ export const GetArchives = () => async (dispatch) => {
     }
   };
   //fonction delete + envouyer a l'archive 
-
   export const deleteArchive = (id) => (dispatch) => {
-    if(window.confirm("Êtes-vous sûr de vouloir restaurer cet employé ?")){
-    axios.delete(`http://127.0.0.1:3030/api/archive/supp/${id}`)
-      .then((res) => {
-        dispatch({
-          type: archiveConstants.DELETE_ARCHIVE_SUCCESS,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        dispatch({
-          type: archiveConstants.DELETE_ARCHIVE_FAILURE,
-          payload: err.response.data,
-        });
-      });
-  }};
+    Swal.fire({
+      title: 'vous êtes sûr?',
+      text: "Vous ne pourrez pas revenir en arrière!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, restaurez-le !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://127.0.0.1:3030/api/archive/supp/${id}`)
+          .then((res) => {
+            dispatch({
+              type: archiveConstants.DELETE_ARCHIVE_SUCCESS,
+              payload: res.data,
+            });
+            Swal.fire(
+              'restauré!',
+              'Ce profile a été restauré.',
+              'succès'
+            );
+            window.location.reload();
+          })
+          .catch((err) => {
+            dispatch({
+              type: archiveConstants.DELETE_ARCHIVE_FAILURE,
+              payload: err.response.data,
+            });
+          });
+      }
+    });
+  };
+  
   //counter Archives
 export const CountArchives = () => {
   return async dispatch => {

@@ -1,31 +1,44 @@
 import axios from 'axios'
 import { demandeConstants } from '../actions/constantes';
+import Swal from 'sweetalert2';
 
 
 
 // ajouter une demande
 export const AddDemande = (data) => {
-  return async dispatch => {
-    dispatch({ type: demandeConstants.ADD_DEMANDE_REQUEST })
+  return async (dispatch) => {
+    dispatch({ type: demandeConstants.ADD_DEMANDE_REQUEST });
     try {
-      const res = await axios.post('http://127.0.0.1:3030/api/demande/add', data)
+      const res = await axios.post(
+        'http://127.0.0.1:3030/api/demande/add',
+        data
+      );
       if (res.status === 200) {
         dispatch({
           type: demandeConstants.ADD_DEMANDE_SUCCESS,
-          payload: { createddemande: res.data }
-        })
-        window.location.reload()
-        alert("demande envoyé.");
+          payload: { createddemande: res.data },
+        });
+        Swal.fire({
+          title: 'Demande envoyée.',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+        });
+        window.location.reload();
 
       }
     } catch (err) {
       dispatch({
         type: demandeConstants.ADD_DEMANDE_FAILURE,
-        payload: err.response.data
-      })
+        payload: err.response.data,
+      });
     }
-  }
-}
+  };
+};
+
 // lister les demande
 export const listerdemande = () => {
     return async dispatch => {

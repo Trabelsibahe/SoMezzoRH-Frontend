@@ -20,6 +20,8 @@ import { SendNotificationToOneUser } from "../../actions/notification.action";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Swal from 'sweetalert2';
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -228,27 +230,34 @@ function DemandesList() {
 
                       <td>
                         {demande.type === "Badge" ? (
-                          <Button
-                            variant="outlined"
-                            color="success"
-                            size="small"
-                            onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Voulez-vous vraiment accorder ce badge?"
-                                )
-                              ) {
-                                handleShowEdit(
-                                  demande,
-                                  "Accordé",
-                                  demande.user._id,
-                                  demande.user.matricule
-                                );
-                              }
-                            }}
-                          >
-                            Accorder
-                          </Button>
+                    <Button
+                    variant="outlined"
+                    color="success"
+                    size="small"
+                    onClick={() => {
+                      Swal.fire({
+                        title: 'Voulez-vous vraiment accorder ce badge?',
+                        showDenyButton: true,
+                        confirmButtonText: 'Accordé',
+                        denyButtonText: `Annuler`,
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          handleShowEdit(
+                            demande,
+                            'Accordé',
+                            demande.user._id,
+                            demande.user.matricule
+                          );
+                          Swal.fire('enregistré!', '', 'succès');
+                        } else if (result.isDenied) {
+                          Swal.fire("le badge n'est pas accordé", '', 'info');
+                        }
+                      });
+                    }}
+                  >
+                    Accorder
+                  </Button>
+                  
                         ) :  (
                           <Button
                             variant="outlined"

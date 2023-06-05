@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 import { santeConstants } from '../actions/constantes';
-
+import Swal from 'sweetalert2';
 
 export const afficherdv = () => dispatch => {
     axios.get("http://127.0.0.1:3030/api/date/afficher")
@@ -29,7 +29,7 @@ export const afficherdv = () => dispatch => {
             payload: { createddemande: res.data }
           })
           window.location.reload()
-          alert("Demande visite médicale ajoutée.");
+          Swal.fire('Demande visite médicale ajoutée.')
   
         }
       } catch (err) {
@@ -51,7 +51,7 @@ export const afficherdv = () => dispatch => {
             payload: res.data 
           });
           window.location.reload();
-          alert("Date de visite médicale ajoutée.");
+         Swal.fire('Date de visite médicale ajoutée.')
         }
       } catch (err) {
         dispatch({

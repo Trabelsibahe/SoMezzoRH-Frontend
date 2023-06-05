@@ -9,6 +9,7 @@ import {
   Modal,
   Switch,
 } from "@mui/material";
+import Swal from 'sweetalert2';
 import "../../assets/styles/tasks.css";
 import InsertInvitationOutlinedIcon from "@mui/icons-material/InsertInvitationOutlined";
 import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
@@ -191,21 +192,33 @@ function Tasks() {
                         </Button>
                       ) : (
                         <div>
-                          <Button
-                            onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Voulez-vous vraiment participer à ce challenge?"
-                                )
-                              )
-                                Pariciper(task._id);
-                            }}
-                            style={{ color: "#151582" }}
-                            startIcon={<GroupOutlinedIcon />}
-                            size="small"
-                          >
-                            Participer
-                          </Button>{" "}
+                    <Button
+  onClick={() => {
+    Swal.fire({
+      title: 'vous êtes sûr?',
+      text: "Voulez-vous vraiment participer à ce challenge?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, participer!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Pariciper(task._id);
+        Swal.fire(
+          'participé!',
+          'Vous avez participé avec succès au challenge.',
+          'succès'
+        );
+      }
+    });
+  }}
+  style={{ color: "#151582" }}
+  startIcon={<GroupOutlinedIcon />}
+  size="small"
+>
+  Participer
+</Button>{" "}
                           <Button
                             onClick={() =>
                               handleShowdetailsEMP(task._id, CurrentUser)
