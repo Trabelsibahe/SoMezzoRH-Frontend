@@ -29,33 +29,27 @@ export const RegisterAction = (form, navigate) => dispatch => {
 
 // login
 export const LoginAction = (form, navigate) => dispatch => {
-    axios.post('http://127.0.0.1:3030/api/login', form)
-      .then(res => {
-        const { token } = res.data;
-        localStorage.setItem('jwt', token);
-        const decode = jwt_decode(token);
-        dispatch(setUser(decode));
-        setAuth(token);
-        if (decode.active === true) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Login Successful',
-            text: 'Welcome to your account!',
-          }).then(() => {
-            navigate("/bienvenue");
-          });
-        }
-        window.location.reload();
-      })
-      .catch(err => {
-        dispatch({
-          type: authConstants.ERRORS,
-          payload: err.response.data
-        });
+  axios.post('http://127.0.0.1:3030/api/login', form)
+    .then(res => {
+      const { token } = res.data;
+      localStorage.setItem('jwt', token);
+      const decode = jwt_decode(token);
+      dispatch(setUser(decode));
+      setAuth(token);
+      if (decode.active === true) {
+        navigate("/bienvenue");
+      }
+      window.location.reload();
+    })
+    .catch(err => {
+      dispatch({
+        type: authConstants.ERRORS,
+        payload: err.response.data
       });
-  }
-  
-  
+    });
+}
+
+
 
 
 // Change Password 
