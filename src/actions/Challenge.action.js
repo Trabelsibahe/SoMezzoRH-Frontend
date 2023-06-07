@@ -161,7 +161,7 @@ export const GetAllChallengeExpert = () => {
     return async dispatch => {
       dispatch({ type: ChallengeConstants.CHALLENGE_REQUEST })
       try {
-        const res = await axios.get('http://127.0.0.1:3030/api/nb/challenges')
+        const res = await axios.get('http://127.0.0.1:3030/api/nb/challenge/expert')
         if (res.status === 200) {
           dispatch({
             type: ChallengeConstants.COUNT_CHALLENGE,
