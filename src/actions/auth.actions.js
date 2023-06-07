@@ -5,6 +5,8 @@ import { setAuth } from '../util/setAuth';
 import Swal from 'sweetalert2';
 import { Timer } from '@mui/icons-material';
 
+
+
 // register
 export const RegisterAction = (form, navigate) => dispatch => {
   axios.post('http://127.0.0.1:3030/api/register', form)
@@ -35,14 +37,8 @@ export const LoginAction = (form, navigate) => dispatch => {
         dispatch(setUser(decode));
         setAuth(token);
         if (decode.active === true) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Login Successful',
-            text: 'Welcome to your account!',
-          }).then(() => {
             navigate("/bienvenue");
-          });
-        }
+          }
         window.location.reload();
       })
       .catch(err => {
@@ -79,7 +75,7 @@ export const ChangePasswordAction = (form, navigate) => dispatch => {
 }
 
 // logout
-export const Logout = () => dispatch => {
+export const Logout = (navigate) => dispatch => {
   Swal.fire({
     title: 'Logging Out',
     html: 'Logging out...',
@@ -87,12 +83,14 @@ export const Logout = () => dispatch => {
     timerProgressBar: true,
     didOpen: () => {
       Swal.showLoading();
+      navigate("/login");
     },
     willClose: () => {
       localStorage.removeItem('jwt');
       dispatch({
         type: authConstants.SET_USER,
-        payload: {}
+        payload: {},
+        
       });
     }
   });

@@ -10,7 +10,7 @@
   margin: 1em 4em auto;
   display: flex;
   width: 34em;
-  height: auto;
+  height: 24em;
   background-color: #fbfcfd;
   border-radius: 10px;
   box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
@@ -23,7 +23,7 @@
   margin: 1em 39em auto;
   display: flex;
   width: 49%;
-  min-height: 24.9em;
+  min-height: 24em;
   background-color: #fbfcfd;
   border-radius: 10px;
   box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);

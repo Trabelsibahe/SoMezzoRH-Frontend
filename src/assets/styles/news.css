@@ -129,4 +129,9 @@
   .news_card {
     width: 95%;
   }
+  .newsletter_footer{
+    position: relative;
+    left: -20%;
+    width: 95%;
+  }
 }

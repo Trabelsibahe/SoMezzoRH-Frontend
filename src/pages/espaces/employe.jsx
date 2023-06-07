@@ -50,6 +50,9 @@ function EmployePage() {
     if (!CurrentUser.isConnected) {
       navigate("/login")
     }
+    else if (CurrentUser.role !== "EMP") {
+      navigate("/erreur")
+          }
   }, []);
 
 

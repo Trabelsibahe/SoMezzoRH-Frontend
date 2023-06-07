@@ -91,6 +91,9 @@ function RRH_Page() {
           if (!CurrentUser.isConnected) {
       navigate("/login")
           }
+          else if (CurrentUser.role !== "RRH") {
+            navigate("/erreur")
+                }
   }, []);
 
 

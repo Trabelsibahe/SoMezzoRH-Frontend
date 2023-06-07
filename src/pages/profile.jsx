@@ -158,9 +158,9 @@ const editUser = async () => {
               {role === 'EXPERT' ? ("RESPONSABLE RH METIER / EXPERT RH") : role === "EMP" ? ("EMPLOYÉ") : 
                role === "RRH" ? ("RESPONSABLE RH OPÉRATIONNEL") : null }</p>
           </div>
-          <Divider orientation="vertical" flexItem></Divider>
-          <a style={{padding:"1em"}} href="/monespace/notifications"><Button sx={style} variant="outlined">Mes notifications</Button></a>
+          <a className="profile_notf" href="/monespace/notifications">Mes notifications</a>
         </div>
+        
         <div className="profile_body">
         <form>
         <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>

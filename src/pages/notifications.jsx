@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import "../assets/styles/notification.css"
+import "../assets/styles/notification.css";
 import Navigation from "../components/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Divider } from "@mui/material";
 import { useEffect } from "react";
-import { GetMyNotificationAction, SetNotificationReadaction } from "../actions/notification.action";
+import {
+  GetMyNotificationAction,
+  SetNotificationReadaction,
+} from "../actions/notification.action";
 const style = {
   color: "#151582;",
   borderColor: "#151582;",
   left: "50em",
 
-  '&:variant': {
+  "&:variant": {
     color: "#151582;",
   },
-
-}
+};
 function MynotificationsPage() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
@@ -35,20 +37,18 @@ function MynotificationsPage() {
   };
 
   const MarkAllAsRead = React.useCallback(() => {
-
     if (notifications) {
       notifications.forEach((notification) => {
         notification.notifications.forEach((item) => {
           dispatch(GetMyNotificationAction());
           dispatch(SetNotificationReadaction(item._id));
           dispatch(GetMyNotificationAction());
-
         });
       });
     }
   }, [dispatch, notifications]);
 
-const [read, setRead] = useState(true);
+  const [read, setRead] = useState(true);
 
   return (
     <div className="rrh_page">
@@ -61,59 +61,83 @@ const [read, setRead] = useState(true);
           </p>
         </div>
 
-
         <div className="rrh_body">
-  <div style={{display:"flex", flexDirection:"row"}}>
-    <h4 className="rrh_info">Nouvelles notifications</h4>
-    {read ? <Button sx={style} variant="outlined" size="small" onClick={MarkAllAsRead}>Tout marquer comme lu</Button> : ""}
-  </div>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <h4 className="rrh_info">Nouvelles notifications</h4>
+            {read ? (
+              <Button
+                sx={style}
+                variant="outlined"
+                size="small"
+                onClick={MarkAllAsRead}
+              >
+                Tout marquer comme lu
+              </Button>
+            ) : (
+              ""
+            )}
+          </div>
 
-  {notifications && notifications.length > 0 ? (
-    notifications.some((item) =>
-      item.notifications.some(
-        (notification) => notification.read === false
-      )
-    ) ? (
-      notifications.map((item) =>
-        item.notifications.map(
-          (notification) =>
-            notification.read === false && (
-              <p className="notification_message" key={notification._id}>{notification.message}</p>
-            )
-        )
-      )
-    ) : (
-      <p className="notifications_emptymsg">Aucune nouvelle notification.</p>
-    )
-  ) : (
-    <p className="notifications_emptymsg">Aucune nouvelle notification.</p>
-  )}
-
-  <Divider sx={{margin:"1em"}}/>
-  <h4 className="rrh_info">Anciennes notifications</h4>
-  {notifications && notifications.length > 0 ? (
-    notifications.some((item) =>
-      item.notifications.some(
-        (notification) => notification.read === true && notification.message
-      )
-    ) ? (
-      notifications.map((item) =>
-        item.notifications.map(
-          (notification) =>
-            notification.read === true && notification.message ? (
-              <p className="notification_message" key={notification._id}>
-                {notification.message}
+          {notifications && notifications.length > 0 ? (
+            notifications.some((item) =>
+              item.notifications.some(
+                (notification) => notification.read === false
+              )
+            ) ? (
+              notifications
+                .flatMap((item) => item.notifications)
+                .filter((notification) => notification.read === false)
+                .sort(
+                  (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
+                )
+                .map((notification) => (
+                  <p className="notification_message" key={notification._id}>
+                    {new Date(notification.creationDate).toLocaleString()} -{" "}
+                    {notification.message}
+                  </p>
+                ))
+            ) : (
+              <p className="notifications_emptymsg">
+                Aucune nouvelle notification.
               </p>
-            ) : null,
-        )
-      )
-    ) : (
-      <p className="notifications_emptymsg">Aucune notification.</p>
-    )
-  ) : (
-    <p className="notifications_emptymsg">Aucune notification.</p>
-  )}
-</div>
+            )
+          ) : (
+            <p className="notifications_emptymsg">
+              Aucune nouvelle notification.
+            </p>
+          )}
+
+          <Divider sx={{ margin: "1em" }} />
+          <h4 className="rrh_info">Anciennes notifications</h4>
+          {notifications && notifications.length > 0 ? (
+            notifications.some((item) =>
+              item.notifications.some(
+                (notification) => notification.read === true
+              )
+            ) ? (
+              notifications
+                .flatMap((item) => item.notifications)
+                .filter((notification) => notification.read === true)
+                .sort(
+                  (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
+                )
+                .map((notification) => (
+                  <p className="notification_message" key={notification._id}>
+                    {new Date(notification.creationDate).toLocaleString()} -{" "}
+                    {notification.message}
+                  </p>
+                ))
+            ) : (
+              <p className="notifications_emptymsg">
+                Aucune nouvelle notification.
+              </p>
+            )
+          ) : (
+            <p className="notifications_emptymsg">
+              Aucune nouvelle notification.
+            </p>
+          )}
+        </div>
         <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>

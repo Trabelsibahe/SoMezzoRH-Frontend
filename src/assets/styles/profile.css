@@ -3,13 +3,13 @@
 @import "profile_body.css";
 
 .profile_page {
-    margin: 0 auto;
-    padding: 0;
-    min-height: 100vh;
-    background: #F5F5F9;
-    width: 100%;
-    font-family: Open Sans;
-  }
+  margin: 0 auto;
+  padding: 0;
+  min-height: 100vh;
+  background: #f5f5f9;
+  width: 100%;
+  font-family: Open Sans;
+}
 
 .profile_container {
   position: absolute;
@@ -20,40 +20,37 @@
 
 .profile_info {
   font-weight: bold;
-   font-size: 18px;
-   color: rgb(73, 76, 86);
-   letter-spacing: 1px;
-   text-indent: 20px;
-
+  font-size: 18px;
+  color: rgb(73, 76, 86);
+  letter-spacing: 1px;
+  text-indent: 20px;
 }
 
-.profile_list { 
+.profile_list {
   line-height: 18px;
   padding: 0.35em;
-  }
+}
 
-  .profile_item {
-    margin-left: 1em !important;
-    background-color: #F5F5F9;
-  }
+.profile_item {
+  margin-left: 1em !important;
+  background-color: #f5f5f9;
+}
 
-  .profile_item2 {
-    margin-left: 1em !important;
-    background-color: #F5F5F9;
-    width: 29.1em;
-
-  }
-  .profile_item3 {
-    margin-left: 1em !important;
-    background-color: #F5F5F9;
-    width: 14em;
-
-  }
-  .profile_list2{ 
-    line-height: 18px;
-    padding: 0.35em;
-    text-align: center;
-    }
+.profile_item2 {
+  margin-left: 1em !important;
+  background-color: #f5f5f9;
+  width: 29.1em;
+}
+.profile_item3 {
+  margin-left: 1em !important;
+  background-color: #f5f5f9;
+  width: 14em;
+}
+.profile_list2 {
+  line-height: 18px;
+  padding: 0.35em;
+  text-align: center;
+}
 
 .profile_att {
   font-weight: bold;
@@ -65,14 +62,14 @@
 .profile_value {
   color: rgb(111, 114, 130);
   font-size: 15px;
-  display: inline
+  display: inline;
 }
 
 .label-file {
   cursor: pointer;
   color: #000000;
   font-weight: bold;
-  background-color: #F5F5F9;
+  background-color: #f5f5f9;
   height: 60px;
   padding: 1em;
   text-align: center;
@@ -101,39 +98,35 @@
 }
 
 @media screen and (max-width: 768px) {
-
   .profile_container {
     display: block;
     margin-left: 5%;
-    
   }
   .profile_page {
-    height: 60em ;
-
+    height: 60em;
   }
   .profile_body {
     font-size: 100%;
   }
 
-  .profile_list { 
+  .profile_list {
     padding: 0em;
     text-align: center;
-  
-    }
-    .profile_item {
-      margin-left: 0em !important;
-      background-color: #F5F5F9;
-    }
-    .profile_item2 {
-      margin-left: 0em !important;
-      background-color: #F5F5F9;
-      width:222px;
-    }
-    .profile_button {
-      width: 100%;
-      padding: 1em;
-      text-align: right !important;
-      margin: 0em 0em;
-    }
+  }
+  .profile_item {
+    margin-left: 0em !important;
+    background-color: #f5f5f9;
+  }
+  .profile_item2 {
+    margin-left: 0em !important;
+    background-color: #f5f5f9;
+    width: 222px;
+  }
+  .profile_button {
+    width: 100%;
+    padding: 1em;
+    text-align: right !important;
+    margin: 0em 0em;
+  }
 
 }

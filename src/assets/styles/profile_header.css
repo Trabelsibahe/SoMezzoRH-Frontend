@@ -3,12 +3,13 @@
   margin: 1em 4em auto;
   display: flex;
   width: 92%;
-  height: 6em;
+  height: 5.6em;
   background-color: #fbfcfd;
   border-radius: 10px;
   box-shadow: 0 1px 6px 0 rgba(155, 155, 155, 0.2);
   padding: 1rem;
   flex-direction: row;
+
 }
 
 .profile_header_avatar {
@@ -40,6 +41,26 @@
   text-indent: 3px;
 }
 
+
+.profile_notf {
+  font-weight: 600;
+  font-size: 15px;
+  padding: 0.8em;
+  text-decoration: none;
+  color: #1c2657;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+  height: 3em;
+  transition: 0.3s;
+  left: 50%;
+}
+.profile_notf:hover{
+  color: #24377b;
+  background: #f3f5f7;
+  border-radius: 5px;
+}
+
 @media screen and (max-width: 768px) {
   .profile_header {
     padding: 1em;
@@ -47,19 +68,33 @@
     margin: 3%;
     font-size: 70%;
   }
+
   .profile_header_avatar {
     width: 4em;
     height: 4em;
   }
+
+  .profile_notf {
+    font-size: 10px;
+    left: 0;
+    padding: 0.8em;
+    margin: 0em -8em;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
   .profile_header_p1 {
     padding: 10px 20px;
-    font-size: 15px;
+    font-size: 14px;
     text-indent: 0px;
+    width: 200px;
   }
 
   .profile_header_p2 {
     padding: 0px 20px;
-    font-size: 11px;
-    text-indent: 3px;
+    font-size: 9px;
+    text-indent: 2px;
+    width: 210px;
+
   }
 }
+
