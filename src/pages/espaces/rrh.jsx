@@ -9,6 +9,7 @@ import {
   GetOperaAction,
   GetOperAbsenceAction,
 } from "../../actions/operation.action";
+import Swal from 'sweetalert2';
 import { SendNotificationToOneUser } from "../../actions/notification.action";
 import OperaList from "../../components/userlist/operalist_table";
 import { Button, ButtonBase, Divider } from "@mui/material";
@@ -235,45 +236,59 @@ function RRH_Page() {
                                   {absence.etat}
                                 </td>
                                 <td>
-                                  <Button
-                                    sx={{ margin: "0.5em" }}
-                                    variant="outlined"
-                                    color="success"
-                                    size="small"
-                                    onClick={() => {
-                                      if (
-                                        window.confirm(
-                                          "Voulez-vous vraiment accepter cette absence?"
-                                        )
-                                      ) {
-                                        OnChangeHandler(
-                                          absence._id,
-                                          "Accepté",
-                                          item.user._id,
-                                          motif,
-                                          item.user.matricule
-                                        );
-                                      }
-                                    }}
-                                  >
-                                    Accepter
-                                  </Button>{" "}
-                                  <Button
-                                    variant="outlined"
-                                    color="error"
-                                    size="small"
-                                    onClick={() => {
-                                      if (
-                                        window.confirm(
-                                          "Voulez-vous vraiment refuser cette absence?"
-                                        )
-                                      ) {
-                                        openRefuseModal(absence._id);
-                                      }
-                                    }}
-                                  >
-                                    Refuser
-                                  </Button>
+                                <Button
+  sx={{ margin: "0.5em" }}
+  variant="outlined"
+  color="success"
+  size="small"
+  onClick={() => {
+    Swal.fire({
+      title: 'Voulez-vous vraiment accepter cette absence?',
+      showDenyButton: true,
+      confirmButtonText: 'Accepter',
+      denyButtonText: `Annuler`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        OnChangeHandler(
+          absence._id,
+          'Accepté',
+          item.user._id,
+          motif,
+          item.user.matricule
+        );
+        Swal.fire('enregistré!', '', 'succès');
+      } else if (result.isDenied) {
+        Swal.fire("Absence n'est pas accepter", '', 'info');
+      }
+    });
+  }}
+>
+  Accepter
+</Button>
+{" "}
+<Button
+  variant="outlined"
+  color="error"
+  size="small"
+  onClick={() => {
+    Swal.fire({
+      title: 'Voulez-vous vraiment refuser cette absence?',
+      showDenyButton: true,
+      confirmButtonText: 'refuser',
+      denyButtonText: `Annuler`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        openRefuseModal(absence._id);
+        Swal.fire('enregistré!', '', 'succès');
+      } else if (result.isDenied) {
+        Swal.fire("Absence n'est pas refuser", '', 'info');
+      }
+    });
+  }}
+>
+  Refuser
+</Button>
+
                                   <Modal
                                     show={isRefuseModalOpen}
                                     onHide={closeRefuseModal}

@@ -14,6 +14,7 @@ import formatDate from "../components/formatdate";
 import { Navigate } from "react-router-dom";
 import { sendNotificationToExperts } from "../actions/notification.action";
 import somezzologo from "../assets/images/icone.png";
+import Swal from 'sweetalert2';
 
 const style = {
   color: "#151582;",
@@ -215,7 +216,34 @@ const editUser = async () => {
           
 
           <div className="profile_button"> 
-          <Button style={{backgroundColor: "#24377b", width:"50%"}} variant="contained" startIcon={<EditTwoToneIcon />} onClick={() => { if (window.confirm("Voulez vous vraiment modifier votre profil?")) editUser()}}  >modifier</Button>
+          <Button
+  style={{ backgroundColor: "#24377b", width: "50%" }}
+  variant="contained"
+  startIcon={<EditTwoToneIcon />}
+  onClick={() => {
+    Swal.fire({
+      title: 'vous êtes sûr?',
+      text: "Voulez vous vraiment modifier votre profil?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, modifier !'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editUser();
+        Swal.fire(
+          'modifié',
+          'Votre profile a été modifié.',
+          'succès'
+        );
+      }
+    });
+  }}
+>
+  modifier
+</Button>
+
           </div>
           </div>
           

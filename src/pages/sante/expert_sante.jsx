@@ -10,6 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { BiUnderline } from "react-icons/bi";
 import Modal from "react-bootstrap/Modal";
+import Swal from 'sweetalert2';
 import {
   afficherdv,
   ajouterdate,
@@ -218,11 +219,60 @@ function Expert_Sante() {
 
               {demande.etat === "en attente" ? 
               <td style={{width:"19%"}}>
-                  <Button  sx={{ margin: "0.5em" }} variant="outlined"  size="small" onClick={async () => {
-                  if ( window.confirm( "Voulez-vous vraiment accepter ce RDV médical?" ) ) {
-                      await editrdv( demande._id, "accepté",   demande.user._id,  motif, demande.user.matricule ) } }}>Accepter</Button>
-                  <Button variant="outlined" color="error" size="small"  onClick={async () => {
-                   if ( window.confirm(  "Voulez-vous vraiment refuser ce RDV médical?")) {openRefuseModal(demande._id) } }}> Refuser</Button>
+                 <Button
+  sx={{ margin: "0.5em" }}
+  variant="outlined"
+  size="small"
+  onClick={async () => {
+    Swal.fire({
+      title: 'vous êtes sûr?',
+      text: "Voulez-vous vraiment accepter ce RDV médical?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'oui, accepter'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editrdv(demande._id, "accepté", demande.user._id, motif, demande.user.matricule);
+        Swal.fire(
+          'Accepté!',
+          'Le rendez-vous médical a été accepté.',
+          'succès'
+        );
+      }
+    });
+  }}
+>
+  Accepter
+</Button>
+<Button
+  variant="outlined"
+  color="error"
+  size="small"
+  onClick={async () => {
+    Swal.fire({
+      title: 'vous êtes sûr?',
+      text: "Voulez-vous vraiment refuser ce RDV médical?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'oui, refuser'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        openRefuseModal(demande._id);
+        Swal.fire(
+          'Refusé!',
+          'Le rendez-vous médical a été refusé.',
+          'succès'
+        );
+      }
+    });
+  }}
+>
+  Refuser
+</Button>
                           
                           <Modal show={isRefuseModalOpen} onHide={closeRefuseModal}  >
                             <Modal.Header closeButton>

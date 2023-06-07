@@ -37,8 +37,14 @@ export const LoginAction = (form, navigate) => dispatch => {
         dispatch(setUser(decode));
         setAuth(token);
         if (decode.active === true) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Successful',
+            text: 'Welcome to your account!',
+          }).then(() => {
             navigate("/bienvenue");
-          }
+          });
+        }
         window.location.reload();
       })
       .catch(err => {
@@ -77,8 +83,8 @@ export const ChangePasswordAction = (form, navigate) => dispatch => {
 // logout
 export const Logout = (navigate) => dispatch => {
   Swal.fire({
-    title: 'Logging Out',
-    html: 'Logging out...',
+    title: 'Déconnecter',
+    html: 'Déconnecter...',
     timer: 1500,
     timerProgressBar: true,
     didOpen: () => {
@@ -90,7 +96,7 @@ export const Logout = (navigate) => dispatch => {
       dispatch({
         type: authConstants.SET_USER,
         payload: {},
-        
+
       });
     }
   });
@@ -107,12 +113,13 @@ export const sendPasswordResetEmail = (email) => async (dispatch) => {
   try {
     const res = await axios.post('http://127.0.0.1:3030/api/mot-de-passe-oublie', { email });
     if (res.status === 200) {
-    dispatch({
-      type: authConstants.SEND_EMAIL_SUCCESS,
-      payload: res.data,
-    });
-    alert("Email envoyé..\nVeuillez vérifier votre boîte de réception.");
-  } }catch (error) {
+      dispatch({
+        type: authConstants.SEND_EMAIL_SUCCESS,
+        payload: res.data,
+      });
+      alert("Email envoyé..\nVeuillez vérifier votre boîte de réception.");
+    }
+  } catch (error) {
     dispatch({
       type: authConstants.SEND_EMAIL_FAILURE,
       payload: error.response.data,
@@ -120,9 +127,9 @@ export const sendPasswordResetEmail = (email) => async (dispatch) => {
   }
 };
 
-export const resetPassword = (resetToken, newPassword,confirmPassword) => async (dispatch) => {
+export const resetPassword = (resetToken, newPassword, confirmPassword) => async (dispatch) => {
   try {
-    const res = await axios.post('http://127.0.0.1:3030/api/new-mot-de-passe', { resetToken, newPassword,confirmPassword});
+    const res = await axios.post('http://127.0.0.1:3030/api/new-mot-de-passe', { resetToken, newPassword, confirmPassword });
 
     alert("Mot de passe modifié, veuillez vous reconnecter");
     localStorage.clear();

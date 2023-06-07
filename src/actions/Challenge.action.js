@@ -1,31 +1,42 @@
 import axios from 'axios'
 import { ChallengeConstants } from './constantes';
+import Swal from 'sweetalert2';
 
 
 
 // ajouter une tache
 export const AddChallenge = (data) => {
-  return async dispatch => {
-    dispatch({ type: ChallengeConstants.ADD_Challenge_REQUEST })
+  return async (dispatch) => {
+    dispatch({ type: ChallengeConstants.ADD_Challenge_REQUEST });
     try {
-      const res = await axios.post('http://127.0.0.1:3030/api/add/Challenge', data)
+      const res = await axios.post(
+        'http://127.0.0.1:3030/api/add/Challenge',
+        data
+      );
       if (res.status === 200) {
         dispatch({
           type: ChallengeConstants.ADD_Challenge_SUCCESS,
-          payload: { createdChallenge: res.data }
-        })
-        window.location.reload()
-        alert("Challenge ajouté.");
+          payload: { createdChallenge: res.data },
+        });
+        Swal.fire({
+          position: 'top',
+          icon: 'succès',
+          title: 'Challenge ajouté.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        window.location.reload();
 
       }
     } catch (err) {
       dispatch({
         type: ChallengeConstants.ADD_Challenge_FAILURE,
-        payload: err.response.data
-      })
+        payload: err.response.data,
+      });
     }
-  }
-}
+  };
+};
+
 
 //Recuperer les Challenges pour l'RRH
 export const GetAllChallenge = () => {
@@ -98,7 +109,6 @@ export const GetAllChallengeExpert = () => {
             payload: { createdChallenge: res.data }
           })
           window.location.reload()
-          alert("vous avez participé à ce challenge.");
         }
       } catch (err) {
         dispatch({
