@@ -12,8 +12,7 @@ export const RegisterAction = (form, navigate) => dispatch => {
   axios.post('http://127.0.0.1:3030/api/register', form)
     .then(res => {
       navigate('/login');
-
-      alert("création d'un nouvel utilisateur.")
+      Swal.fire("création d'un nouvel utilisateur.")
       dispatch({
         type: authConstants.ERRORS,
         payload: {}
@@ -56,8 +55,8 @@ export const LoginAction = (form, navigate) => dispatch => {
 export const ChangePasswordAction = (form, navigate) => dispatch => {
   axios.post('http://127.0.0.1:3030/api/modifmotpass', form)
 
-    .then(res => {
-      alert("Mot de passe modifié, veuillez reconnecter")
+    .then(res => {     
+      Swal.fire('Mot de passe modifié, veuillez reconnecter')
       localStorage.clear()
       window.location.reload()
       dispatch({
@@ -111,7 +110,7 @@ export const sendPasswordResetEmail = (email) => async (dispatch) => {
         type: authConstants.SEND_EMAIL_SUCCESS,
         payload: res.data,
       });
-      alert("Email envoyé..\nVeuillez vérifier votre boîte de réception.");
+      Swal.fire("Email envoyé..\nVeuillez vérifier votre boîte de réception.")
     }
   } catch (error) {
     dispatch({
@@ -125,7 +124,7 @@ export const resetPassword = (resetToken, newPassword, confirmPassword) => async
   try {
     const res = await axios.post('http://127.0.0.1:3030/api/new-mot-de-passe', { resetToken, newPassword, confirmPassword });
 
-    alert("Mot de passe modifié, veuillez vous reconnecter");
+    Swal.fire("Mot de passe modifié, veuillez vous reconnecter")
     localStorage.clear();
     window.location.reload();
     window.location.replace('/login');

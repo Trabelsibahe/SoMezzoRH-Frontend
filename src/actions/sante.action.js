@@ -92,9 +92,9 @@ export const afficherdv = () => dispatch => {
       })
       .catch((err) => {
         if (err.response && err.response.status === 403 && err.response.data.message === "Le nombre maximum d'utilisateurs acceptés a été atteint") {
-          alert("Le nombre maximum d'utilisateurs acceptés a été atteint");
+          Swal.fire("Le nombre maximum d'utilisateurs acceptés a été atteint")
         } else {
-          alert("Une erreur est survenue lors de la modification de la rdv");
+          Swal.fire("Une erreur est survenue lors de la modification de la rdv")
         }
       });
   };

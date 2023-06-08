@@ -10,7 +10,7 @@ export const SetProfileAction = (form, setShow, setMessage, navigate) => dispatc
     .then(res => {
       setShow(true)
       navigate("/profil");
-      alert("Votre profil a été créé avec succès !")
+      Swal.fire("Votre profil a été créé avec succès !")
       setMessage("Profile crée.")
       dispatch({
         type: profileConstants.PROFILE_ERRORS,
