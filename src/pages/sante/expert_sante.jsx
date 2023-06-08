@@ -10,7 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { BiUnderline } from "react-icons/bi";
 import Modal from "react-bootstrap/Modal";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import {
   afficherdv,
   ajouterdate,
@@ -156,7 +156,8 @@ function Expert_Sante() {
                     sx={TextfieldStyle}
                     type="number"
                     placeholder="Capacité"
-                    inputProps={{ min: 1, max: 10 }} required
+                    inputProps={{ min: 1, max: 10 }}
+                    required
                   />
                   <p> </p>
                   <button
@@ -171,6 +172,10 @@ function Expert_Sante() {
             </div>
           </div>
         </div>
+
+
+
+        
         <div className="rrh_body2">
           <h5 className="espace_sante_notice">
             Remarque: La capacité des visites médicales des patients est limitée
@@ -191,7 +196,7 @@ function Expert_Sante() {
               <tbody>
                 {demandes.length > 0 ? (
                   demandes.map((demande) =>
-                    demande.user.role === "EMP" ? (
+                    demande.user.role === "EMP" || demande.user.role ==="RRH"  ? (
                       <tr key={demande._id}>
                         <td>{new Date(demande.createdAt).toLocaleString()}</td>
                         <td>
@@ -216,119 +221,137 @@ function Expert_Sante() {
                           {demande.etat}
                         </td>
 
+                        {demande.etat === "en attente" ? (
+                          <td style={{ width: "19%" }}>
+                            <Button
+                              sx={{ margin: "0.5em" }}
+                              variant="outlined"
+                              size="small"
+                              onClick={async () => {
+                                Swal.fire({
+                                  title: "vous êtes sûr?",
+                                  text: "Voulez-vous vraiment accepter ce RDV médical?",
+                                  icon: "warning",
+                                  showCancelButton: true,
+                                  confirmButtonColor: "#3085d6",
+                                  cancelButtonColor: "#d33",
+                                  confirmButtonText: "oui, accepter",
+                                }).then((result) => {
+                                  if (result.isConfirmed) {
+                                    editrdv(
+                                      demande._id,
+                                      "accepté",
+                                      demande.user._id,
+                                      motif,
+                                      demande.user.matricule
+                                    );
+                                    Swal.fire(
+                                      "Accepté!",
+                                      "Le rendez-vous médical a été accepté.",
+                                      "succès"
+                                    );
+                                  }
+                                });
+                              }}
+                            >
+                              Accepter
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              color="error"
+                              size="small"
+                              onClick={async () => {
+                                Swal.fire({
+                                  title: "vous êtes sûr?",
+                                  text: "Voulez-vous vraiment refuser ce RDV médical?",
+                                  icon: "warning",
+                                  showCancelButton: true,
+                                  confirmButtonColor: "#3085d6",
+                                  cancelButtonColor: "#d33",
+                                  confirmButtonText: "oui, refuser",
+                                }).then((result) => {
+                                  if (result.isConfirmed) {
+                                    openRefuseModal(demande._id);
+                                    Swal.fire(
+                                      "Refusé!",
+                                      "Le rendez-vous médical a été refusé.",
+                                      "succès"
+                                    );
+                                  }
+                                });
+                              }}
+                            >
+                              Refuser
+                            </Button>
 
-              {demande.etat === "en attente" ? 
-              <td style={{width:"19%"}}>
-                 <Button
-  sx={{ margin: "0.5em" }}
-  variant="outlined"
-  size="small"
-  onClick={async () => {
-    Swal.fire({
-      title: 'vous êtes sûr?',
-      text: "Voulez-vous vraiment accepter ce RDV médical?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'oui, accepter'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        editrdv(demande._id, "accepté", demande.user._id, motif, demande.user.matricule);
-        Swal.fire(
-          'Accepté!',
-          'Le rendez-vous médical a été accepté.',
-          'succès'
-        );
-      }
-    });
-  }}
->
-  Accepter
-</Button>
-<Button
-  variant="outlined"
-  color="error"
-  size="small"
-  onClick={async () => {
-    Swal.fire({
-      title: 'vous êtes sûr?',
-      text: "Voulez-vous vraiment refuser ce RDV médical?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'oui, refuser'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        openRefuseModal(demande._id);
-        Swal.fire(
-          'Refusé!',
-          'Le rendez-vous médical a été refusé.',
-          'succès'
-        );
-      }
-    });
-  }}
->
-  Refuser
-</Button>
-                          
-                          <Modal show={isRefuseModalOpen} onHide={closeRefuseModal}  >
-                            <Modal.Header closeButton>
-                              <Modal.Title>
-                                Motif de refus visites médicales
-                              </Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                              <TextField
-                                label="Motif de refus"
-                                value={motif}
-                                onChange={(e) => setMotif(e.target.value)}
-                                fullWidth
-                                multiline
-                                rows={4}
-                                variant="outlined"
-                              />
-                            </Modal.Body>
-                            <Modal.Footer>
-                              <Button
-                                variant="contained"
-                                onClick={() => {
-                                  editrdv(
-                                    demande._id,
-                                    "refusé",
-                                    demande.user._id,
-                                    motif,
-                                    demande.user.matricule
-                                  );
-                                  closeRefuseModal();
-                                }}
-                              >
-                                Soumettre
-                              </Button>
-                              <Button
-                                variant="secondary"
-                                onClick={closeRefuseModal}
-                              >
-                                Fermer
-                              </Button>
-                            </Modal.Footer>
-                          </Modal>
-              </td> : (<td style={{padding:"1em"}}>Traitée</td>)}
-
-
+                            <Modal
+                              show={isRefuseModalOpen}
+                              onHide={closeRefuseModal}
+                            >
+                              <Modal.Header closeButton>
+                                <Modal.Title>
+                                  Motif de refus visites médicales
+                                </Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <TextField
+                                  label="Motif de refus"
+                                  value={motif}
+                                  onChange={(e) => setMotif(e.target.value)}
+                                  fullWidth
+                                  multiline
+                                  rows={4}
+                                  variant="outlined"
+                                />
+                              </Modal.Body>
+                              <Modal.Footer>
+                                <Button
+                                  variant="contained"
+                                  onClick={() => {
+                                    editrdv(
+                                      demande._id,
+                                      "refusé",
+                                      demande.user._id,
+                                      motif,
+                                      demande.user.matricule
+                                    );
+                                    closeRefuseModal();
+                                  }}
+                                >
+                                  Soumettre
+                                </Button>
+                                <Button
+                                  variant="secondary"
+                                  onClick={closeRefuseModal}
+                                >
+                                  Fermer
+                                </Button>
+                              </Modal.Footer>
+                            </Modal>
+                          </td>
+                        ) : (
+                          <td style={{ padding: "1em" }}>Traitée</td>
+                        )}
                       </tr>
                     ) : (
-                    <tr>
-                      <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >Aucune demande trouvée. </td>
-                    </tr>
+                      <tr>
+                        <td
+                          colSpan="8"
+                          style={{ textAlign: "center", padding: "1em" }}
+                        >
+                        </td>
+                      </tr>
                     )
                   )
                 ) : (
                   <tr>
-                  <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >Aucune demande trouvée. </td>
-                </tr>
+                    <td
+                      colSpan="8"
+                      style={{ textAlign: "center", padding: "1em" }}
+                    >
+                      Aucune demande trouvée.{" "}
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>

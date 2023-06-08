@@ -219,7 +219,8 @@
   }
 
   .navbar2 {
-    background-color: rgb(255, 255, 255);
+    background: white;
+    border: none;
     height: 60px;
     box-shadow: none !important;
   }

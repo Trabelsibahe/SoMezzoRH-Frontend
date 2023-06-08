@@ -93,7 +93,7 @@ function MynotificationsPage() {
                 .map((notification) => (
                   <p className="notification_message" key={notification._id}>
                     {new Date(notification.creationDate).toLocaleString()} -{" "}
-                    {notification.message}
+                    {notification.journal}
                   </p>
                 ))
             ) : (
@@ -124,7 +124,7 @@ function MynotificationsPage() {
                 .map((notification) => (
                   <p className="notification_message" key={notification._id}>
                     {new Date(notification.creationDate).toLocaleString()} -{" "}
-                    {notification.message}
+                    {notification.journal}
                   </p>
                 ))
             ) : (
