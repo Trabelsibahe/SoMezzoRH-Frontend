@@ -191,7 +191,7 @@ function Expert_Sante() {
               <tbody>
                 {demandes.length > 0 ? (
                   demandes.map((demande) =>
-                    demande.user.role === "EMP" ? (
+                    (demande.user.role === "EMP" || demande.user.role === "RRH")  ? (
                       <tr key={demande._id}>
                         <td>{new Date(demande.createdAt).toLocaleString()}</td>
                         <td>
