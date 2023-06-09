@@ -78,10 +78,10 @@ export default function Add_Task_Modal() {
   const onSubmit = async (e) => {
     e.preventDefault();
     const notification = {
-      message: "Un nouveau Challenge est disponible découvrez-le.",
+      message: "Un nouveau Challenge est disponible, découvrez-le.",
     };
     dispatch(AddChallenge(form));
-    if (Object.keys(form).length === 7){
+    if (Object.keys(form).length === 6){
     NotifyExpert();
     opera.forEach((item) => {
       dispatch(SendNotificationToOneUser(item.user._id, notification));
@@ -106,7 +106,7 @@ export default function Add_Task_Modal() {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <h5 style={{ padding: "0.2em", textAlign: "center", color: "#151582", }}> Ajouter un challenge </h5>
               <div style={{ display: "flex", flexDirection: "row",  columnGap: "1em",}} >
-                <Form.Group className="mb-2">
+                <Form.Group className="mb-2  w-100">
                   <TextField
                     name="titre"
                     value={form.titre}
@@ -125,7 +125,7 @@ export default function Add_Task_Modal() {
                     <div className="invalid-feedback">{errors.titre}</div>
                   )}
                 </Form.Group>
-                <Form.Group className="mb-3">
+                <Form.Group className="mb-3 w-100">
                   <TextField
                     name="prime"
                     value={form.prime}
@@ -138,13 +138,13 @@ export default function Add_Task_Modal() {
                     size="medium"
                     label="Prime en DT"
                     type="number"
-                    fullWidth
+                    inputProps={{ min: 1, max: 100 }}
                   />
                  {errors.prime && (
                     <div className="invalid-feedback">{errors.prime}</div>
                   )}
                 </Form.Group>
-                <FormControl size="medium" className="ab_select">
+                <FormControl size="medium" className=" w-100">
                   <InputLabel>Priorité</InputLabel>
                   <Select
                     name="priorite"
@@ -207,7 +207,7 @@ export default function Add_Task_Modal() {
                     id="outlined-basic"
                     variant="outlined"
                     size="small"
-                    label="Date de debut de période de challange"
+                    label="Date de debut de challange"
                     type="date"
                     name="dateCreation"
                     disablePast={true}
@@ -234,7 +234,7 @@ export default function Add_Task_Modal() {
                     variant="outlined"
                     size="small"
                     disablePast
-                    label="Date de fin de période de challenge"
+                    label="Date de fin de challenge"
                     type="date"
                     name="dateSuppression"
                     className={Classnames("w-100", {

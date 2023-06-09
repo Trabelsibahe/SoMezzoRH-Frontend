@@ -201,13 +201,15 @@ function Tasks() {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, participer!'
+      confirmButtonText: 'Oui, participer!',
+      cancelButtonText: 'Annuler'
+
     }).then((result) => {
       if (result.isConfirmed) {
         Pariciper(task._id);
         Swal.fire(
           'participé!',
-          'Vous avez participé avec succès au challenge.',
+          'Vous avez participé avec succès à ce challenge.',
           'succès'
         );
       }

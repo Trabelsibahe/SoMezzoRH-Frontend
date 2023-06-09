@@ -26,8 +26,8 @@ export const AddDemande = (data) => {
           hideClass: {
             popup: 'animate__animated animate__fadeOutUp',
           },
-        });
-        window.location.reload();
+        }).then(
+        window.location.reload());
 
       }
     } catch (err) {

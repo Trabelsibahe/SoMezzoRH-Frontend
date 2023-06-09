@@ -66,7 +66,7 @@ function WelcomePage() {
   }, []);
 
   const [page, setPage] = useState(0);
-  const FormTitles = ["Step 1", "Step 2", "Step 3", "Step 4"];
+  const FormTitles = ["Veuillez entrer votre numéro de téléphone.", "Veuillez remplir ces champs.", "On a presque terminé..", "Dernière étape, veuillez écrire votre date d'anniversaire."];
 
   const PageDisplay = () => {
     if (page === 0) {
