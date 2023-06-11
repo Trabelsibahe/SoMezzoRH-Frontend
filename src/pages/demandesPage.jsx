@@ -229,9 +229,7 @@ function ExpertDemandesPage() {
           motif,
           item.user.matricule
         );
-        Swal.fire('enregistré!', '', 'succès');
-      } else if (result.isDenied) {
-        Swal.fire("Absence n'est pas accepter", '', 'info');
+        Swal.fire('La demande a été acceptée.', '', 'succès');
       }
     });
   }}
@@ -251,9 +249,6 @@ function ExpertDemandesPage() {
     }).then((result) => {
       if (result.isConfirmed) {
         openRefuseModal(absence._id);
-        Swal.fire('enregistré!', '', 'succès');
-      } else if (result.isDenied) {
-        Swal.fire("Absence n'est pas refuser", '', 'info');
       }
     });
   }}
@@ -288,6 +283,7 @@ function ExpertDemandesPage() {
                                         onClick={() => {
                                           OnChangeHandler(absence._id,  "Refusé",  item.user._id, motif, item.user.matricule  );
                                           closeRefuseModal();
+                                          Swal.fire("L'absence a été refusée.", 'error');
                                         }}
                                       >
                                         Soumettre

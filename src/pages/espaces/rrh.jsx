@@ -9,7 +9,7 @@ import {
   GetOperaAction,
   GetOperAbsenceAction,
 } from "../../actions/operation.action";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import { SendNotificationToOneUser } from "../../actions/notification.action";
 import OperaList from "../../components/userlist/operalist_table";
 import { Button, ButtonBase, Divider } from "@mui/material";
@@ -89,14 +89,12 @@ function RRH_Page() {
 
   useEffect(() => {
     dispatch(GetOperAbsenceAction());
-          if (!CurrentUser.isConnected) {
-      navigate("/login")
-          }
-          else if (CurrentUser.role !== "RRH") {
-            navigate("/erreur")
-                }
+    if (!CurrentUser.isConnected) {
+      navigate("/login");
+    } else if (CurrentUser.role !== "RRH") {
+      navigate("/erreur");
+    }
   }, []);
-
 
   const onClick_RrhAbsArchPage = () => setShow_RrhAbsArchPage(true);
   const [search, setSearch] = useState("");
@@ -119,8 +117,6 @@ function RRH_Page() {
     return false;
   });
 
-
-
   return (
     <div className="rrh_page">
       <Navigation user={CurrentUser} />
@@ -132,7 +128,7 @@ function RRH_Page() {
           </p>
         </div>
 
-        <RRHheader/>
+        <RRHheader />
 
         <div className="rrh_body">
           <OperaList />
@@ -236,59 +232,58 @@ function RRH_Page() {
                                   {absence.etat}
                                 </td>
                                 <td>
-                                <Button
-  sx={{ margin: "0.5em" }}
-  variant="outlined"
-  color="success"
-  size="small"
-  onClick={() => {
-    Swal.fire({
-      title: 'Voulez-vous vraiment accepter cette absence?',
-      showDenyButton: true,
-      confirmButtonText: 'Accepter',
-      denyButtonText: `Annuler`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        OnChangeHandler(
-          absence._id,
-          'Accepté',
-          item.user._id,
-          motif,
-          item.user.matricule
-        );
-        Swal.fire('enregistré!', '', 'succès');
-      } else if (result.isDenied) {
-        Swal.fire("Absence n'est pas accepter", '', 'info');
-      }
-    });
-  }}
->
-  Accepter
-</Button>
-{" "}
-<Button
-  variant="outlined"
-  color="error"
-  size="small"
-  onClick={() => {
-    Swal.fire({
-      title: 'Voulez-vous vraiment refuser cette absence?',
-      showDenyButton: true,
-      confirmButtonText: 'refuser',
-      denyButtonText: `Annuler`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        openRefuseModal(absence._id);
-        Swal.fire('enregistré!', '', 'succès');
-      } else if (result.isDenied) {
-        Swal.fire("Absence n'est pas refuser", '', 'info');
-      }
-    });
-  }}
->
-  Refuser
-</Button>
-
+                                  <Button
+                                    sx={{ margin: "0.5em" }}
+                                    variant="outlined"
+                                    color="success"
+                                    size="small"
+                                    onClick={() => {
+                                      Swal.fire({
+                                        title:
+                                          "Voulez-vous vraiment accepter cette absence?",
+                                        showDenyButton: true,
+                                        confirmButtonText: "Accepter",
+                                        denyButtonText: `Annuler`,
+                                      }).then((result) => {
+                                        if (result.isConfirmed) {
+                                          OnChangeHandler(
+                                            absence._id,
+                                            "Accepté",
+                                            item.user._id,
+                                            motif,
+                                            item.user.matricule
+                                          );
+                                          Swal.fire(
+                                            "La demande a eté acceptée.",
+                                            "",
+                                            "succès"
+                                          );
+                                        }
+                                      });
+                                    }}
+                                  >
+                                    Accepter
+                                  </Button>{" "}
+                                  <Button
+                                    variant="outlined"
+                                    color="error"
+                                    size="small"
+                                    onClick={() => {
+                                      Swal.fire({
+                                        title:
+                                          "Voulez-vous vraiment refuser cette absence?",
+                                        showDenyButton: true,
+                                        confirmButtonText: "Refuser",
+                                        denyButtonText: `Annuler`,
+                                      }).then((result) => {
+                                        if (result.isConfirmed) {
+                                          openRefuseModal(absence._id);
+                                        }
+                                      });
+                                    }}
+                                  >
+                                    Refuser
+                                  </Button>
                                   <Modal
                                     show={isRefuseModalOpen}
                                     onHide={closeRefuseModal}
@@ -323,6 +318,9 @@ function RRH_Page() {
                                             item.user.matricule
                                           );
                                           closeRefuseModal();
+                                          Swal.fire(
+                                            "La demande a été refusée."
+                                          );
                                         }}
                                       >
                                         Soumettre

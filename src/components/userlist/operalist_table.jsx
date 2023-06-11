@@ -181,9 +181,11 @@ export default function OperaList() {
             </TableHead>
 
             <TableBody >
-              {filteredOperation.map((operaItem, index) => (
-                <Row key={index} operaItem={operaItem} />
-              ))}
+              {filteredOperation.length > 0 ? filteredOperation.map((operaItem, index) => (
+                <Row key={index} operaItem={operaItem} /> )):
+              <td colSpan="15" style={{ textAlign: "center", padding: "1.5em",borderBottom: "2px solid #e0e0e0"  }} >
+              Aucun utilisateur trouvé.</td>
+              }
             </TableBody>
           </Table>
         </TableContainer>

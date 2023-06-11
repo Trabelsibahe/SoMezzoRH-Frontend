@@ -9,26 +9,19 @@ export const AddDemande = (data) => {
   return async (dispatch) => {
     dispatch({ type: demandeConstants.ADD_DEMANDE_REQUEST });
     try {
-      const res = await axios.post(
-        'http://127.0.0.1:3030/api/demande/add',
-        data
-      );
+      const res = await axios.post('http://127.0.0.1:3030/api/demande/add', data );
       if (res.status === 200) {
         dispatch({
           type: demandeConstants.ADD_DEMANDE_SUCCESS,
           payload: { createddemande: res.data },
-        });
-        Swal.fire({
-          title: 'Demande envoyée.',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
         }).then(
-        window.location.reload());
-
+          Swal.fire({
+          title: "Votre demande a eté envoyée.",
+          }).then((result) => {
+            if (result) {
+              window.location.reload()
+            }})
+        );
       }
     } catch (err) {
       dispatch({

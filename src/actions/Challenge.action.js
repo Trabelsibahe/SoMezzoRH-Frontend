@@ -17,15 +17,14 @@ export const AddChallenge = (data) => {
         dispatch({
           type: ChallengeConstants.ADD_Challenge_SUCCESS,
           payload: { createdChallenge: res.data },
-        });
-        Swal.fire({
-          position: 'top',
-          icon: 'succès',
-          title: 'Challenge ajouté.',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        window.location.reload();
+        }).then(
+          Swal.fire({
+            title: "Le challenge a bien été ajouté.",
+            }).then((result) => {
+              if (result) {
+                window.location.reload()
+              }})
+        );
 
       }
     } catch (err) {

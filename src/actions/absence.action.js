@@ -16,17 +16,15 @@ export const AddAbsence = (data) => {
         dispatch({
           type: absenceConstants.ADD_ABSENCE_SUCCESS,
           payload: { createdabsence: res.data },
-        });
+        }).then(
         Swal.fire({
-          title: 'Absence ajouté.',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp',
-          },
-        });
-        window.location.reload();
+          title: "Votre demande d'absence a eté envoyée.",
+        }).then((result) => {
+          if (result) {
+            window.location.reload()
+          }
+        }
+        ))
       }
     } catch (err) {
       dispatch({

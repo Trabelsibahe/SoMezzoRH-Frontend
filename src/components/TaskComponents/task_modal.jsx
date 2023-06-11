@@ -26,6 +26,7 @@ import {
 } from "../../actions/notification.action";
 import { GetOperaAction } from "../../actions/operation.action";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 const style = {
   position: "absolute",
   top: "50%",
@@ -83,6 +84,7 @@ export default function Add_Task_Modal() {
     dispatch(AddChallenge(form));
     if (Object.keys(form).length === 6){
     NotifyExpert();
+    handleClose();
     opera.forEach((item) => {
       dispatch(SendNotificationToOneUser(item.user._id, notification));
     });

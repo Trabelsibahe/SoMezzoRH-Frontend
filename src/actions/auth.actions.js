@@ -8,15 +8,20 @@ import { Timer } from '@mui/icons-material';
 
 
 // register
-export const RegisterAction = (form, navigate) => dispatch => {
+export const RegisterAction = (form) => dispatch => {
   axios.post('http://127.0.0.1:3030/api/register', form)
     .then(res => {
-      navigate('/login');
-      Swal.fire("création d'un nouvel utilisateur.")
       dispatch({
         type: authConstants.ERRORS,
         payload: {}
-      })
+      }).then(
+        Swal.fire({
+          title: "Le compte a été créé..",
+          }).then((result) => {
+            if (result) {
+              window.location.reload()
+            }})
+      )
     })
     .catch(err => {
       dispatch({
@@ -56,9 +61,17 @@ export const ChangePasswordAction = (form, navigate) => dispatch => {
   axios.post('http://127.0.0.1:3030/api/modifmotpass', form)
 
     .then(res => {     
-      Swal.fire('Mot de passe modifié, veuillez reconnecter')
-      localStorage.clear()
-      window.location.reload()
+      localStorage.clear();
+      Swal.fire({
+        html:'Votre mot de passe a été modifié. Veuillez vous reconnecter.',
+        timer: 1500,
+        didOpen : () => {
+          Swal.showLoading();
+        },
+        willClose : () => {
+          window.location.reload();
+        }
+      });
       dispatch({
         type: authConstants.SET_USER,
         payload: res.data
@@ -124,7 +137,7 @@ export const resetPassword = (resetToken, newPassword, confirmPassword) => async
   try {
     const res = await axios.post('http://127.0.0.1:3030/api/new-mot-de-passe', { resetToken, newPassword, confirmPassword });
 
-    Swal.fire("Mot de passe modifié, veuillez vous reconnecter")
+    Swal.fire("Mot de passe modifié, veuillez vous reconnecter.")
     localStorage.clear();
     window.location.reload();
     window.location.replace('/login');

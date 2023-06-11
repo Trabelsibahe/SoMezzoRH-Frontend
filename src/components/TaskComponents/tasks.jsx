@@ -169,6 +169,7 @@ function Tasks() {
     };
 
     dispatch(updateTotale(id, data));
+    handleClosedetails();
   };
 
   return (
@@ -195,20 +196,19 @@ function Tasks() {
                     <Button
   onClick={() => {
     Swal.fire({
-      title: 'vous êtes sûr?',
-      text: "Voulez-vous vraiment participer à ce challenge?",
-      icon: 'warning',
+      title: 'Voulez-vous vraiment participer à ce challenge?',
+      icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, participer!',
+      confirmButtonText: 'Participer',
       cancelButtonText: 'Annuler'
 
     }).then((result) => {
       if (result.isConfirmed) {
         Pariciper(task._id);
         Swal.fire(
-          'participé!',
+          'Participé.',
           'Vous avez participé avec succès à ce challenge.',
           'succès'
         );

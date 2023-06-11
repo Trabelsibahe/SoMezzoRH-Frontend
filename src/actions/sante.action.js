@@ -27,9 +27,17 @@ export const afficherdv = () => dispatch => {
           dispatch({
             type: santeConstants.ADD_ADEMANDE_SUCCESS,
             payload: { createddemande: res.data }
-          })
-          window.location.reload()
-          Swal.fire('Demande visite médicale ajoutée.')
+          }).then(
+            Swal.fire({
+              title: "Votre demande de RDV a eté envoyée.",
+            }).then((result) => {
+              if (result) {
+                window.location.reload()
+              }
+            }
+            )
+          );
+
   
         }
       } catch (err) {
@@ -49,9 +57,14 @@ export const afficherdv = () => dispatch => {
           dispatch({
             type: santeConstants.ADD_DATE_SUCCESS,
             payload: res.data 
-          });
-          window.location.reload();
-         Swal.fire('Date de visite médicale ajoutée.')
+          }).then(
+            Swal.fire("La date et la capacité ont été mises à jour.").then((result) => {
+              if (result) {
+                window.location.reload()
+              }
+            }
+            )
+          );
         }
       } catch (err) {
         dispatch({

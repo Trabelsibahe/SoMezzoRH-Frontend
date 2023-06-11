@@ -119,7 +119,6 @@ function RegisterPage() {
                   size="small"
                   label="Email"
                   margin="dense"
-                  type="email"
                   name="email"
                   className={Classnames("w-100", {
                     "is-invalid": errors.email,

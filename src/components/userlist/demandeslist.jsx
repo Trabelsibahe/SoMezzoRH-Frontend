@@ -130,6 +130,7 @@ function DemandesList() {
       setError("Veuillez charger l'attestation.");
     } else {
       data.append("etat", "Accordé");
+      Swal.fire("L'attestation a eté accordée.");
 
       const notification = {
         message: "l'Expert RH a accordé votre Attestation.",
@@ -238,7 +239,7 @@ function DemandesList() {
                       Swal.fire({
                         title: 'Voulez-vous vraiment accorder ce badge?',
                         showDenyButton: true,
-                        confirmButtonText: 'Accordé',
+                        confirmButtonText: 'Accorder',
                         denyButtonText: `Annuler`,
                       }).then((result) => {
                         if (result.isConfirmed) {
@@ -248,9 +249,7 @@ function DemandesList() {
                             demande.user._id,
                             demande.user.matricule
                           );
-                          Swal.fire('enregistré!', '', 'succès');
-                        } else if (result.isDenied) {
-                          Swal.fire("le badge n'est pas accordé", '', 'info');
+                          Swal.fire('Le badge a eté accordé.', '', 'succès');
                         }
                       });
                     }}
@@ -263,9 +262,19 @@ function DemandesList() {
                             variant="outlined"
                             color="success"
                             size="small"
-                            onClick={() =>
-                              handleShowAtt(demande._id, demande.user._id)
-                            }
+                           
+                            onClick={() => {
+                              Swal.fire({
+                                title: 'Voulez-vous vraiment accorder cette attestation?',
+                                showDenyButton: true,
+                                confirmButtonText: 'Accorder',
+                                denyButtonText: `Annuler`,
+                              }).then((result) => {
+                                if (result.isConfirmed) {
+                                  handleShowAtt(demande._id, demande.user._id)
+                                }
+                              });
+                            }}
                           >
                             Accorder
                           </Button>
@@ -282,6 +291,7 @@ function DemandesList() {
                                 name="attestation"
                                 onChange={(e) =>
                                   setAttestation(e.target.files[0])
+                                  
                                 }
                               />
                               <p style={{ color: "red", textAlign: "center" }}>
@@ -295,8 +305,9 @@ function DemandesList() {
                               </Button>
                               <Button
                                 variant="outlined"
-                                onClick={() =>
-                                  editattestation(demande.user.matricule)
+                                onClick={() => {
+                                  editattestation(demande.user.matricule);
+                                }
                                 }
                               >
                                 Accorder

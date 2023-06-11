@@ -222,21 +222,21 @@ const editUser = async () => {
   startIcon={<EditTwoToneIcon />}
   onClick={() => {
     Swal.fire({
-      title: 'vous êtes sûr?',
-      text: "Voulez vous vraiment modifier votre profil?",
+      title: 'Voulez vous vraiment modifier votre profil?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, modifier !'
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Modifier'
     }).then((result) => {
       if (result.isConfirmed) {
         editUser();
         Swal.fire(
-          'modifié',
-          'Votre profile a été modifié.',
-          'succès'
+          'Votre profil a été modifié.',
         );
+      } else {
+        window.location.reload();
       }
     });
   }}

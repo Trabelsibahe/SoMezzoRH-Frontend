@@ -16,20 +16,18 @@ const style = {
   color: "#151582;",
   borderColor: "#151582;",
 
-  '&:variant': {
+  "&:variant": {
     color: "#151582;",
-  }
-}
+  },
+};
 const style2 = {
   backgroundColor: "#24377b;",
-  margin:"1.1em",
-  '&:hover': {
+  margin: "1.1em",
+  "&:hover": {
     backgroundColor: "#24377b;",
   },
-
-}
+};
 function AbsencesPage() {
-
   const auth = useSelector((state) => state.auth);
   const absences = useSelector((state) => state.absence.absence);
 
@@ -70,131 +68,147 @@ function AbsencesPage() {
       <div className="rrh_container">
         <div className="page_name">
           Pages / Mon espace{" "}
-          <p style={{ fontWeight: "bold", fontSize: "14px" }}>
-            Mes Absences
-          </p>
+          <p style={{ fontWeight: "bold", fontSize: "14px" }}>Mes Absences</p>
         </div>
-        { CurrentUser.role === "RRH" ? (<RRHheader/>)
-        :
-        <EMPheader/>
-        }
-          <div> 
-            {showRepo ? (
-              <AddRepoPage />
-            ) : (
-              <div className="emp_body">
-                <p className="expert_info">Mes Absences</p>
+        {CurrentUser.role === "RRH" ? <RRHheader /> : <EMPheader />}
+        <div>
+          {showRepo ? (
+            <AddRepoPage />
+          ) : (
+            <div className="emp_body">
+              <p className="expert_info">Mes Absences</p>
 
-                <div style={{ overflowX: "auto" }}>
-                  {absences && absences.length > 0 ? (
-                    <table className="absences_table">
-                      <tbody>
-                        <tr>
-                        <th>Date de demande</th>
-                          <th>Type d'absence</th>
-                          <th>Date de debut de période d'absence</th>
-                          <th>Date de fin de période d'absence</th>
-                          <th>Commentaires</th>
-                          <th>Etat</th>
-                          <th>justification</th>
-                        </tr>
-                        {absences[0].absences.map((absence, index) => (
-                          <tr key={index}>
-                          <td>{new Date(absence.dateCreation).toLocaleDateString()}</td>
-                            <td>{absence.type}</td>
-                            <td>
-                              {new Date(absence.dateDebut).toLocaleDateString()}
-                            </td>
-                            <td>
-                              {new Date(absence.dateFin).toLocaleDateString()}
-                            </td>
-                            <td>
-                              {absence.commentaire
-                                ? absence.commentaire
-                                : "Pas de commentaires."}
-                            </td>
-                            <td style={{ color: absence.etat === "En attente" ? "blue" : absence.etat === "Refusé" ? "red" : "green" }}>
-  {absence.etat}
-  {absence.etat === "Refusé" && absence.motif ? (
-    <>
-      <br />
-      {absence.motif}
-    </>
-  ) : null}
-                            </td>
-                            <td>
-                              {absence.justif ? (
-                                <Button
-                                  size="small"
-                                  variant="outlined"
-                                  sx={{ color: "#151582" }}
-                                  onClick={() => handleShowJustif(absence)}
-                                >
-                                  Afficher
-                                </Button>
-                              ) : absence.etat === "Refusé" ? "Refusé..." : (
-                                "Aucune Justification"
-                              )}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  ) : (
-                      <table className="absences_table">
-                        <tbody>
-                          <tr>
-                            <th>Type d'absence</th>
-                            <th>Date de debut de période d'absence</th>
-                            <th>Date de fin de période d'absence</th>
-                            <th>Commentaires</th>
-                            <th>Status</th>
-                          </tr>
-                        </tbody>
+              <div style={{ overflowX: "auto" }}>
+                {absences && absences.length > 0 ? (
+                  <table className="absences_table">
+                    <tbody>
                       <tr>
-                        <td
-                          colSpan="8"
-                          style={{ textAlign: "center", padding: "1em" }}
-                        >
-                          Vous n'avez aucune absence.
-                        </td>
+                        <th>Date de demande</th>
+                        <th>Type d'absence</th>
+                        <th>Date de debut de période d'absence</th>
+                        <th>Date de fin de période d'absence</th>
+                        <th>Commentaires</th>
+                        <th>Etat</th>
+                        <th>justification</th>
                       </tr>
-                      </table>
-                  )}
-                </div>
-                <div className="absence_bottom">
-                  <Button
-                    className="expert_add_button" 
-                    startIcon={<AddCircleIcon />}  variant="contained" sx={style2} onClick={onClick}> Ajouter une absence 
-                  </Button>
-                </div>
+                      {absences[0].absences.map((absence, index) => (
+                        <tr key={index}>
+                          <td>
+                            {new Date(
+                              absence.dateCreation
+                            ).toLocaleDateString()}
+                          </td>
+                          <td>{absence.type}</td>
+                          <td>
+                            {new Date(absence.dateDebut).toLocaleDateString()}
+                          </td>
+                          <td>
+                            {new Date(absence.dateFin).toLocaleDateString()}
+                          </td>
+                          <td>
+                            {absence.commentaire
+                              ? absence.commentaire
+                              : "Pas de commentaires."}
+                          </td>
+                          <td
+                            style={{
+                              color:
+                                absence.etat === "En attente"
+                                  ? "blue"
+                                  : absence.etat === "Refusé"
+                                  ? "red"
+                                  : "green",
+                            }}
+                          >
+                            {absence.etat}
+                            {absence.etat === "Refusé" && absence.motif ? (
+                              <>
+                                <br />
+                                {absence.motif}
+                              </>
+                            ) : null}
+                          </td>
+                          <td>
+                            {absence.justif ? (
+                              <Button
+                                size="small"
+                                variant="outlined"
+                                sx={{ color: "#151582" }}
+                                onClick={() => handleShowJustif(absence)}
+                              >
+                                Afficher
+                              </Button>
+                            ) : absence.etat === "Refusé" ? (
+                              "Refusé..."
+                            ) : (
+                              "Aucune Justification"
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <table className="absences_table">
+                    <tbody>
+                      <tr>
+                        <th>Type d'absence</th>
+                        <th>Date de debut de période d'absence</th>
+                        <th>Date de fin de période d'absence</th>
+                        <th>Commentaires</th>
+                        <th>Status</th>
+                      </tr>
+                    </tbody>
+                    <tr>
+                      <td
+                        colSpan="8"
+                        style={{ textAlign: "center", padding: "1em" }}
+                      >
+                        Vous n'avez aucune absence.
+                      </td>
+                    </tr>
+                  </table>
+                )}
               </div>
-            )}
-            <Modal show={justification} onHide={handleClosejustif}>
-              <Modal.Header closeButton>
-                <Modal.Title>Justification d'absence</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                {" "}
-                <Card className="news_item_card">
-                  <Card.Img
-                    variant="top"
-                    src={`http://localhost:3030/${justif}`}
-                  />
-                </Card>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClosejustif}>
-                  Fermer
+              <div className="absence_bottom">
+                <Button
+                  className="expert_add_button"
+                  startIcon={<AddCircleIcon />}
+                  variant="contained"
+                  sx={style2}
+                  onClick={onClick}
+                >
+                  {" "}
+                  Ajouter une absence
                 </Button>
-              </Modal.Footer>
-            </Modal>
-          </div>
-          <div style={{ padding: "2em", textAlign: "center" }}>
+              </div>
+            </div>
+          )}
+          <Modal show={justification} onHide={handleClosejustif}>
+            <Modal.Header closeButton>
+              <Modal.Title>Justification d'absence</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {" "}
+              <Card className="news_item_card">
+                <Card.Img
+                  variant="top"
+                  src={`http://localhost:3030/${justif}`}
+                />
+              </Card>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClosejustif}>
+                Fermer
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+        <div style={{ padding: "2em", textAlign: "center" }}>
           <p className="welcome_footer">Tous droits réservés - SoMezzo</p>
         </div>
-        </div>
       </div>
+    </div>
   );
 }
 

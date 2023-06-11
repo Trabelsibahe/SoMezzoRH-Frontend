@@ -120,7 +120,7 @@ export default function NotificationMenu() {
                   placement === "bottom-start" ? "left top" : "left bottom",
               }}
             >
-              <Paper sx={{ width: 310, maxWidth: "100%" }}>
+              <Paper sx={{ width: 330, maxWidth: "100%" }}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList
                     autoFocusItem={open}
@@ -152,7 +152,7 @@ export default function NotificationMenu() {
                                   <Typography
                                     variant="body2"
                                     color="text.secondary"
-                                    sx={{ fontSize: "10px" }}
+                                    sx={{ fontSize: "10px"}}
                                   >
                                     Marquer comme lu
                                   </Typography>

@@ -81,19 +81,18 @@ function MynotificationsPage() {
           {notifications && notifications.length > 0 ? (
             notifications.some((item) =>
               item.notifications.some(
-                (notification) => notification.read === false
+                (notification) => notification.read === false && notification.message
               )
             ) ? (
               notifications
                 .flatMap((item) => item.notifications)
-                .filter((notification) => notification.read === false)
+                .filter((notification) => notification.read === false && notification.message)
                 .sort(
                   (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
                 )
                 .map((notification) => (
                   <p className="notification_message" key={notification._id}>
-                    {new Date(notification.creationDate).toLocaleString()} -{" "}
-                    {notification.journal}
+                    {new Date(notification.creationDate).toLocaleString()} - {" "} {notification.message}
                   </p>
                 ))
             ) : (
@@ -112,19 +111,16 @@ function MynotificationsPage() {
           {notifications && notifications.length > 0 ? (
             notifications.some((item) =>
               item.notifications.some(
-                (notification) => notification.read === true
+                (notification) => notification.read === true && notification.message
               )
             ) ? (
               notifications
                 .flatMap((item) => item.notifications)
-                .filter((notification) => notification.read === true)
-                .sort(
-                  (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
-                )
+                .filter((notification) => notification.read === true && notification.message)
+                .sort((a, b) => new Date(b.creationDate) - new Date(a.creationDate) )
                 .map((notification) => (
                   <p className="notification_message" key={notification._id}>
-                    {new Date(notification.creationDate).toLocaleString()} -{" "}
-                    {notification.journal}
+                    {new Date(notification.creationDate).toLocaleString()} - {notification.message}
                   </p>
                 ))
             ) : (
@@ -132,6 +128,7 @@ function MynotificationsPage() {
                 Aucune nouvelle notification.
               </p>
             )
+            
           ) : (
             <p className="notifications_emptymsg">
               Aucune nouvelle notification.

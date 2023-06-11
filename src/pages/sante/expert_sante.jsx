@@ -229,13 +229,13 @@ function Expert_Sante() {
                               size="small"
                               onClick={async () => {
                                 Swal.fire({
-                                  title: "vous êtes sûr?",
-                                  text: "Voulez-vous vraiment accepter ce RDV médical?",
+                                  title: "Voulez-vous vraiment accepter cette demande?",
                                   icon: "warning",
                                   showCancelButton: true,
                                   confirmButtonColor: "#3085d6",
                                   cancelButtonColor: "#d33",
-                                  confirmButtonText: "oui, accepter",
+                                  cancelButtonText:"Annuler",
+                                  confirmButtonText: "Accepter",
                                 }).then((result) => {
                                   if (result.isConfirmed) {
                                     editrdv(
@@ -246,8 +246,8 @@ function Expert_Sante() {
                                       demande.user.matricule
                                     );
                                     Swal.fire(
-                                      "Accepté!",
-                                      "Le rendez-vous médical a été accepté.",
+                                      "Accepté.",
+                                      "Cette demande RDV a eté acceptée.",
                                       "succès"
                                     );
                                   }
@@ -262,25 +262,20 @@ function Expert_Sante() {
                               size="small"
                               onClick={async () => {
                                 Swal.fire({
-                                  title: "vous êtes sûr?",
-                                  text: "Voulez-vous vraiment refuser ce RDV médical?",
+                                  title: "Voulez-vous vraiment refuser cette demande?",
                                   icon: "warning",
                                   showCancelButton: true,
                                   confirmButtonColor: "#3085d6",
                                   cancelButtonColor: "#d33",
-                                  confirmButtonText: "oui, refuser",
+                                  cancelButtonText:"Annuler",
+                                  confirmButtonText: "Refuser",
                                 }).then((result) => {
                                   if (result.isConfirmed) {
                                     openRefuseModal(demande._id);
-                                    Swal.fire(
-                                      "Refusé!",
-                                      "Le rendez-vous médical a été refusé.",
-                                      "succès"
-                                    );
                                   }
                                 });
                               }}
-                            >
+                               >
                               Refuser
                             </Button>
 
@@ -316,6 +311,11 @@ function Expert_Sante() {
                                       demande.user.matricule
                                     );
                                     closeRefuseModal();
+                                    Swal.fire(
+                                      "Refusé.",
+                                      "Cette demande RDV a eté refusée.",
+                                      "error"
+                                    );
                                   }}
                                 >
                                   Soumettre
