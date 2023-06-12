@@ -10,7 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { BiUnderline } from "react-icons/bi";
 import Modal from "react-bootstrap/Modal";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 import {
   afficherdv,
   ajouterdate,
@@ -99,7 +99,6 @@ function Expert_Sante() {
       etat: action,
       motif: motif,
     };
-    console.log(matricule);
     const notification = {
       message: `L'Expert RH a ${data.etat} votre demande de rendez-vous médicale.`,
       journal: `La demande de rendez-vous médicale de l'employé sous le matricule "${matricule}" a été ${data.etat} par L'Expert RH.`,
@@ -156,8 +155,7 @@ function Expert_Sante() {
                     sx={TextfieldStyle}
                     type="number"
                     placeholder="Capacité"
-                    inputProps={{ min: 1, max: 10 }}
-                    required
+                    inputProps={{ min: 1, max: 10 }} required
                   />
                   <p> </p>
                   <button
@@ -172,10 +170,6 @@ function Expert_Sante() {
             </div>
           </div>
         </div>
-
-
-
-        
         <div className="rrh_body2">
           <h5 className="espace_sante_notice">
             Remarque: La capacité des visites médicales des patients est limitée
@@ -196,7 +190,7 @@ function Expert_Sante() {
               <tbody>
                 {demandes.length > 0 ? (
                   demandes.map((demande) =>
-                    demande.user.role === "EMP" || demande.user.role ==="RRH"  ? (
+                    (demande.user.role === "EMP" || demande.user.role === "RRH")  ? (
                       <tr key={demande._id}>
                         <td>{new Date(demande.createdAt).toLocaleString()}</td>
                         <td>
@@ -334,24 +328,15 @@ function Expert_Sante() {
                         )}
                       </tr>
                     ) : (
-                      <tr>
-                        <td
-                          colSpan="8"
-                          style={{ textAlign: "center", padding: "1em" }}
-                        >
-                        </td>
-                      </tr>
+                    <tr>
+                      <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >Aucune demande trouvée. </td>
+                    </tr>
                     )
                   )
                 ) : (
                   <tr>
-                    <td
-                      colSpan="8"
-                      style={{ textAlign: "center", padding: "1em" }}
-                    >
-                      Aucune demande trouvée.{" "}
-                    </td>
-                  </tr>
+                  <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >Aucune demande trouvée. </td>
+                </tr>
                 )}
               </tbody>
             </table>
