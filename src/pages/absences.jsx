@@ -122,10 +122,10 @@ function AbsencesPage() {
                           >
                             {absence.etat}
                             {absence.etat === "Refusé" && absence.motif ? (
-                              <>
+                              <span>
                                 <br />
-                                {absence.motif}
-                              </>
+                                {absence.motif ? absence.motif : ""}
+                              </span>
                             ) : null}
                           </td>
                           <td>

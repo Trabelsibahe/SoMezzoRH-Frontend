@@ -170,6 +170,7 @@ function Tasks() {
 
     dispatch(updateTotale(id, data));
     handleClosedetails();
+    window.location.reload();
   };
 
   return (
@@ -211,7 +212,10 @@ function Tasks() {
           'Participé.',
           'Vous avez participé avec succès à ce challenge.',
           'succès'
-        );
+        ).then((result) => {
+          if (result) {
+            window.location.reload()
+          }})
       }
     });
   }}

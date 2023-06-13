@@ -210,8 +210,7 @@ function DemandesList() {
               demandes.some((demande) => demande.etat === "en attente")
             ) ? (
               demandes.map(
-                (demande) =>
-                  demande.etat === "en attente" && (
+                (demande) => demande.etat === "en attente" && (
                     <tr key={demande._id}>
                       <td>
                         {new Date(demande.createdAt).toLocaleDateString()}

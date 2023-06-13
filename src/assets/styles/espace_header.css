@@ -30,6 +30,7 @@
     letter-spacing: 1px;
     text-indent: 25px;
     line-height: 0;
+    width: 435px;
   
   }
   
@@ -104,7 +105,7 @@
 }
 
 .espace_header_card2 {
-    width: 200px;
+    width: 120px;
     background: linear-gradient(18deg, rgba(249,178,51,1) 0%, rgba(233,78,27,1) 100%);
     height: 60px;
     border-radius: 10px;
@@ -117,7 +118,7 @@
     flex-direction: row;
     display: flex;
     text-align: center;
-    padding: 1.5em;
+    padding: 1.1em;
 }
 .espace_header_cardchild {
     flex-direction: column;

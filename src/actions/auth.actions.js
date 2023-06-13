@@ -16,7 +16,7 @@ export const RegisterAction = (form) => dispatch => {
         payload: {}
       }).then(
         Swal.fire({
-          title: "Le compte a été créé..",
+          title: "Le compte a été créé.",
           }).then((result) => {
             if (result) {
               window.location.reload()
@@ -89,8 +89,8 @@ export const ChangePasswordAction = (form, navigate) => dispatch => {
 // logout
 export const Logout = (navigate) => dispatch => {
   Swal.fire({
-    title: 'Déconnecter',
-    html: 'Déconnecter...',
+    title: 'Déconnexion..',
+    html: 'Déconnexion..',
     timer: 1500,
     timerProgressBar: true,
     didOpen: () => {

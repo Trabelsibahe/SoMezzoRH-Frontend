@@ -10,8 +10,8 @@ export const SetProfileAction = (form, setShow, setMessage, navigate) => dispatc
     .then(res => {
       setShow(true)
       navigate("/profil");
-      Swal.fire("Votre profil a été créé avec succès !");
-      setMessage("Profile crée.")
+      Swal.fire("Félicitations! Vous avez complété votre profil.");
+      setMessage("Profil crée.")
       dispatch({
         type: profileConstants.PROFILE_ERRORS,
         payload: {}
@@ -138,13 +138,14 @@ export const searchByMatricule = (matricule) => (dispatch) => {
 //fonction delete + envouyer a l'archive 
 export const deleteAndArchiveProfile = (id) => (dispatch) => {
   Swal.fire({
-    title: 'vous êtes sûr?',
-    text: "Vous ne pourrez pas revenir en arrière!",
+    title: 'Voulez-vous vraiment supprimer ce compte ?',
+    text: "Le compte sera déplacé dans l'archive.",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Oui, supprimez-le!'
+    cancelButtonText: 'Annuler',
+    confirmButtonText: 'Supprimer'
   }).then((result) => {
     if (result.isConfirmed) {
       axios
@@ -153,13 +154,12 @@ export const deleteAndArchiveProfile = (id) => (dispatch) => {
           dispatch({
             type: profileConstants.DELETE_PROFILE_SUCCESS,
             payload: res.data,
-          });
-          Swal.fire(
-            'Supprimé!',
-            'Ce profile a été supprimé.',
-            'succès'
-          );
-          window.location.reload();
+          })
+          Swal.fire('Ce compte a été supprimé.').then((result) => {
+            if (result) {
+              window.location.reload()
+            }
+          })
         })
         .catch((err) => {
           dispatch({

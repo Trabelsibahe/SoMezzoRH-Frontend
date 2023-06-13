@@ -102,7 +102,7 @@ export default function AccountMenu({ profile, LogoutHandler }) {
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Paramètres
+          Sécurité
         </MenuItem>
         <MenuItem onClick={LogoutHandler}>
           <ListItemIcon>

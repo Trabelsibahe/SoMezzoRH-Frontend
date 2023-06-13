@@ -7,54 +7,53 @@ import Swal from 'sweetalert2';
 
 //fonction getarchive
 export const GetArchives = () => async (dispatch) => {
-    try {
-      const res = await axios.get('http://127.0.0.1:3030/api/archive/get');
-      dispatch({ type: archiveConstants.GET_ALL_ARCHIVES, payload: res.data });
-      return res.data
-    } catch (error) {
-      dispatch({ type: archiveConstants.ARCHIVES_ERRORS, payload: error.message });
-    }
-  };
-  //fonction delete + envouyer a l'archive 
-  export const deleteArchive = (id) => (dispatch) => {
-    Swal.fire({
-      title: 'vous êtes sûr?',
-      text: "Vous ne pourrez pas revenir en arrière!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Oui, restaurez-le !'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://127.0.0.1:3030/api/archive/supp/${id}`)
-          .then((res) => {
-            dispatch({
-              type: archiveConstants.DELETE_ARCHIVE_SUCCESS,
-              payload: res.data,
-            });
-            Swal.fire(
-              'restauré!',
-              'Ce profile a été restauré.',
-              'succès'
-            );
-            window.location.reload();
-          })
-          .catch((err) => {
-            dispatch({
-              type: archiveConstants.DELETE_ARCHIVE_FAILURE,
-              payload: err.response.data,
-            });
+  try {
+    const res = await axios.get('http://127.0.0.1:3030/api/archive/get');
+    dispatch({ type: archiveConstants.GET_ALL_ARCHIVES, payload: res.data });
+    return res.data
+  } catch (error) {
+    dispatch({ type: archiveConstants.ARCHIVES_ERRORS, payload: error.message });
+  }
+};
+//fonction delete + envouyer a l'archive 
+export const deleteArchive = (id) => (dispatch) => {
+  Swal.fire({
+    title: 'Voulez vous vraiment restaurer ce compte?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Annuler',
+    confirmButtonText: 'Restaurer'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axios.delete(`http://127.0.0.1:3030/api/archive/supp/${id}`)
+        .then((res) => {
+          dispatch({
+            type: archiveConstants.DELETE_ARCHIVE_SUCCESS,
+            payload: res.data,
           });
-      }
-    });
-  };
-  
-  //counter Archives
+          Swal.fire('Ce compte a été restauré.').then((result) => {
+          if (result) {
+            window.location.reload()
+          }
+        }
+          );
+        })
+        .catch((err) => {
+          dispatch({
+            type: archiveConstants.DELETE_ARCHIVE_FAILURE,
+            payload: err.response.data,
+          });
+        });
+    }
+  });
+};
+
+//counter Archives
 export const CountArchives = () => {
   return async dispatch => {
-    dispatch({ type: archiveConstants.ARCHIVE_REQUEST})
+    dispatch({ type: archiveConstants.ARCHIVE_REQUEST })
     try {
       const res = await axios.get('http://127.0.0.1:3030/api/archives/nb')
       if (res.status === 200) {

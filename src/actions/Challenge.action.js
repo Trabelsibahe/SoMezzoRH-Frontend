@@ -97,6 +97,7 @@ export const GetAllChallengeExpert = () => {
         });
       });
   };
+  // participer
   export const participerChallenge = (id,data) => {
     return async dispatch => {
       dispatch({ type: ChallengeConstants.PARTICIPER_Challenge_REQUEST })
@@ -107,7 +108,6 @@ export const GetAllChallengeExpert = () => {
             type: ChallengeConstants.PARTICIPER_Challenge_SUCCESS,
             payload: { createdChallenge: res.data }
           })
-          window.location.reload()
         }
       } catch (err) {
         dispatch({
@@ -117,6 +117,8 @@ export const GetAllChallengeExpert = () => {
       }
     }
   }
+
+  
   //Recuperer tous les participant pour RRH
   export const ListerOperationparticiper = (id) => {
     return async (dispatch) => {

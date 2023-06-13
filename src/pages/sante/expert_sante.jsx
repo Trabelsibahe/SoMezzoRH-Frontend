@@ -190,7 +190,7 @@ function Expert_Sante() {
               <tbody>
                 {demandes.length > 0 ? (
                   demandes.map((demande) =>
-                    (demande.user.role === "EMP" || demande.user.role === "RRH")  ? (
+                    (demande.user.role === "EMP" || demande.user.role === "RRH")  && (
                       <tr key={demande._id}>
                         <td>{new Date(demande.createdAt).toLocaleString()}</td>
                         <td>
@@ -212,7 +212,7 @@ function Expert_Sante() {
                                 : "green",
                           }}
                         >
-                          {demande.etat}
+                          {demande.etat}<br/>{demande.motif ? demande.motif : ""}
                         </td>
 
                         {demande.etat === "en attente" ? (
@@ -327,11 +327,7 @@ function Expert_Sante() {
                           <td style={{ padding: "1em" }}>Traitée</td>
                         )}
                       </tr>
-                    ) : (
-                    <tr>
-                      <td colSpan="8" style={{ textAlign: "center", padding: "1em" }} >Aucune demande trouvée. </td>
-                    </tr>
-                    )
+                    ) 
                   )
                 ) : (
                   <tr>
