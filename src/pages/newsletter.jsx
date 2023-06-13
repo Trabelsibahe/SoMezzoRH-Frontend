@@ -107,7 +107,6 @@ function NewsLetterPage() {
 
   const deletenewsaction = async (id) => {
     await dispatch(Deletenews(id));
-    await window.location.reload();
 
   };
 

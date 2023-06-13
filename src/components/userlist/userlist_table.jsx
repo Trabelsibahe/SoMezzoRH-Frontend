@@ -178,7 +178,6 @@ function Row(accounts, index) {
   return (
     <>
       {/** pop up edit */}
-
       <Modal
         open={edit}
         onClose={handleCloseEdit}
@@ -646,7 +645,7 @@ export default function UserList() {
                   <Row key={index} profile={profile} />
                 ))
               ) : (
-                <td colSpan="15" style={{ textAlign: "center", padding: "1.5em",borderBottom: "2px solid #e0e0e0"  }} >
+                <td colSpan="15" style={{ textAlign: "center", padding: "1.5em", borderBottom: "2px solid #e0e0e0"  }} >
                 Aucun utilisateur trouvé.
               </td>              )}
             </TableBody>

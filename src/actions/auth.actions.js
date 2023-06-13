@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import { Timer } from '@mui/icons-material';
 
 
-
 // register
 export const RegisterAction = (form) => dispatch => {
   axios.post('http://127.0.0.1:3030/api/register', form)
@@ -86,6 +85,7 @@ export const ChangePasswordAction = (form, navigate) => dispatch => {
     })
 }
 
+
 // logout
 export const Logout = (navigate) => dispatch => {
   Swal.fire({
@@ -97,6 +97,7 @@ export const Logout = (navigate) => dispatch => {
       Swal.showLoading();
       navigate("/login");
     },
+    
     willClose: () => {
       localStorage.removeItem('jwt');
       dispatch({
