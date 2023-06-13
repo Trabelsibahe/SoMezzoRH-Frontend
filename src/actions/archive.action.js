@@ -33,7 +33,8 @@ export const deleteArchive = (id) => (dispatch) => {
             type: archiveConstants.DELETE_ARCHIVE_SUCCESS,
             payload: res.data,
           });
-          Swal.fire('Ce compte a été restauré.').then((result) => {
+          Swal.fire('Ce compte a été restauré.')
+          .then((result) => {
           if (result) {
             window.location.reload()
           }

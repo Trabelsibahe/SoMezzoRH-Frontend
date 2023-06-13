@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { newsConstants } from '../actions/constantes';
+import Swal from 'sweetalert2';
 
 
 
@@ -39,24 +40,44 @@ export const addnews = (data) => {
         }
     }
     }
-   export const Deletenews = (id)=>dispatch=>{
-        if(window.confirm("Voulez-vous vraiment supprimer cette news?")){
-         axios
-         .delete(`http://127.0.0.1:3030/api/news/${id}`)
-         .then(res => {
-             dispatch({
-                 type: newsConstants.DELETE_NEWS,
-                 payload: id
-             })
-         })
-         .catch(err => {
-             dispatch({
-                 type: newsConstants.NEWS_ERRORS,
-                 payload: err.response.data
-             })
-         });
+
+    export const Deletenews = (id) => (dispatch) => {
+      Swal.fire({
+        title: 'Êtes-vous sûr de vouloir supprimer ce newslatter ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: 'Annuler',
+        confirmButtonText: 'Oui, supprimé!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.delete(`http://127.0.0.1:3030/api/news/${id}`)
+            .then((res) => {
+              dispatch({
+                type: newsConstants.DELETE_NEWS,
+                payload: id
+              });
+              Swal.fire(
+                'Supprimé!',
+                'Ce newslatter a éte supprimé.',
+                'success'
+              ).then((result) => {
+                if (result) {
+                  window.location.reload()
+                }
+              }
+                );
+            })
+            .catch((err) => {
+              dispatch({
+                type: newsConstants.NEWS_ERRORS,
+                payload: err.response.data
+              });
+            });
         }
-     }
+      });
+    };
+    
      export const supprimerNews = () => (dispatch) => {
         axios
           .delete(`http://127.0.0.1:3030/api/news/supp`)
